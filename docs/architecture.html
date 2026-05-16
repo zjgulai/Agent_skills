@@ -29,15 +29,16 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
     pre code.hljs { background: transparent !important; padding: 0 !important; }
-    .prose-custom h2 { @apply text-2xl font-bold text-zinc-100 mt-12 mb-4 pb-2 border-b border-zinc-800; }
-    .prose-custom h3 { @apply text-xl font-semibold text-zinc-200 mt-8 mb-3; }
-    .prose-custom p { @apply text-zinc-400 leading-relaxed mb-4; }
-    .prose-custom code { @apply text-emerald-400 bg-zinc-900 px-1.5 py-0.5 rounded text-sm font-mono; }
-    .prose-custom pre code { @apply text-zinc-200 bg-transparent p-0; }
-    .prose-custom ul { @apply text-zinc-400 mb-4 ml-6 list-disc space-y-1; }
-    .prose-custom table { @apply text-sm text-zinc-400 my-6 border-collapse w-full; }
-    .prose-custom th { @apply text-left text-zinc-200 font-semibold border-b border-zinc-800 px-3 py-2; }
-    .prose-custom td { @apply border-b border-zinc-900 px-3 py-2 align-top; }
+    .prose-custom h2 { font-size: 1.5rem; font-weight: 700; color: #fafafa; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #27272a; }
+    .prose-custom h3 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; margin-bottom: 1rem; max-width: 70ch; }
+    .prose-custom code { color: #34d399; background: #18181b; padding: 2px 6px; border-radius: 4px; font-size: 0.875em; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .prose-custom pre code { color: #e4e4e7; background: transparent; padding: 0; white-space: pre; }
+    .prose-custom ul { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; max-width: 70ch; }
+    .prose-custom ul li { margin: 0.35rem 0; }
+    .prose-custom table { font-size: 0.875rem; color: #a1a1aa; margin: 1.5rem 0; border-collapse: collapse; width: 100%; }
+    .prose-custom th { text-align: left; color: #fafafa; font-weight: 600; border-bottom: 1px solid #3f3f46; padding: 0.75rem; background: #18181b; }
+    .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
     .mermaid { background: #0a0a0a; border: 1px solid #27272a; border-radius: 0.5rem; padding: 2rem; }
   </style>
 </head>

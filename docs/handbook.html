@@ -23,35 +23,172 @@
     .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
     pre code.hljs { background: transparent !important; padding: 0 !important; }
     .mermaid { background: #0a0a0a; border: 1px solid #27272a; border-radius: 0.5rem; padding: 1.5rem; }
-    /* Domain badge colors mirroring skills-graph.mmd classDef */
-    .badge-meta     { background:#e3f2fd; color:#1976d2; }
-    .badge-closeout { background:#c8e6c9; color:#2e7d32; }
-    .badge-desktop  { background:#fff3e0; color:#e65100; }
-    .badge-founder  { background:#f3e5f5; color:#6a1b9a; }
-    .badge-ip       { background:#e0f2f1; color:#00695c; }
-    .badge-tooling  { background:#f5f5f5; color:#616161; }
-    .pill { @apply inline-block px-2 py-0.5 text-xs rounded font-mono font-semibold; }
-    .pill-read { @apply bg-blue-500/15 text-blue-400 border border-blue-500/30; }
-    .pill-write { @apply bg-orange-500/15 text-orange-400 border border-orange-500/30; }
-    .pill-lifecycle { @apply bg-purple-500/15 text-purple-400 border border-purple-500/30; }
-    .toc-link { @apply block py-1 text-sm text-zinc-500 hover:text-emerald-400 transition-colors border-l-2 border-transparent pl-3; }
-    .toc-link.active { @apply text-emerald-400 border-emerald-500; }
-    /* Smooth anchor scroll with offset for sticky nav */
+    .mermaid svg { width: 100% !important; height: auto !important; max-width: none !important; }
+
+    /* Domain badge colors mirror skills-graph.mmd classDef */
+    .badge-meta     { background:#dbeafe; color:#1d4ed8; }
+    .badge-closeout { background:#dcfce7; color:#166534; }
+    .badge-desktop  { background:#ffedd5; color:#9a3412; }
+    .badge-founder  { background:#f3e8ff; color:#6b21a8; }
+    .badge-ip       { background:#ccfbf1; color:#115e59; }
+    .badge-tooling  { background:#e4e4e7; color:#3f3f46; }
+
+    /* Pills (read/write/lifecycle) — pure CSS, NOT @apply */
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-weight: 600;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .pill-read      { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.30); }
+    .pill-write     { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.30); }
+    .pill-lifecycle { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.30); }
+
+    /* TOC sticky right rail — explicit styles instead of @apply */
+    .toc-link {
+      display: block;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #71717a;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 150ms, border-color 150ms;
+    }
+    .toc-link:hover { color: #34d399; }
+    .toc-link.active { color: #34d399; border-left-color: #10b981; font-weight: 500; }
+
+    /* Smooth scroll with header offset */
     section[id] { scroll-margin-top: 5rem; }
-    /* Print-style readability for prose blocks */
-    .prose-custom h2 { @apply text-3xl font-bold text-zinc-100 mt-16 mb-3 pb-2 border-b border-zinc-800; }
-    .prose-custom h3 { @apply text-xl font-semibold text-zinc-200 mt-10 mb-3; }
-    .prose-custom h4 { @apply text-lg font-semibold text-zinc-300 mt-6 mb-2; }
-    .prose-custom p  { @apply text-zinc-400 leading-relaxed mb-4; }
-    .prose-custom ul { @apply text-zinc-400 mb-4 ml-6 list-disc space-y-1; }
-    .prose-custom ol { @apply text-zinc-400 mb-4 ml-6 list-decimal space-y-1; }
-    .prose-custom code { @apply text-emerald-400 bg-zinc-900 px-1.5 py-0.5 rounded text-sm font-mono; }
-    .prose-custom pre code { @apply text-zinc-200 bg-transparent p-0; }
-    .prose-custom a { @apply text-emerald-400 hover:text-emerald-300 underline; }
-    .prose-custom table { @apply text-sm text-zinc-400 my-4 border-collapse w-full; }
-    .prose-custom th { @apply text-left text-zinc-200 font-semibold border-b border-zinc-800 px-3 py-2; }
-    .prose-custom td { @apply border-b border-zinc-900 px-3 py-2 align-top; }
-    .kw-tag { @apply inline-block px-2 py-0.5 mr-1 mb-1 text-xs rounded font-mono bg-zinc-900 text-zinc-300 border border-zinc-800; }
+
+    /* Prose typography — pure CSS, scoped to .prose-custom */
+    .prose-custom { color: #a1a1aa; line-height: 1.7; }
+    .prose-custom > * + * { margin-top: 1rem; }
+    .prose-custom h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #fafafa;
+      margin-top: 4rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #27272a;
+      letter-spacing: -0.01em;
+    }
+    .prose-custom h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #e4e4e7;
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .prose-custom h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #d4d4d8;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; max-width: 70ch; }
+    .prose-custom ul, .prose-custom ol { color: #a1a1aa; padding-left: 1.5rem; max-width: 70ch; }
+    .prose-custom ul { list-style: disc; }
+    .prose-custom ol { list-style: decimal; }
+    .prose-custom li { margin: 0.35rem 0; }
+    .prose-custom code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.875em;
+      color: #34d399;
+      background: #18181b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .prose-custom pre { max-width: none; }
+    .prose-custom pre code { background: transparent; padding: 0; white-space: pre; color: #e4e4e7; }
+    .prose-custom a { color: #34d399; text-decoration: underline; text-underline-offset: 2px; }
+    .prose-custom a:hover { color: #6ee7b7; }
+    .prose-custom strong { color: #fafafa; }
+
+    /* Tables */
+    .prose-custom table {
+      width: 100%;
+      max-width: none;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .prose-custom thead th {
+      text-align: left;
+      color: #fafafa;
+      font-weight: 600;
+      border-bottom: 1px solid #3f3f46;
+      padding: 0.75rem 0.75rem;
+      background: #18181b;
+    }
+    .prose-custom tbody td {
+      border-bottom: 1px solid #1f1f23;
+      padding: 0.75rem 0.75rem;
+      vertical-align: top;
+      color: #a1a1aa;
+    }
+    .prose-custom tbody tr:hover { background: #18181b; }
+    /* Command tables: first column should not wrap commands awkwardly */
+    .prose-custom td:first-child code { white-space: nowrap; }
+
+    /* Keyword tags — concrete CSS so spaces work */
+    .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .kw-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      color: #d4d4d8;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Domain card with left accent border */
+    .domain-card {
+      background: rgba(24,24,27,0.5);
+      border: 1px solid #27272a;
+      border-left-width: 4px;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      max-width: none;
+    }
+    .domain-card.dom-meta     { border-left-color: #3b82f6; }
+    .domain-card.dom-closeout { border-left-color: #22c55e; }
+    .domain-card.dom-desktop  { border-left-color: #f97316; }
+    .domain-card.dom-founder  { border-left-color: #a855f7; }
+    .domain-card.dom-ip       { border-left-color: #14b8a6; }
+    .domain-card.dom-tooling  { border-left-color: #71717a; }
+
+    /* Case-study delta callout */
+    .delta-callout {
+      background: rgba(16,185,129,0.06);
+      border-left: 3px solid #10b981;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    .delta-callout strong { color: #34d399; }
+
+    /* Image with click-to-open lightbox via target="_blank" link wrap */
+    .graph-img {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #27272a;
+      margin: 1rem 0;
+      cursor: zoom-in;
+      transition: transform 200ms;
+    }
+    .graph-img:hover { transform: scale(1.005); border-color: #3f3f46; }
   </style>
 
   <script>
@@ -261,76 +398,64 @@
         <h3 data-i18n="s2.6-domains">The 6 domains</h3>
 
         <!-- Domain meta -->
-        <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-5 mb-4">
+        <div class="domain-card dom-meta">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-meta">meta</span>
             <span class="text-zinc-400 text-sm">AI Engineering Infrastructure</span>
           </div>
           <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> the task targets <strong>AI agents themselves</strong> — repository scaffolding, agent memory, skill libraries, hooks, subagents, plugins, agent self-governance.</p>
-          <div class="my-2">
-            <span class="kw-tag">agent</span><span class="kw-tag">subagent</span><span class="kw-tag">hook</span><span class="kw-tag">plugin</span><span class="kw-tag">mcp server</span><span class="kw-tag">prompt template</span><span class="kw-tag">AGENTS.md</span><span class="kw-tag">CLAUDE.md</span><span class="kw-tag">.opencode/</span><span class="kw-tag">opencode.json</span><span class="kw-tag">agent guardrails</span>
-          </div>
+          <div class="kw-row"><span class="kw-tag">agent</span><span class="kw-tag">subagent</span><span class="kw-tag">hook</span><span class="kw-tag">plugin</span><span class="kw-tag">mcp server</span><span class="kw-tag">prompt template</span><span class="kw-tag">AGENTS.md</span><span class="kw-tag">CLAUDE.md</span><span class="kw-tag">.opencode/</span><span class="kw-tag">opencode.json</span><span class="kw-tag">agent guardrails</span></div>
           <p class="text-zinc-500 text-xs">Note: bare <code>skill</code> is NOT a meta keyword — too generic; almost every SKILL.md mentions it. Only <code>subagent</code>, <code>agent</code>, and explicit config files are strong signals.</p>
         </div>
 
         <!-- Domain closeout -->
-        <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-5 mb-4">
+        <div class="domain-card dom-closeout">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-closeout">closeout</span>
             <span class="text-zinc-400 text-sm">Code Quality &amp; Delivery Closeout</span>
           </div>
           <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> code is written, you're at the last mile — commit / PR / release / lint / audit.</p>
-          <div>
-            <span class="kw-tag">review</span><span class="kw-tag">code review</span><span class="kw-tag">commit</span><span class="kw-tag">pull request</span><span class="kw-tag">merge</span><span class="kw-tag">release</span><span class="kw-tag">ship</span><span class="kw-tag">lint</span><span class="kw-tag">audit</span><span class="kw-tag">codex review</span><span class="kw-tag">pre-commit</span>
-          </div>
+          <div class="kw-row"><span class="kw-tag">review</span><span class="kw-tag">code review</span><span class="kw-tag">commit</span><span class="kw-tag">pull request</span><span class="kw-tag">merge</span><span class="kw-tag">release</span><span class="kw-tag">ship</span><span class="kw-tag">lint</span><span class="kw-tag">audit</span><span class="kw-tag">codex review</span><span class="kw-tag">pre-commit</span></div>
         </div>
 
         <!-- Domain desktop -->
-        <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-5 mb-4">
+        <div class="domain-card dom-desktop">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-desktop">desktop</span>
             <span class="text-zinc-400 text-sm">Desktop App Engineering</span>
           </div>
           <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> cross-platform desktop app where user-facing experience must feel native.</p>
-          <div>
-            <span class="kw-tag">tauri</span><span class="kw-tag">electron</span><span class="kw-tag">webview</span><span class="kw-tag">webview2</span><span class="kw-tag">wkwebview</span><span class="kw-tag">webkit</span><span class="kw-tag">native macos</span><span class="kw-tag">launcher app</span><span class="kw-tag">system tray</span><span class="kw-tag">global hotkey</span><span class="kw-tag">raycast</span><span class="kw-tag">native feel</span>
-          </div>
+          <div class="kw-row"><span class="kw-tag">tauri</span><span class="kw-tag">electron</span><span class="kw-tag">webview</span><span class="kw-tag">webview2</span><span class="kw-tag">wkwebview</span><span class="kw-tag">webkit</span><span class="kw-tag">native macos</span><span class="kw-tag">launcher app</span><span class="kw-tag">system tray</span><span class="kw-tag">global hotkey</span><span class="kw-tag">raycast</span><span class="kw-tag">native feel</span></div>
         </div>
 
         <!-- Domain founder -->
-        <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-5 mb-4">
+        <div class="domain-card dom-founder">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-founder">founder</span>
             <span class="text-zinc-400 text-sm">Founder &amp; Product Validation</span>
           </div>
           <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> you have an idea or early-stage product, deciding "is this worth building?"</p>
-          <div>
-            <span class="kw-tag">mvp</span><span class="kw-tag">icp</span><span class="kw-tag">pressure-test</span><span class="kw-tag">validate problem</span><span class="kw-tag">market fit</span><span class="kw-tag">founder-market fit</span><span class="kw-tag">first 10 customers</span><span class="kw-tag">pivot</span><span class="kw-tag">2-week launch</span>
-          </div>
+          <div class="kw-row"><span class="kw-tag">mvp</span><span class="kw-tag">icp</span><span class="kw-tag">pressure-test</span><span class="kw-tag">validate problem</span><span class="kw-tag">market fit</span><span class="kw-tag">founder-market fit</span><span class="kw-tag">first 10 customers</span><span class="kw-tag">pivot</span><span class="kw-tag">2-week launch</span></div>
         </div>
 
         <!-- Domain ip -->
-        <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-5 mb-4">
+        <div class="domain-card dom-ip">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-ip">ip</span>
             <span class="text-zinc-400 text-sm">Intellectual Property Deliverables</span>
           </div>
           <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> project enters commercial-protection phase — turn code assets into legally filed documents.</p>
-          <div>
-            <span class="kw-tag">专利</span><span class="kw-tag">软著</span><span class="kw-tag">软件著作权</span><span class="kw-tag">技术交底书</span><span class="kw-tag">国知局</span><span class="kw-tag">patent</span><span class="kw-tag">copyright</span><span class="kw-tag">software copyright</span><span class="kw-tag">prior-art</span><span class="kw-tag">claim drafting</span>
-          </div>
+          <div class="kw-row"><span class="kw-tag">专利</span><span class="kw-tag">软著</span><span class="kw-tag">软件著作权</span><span class="kw-tag">技术交底书</span><span class="kw-tag">国知局</span><span class="kw-tag">patent</span><span class="kw-tag">copyright</span><span class="kw-tag">software copyright</span><span class="kw-tag">prior-art</span><span class="kw-tag">claim drafting</span></div>
         </div>
 
         <!-- Domain tooling -->
-        <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-5 mb-4">
+        <div class="domain-card dom-tooling">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-tooling">tooling</span>
             <span class="text-zinc-400 text-sm">Cross-cutting Tooling</span>
           </div>
           <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> not bound to any project type, useful across <strong>any</strong> project.</p>
-          <div>
-            <span class="kw-tag">ppt</span><span class="kw-tag">slide deck</span><span class="kw-tag">presentation</span><span class="kw-tag">magazine</span><span class="kw-tag">swiss style</span><span class="kw-tag">cover</span><span class="kw-tag">image prompt</span><span class="kw-tag">image generation</span><span class="kw-tag">screenshot</span><span class="kw-tag">docx</span><span class="kw-tag">pdf</span><span class="kw-tag">html</span>
-          </div>
+          <div class="kw-row"><span class="kw-tag">ppt</span><span class="kw-tag">slide deck</span><span class="kw-tag">presentation</span><span class="kw-tag">magazine</span><span class="kw-tag">swiss style</span><span class="kw-tag">cover</span><span class="kw-tag">image prompt</span><span class="kw-tag">image generation</span><span class="kw-tag">screenshot</span><span class="kw-tag">docx</span><span class="kw-tag">pdf</span><span class="kw-tag">html</span></div>
         </div>
 
         <h3 data-i18n="s2.regression">Regression test</h3>
@@ -423,34 +548,56 @@
 
         <h3 data-i18n="s4.legend">4.1 Legend: how to read the graph</h3>
 
-        <div class="grid md:grid-cols-3 gap-4 my-4">
-          <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-4">
-            <h4 class="!mt-0" data-i18n="s4.legend-arrow-h">Edge types</h4>
-            <ul class="text-sm">
-              <li><code>--&gt;</code> solid arrow: lifecycle dependency (this skill leads to that one)</li>
-              <li><code>-.-&gt;</code> dashed arrow: cross-domain reinforcement (helpful, not required)</li>
-              <li><code>&lt;==&gt;</code> bidirectional: parallel-use coupling (run both at once)</li>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+
+          <div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;" data-i18n="s4.legend-arrow-h">Edge types</div>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="2" y1="7" x2="40" y2="7" stroke="#34d399" stroke-width="2"/><polygon points="40,3 46,7 40,11" fill="#34d399"/></svg>
+                <span><strong style="color:#e4e4e7;">solid</strong> — lifecycle dependency</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="2" y1="7" x2="40" y2="7" stroke="#a1a1aa" stroke-width="2" stroke-dasharray="4 3"/><polygon points="40,3 46,7 40,11" fill="#a1a1aa"/></svg>
+                <span><strong style="color:#e4e4e7;">dashed</strong> — cross-domain reinforcement</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="6" y1="5" x2="42" y2="5" stroke="#34d399" stroke-width="1.5"/><line x1="6" y1="9" x2="42" y2="9" stroke="#34d399" stroke-width="1.5"/><polygon points="42,1 47,7 42,13" fill="#34d399"/><polygon points="6,1 1,7 6,13" fill="#34d399"/></svg>
+                <span><strong style="color:#e4e4e7;">double</strong> — parallel coupling</span>
+              </li>
             </ul>
           </div>
-          <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-4">
-            <h4 class="!mt-0" data-i18n="s4.legend-color-h">Domain colors</h4>
-            <ul class="text-sm">
-              <li><span class="pill badge-meta">meta</span> blue</li>
-              <li><span class="pill badge-closeout">closeout</span> green</li>
-              <li><span class="pill badge-desktop">desktop</span> orange</li>
-              <li><span class="pill badge-founder">founder</span> purple</li>
-              <li><span class="pill badge-ip">ip</span> teal</li>
-              <li><span class="pill badge-tooling">tooling</span> grey</li>
+
+          <div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;" data-i18n="s4.legend-color-h">Domain colors</div>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px;">
+              <li><span class="pill badge-meta">meta</span></li>
+              <li><span class="pill badge-closeout">closeout</span></li>
+              <li><span class="pill badge-desktop">desktop</span></li>
+              <li><span class="pill badge-founder">founder</span></li>
+              <li><span class="pill badge-ip">ip</span></li>
+              <li><span class="pill badge-tooling">tooling</span></li>
             </ul>
           </div>
-          <div class="bg-zinc-900/40 border border-zinc-800 rounded-lg p-4">
-            <h4 class="!mt-0" data-i18n="s4.legend-shape-h">Node shapes</h4>
-            <ul class="text-sm">
-              <li><code>Name[…]</code> box: user-installed skill</li>
-              <li><code>Name(…)</code> rounded + dashed border: builtin skill (no install needed)</li>
-              <li><code>SHORT_ID</code>: first letter of each hyphen segment, uppercase (e.g. <code>guizang-ppt-skill</code> → <code>GPS</code>)</li>
+
+          <div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;" data-i18n="s4.legend-shape-h">Node shapes</div>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <span style="display:inline-block; padding: 3px 8px; background:#dbeafe; color:#1d4ed8; border-radius:3px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">box</span>
+                <span>user-installed skill</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <span style="display:inline-block; padding: 3px 8px; background:#eee; color:#616161; border:1px dashed #888; border-radius:8px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">round</span>
+                <span>builtin (no install)</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 10px; padding: 4px 0;">
+                <span style="font-family: ui-monospace,monospace; color: #34d399; flex-shrink: 0; margin-top: 1px;">SID</span>
+                <span><code style="font-size: 11px;">guizang-ppt-skill</code> → <code style="font-size: 11px;">GPS</code></span>
+              </li>
             </ul>
           </div>
+
         </div>
 
         <h3 data-i18n="s4.live">4.2 Live current graph</h3>
@@ -543,31 +690,35 @@ flowchart LR
           <li data-i18n="s5.s0-bullet3">Main chain: SPT → ADK → NF → CR → PAT → SCS (purple → blue → orange → green → teal → teal)</li>
           <li data-i18n="s5.s0-bullet4">No tooling domain block (none yet)</li>
         </ul>
-        <img src="./assets/screenshots/graph-state-0.png" data-i18n-attr="alt:s5.s0-png-alt" alt="Skills graph state 0: 6 user skills + 5 builtin" class="rounded-lg border border-zinc-800 my-4">
+        <a href="./assets/screenshots/graph-state-0.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-0.png" data-i18n-attr="alt:s5.s0-png-alt" alt="Skills graph state 0: 6 user skills + 5 builtin" class="graph-img"></a>
 
         <!-- State 1 -->
         <h3 data-i18n="s5.s1">5.2 State 1: after installing guizang-ppt-skill</h3>
         <p><span data-i18n="s5.s1-cmd">Triggered by:</span> <code>/skill-install https://github.com/op7418/guizang-ppt-skill</code></p>
         <p data-i18n="s5.s1-desc">After installing guizang-ppt-skill. The tooling domain block is auto-created and GPS joins as an isolated node. Note: because the tooling domain was empty, the agent automatically added the toolingDomain classDef and the "%% Tooling domain" comment block.</p>
+        <div class="delta-callout">
+          <strong>Δ vs State 0:</strong> +1 node (GPS in tooling) · +1 classDef (toolingDomain) · +1 self-loop edge · PNG bytes 224 500 → 259 330 (+15.5%)
+        </div>
         <ul>
           <li data-i18n="s5.s1-bullet1">Inference result: tooling domain (matched ppt / swiss style / html, score 3)</li>
           <li data-i18n="s5.s1-bullet2">New node: <code>GPS[guizang-ppt-skill]:::toolingDomain</code></li>
           <li data-i18n="s5.s1-bullet3">New edge: <code>GPS -. "isolated" .-> GPS</code> (self-loop fallback when same-domain peer is absent)</li>
-          <li data-i18n="s5.s1-bullet4">Size delta: state-0 (224500) → state-1 (259330), +34830 bytes</li>
         </ul>
-        <img src="./assets/screenshots/graph-state-1.png" data-i18n-attr="alt:s5.s1-png-alt" alt="Skills graph state 1: post-guizang +1 node" class="rounded-lg border border-zinc-800 my-4">
+        <a href="./assets/screenshots/graph-state-1.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-1.png" data-i18n-attr="alt:s5.s1-png-alt" alt="Skills graph state 1: post-guizang +1 node" class="graph-img"></a>
 
         <!-- State 2 -->
         <h3 data-i18n="s5.s2">5.3 State 2: after installing skill-creator</h3>
         <p><span data-i18n="s5.s2-cmd">Triggered by:</span> <code>/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator</code></p>
         <p data-i18n="s5.s2-desc">The current state, after installing skill-creator. The skill's description is too generic ("create new skills"), keyword inference returns uncategorized, the agent prompts the user, and we manually pick meta. The new SC node is in the same domain as ADK, so a "same-domain" dashed edge is added automatically.</p>
+        <div class="delta-callout">
+          <strong>Δ vs State 1:</strong> +1 node (SC in meta) · +1 same-domain edge to ADK · 0 new classDefs (meta already existed) · PNG bytes 259 330 → 270 529 (+4.3%)
+        </div>
         <ul>
           <li data-i18n="s5.s2-bullet1">Inference result: uncategorized → user manually picks meta</li>
           <li data-i18n="s5.s2-bullet2">New node: <code>SC[skill-creator]:::metaDomain</code></li>
           <li data-i18n="s5.s2-bullet3">New edge: <code>SC -. "same domain" .-> ADK</code> (meta has an existing peer, so dashed same-domain edge)</li>
-          <li data-i18n="s5.s2-bullet4">Size delta: state-1 (259330) → state-2 (270529), +11199 bytes</li>
         </ul>
-        <img src="./assets/screenshots/graph-state-2.png" data-i18n-attr="alt:s5.s2-png-alt" alt="Skills graph state 2: post-skill-creator +1 node" class="rounded-lg border border-zinc-800 my-4">
+        <a href="./assets/screenshots/graph-state-2.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-2.png" data-i18n-attr="alt:s5.s2-png-alt" alt="Skills graph state 2: post-skill-creator +1 node" class="graph-img"></a>
 
         <!-- State 3: hypothetical -->
         <h3 data-i18n="s5.s3">5.4 State 3 (hypothetical): installing 3 desktop skills</h3>
@@ -659,7 +810,7 @@ flowchart LR
 </footer>
 
 <script>
-  mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose', flowchart: { useMaxWidth: true } });
+  mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose', flowchart: { useMaxWidth: false, htmlLabels: true } });
   hljs.highlightAll();
 
   // Active TOC highlight on scroll
