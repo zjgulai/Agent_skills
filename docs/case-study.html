@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study · Skills Manager AI Agent</title>
+  <meta name="description" content="Real install runs: guizang-ppt-skill (auto-classify) and skill-creator (manual fallback).">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .prose-custom h2 { @apply text-2xl font-bold text-zinc-100 mt-12 mb-4 pb-2 border-b border-zinc-800; }
+    .prose-custom h3 { @apply text-xl font-semibold text-zinc-200 mt-8 mb-3; }
+    .prose-custom h4 { @apply text-lg font-semibold text-zinc-200 mt-6 mb-2; }
+    .prose-custom p { @apply text-zinc-400 leading-relaxed mb-4; }
+    .prose-custom code { @apply text-emerald-400 bg-zinc-900 px-1.5 py-0.5 rounded text-sm font-mono; }
+    .prose-custom pre code { @apply text-zinc-200 bg-transparent p-0; }
+    .prose-custom ul { @apply text-zinc-400 mb-4 ml-6 list-disc space-y-1; }
+    .prose-custom strong { @apply text-zinc-100; }
+    .check { @apply text-emerald-400 font-mono; }
+    .case-card { @apply bg-zinc-900/40 border border-zinc-800 rounded-lg p-8 mb-8; }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🧠</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Getting Started</a>
+      <a href="./commands.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Commands</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Architecture</a>
+      <a href="./domains.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Domains</a>
+      <a href="./case-study.html" class="text-emerald-400 text-sm">Case Study</a>
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 max-w-4xl mx-auto px-6 pb-20">
+
+  <header class="mb-12">
+    <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">DOCS</p>
+    <h1 class="text-4xl font-bold text-zinc-100 mb-3">Case Studies</h1>
+    <p class="text-lg text-zinc-400">Two real installs that exercised the full lifecycle, including the edge cases.</p>
+  </header>
+
+  <div class="prose-custom">
+
+    <div class="case-card">
+      <h2 class="!mt-0 !border-0 !pb-0">Case 1: <code>guizang-ppt-skill</code></h2>
+      <p class="text-zinc-400">Path: <em>auto-classify happy path</em>. From URL to a fully-indexed, doctor-PASS skill.</p>
+
+      <h3>Trigger</h3>
+      <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-bash">/skill-install https://github.com/op7418/guizang-ppt-skill</code></pre>
+      </div>
+
+      <h3>What happened</h3>
+
+      <h4>Step 1 — portal ensure</h4>
+      <p><span class="check">✅</span> Portal API <code>http://127.0.0.1:5174/api/health</code> returned <code>{ok: true}</code>.</p>
+
+      <h4>Step 2 — install via portal</h4>
+      <p><span class="check">✅</span> Portal's <code>installer.py</code> ran:</p>
+      <ul>
+        <li><code>git clone --depth 1</code> to a tmp dir</li>
+        <li>Found <code>SKILL.md</code> at repo root (no <code>--subdir</code> needed)</li>
+        <li>Validated frontmatter: <code>name: guizang-ppt-skill</code> matches <code>^[a-z0-9]+(-[a-z0-9]+)*$</code></li>
+        <li>Copied to <code>~/.config/opencode/skills/guizang-ppt-skill/</code> (skipping <code>.git</code>, <code>LICENSE</code>, <code>README.md</code>)</li>
+      </ul>
+
+      <h4>Step 3 — domain inference</h4>
+      <p>Description contains "polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers".</p>
+      <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-json">{
+  "domain": "tooling",
+  "scores": { "tooling": 3 },
+  "evidence": {
+    "tooling": ["ppt", "swiss style", " html "]
+  }
+}</code></pre>
+      </div>
+      <p><span class="check">✅</span> Auto-classified as <code>tooling</code> with 3 keyword hits.</p>
+
+      <h4>Step 4 — INDEX.md row</h4>
+      <p><code>index_md_writer.append("guizang-ppt-skill", "tooling", ...)</code></p>
+      <ul>
+        <li>Backup created: <code>INDEX.md.bak.20260515T212727855777</code> (microsecond timestamp)</li>
+        <li>Found Domain 6 section, replaced <code>&gt; 暂为空</code> placeholder with a 3-line table</li>
+        <li>Atomic write via <code>os.replace</code> — INDEX.md grew 16050 → 20148 bytes</li>
+        <li>Post-write verification: re-parse confirmed <code>guizang-ppt-skill</code> in tooling. Pass.</li>
+      </ul>
+
+      <h4>Step 5 — graph + render</h4>
+      <ul>
+        <li><code>graph_writer.add_node()</code> derived <code>SHORT_ID = GPS</code> (from "<strong>g</strong>uizang-<strong>p</strong>pt-<strong>s</strong>kill")</li>
+        <li>Created the missing Tooling block + <code>classDef toolingDomain</code></li>
+        <li>Added node + cross-domain edge</li>
+        <li><code>render-mermaid.py</code> via playwright + chromium produced new PNG</li>
+        <li>PNG: 224500 → 259330 bytes (new node visible)</li>
+      </ul>
+
+      <h4>Step 6 — refresh portal</h4>
+      <p><span class="check">✅</span> <code>POST /api/refresh</code> → <code>{ok: true, skill_count: 7}</code> (was 6).</p>
+
+      <h4>Verification</h4>
+      <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-bash">$ /skill-doctor guizang-ppt-skill
+overall: PASS
+  ✓ R1: frontmatter parses (name + description)
+  ✓ R2: directory name matches frontmatter name
+  ✓ R3: in INDEX.md under domain 'tooling'
+  ✓ R4: in skills-graph.mmd as GPS (tooling)
+  ✓ R5: dependency 'node + npm' present</code></pre>
+      </div>
+
+      <h4>Browser verification</h4>
+      <p>Headless Playwright loaded <code>http://localhost:5173</code>:</p>
+      <ul>
+        <li>Page title: <code>Skills Portal</code></li>
+        <li>Body text contains <code>guizang-ppt-skill</code> and <code>工具增强</code></li>
+        <li>Card visible in correct domain group with full metadata (description, tags, resources)</li>
+      </ul>
+      <img src="./assets/screenshots/portal-after-install.png" alt="Portal showing 7 skills after install" class="rounded-lg border border-zinc-800 my-4">
+    </div>
+
+    <div class="case-card">
+      <h2 class="!mt-0 !border-0 !pb-0">Case 2: <code>skill-creator</code></h2>
+      <p class="text-zinc-400">Path: <em>manual-fallback path</em>. Tests the <code>uncategorized → user picks domain</code> branch and the <code>--subdir</code> flag for monorepos.</p>
+
+      <h3>Trigger</h3>
+      <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-bash">/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator</code></pre>
+      </div>
+
+      <h3>What was different</h3>
+
+      <h4>Subdir resolution</h4>
+      <p>The official anthropic skills repo is a monorepo with <strong>17 SKILL.md files</strong>. Without <code>--subdir</code>, the installer would error out asking which one to pick. With <code>--subdir skills/skill-creator</code>, the installer scoped its search and found exactly one SKILL.md.</p>
+
+      <h4>Domain inference returned <code>uncategorized</code></h4>
+      <p>The skill description: <em>"Create new skills, modify and improve existing skills, and measure skill performance..."</em></p>
+      <p>You'd think this would auto-classify as <code>meta</code>. But the keyword <code>skill</code> alone is intentionally NOT in the meta keyword list (too generic — every SKILL.md mentions it). Without other meta signals (<code>agent</code>, <code>subagent</code>, <code>hook</code>, <code>plugin</code>), the score is 0 across all domains:</p>
+      <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-json">{
+  "domain": "uncategorized",
+  "scores": {},
+  "evidence": {}
+}</code></pre>
+      </div>
+
+      <h4>Manual classification</h4>
+      <p>The agent prompted the user to pick from 6 domains. Picked <code>meta</code> manually (skill that creates skills = meta-engineering).</p>
+
+      <h4>Rest of the flow</h4>
+      <p>Identical to Case 1 from this point: append to INDEX.md (under existing meta domain, this time appending to a non-empty table), add graph node <code>SC</code>, render PNG (270529 bytes), refresh portal (7 → 8 skills).</p>
+
+      <h4>Doctor</h4>
+      <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-bash">$ /skill-doctor skill-creator
+overall: PASS  (5/5 rules)</code></pre>
+      </div>
+    </div>
+
+    <h2>What these cases proved</h2>
+
+    <ul>
+      <li><strong>The happy path is fast</strong>. ~30 seconds from URL to fully-indexed skill.</li>
+      <li><strong>Monorepo subdir works</strong>. The portal's <code>--subdir</code> flag handled <code>skills/skill-creator</code> without issue.</li>
+      <li><strong>The "uncategorized" branch is real, not aspirational</strong>. The classifier deliberately refuses to guess when keyword evidence is weak. Better to ask once than miscategorize forever.</li>
+      <li><strong>All three meta files stay coherent</strong>. INDEX, graph, and PNG always agree because the agent updates them in a single transactional flow with rollback on verification failure.</li>
+    </ul>
+
+    <h2>Reproducing</h2>
+
+    <p>If you've finished <a href="./getting-started.html">Getting Started</a> and want to replay these cases:</p>
+
+    <div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash"># Case 1: auto-classify
+/skill-install https://github.com/op7418/guizang-ppt-skill
+
+# Case 2: manual fallback (you'll be prompted to pick a domain)
+/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator
+
+# Then verify both:
+/skill-doctor</code></pre>
+    </div>
+
+    <p>To clean up afterward:</p>
+    <div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">/skill-uninstall guizang-ppt-skill
+/skill-uninstall skill-creator</code></pre>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+    <div class="flex items-center gap-2"><span>🧠</span><span>Skills Manager AI Agent</span></div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">GitHub</a>
+      <a href="https://github.com/zjgulai/Agent_skills/issues" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">Issues</a>
+    </div>
+  </div>
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>

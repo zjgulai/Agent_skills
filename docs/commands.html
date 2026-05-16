@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commands · Skills Manager AI Agent</title>
+  <meta name="description" content="Full reference for the 11 slash commands.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .cmd-card { @apply bg-zinc-900/40 border border-zinc-800 rounded-lg p-6 mb-6; }
+    .cmd-card h3 { @apply text-xl font-bold text-zinc-100 mb-1 font-mono; }
+    .cmd-card .summary { @apply text-zinc-400 text-sm mb-4; }
+    .cmd-card .label { @apply text-emerald-400 text-xs font-semibold tracking-wider uppercase mb-1.5; }
+    .cmd-card p { @apply text-zinc-400 text-sm leading-relaxed mb-3; }
+    .cmd-card code { @apply text-emerald-400 bg-zinc-900 px-1.5 py-0.5 rounded text-xs font-mono; }
+    .cmd-card pre code { @apply text-zinc-200 bg-transparent p-0; }
+    .cmd-card ul { @apply text-zinc-400 text-sm ml-5 list-disc space-y-1 mb-3; }
+    .pill { @apply inline-block px-2 py-0.5 text-xs rounded font-mono; }
+    .pill-read { @apply bg-blue-500/15 text-blue-400 border border-blue-500/30; }
+    .pill-write { @apply bg-orange-500/15 text-orange-400 border border-orange-500/30; }
+    .pill-lifecycle { @apply bg-purple-500/15 text-purple-400 border border-purple-500/30; }
+  </style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🧠</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Getting Started</a>
+      <a href="./commands.html" class="text-emerald-400 text-sm">Commands</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Architecture</a>
+      <a href="./domains.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Domains</a>
+      <a href="./case-study.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Case Study</a>
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 max-w-5xl mx-auto px-6 pb-20">
+
+  <header class="mb-12">
+    <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">DOCS</p>
+    <h1 class="text-4xl font-bold text-zinc-100 mb-3">Commands Reference</h1>
+    <p class="text-lg text-zinc-400 mb-4">11 slash commands organized by lifecycle phase.</p>
+    <div class="flex flex-wrap gap-2 text-xs">
+      <span class="pill pill-write">write — mutates state</span>
+      <span class="pill pill-read">read — read-only</span>
+      <span class="pill pill-lifecycle">lifecycle — portal control</span>
+    </div>
+  </header>
+
+  <!-- LIFECYCLE: install/uninstall/update -->
+  <h2 class="text-2xl font-bold text-zinc-100 mt-8 mb-6 pb-2 border-b border-zinc-800">Skill lifecycle</h2>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-install &lt;url&gt; [--subdir X]</h3>
+      <span class="pill pill-write">write</span>
+    </div>
+    <p class="summary">Install a skill from a GitHub URL. The most exercised command.</p>
+
+    <p class="label">7-step orchestration</p>
+    <ol class="text-zinc-400 text-sm ml-5 list-decimal space-y-1 mb-3">
+      <li><code>portal_client.ensure_running()</code> — bring portal up if down</li>
+      <li><code>POST /api/install/github {url, subdir?}</code> — clone + validate + copy</li>
+      <li><code>GET /api/skills/&lt;name&gt;</code> — read frontmatter</li>
+      <li><code>domain_inference.infer(name, description)</code> — classify by keywords</li>
+      <li><code>index_md_writer.append(name, domain, role, triggers)</code> — INDEX.md row</li>
+      <li><code>graph_writer.add_node(name, domain) + render()</code> — graph + PNG</li>
+      <li><code>POST /api/refresh</code> — refresh portal index</li>
+    </ol>
+
+    <p>If domain inference returns <code>uncategorized</code>, the agent prompts the user to pick one of 6 domains manually.</p>
+
+    <p class="label mt-4">Example</p>
+    <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-bash">/skill-install https://github.com/op7418/guizang-ppt-skill
+/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator</code></pre>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-uninstall &lt;name&gt;</h3>
+      <span class="pill pill-write">write</span>
+    </div>
+    <p class="summary">Reverse of install. Idempotent metadata cleanup.</p>
+    <p class="label">4-step cleanup</p>
+    <ol class="text-zinc-400 text-sm ml-5 list-decimal space-y-1">
+      <li>Confirm skill exists, ask user for explicit "y" confirmation</li>
+      <li><code>graph_writer.remove_node()</code> + render — graph first to avoid orphan</li>
+      <li><code>index_md_writer.remove()</code> — INDEX.md row removal, restore <code>&gt; 暂为空</code> placeholder if domain becomes empty</li>
+      <li><code>DELETE /api/skills/&lt;name&gt;</code> + refresh — physical files</li>
+    </ol>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-update &lt;name | all&gt;</h3>
+      <span class="pill pill-write">write</span>
+    </div>
+    <p class="summary"><code>git pull --ff-only</code> in skill directories, then refresh portal.</p>
+    <ul>
+      <li>Per-skill outcome reported: <code>Already up to date</code> / <code>Updated (N commits)</code> / <code>ERROR: merge conflict</code></li>
+      <li>Does <strong>not</strong> touch INDEX.md / graph — content updates only. Run <code>/skill-classify</code> if a pull suggests a domain change.</li>
+    </ul>
+  </div>
+
+  <!-- READ ops -->
+  <h2 class="text-2xl font-bold text-zinc-100 mt-12 mb-6 pb-2 border-b border-zinc-800">Inspection</h2>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-list</h3>
+      <span class="pill pill-read">read</span>
+    </div>
+    <p class="summary">Print all installed skills, grouped by domain, with a one-line description and top triggers.</p>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-recommend &lt;task description&gt;</h3>
+      <span class="pill pill-read">read</span>
+    </div>
+    <p class="summary">Given a free-form task, recommend a <code>load_skills=[...]</code> combo.</p>
+    <p class="label">Strategy</p>
+    <ol class="text-zinc-400 text-sm ml-5 list-decimal space-y-1">
+      <li>Match against INDEX.md "典型场景套餐表" first (curated combos)</li>
+      <li>If no scenario hit, score each skill against task keywords; recommend top 1-3</li>
+      <li>Output a copy-paste-able <code>task(category=..., load_skills=[...], ...)</code> template</li>
+    </ol>
+    <p class="label mt-4">Example</p>
+    <div class="cmd-block rounded p-3 my-2 text-sm">
+<pre><code class="language-bash">/skill-recommend "做一份瑞士风 PPT"</code></pre>
+    </div>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-doctor [name | all]</h3>
+      <span class="pill pill-read">read</span>
+    </div>
+    <p class="summary">Health check across 5 rules. No arg → check all skills.</p>
+    <p class="label">5 rules</p>
+    <ul>
+      <li><strong>R1</strong> — SKILL.md frontmatter parses (name + description)</li>
+      <li><strong>R2</strong> — directory name matches frontmatter name</li>
+      <li><strong>R3</strong> — present in INDEX.md</li>
+      <li><strong>R4</strong> — present in skills-graph.mmd with matching domain</li>
+      <li><strong>R5</strong> — declared external dependencies are available</li>
+    </ul>
+    <p>Outputs PASS / WARN / FAIL per skill. R5 only warns (skills can run in degraded mode); R1-R4 fail blocks.</p>
+  </div>
+
+  <!-- WRITE: classify, graph-sync -->
+  <h2 class="text-2xl font-bold text-zinc-100 mt-12 mb-6 pb-2 border-b border-zinc-800">Maintenance</h2>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-classify &lt;name&gt;</h3>
+      <span class="pill pill-write">write</span>
+    </div>
+    <p class="summary">Manually move a skill to a different domain. Use when <code>/skill-install</code> picked the wrong one or when keywords drift over time.</p>
+    <p>Lists the 6 domain options, waits for user to pick one, then moves the row in INDEX.md and updates the graph node + classDef.</p>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/skill-graph-sync</h3>
+      <span class="pill pill-write">write</span>
+    </div>
+    <p class="summary">Reconcile skills-graph.mmd against INDEX.md (truth source). Idempotent.</p>
+    <p>Detects three drift categories — MISSING / EXTRA / MISMATCH — and offers to fix all three. Re-renders PNG only if there were changes.</p>
+  </div>
+
+  <!-- LIFECYCLE: portal -->
+  <h2 class="text-2xl font-bold text-zinc-100 mt-12 mb-6 pb-2 border-b border-zinc-800">Portal control</h2>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/portal-start</h3>
+      <span class="pill pill-lifecycle">lifecycle</span>
+    </div>
+    <p class="summary">Bring the portal online. Idempotent (no-op if already running).</p>
+    <ul>
+      <li>Pre-flight: venv exists, ports 5173/5174 free</li>
+      <li>Spawns <code>portal/bin/start</code>, redirects logs to <code>/tmp/portal-uvicorn.log</code></li>
+      <li>Polls <code>/api/health</code> for up to 20 seconds</li>
+      <li>Auto-detects <code>portless</code> for HTTPS via <code>https://skills-portal.localhost</code></li>
+    </ul>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/portal-stop</h3>
+      <span class="pill pill-lifecycle">lifecycle</span>
+    </div>
+    <p class="summary">Forcefully kill processes on ports 5173 + 5174. Idempotent.</p>
+    <p>Equivalent to <code>lsof -ti:5173,5174 | xargs kill -9</code>.</p>
+  </div>
+
+  <div class="cmd-card">
+    <div class="flex items-start justify-between mb-2">
+      <h3>/portal-status</h3>
+      <span class="pill pill-read">read</span>
+    </div>
+    <p class="summary">Diagnostic snapshot: API up?, port states, PIDs, last index time, skill count.</p>
+  </div>
+
+  <h2 class="text-2xl font-bold text-zinc-100 mt-12 mb-4 pb-2 border-b border-zinc-800">See also</h2>
+
+  <p class="text-zinc-400">
+    All commands are defined as markdown files under
+    <a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" target="_blank" rel="noopener" class="text-emerald-400 hover:text-emerald-300 underline">.opencode/commands/</a>
+    in the repo. Open any file to read its full prompt template.
+  </p>
+
+</main>
+
+<footer class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+    <div class="flex items-center gap-2"><span>🧠</span><span>Skills Manager AI Agent</span></div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">GitHub</a>
+      <a href="https://github.com/zjgulai/Agent_skills/issues" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">Issues</a>
+    </div>
+  </div>
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>

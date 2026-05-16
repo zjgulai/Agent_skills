@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture · Skills Manager AI Agent</title>
+  <meta name="description" content="Two-layer architecture: portal (REST + UI) underneath, agent (orchestration) on top.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .prose-custom h2 { @apply text-2xl font-bold text-zinc-100 mt-12 mb-4 pb-2 border-b border-zinc-800; }
+    .prose-custom h3 { @apply text-xl font-semibold text-zinc-200 mt-8 mb-3; }
+    .prose-custom p { @apply text-zinc-400 leading-relaxed mb-4; }
+    .prose-custom code { @apply text-emerald-400 bg-zinc-900 px-1.5 py-0.5 rounded text-sm font-mono; }
+    .prose-custom pre code { @apply text-zinc-200 bg-transparent p-0; }
+    .prose-custom ul { @apply text-zinc-400 mb-4 ml-6 list-disc space-y-1; }
+    .prose-custom table { @apply text-sm text-zinc-400 my-6 border-collapse w-full; }
+    .prose-custom th { @apply text-left text-zinc-200 font-semibold border-b border-zinc-800 px-3 py-2; }
+    .prose-custom td { @apply border-b border-zinc-900 px-3 py-2 align-top; }
+    .mermaid { background: #0a0a0a; border: 1px solid #27272a; border-radius: 0.5rem; padding: 2rem; }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🧠</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Getting Started</a>
+      <a href="./commands.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Commands</a>
+      <a href="./architecture.html" class="text-emerald-400 text-sm">Architecture</a>
+      <a href="./domains.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Domains</a>
+      <a href="./case-study.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Case Study</a>
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 max-w-4xl mx-auto px-6 pb-20">
+
+  <header class="mb-12">
+    <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">DOCS</p>
+    <h1 class="text-4xl font-bold text-zinc-100 mb-3">Architecture</h1>
+    <p class="text-lg text-zinc-400">Two layers, one contract, three metadata files.</p>
+  </header>
+
+  <div class="prose-custom">
+
+    <h2>The big picture</h2>
+
+    <div class="mermaid">
+flowchart TD
+    User([User in OpenCode]) -->|/skill-install URL| Agent
+    Agent[".opencode/commands/*.md<br/>+ skills-manager subagent<br/>(orchestration layer)"]
+    Agent -->|HTTP REST| Portal["portal/<br/>FastAPI :5174 + Vite :5173<br/>(physical-files layer)"]
+    Agent -.write.-> INDEX["~/.config/opencode/skills/INDEX.md<br/>(domain classification)"]
+    Agent -.write.-> Graph["~/.config/opencode/skills/skills-graph.mmd<br/>+ skills-graph.png"]
+    Portal -->|clone / copy / delete| Skills["~/.config/opencode/skills/&lt;name&gt;/<br/>(skill repos)"]
+    Portal -.read.-> Skills
+    Portal -.read.-> INDEX
+
+    classDef agentLayer fill:#10b981,stroke:#059669,color:#fff
+    classDef portalLayer fill:#3b82f6,stroke:#2563eb,color:#fff
+    classDef skillsLayer fill:#a855f7,stroke:#9333ea,color:#fff
+    classDef metaLayer fill:#f59e0b,stroke:#d97706,color:#fff
+    class Agent agentLayer
+    class Portal portalLayer
+    class Skills skillsLayer
+    class INDEX,Graph metaLayer
+    </div>
+
+    <h2>The contract</h2>
+
+    <p>One rule, two halves. Internalize this and the rest follows.</p>
+
+    <table>
+      <thead>
+        <tr><th>What</th><th>Who can write</th><th>How</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Skill content<br><code>~/.config/opencode/skills/&lt;name&gt;/</code></td>
+          <td>portal API only</td>
+          <td><code>POST /api/install/github</code><br><code>DELETE /api/skills/{name}</code><br><code>POST /api/refresh</code></td>
+        </tr>
+        <tr>
+          <td>Metadata<br><code>INDEX.md</code> · <code>skills-graph.mmd</code> · <code>skills-graph.png</code></td>
+          <td>agent directly</td>
+          <td><code>agent.lib.index_md_writer</code><br><code>agent.lib.graph_writer</code><br>(both with backups + atomic writes)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>This split has one purpose: <strong>portal UI and agent always see the same state</strong>. If the agent went around the API to write skill files, the next portal page-refresh would be inconsistent until <code>/api/refresh</code> ran.</p>
+
+    <h2>The 5 Python lib modules</h2>
+
+    <p>All five live under <code>agent/lib/</code> and run inside the portal's venv (no extra dependency tree to maintain).</p>
+
+    <h3>portal_client.py</h3>
+    <p>HTTP wrapper for the portal REST API. Notable features:</p>
+    <ul>
+      <li><code>ensure_running()</code> — auto-spawns <code>portal/bin/start</code> in background, polls <code>/api/health</code> for up to 20s</li>
+      <li><code>trust_env=False</code> — bypasses system-level HTTP proxies that would otherwise intercept localhost</li>
+      <li>180s read timeout — git clone over slow networks can take a minute</li>
+    </ul>
+
+    <h3>domain_inference.py</h3>
+    <p>Keyword scoring against a per-domain dictionary. Mirrors <a href="./domains.html">agent/docs/domain-taxonomy.md</a>. Returns <code>uncategorized</code> when no domain scores ≥ 1; agent then prompts user.</p>
+
+    <h3>index_md_writer.py</h3>
+    <p>The highest-risk module. Six-layer defense:</p>
+    <ul>
+      <li>Microsecond-stamped <code>.bak.&lt;ts&gt;</code> backup before every write</li>
+      <li>Anchored regex finds the right H3 domain section</li>
+      <li>Line-level splice preserves exact formatting</li>
+      <li><strong>Atomic write via os.replace</strong> — works around macOS APFS leaving dead bytes past EOF on plain <code>write_text</code></li>
+      <li>Post-write verification: re-parse must still find the change</li>
+      <li>Auto-revert from backup if verification fails</li>
+    </ul>
+    <p><code>append(name, domain) → remove(name)</code> is byte-identical against the original. Tested.</p>
+
+    <h3>graph_writer.py</h3>
+    <p>Same defense pattern as index writer, plus auto-creates the <code>%% Domain N - Label</code> block + <code>classDef</code> when adding the first skill in a previously-empty domain. <code>render()</code> spawns <code>render-mermaid.py</code> via playwright + chromium.</p>
+
+    <h3>doctor.py</h3>
+    <p>5-rule health check. Skill-specific dependency hints (mmdc, .NET, codex CLI, etc.) are declared in a small <code>DEPENDENCY_HINTS</code> table.</p>
+
+    <h2>Lifecycle: install</h2>
+
+    <p>Walking through what <code>/skill-install</code> actually triggers, end-to-end:</p>
+
+    <div class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant A as Agent (command)
+    participant PC as portal_client
+    participant P as Portal API
+    participant DI as domain_inference
+    participant IW as index_md_writer
+    participant GW as graph_writer
+
+    U->>A: /skill-install URL
+    A->>PC: ensure_running()
+    PC->>P: GET /api/health
+    P-->>PC: {ok: true}
+    A->>PC: install_github(url)
+    PC->>P: POST /api/install/github
+    P->>P: git clone, validate frontmatter, copy
+    P-->>PC: {skill_name, skill_dir}
+    A->>PC: get_skill(name)
+    PC->>P: GET /api/skills/{name}
+    P-->>A: {frontmatter}
+    A->>DI: infer(name, description)
+    DI-->>A: {domain, scores, evidence}
+    A->>IW: append(name, domain, role, triggers)
+    IW->>IW: backup, splice, atomic write, verify
+    IW-->>A: {ok, backup_path}
+    A->>GW: add_node(name, domain) + render()
+    GW->>GW: backup, add line, atomic write, render PNG
+    GW-->>A: {ok, short_id}
+    A->>PC: refresh()
+    PC->>P: POST /api/refresh
+    P-->>A: {skill_count}
+    A-->>U: ✅ all checks
+    </div>
+
+    <h2>Why this shape</h2>
+
+    <p>Three forces shaped the design:</p>
+    <ul>
+      <li><strong>Portal already existed</strong>. The portal had been built (FastAPI + Vite/Vue) before the agent. Don't rewrite what works — wrap it.</li>
+      <li><strong>OpenCode auto-discovers <code>.opencode/commands/*.md</code></strong>. So commands are markdown files, not code. The Python lib is what they call.</li>
+      <li><strong>Skill repo lives at <code>~/.config/opencode/skills/</code> by OpenCode convention</strong>. Don't relocate. Reach in from outside.</li>
+    </ul>
+
+    <h2>What's deliberately not done (v1 boundary)</h2>
+
+    <ul>
+      <li>No multi-user / multi-account portal — bound to 127.0.0.1 only</li>
+      <li>No web UI for editing INDEX classification — INDEX edits go through agent commands only</li>
+      <li>No skill version rollback — git pull is the version control</li>
+      <li>No dependency-graph visualization — text-mode <code>/skill-doctor</code> reports cover this</li>
+    </ul>
+
+    <h2>Source tree</h2>
+
+    <div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">Agent_skills/
+├── README.md
+├── AGENTS.md                    # project-level rules
+├── opencode.json                # auto-discovery marker
+├── .opencode/
+│   ├── commands/                # 11 slash commands (markdown)
+│   └── agent/skills-manager.md  # subagent
+├── agent/
+│   ├── lib/                     # 5 Python modules
+│   └── docs/domain-taxonomy.md  # the 6-domain spec
+├── portal/                      # FastAPI + Vite/Vue portal
+│   ├── backend/                 # app.py, build_index.py, installer.py
+│   └── frontend/                # Vue 3 + Pico CSS
+├── tests/                       # pytest 20/20
+└── docs/                        # this site (you're here)</code></pre>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+    <div class="flex items-center gap-2"><span>🧠</span><span>Skills Manager AI Agent</span></div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">GitHub</a>
+      <a href="https://github.com/zjgulai/Agent_skills/issues" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">Issues</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
+  hljs.highlightAll();
+</script>
+</body>
+</html>
