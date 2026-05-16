@@ -309,6 +309,106 @@
       's6.code':                '源码索引',
       // Footer
       'footer.tagline':         '一个 OpenCode 技能生命周期管理 AI agent。',
+
+      // §2 Domain subtitles (英文 → 中文)
+      'dom.meta.subtitle':      'AI 工程基础设施',
+      'dom.closeout.subtitle':  '代码质量与交付闭环',
+      'dom.desktop.subtitle':   '桌面应用工程',
+      'dom.founder.subtitle':   '创业与产品验证',
+      'dom.ip.subtitle':        '知识产权交付',
+      'dom.tooling.subtitle':   '工具增强（横切层）',
+
+      // §2 "When to enter:" prefix + per-domain content
+      'dom.label.when':         '何时进入：',
+      'dom.label.note-prefix':  '注意：',
+      'dom.meta.when':          '任务的对象是 <strong>AI agent 自身</strong>——仓库脚手架、agent 记忆、skill 库、hook、subagent、plugin、agent 自治。',
+      'dom.closeout.when':      '代码已写完，进入最后一公里——commit / PR / release / lint / audit。',
+      'dom.desktop.when':       '跨平台桌面应用，且用户体感必须像原生。',
+      'dom.founder.when':       '手上是点子或早期产品，在判断「这事值不值得做」。',
+      'dom.ip.when':            '项目进入商业化保护阶段——把代码资产变成可申报的法律文件。',
+      'dom.tooling.when':       '不绑定特定项目类型，但<strong>任何项目都可能需要</strong>的能力。',
+      'dom.meta.note':          '注意：单独的 <code>skill</code> 不在 meta 关键词表里——太宽泛；几乎每份 SKILL.md 都会提到它。只有 <code>subagent</code>、<code>agent</code> 和明确的配置文件才是强信号。',
+
+      // §3 Phase descriptions
+      's3.t.command':           '命令',
+      's3.t.effect':            '作用',
+      's3.t.phase':             '阶段',
+      'cmd.install.eff':        '通过 portal API clone → 推断域 → 加 INDEX.md → 加 graph 节点并重渲 PNG → 刷新（7 步，写）',
+      'cmd.uninstall.eff':      'install 的逆操作。确认 → 删 graph 节点 → 删 INDEX 行 → DELETE 物理文件（4 步，写）',
+      'cmd.update.eff':         '在 skill 目录跑 <code>git pull --ff-only</code>，然后刷新 portal 索引',
+      'cmd.list.eff':           '只读：按域分组打印所有已装 skill，含描述与触发词',
+      'cmd.recommend.eff':      '把自由文本任务匹配到场景套餐表或对关键词打分；输出 <code>load_skills=[…]</code>',
+      'cmd.doctor.eff':         '5 条规则体检：frontmatter / 目录名 / INDEX 收录 / graph 收录 / 依赖',
+      'cmd.classify.eff':       '把一个 skill 在域之间移动；同时改 INDEX 行、graph 节点、classDef',
+      'cmd.graphsync.eff':      '把 graph 与 INDEX 对齐；检测 MISSING / EXTRA / MISMATCH；幂等',
+      'cmd.portalstart.eff':    '把 portal 起来；幂等；自动检测 portless HTTPS',
+      'cmd.portalstop.eff':     '杀 5173 + 5174 端口上的进程；幂等',
+      'cmd.portalstatus.eff':   '只读：API 是否在跑、端口、PIDs、上次索引时间、skill 数量',
+      'pill.read':              '读',
+      'pill.write':             '写',
+      'pill.lifecycle':         '生命周期',
+
+      // §4 Legend
+      'legend.solid.label':     '<strong>实线</strong> — 生命周期依赖',
+      'legend.dashed.label':    '<strong>虚线</strong> — 跨域增援',
+      'legend.double.label':    '<strong>双向</strong> — 并行耦合',
+      'legend.box.label':       '用户安装的 skill',
+      'legend.round.label':     '内置（无需安装）',
+      'legend.sid.label':       '<code style="font-size:11px;">guizang-ppt-skill</code> → <code style="font-size:11px;">GPS</code>',
+
+      // §4.3 Scenario bundles table headers + rows
+      's4.bundles.scene':       '场景',
+      's4.bundles.load':        '加载组合',
+      's4.bundles.note':        '备注',
+      'sce.idea':               '「我有个新点子，看看靠不靠谱」',
+      'sce.idea.note':          '单 skill——不要立刻加 ADK',
+      'sce.scaffold':           '「搭一个跨平台桌面 app 的脚手架」',
+      'sce.scaffold.note':      'ADK 给工程结构；NF 给桌面架构原则',
+      'sce.preship':            '「PR 准备 ship 之前」',
+      'sce.preship.note':       '审查三件套',
+      'sce.ip':                 '「这个项目要申请软著 + 挖专利」',
+      'sce.ip.note':            'IP 双子星必须一起加——保持软件名 / 版本号在两个流程里一致',
+      'sce.audit':              '「给现有 OpenCode 仓库做架构审计」',
+      'sce.audit.note':         '单 skill——输出五层架构 gap 分析',
+      'sce.electron':           '「我的 Electron 应用启动慢 / 窗口卡」',
+      'sce.electron.note':      'NF 出诊断方向；playwright 验证 fix',
+      'sce.swiss':              '「基于这篇文章做一份瑞士风 PPT」',
+      'sce.swiss.note':         'tooling 域 skill，不需要搭档',
+      'sce.skillnew':           '「从零创建一个新 skill」',
+      'sce.skillnew.note':      'meta 域——bootstrap 另一个 skill',
+
+      // §5 Case study state details
+      's5.s0.b1':               '6 个用户级 skill：ADK、CR、NF、SPT、PAT、SCS（IP 双子星）',
+      's5.s0.b2':               '5 个内置（虚线边框）：GM、RW、ASR、FE、PW',
+      's5.s0.b3':               '主链：SPT → ADK → NF → CR → PAT → SCS（紫→蓝→橙→绿→青→青）',
+      's5.s0.b4':               '没有 tooling 域块（还没有 tooling skill）',
+      's5.delta.label':         'Δ vs 上一态：',
+      's5.s1.delta':            '+1 节点（GPS 进 tooling）· +1 classDef（toolingDomain） · +1 自循环边 · PNG 字节 224 500 → 259 330（+15.5%）',
+      's5.s1.b1':               '推断结果：tooling 域（命中 ppt / swiss style / html，得分 3）',
+      's5.s1.b2':               '新节点：<code>GPS[guizang-ppt-skill]:::toolingDomain</code>',
+      's5.s1.b3':               '新边：<code>GPS -. "isolated" .-> GPS</code>（同域无 peer 时的自循环兜底）',
+      's5.s2.delta':            '+1 节点（SC 进 meta）· +1 同域边到 ADK · 0 新 classDef（meta 已存在）· PNG 字节 259 330 → 270 529（+4.3%）',
+      's5.s2.b1':               '推断结果：uncategorized → 用户手选 meta',
+      's5.s2.b2':               '新节点：<code>SC[skill-creator]:::metaDomain</code>',
+      's5.s2.b3':               '新边：<code>SC -. "same domain" .-> ADK</code>（meta 已有 peer，加同域虚线边）',
+      's5.s3.b1':               '3 个新 skill 全部推断为 desktop 域（关键词 tauri / electron / webview 强信号）',
+      's5.s3.b2':               '新节点：TT、EPA、WSK（SHORT_ID = 各连字段首字母）',
+      's5.s3.b3':               '新边：每个新节点 <code>-. "same domain" .-> NF</code>（虚线，连到首个 peer）',
+      's5.s3.b4':               'desktop classDef 已存在，不需新建',
+
+      // §6 Cross-references
+      's6.gs.text':              ' — 在新机器上 10 分钟搞定安装',
+      's6.arch.text':            ' — 两层设计、5 个 Python lib 模块、安装时序图',
+      's6.tax.text':             ' — 6 域规则的真相源',
+      's6.cmds.text':            ' — 11 个 slash 命令的提示模版（Markdown）',
+      's6.lib.text':             ' — 5 个 Python 模块（portal_client, domain_inference, index_md_writer, graph_writer, doctor）',
+      's6.portal.text':          ' — FastAPI + Vite/Vue 本地站点',
+
+      // Common nav extras
+      'nav.repo-link':          'Skills Manager',
+      'nav.gs.alt':             'Getting Started（快速开始）',
+      'nav.arch.alt':           'Architecture（架构）',
+      'header.editlink':        '在 GitHub 编辑',
     };
   </script>
 </head>
@@ -345,7 +445,7 @@
         <p class="text-lg text-zinc-400" data-i18n="header.subtitle">A unified reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph evolution case studies.</p>
         <p class="text-sm text-zinc-600 mt-4">
           <span data-i18n="header.lastupdate">Last updated</span>: 2026-05-16 ·
-          <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" target="_blank" rel="noopener">edit on GitHub</a>
+          <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" target="_blank" rel="noopener" data-i18n="header.editlink">edit on GitHub</a>
         </p>
       </header>
 
@@ -401,20 +501,20 @@
         <div class="domain-card dom-meta">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-meta">meta</span>
-            <span class="text-zinc-400 text-sm">AI Engineering Infrastructure</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.meta.subtitle">AI Engineering Infrastructure</span>
           </div>
-          <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> the task targets <strong>AI agents themselves</strong> — repository scaffolding, agent memory, skill libraries, hooks, subagents, plugins, agent self-governance.</p>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.meta.when">the task targets <strong>AI agents themselves</strong> — repository scaffolding, agent memory, skill libraries, hooks, subagents, plugins, agent self-governance.</span></p>
           <div class="kw-row"><span class="kw-tag">agent</span><span class="kw-tag">subagent</span><span class="kw-tag">hook</span><span class="kw-tag">plugin</span><span class="kw-tag">mcp server</span><span class="kw-tag">prompt template</span><span class="kw-tag">AGENTS.md</span><span class="kw-tag">CLAUDE.md</span><span class="kw-tag">.opencode/</span><span class="kw-tag">opencode.json</span><span class="kw-tag">agent guardrails</span></div>
-          <p class="text-zinc-500 text-xs">Note: bare <code>skill</code> is NOT a meta keyword — too generic; almost every SKILL.md mentions it. Only <code>subagent</code>, <code>agent</code>, and explicit config files are strong signals.</p>
+          <p class="text-zinc-500 text-xs" data-i18n-html="dom.meta.note">Note: bare <code>skill</code> is NOT a meta keyword — too generic; almost every SKILL.md mentions it. Only <code>subagent</code>, <code>agent</code>, and explicit config files are strong signals.</p>
         </div>
 
         <!-- Domain closeout -->
         <div class="domain-card dom-closeout">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-closeout">closeout</span>
-            <span class="text-zinc-400 text-sm">Code Quality &amp; Delivery Closeout</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.closeout.subtitle">Code Quality &amp; Delivery Closeout</span>
           </div>
-          <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> code is written, you're at the last mile — commit / PR / release / lint / audit.</p>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.closeout.when">code is written, you're at the last mile — commit / PR / release / lint / audit.</span></p>
           <div class="kw-row"><span class="kw-tag">review</span><span class="kw-tag">code review</span><span class="kw-tag">commit</span><span class="kw-tag">pull request</span><span class="kw-tag">merge</span><span class="kw-tag">release</span><span class="kw-tag">ship</span><span class="kw-tag">lint</span><span class="kw-tag">audit</span><span class="kw-tag">codex review</span><span class="kw-tag">pre-commit</span></div>
         </div>
 
@@ -422,9 +522,9 @@
         <div class="domain-card dom-desktop">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-desktop">desktop</span>
-            <span class="text-zinc-400 text-sm">Desktop App Engineering</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.desktop.subtitle">Desktop App Engineering</span>
           </div>
-          <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> cross-platform desktop app where user-facing experience must feel native.</p>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.desktop.when">cross-platform desktop app where user-facing experience must feel native.</span></p>
           <div class="kw-row"><span class="kw-tag">tauri</span><span class="kw-tag">electron</span><span class="kw-tag">webview</span><span class="kw-tag">webview2</span><span class="kw-tag">wkwebview</span><span class="kw-tag">webkit</span><span class="kw-tag">native macos</span><span class="kw-tag">launcher app</span><span class="kw-tag">system tray</span><span class="kw-tag">global hotkey</span><span class="kw-tag">raycast</span><span class="kw-tag">native feel</span></div>
         </div>
 
@@ -432,9 +532,9 @@
         <div class="domain-card dom-founder">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-founder">founder</span>
-            <span class="text-zinc-400 text-sm">Founder &amp; Product Validation</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.founder.subtitle">Founder &amp; Product Validation</span>
           </div>
-          <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> you have an idea or early-stage product, deciding "is this worth building?"</p>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.founder.when">you have an idea or early-stage product, deciding "is this worth building?"</span></p>
           <div class="kw-row"><span class="kw-tag">mvp</span><span class="kw-tag">icp</span><span class="kw-tag">pressure-test</span><span class="kw-tag">validate problem</span><span class="kw-tag">market fit</span><span class="kw-tag">founder-market fit</span><span class="kw-tag">first 10 customers</span><span class="kw-tag">pivot</span><span class="kw-tag">2-week launch</span></div>
         </div>
 
@@ -442,9 +542,9 @@
         <div class="domain-card dom-ip">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-ip">ip</span>
-            <span class="text-zinc-400 text-sm">Intellectual Property Deliverables</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.ip.subtitle">Intellectual Property Deliverables</span>
           </div>
-          <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> project enters commercial-protection phase — turn code assets into legally filed documents.</p>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.ip.when">project enters commercial-protection phase — turn code assets into legally filed documents.</span></p>
           <div class="kw-row"><span class="kw-tag">专利</span><span class="kw-tag">软著</span><span class="kw-tag">软件著作权</span><span class="kw-tag">技术交底书</span><span class="kw-tag">国知局</span><span class="kw-tag">patent</span><span class="kw-tag">copyright</span><span class="kw-tag">software copyright</span><span class="kw-tag">prior-art</span><span class="kw-tag">claim drafting</span></div>
         </div>
 
@@ -452,9 +552,9 @@
         <div class="domain-card dom-tooling">
           <div class="flex items-baseline gap-3 mb-2">
             <span class="pill badge-tooling">tooling</span>
-            <span class="text-zinc-400 text-sm">Cross-cutting Tooling</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.tooling.subtitle">Cross-cutting Tooling</span>
           </div>
-          <p class="text-zinc-400 text-sm mb-2"><strong>When to enter:</strong> not bound to any project type, useful across <strong>any</strong> project.</p>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.tooling.when">not bound to any project type, useful across <strong>any</strong> project.</span></p>
           <div class="kw-row"><span class="kw-tag">ppt</span><span class="kw-tag">slide deck</span><span class="kw-tag">presentation</span><span class="kw-tag">magazine</span><span class="kw-tag">swiss style</span><span class="kw-tag">cover</span><span class="kw-tag">image prompt</span><span class="kw-tag">image generation</span><span class="kw-tag">screenshot</span><span class="kw-tag">docx</span><span class="kw-tag">pdf</span><span class="kw-tag">html</span></div>
         </div>
 
@@ -496,40 +596,40 @@
 
         <h3 data-i18n="s3.phase1">Phase 1: Skill Lifecycle</h3>
         <table>
-          <thead><tr><th>Command</th><th>Effect</th><th>Phase</th></tr></thead>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
           <tbody>
-            <tr><td><code>/skill-install &lt;url&gt;</code></td><td>Clone via portal API → infer domain → append INDEX.md → add graph node + render PNG → refresh</td><td><span class="pill pill-write">write</span></td></tr>
-            <tr><td><code>/skill-uninstall &lt;name&gt;</code></td><td>Reverse of install. Confirm → remove graph node → remove INDEX row → DELETE physical files</td><td><span class="pill pill-write">write</span></td></tr>
-            <tr><td><code>/skill-update &lt;name|all&gt;</code></td><td><code>git pull --ff-only</code> in skill dirs, refresh portal index</td><td><span class="pill pill-write">write</span></td></tr>
+            <tr><td><code>/skill-install &lt;url&gt;</code></td><td data-i18n-html="cmd.install.eff">Clone via portal API → infer domain → append INDEX.md → add graph node + render PNG → refresh</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+            <tr><td><code>/skill-uninstall &lt;name&gt;</code></td><td data-i18n-html="cmd.uninstall.eff">Reverse of install. Confirm → remove graph node → remove INDEX row → DELETE physical files</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+            <tr><td><code>/skill-update &lt;name|all&gt;</code></td><td data-i18n-html="cmd.update.eff"><code>git pull --ff-only</code> in skill dirs, refresh portal index</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
           </tbody>
         </table>
 
         <h3 data-i18n="s3.phase2">Phase 2: Inspection</h3>
         <table>
-          <thead><tr><th>Command</th><th>Effect</th><th>Phase</th></tr></thead>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
           <tbody>
-            <tr><td><code>/skill-list</code></td><td>Print all installed skills grouped by domain with descriptions and triggers</td><td><span class="pill pill-read">read</span></td></tr>
-            <tr><td><code>/skill-recommend &lt;task&gt;</code></td><td>Match free-form task against scenario table or score keywords; output <code>load_skills=[…]</code></td><td><span class="pill pill-read">read</span></td></tr>
-            <tr><td><code>/skill-doctor [name|all]</code></td><td>5-rule check: frontmatter / dir name / INDEX presence / graph presence / dependencies</td><td><span class="pill pill-read">read</span></td></tr>
+            <tr><td><code>/skill-list</code></td><td data-i18n-html="cmd.list.eff">Print all installed skills grouped by domain with descriptions and triggers</td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
+            <tr><td><code>/skill-recommend &lt;task&gt;</code></td><td data-i18n-html="cmd.recommend.eff">Match free-form task against scenario table or score keywords; output <code>load_skills=[…]</code></td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
+            <tr><td><code>/skill-doctor [name|all]</code></td><td data-i18n-html="cmd.doctor.eff">5-rule check: frontmatter / dir name / INDEX presence / graph presence / dependencies</td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
           </tbody>
         </table>
 
         <h3 data-i18n="s3.phase3">Phase 3: Maintenance</h3>
         <table>
-          <thead><tr><th>Command</th><th>Effect</th><th>Phase</th></tr></thead>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
           <tbody>
-            <tr><td><code>/skill-classify &lt;name&gt;</code></td><td>Move a skill between domains; updates INDEX row, graph node, classDef</td><td><span class="pill pill-write">write</span></td></tr>
-            <tr><td><code>/skill-graph-sync</code></td><td>Reconcile graph against INDEX; detect MISSING / EXTRA / MISMATCH; idempotent</td><td><span class="pill pill-write">write</span></td></tr>
+            <tr><td><code>/skill-classify &lt;name&gt;</code></td><td data-i18n-html="cmd.classify.eff">Move a skill between domains; updates INDEX row, graph node, classDef</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+            <tr><td><code>/skill-graph-sync</code></td><td data-i18n-html="cmd.graphsync.eff">Reconcile graph against INDEX; detect MISSING / EXTRA / MISMATCH; idempotent</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
           </tbody>
         </table>
 
         <h3 data-i18n="s3.phase4">Phase 4: Portal Control</h3>
         <table>
-          <thead><tr><th>Command</th><th>Effect</th><th>Phase</th></tr></thead>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
           <tbody>
-            <tr><td><code>/portal-start</code></td><td>Bring portal up; idempotent; auto-detects portless HTTPS</td><td><span class="pill pill-lifecycle">lifecycle</span></td></tr>
-            <tr><td><code>/portal-stop</code></td><td>Kill PIDs on 5173 + 5174; idempotent</td><td><span class="pill pill-lifecycle">lifecycle</span></td></tr>
-            <tr><td><code>/portal-status</code></td><td>Read-only: API up?, ports, PIDs, last index time, skill count</td><td><span class="pill pill-read">read</span></td></tr>
+            <tr><td><code>/portal-start</code></td><td data-i18n-html="cmd.portalstart.eff">Bring portal up; idempotent; auto-detects portless HTTPS</td><td><span class="pill pill-lifecycle" data-i18n="pill.lifecycle">lifecycle</span></td></tr>
+            <tr><td><code>/portal-stop</code></td><td data-i18n-html="cmd.portalstop.eff">Kill PIDs on 5173 + 5174; idempotent</td><td><span class="pill pill-lifecycle" data-i18n="pill.lifecycle">lifecycle</span></td></tr>
+            <tr><td><code>/portal-status</code></td><td data-i18n-html="cmd.portalstatus.eff">Read-only: API up?, ports, PIDs, last index time, skill count</td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
           </tbody>
         </table>
 
@@ -555,15 +655,15 @@
             <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
               <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
                 <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="2" y1="7" x2="40" y2="7" stroke="#34d399" stroke-width="2"/><polygon points="40,3 46,7 40,11" fill="#34d399"/></svg>
-                <span><strong style="color:#e4e4e7;">solid</strong> — lifecycle dependency</span>
+                <span data-i18n-html="legend.solid.label"><strong style="color:#e4e4e7;">solid</strong> — lifecycle dependency</span>
               </li>
               <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
                 <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="2" y1="7" x2="40" y2="7" stroke="#a1a1aa" stroke-width="2" stroke-dasharray="4 3"/><polygon points="40,3 46,7 40,11" fill="#a1a1aa"/></svg>
-                <span><strong style="color:#e4e4e7;">dashed</strong> — cross-domain reinforcement</span>
+                <span data-i18n-html="legend.dashed.label"><strong style="color:#e4e4e7;">dashed</strong> — cross-domain reinforcement</span>
               </li>
               <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
                 <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="6" y1="5" x2="42" y2="5" stroke="#34d399" stroke-width="1.5"/><line x1="6" y1="9" x2="42" y2="9" stroke="#34d399" stroke-width="1.5"/><polygon points="42,1 47,7 42,13" fill="#34d399"/><polygon points="6,1 1,7 6,13" fill="#34d399"/></svg>
-                <span><strong style="color:#e4e4e7;">double</strong> — parallel coupling</span>
+                <span data-i18n-html="legend.double.label"><strong style="color:#e4e4e7;">double</strong> — parallel coupling</span>
               </li>
             </ul>
           </div>
@@ -585,15 +685,15 @@
             <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
               <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
                 <span style="display:inline-block; padding: 3px 8px; background:#dbeafe; color:#1d4ed8; border-radius:3px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">box</span>
-                <span>user-installed skill</span>
+                <span data-i18n="legend.box.label">user-installed skill</span>
               </li>
               <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
                 <span style="display:inline-block; padding: 3px 8px; background:#eee; color:#616161; border:1px dashed #888; border-radius:8px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">round</span>
-                <span>builtin (no install)</span>
+                <span data-i18n="legend.round.label">builtin (no install)</span>
               </li>
               <li style="display: flex; align-items: flex-start; gap: 10px; padding: 4px 0;">
                 <span style="font-family: ui-monospace,monospace; color: #34d399; flex-shrink: 0; margin-top: 1px;">SID</span>
-                <span><code style="font-size: 11px;">guizang-ppt-skill</code> → <code style="font-size: 11px;">GPS</code></span>
+                <span data-i18n-html="legend.sid.label"><code style="font-size: 11px;">guizang-ppt-skill</code> → <code style="font-size: 11px;">GPS</code></span>
               </li>
             </ul>
           </div>
@@ -664,14 +764,14 @@ flowchart LR
             <th data-i18n="s4.bundles-th-note">Note</th>
           </tr></thead>
           <tbody>
-            <tr><td>"I have a new idea, let me see if it's worth doing"</td><td><code>["startup-pressure-test"]</code></td><td>Single skill — don't add ADK yet</td></tr>
-            <tr><td>"Bootstrap a cross-platform desktop app scaffold"</td><td><code>["agent-dev-kit-architecture-designer", "native-feel-cross-platform-desktop"]</code></td><td>ADK gives engineering structure; NF gives desktop-arch principles</td></tr>
-            <tr><td>"Pre-ship checklist for a PR"</td><td><code>["codex-review", "git-master", "review-work"]</code></td><td>The closeout trio</td></tr>
-            <tr><td>"Apply for software copyright + patent for this project"</td><td><code>["patent-disclosure-skill", "software-copyright-materials"]</code></td><td>IP duo must be loaded together — keeps software name + version coherent across both flows</td></tr>
-            <tr><td>"Audit the architecture of an existing OpenCode repo"</td><td><code>["agent-dev-kit-architecture-designer"]</code></td><td>Single skill — outputs a 5-layer gap analysis</td></tr>
-            <tr><td>"My Electron app starts slowly / windows feel janky"</td><td><code>["native-feel-cross-platform-desktop", "playwright"]</code></td><td>NF for direction, playwright for verification</td></tr>
-            <tr><td>"Make a Swiss-style PPT from this article"</td><td><code>["guizang-ppt-skill"]</code></td><td>tooling domain skill, no peer needed</td></tr>
-            <tr><td>"Create a new skill from scratch"</td><td><code>["skill-creator"]</code></td><td>meta domain — bootstraps another skill</td></tr>
+            <tr><td data-i18n="sce.idea">"I have a new idea, let me see if it's worth doing"</td><td><code>["startup-pressure-test"]</code></td><td data-i18n="sce.idea.note">Single skill — don't add ADK yet</td></tr>
+            <tr><td data-i18n="sce.scaffold">"Bootstrap a cross-platform desktop app scaffold"</td><td><code>["agent-dev-kit-architecture-designer", "native-feel-cross-platform-desktop"]</code></td><td data-i18n="sce.scaffold.note">ADK gives engineering structure; NF gives desktop-arch principles</td></tr>
+            <tr><td data-i18n="sce.preship">"Pre-ship checklist for a PR"</td><td><code>["codex-review", "git-master", "review-work"]</code></td><td data-i18n="sce.preship.note">The closeout trio</td></tr>
+            <tr><td data-i18n="sce.ip">"Apply for software copyright + patent for this project"</td><td><code>["patent-disclosure-skill", "software-copyright-materials"]</code></td><td data-i18n="sce.ip.note">IP duo must be loaded together — keeps software name + version coherent across both flows</td></tr>
+            <tr><td data-i18n="sce.audit">"Audit the architecture of an existing OpenCode repo"</td><td><code>["agent-dev-kit-architecture-designer"]</code></td><td data-i18n="sce.audit.note">Single skill — outputs a 5-layer gap analysis</td></tr>
+            <tr><td data-i18n="sce.electron">"My Electron app starts slowly / windows feel janky"</td><td><code>["native-feel-cross-platform-desktop", "playwright"]</code></td><td data-i18n="sce.electron.note">NF for direction, playwright for verification</td></tr>
+            <tr><td data-i18n="sce.swiss">"Make a Swiss-style PPT from this article"</td><td><code>["guizang-ppt-skill"]</code></td><td data-i18n="sce.swiss.note">tooling domain skill, no peer needed</td></tr>
+            <tr><td data-i18n="sce.skillnew">"Create a new skill from scratch"</td><td><code>["skill-creator"]</code></td><td data-i18n="sce.skillnew.note">meta domain — bootstraps another skill</td></tr>
           </tbody>
         </table>
       </section>
@@ -685,10 +785,10 @@ flowchart LR
         <h3 data-i18n="s5.s0">5.1 State 0: initial 6 skills</h3>
         <p data-i18n="s5.s0-desc">The very first state of the project: 6 user-level skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip, plus 5 cross-domain reinforcement edges.</p>
         <ul>
-          <li data-i18n="s5.s0-bullet1">6 user skills: ADK, CR, NF, SPT, PAT, SCS (the IP duo)</li>
-          <li data-i18n="s5.s0-bullet2">5 builtins (dashed border): GM, RW, ASR, FE, PW</li>
-          <li data-i18n="s5.s0-bullet3">Main chain: SPT → ADK → NF → CR → PAT → SCS (purple → blue → orange → green → teal → teal)</li>
-          <li data-i18n="s5.s0-bullet4">No tooling domain block (none yet)</li>
+          <li data-i18n-html="s5.s0.b1">6 user skills: ADK, CR, NF, SPT, PAT, SCS (the IP duo)</li>
+          <li data-i18n-html="s5.s0.b2">5 builtins (dashed border): GM, RW, ASR, FE, PW</li>
+          <li data-i18n-html="s5.s0.b3">Main chain: SPT → ADK → NF → CR → PAT → SCS (purple → blue → orange → green → teal → teal)</li>
+          <li data-i18n-html="s5.s0.b4">No tooling domain block (none yet)</li>
         </ul>
         <a href="./assets/screenshots/graph-state-0.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-0.png" data-i18n-attr="alt:s5.s0-png-alt" alt="Skills graph state 0: 6 user skills + 5 builtin" class="graph-img"></a>
 
@@ -697,12 +797,12 @@ flowchart LR
         <p><span data-i18n="s5.s1-cmd">Triggered by:</span> <code>/skill-install https://github.com/op7418/guizang-ppt-skill</code></p>
         <p data-i18n="s5.s1-desc">After installing guizang-ppt-skill. The tooling domain block is auto-created and GPS joins as an isolated node. Note: because the tooling domain was empty, the agent automatically added the toolingDomain classDef and the "%% Tooling domain" comment block.</p>
         <div class="delta-callout">
-          <strong>Δ vs State 0:</strong> +1 node (GPS in tooling) · +1 classDef (toolingDomain) · +1 self-loop edge · PNG bytes 224 500 → 259 330 (+15.5%)
+          <strong data-i18n="s5.delta.label">Δ vs State 0:</strong> <span data-i18n-html="s5.s1.delta">+1 node (GPS in tooling) · +1 classDef (toolingDomain) · +1 self-loop edge · PNG bytes 224 500 → 259 330 (+15.5%)</span>
         </div>
         <ul>
-          <li data-i18n="s5.s1-bullet1">Inference result: tooling domain (matched ppt / swiss style / html, score 3)</li>
-          <li data-i18n="s5.s1-bullet2">New node: <code>GPS[guizang-ppt-skill]:::toolingDomain</code></li>
-          <li data-i18n="s5.s1-bullet3">New edge: <code>GPS -. "isolated" .-> GPS</code> (self-loop fallback when same-domain peer is absent)</li>
+          <li data-i18n-html="s5.s1.b1">Inference result: tooling domain (matched ppt / swiss style / html, score 3)</li>
+          <li data-i18n-html="s5.s1.b2">New node: <code>GPS[guizang-ppt-skill]:::toolingDomain</code></li>
+          <li data-i18n-html="s5.s1.b3">New edge: <code>GPS -. "isolated" .-> GPS</code> (self-loop fallback when same-domain peer is absent)</li>
         </ul>
         <a href="./assets/screenshots/graph-state-1.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-1.png" data-i18n-attr="alt:s5.s1-png-alt" alt="Skills graph state 1: post-guizang +1 node" class="graph-img"></a>
 
@@ -711,12 +811,12 @@ flowchart LR
         <p><span data-i18n="s5.s2-cmd">Triggered by:</span> <code>/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator</code></p>
         <p data-i18n="s5.s2-desc">The current state, after installing skill-creator. The skill's description is too generic ("create new skills"), keyword inference returns uncategorized, the agent prompts the user, and we manually pick meta. The new SC node is in the same domain as ADK, so a "same-domain" dashed edge is added automatically.</p>
         <div class="delta-callout">
-          <strong>Δ vs State 1:</strong> +1 node (SC in meta) · +1 same-domain edge to ADK · 0 new classDefs (meta already existed) · PNG bytes 259 330 → 270 529 (+4.3%)
+          <strong data-i18n="s5.delta.label">Δ vs State 1:</strong> <span data-i18n-html="s5.s2.delta">+1 node (SC in meta) · +1 same-domain edge to ADK · 0 new classDefs (meta already existed) · PNG bytes 259 330 → 270 529 (+4.3%)</span>
         </div>
         <ul>
-          <li data-i18n="s5.s2-bullet1">Inference result: uncategorized → user manually picks meta</li>
-          <li data-i18n="s5.s2-bullet2">New node: <code>SC[skill-creator]:::metaDomain</code></li>
-          <li data-i18n="s5.s2-bullet3">New edge: <code>SC -. "same domain" .-> ADK</code> (meta has an existing peer, so dashed same-domain edge)</li>
+          <li data-i18n-html="s5.s2.b1">Inference result: uncategorized → user manually picks meta</li>
+          <li data-i18n-html="s5.s2.b2">New node: <code>SC[skill-creator]:::metaDomain</code></li>
+          <li data-i18n-html="s5.s2.b3">New edge: <code>SC -. "same domain" .-> ADK</code> (meta has an existing peer, so dashed same-domain edge)</li>
         </ul>
         <a href="./assets/screenshots/graph-state-2.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-2.png" data-i18n-attr="alt:s5.s2-png-alt" alt="Skills graph state 2: post-skill-creator +1 node" class="graph-img"></a>
 
@@ -724,10 +824,10 @@ flowchart LR
         <h3 data-i18n="s5.s3">5.4 State 3 (hypothetical): installing 3 desktop skills</h3>
         <p data-i18n="s5.s3-desc">Imagine: what would the graph look like if you installed 3 new desktop-app skills next (e.g. "tauri-template", "electron-perf-audit", "webview-survival-kit")? The graph would evolve as below — desktop domain expands from 1 node to 4 nodes, with 3 same-domain edges automatically added. Note that NF retains its original cross-domain edges to PW and FE.</p>
         <ul>
-          <li data-i18n="s5.s3-bullet1">All 3 new skills infer to desktop (strong keywords: tauri / electron / webview)</li>
-          <li data-i18n="s5.s3-bullet2">New nodes: TT, EPA, WSK (SHORT_ID = first letter of each hyphen segment)</li>
-          <li data-i18n="s5.s3-bullet3">New edges: each new node <code>-. "same domain" .-> NF</code> (dashed, linking to the first peer)</li>
-          <li data-i18n="s5.s3-bullet4">desktop classDef already exists, no new ones created</li>
+          <li data-i18n-html="s5.s3.b1">All 3 new skills infer to desktop (strong keywords: tauri / electron / webview)</li>
+          <li data-i18n-html="s5.s3.b2">New nodes: TT, EPA, WSK (SHORT_ID = first letter of each hyphen segment)</li>
+          <li data-i18n-html="s5.s3.b3">New edges: each new node <code>-. "same domain" .-> NF</code> (dashed, linking to the first peer)</li>
+          <li data-i18n-html="s5.s3.b4">desktop classDef already exists, no new ones created</li>
         </ul>
 
         <div class="mermaid">
@@ -763,16 +863,16 @@ flowchart LR
         <h2 data-i18n="s6.title">§6. Related References</h2>
         <p data-i18n="s6.lead">This handbook is the entry point; the following docs go deeper:</p>
         <ul>
-          <li><a href="./getting-started.html">Getting Started</a> — install on a fresh machine in 10 minutes</li>
-          <li><a href="./architecture.html">Architecture</a> — the two-layer design, the 5 Python lib modules, the install sequence diagram</li>
-          <li><a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" target="_blank" rel="noopener"><code>agent/docs/domain-taxonomy.md</code></a> — the source of truth for the 6-domain rules</li>
+          <li><a href="./getting-started.html">Getting Started</a><span data-i18n="s6.gs.text"> — install on a fresh machine in 10 minutes</span></li>
+          <li><a href="./architecture.html">Architecture</a><span data-i18n="s6.arch.text"> — the two-layer design, the 5 Python lib modules, the install sequence diagram</span></li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" target="_blank" rel="noopener"><code>agent/docs/domain-taxonomy.md</code></a><span data-i18n="s6.tax.text"> — the source of truth for the 6-domain rules</span></li>
         </ul>
 
         <h3 data-i18n="s6.code">Source code</h3>
         <ul>
-          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" target="_blank" rel="noopener"><code>.opencode/commands/</code></a> — the 11 slash command prompt templates (Markdown)</li>
-          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/agent/lib" target="_blank" rel="noopener"><code>agent/lib/</code></a> — the 5 Python modules (portal_client, domain_inference, index_md_writer, graph_writer, doctor)</li>
-          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/portal" target="_blank" rel="noopener"><code>portal/</code></a> — the FastAPI + Vite/Vue local site</li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" target="_blank" rel="noopener"><code>.opencode/commands/</code></a><span data-i18n="s6.cmds.text"> — the 11 slash command prompt templates (Markdown)</span></li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/agent/lib" target="_blank" rel="noopener"><code>agent/lib/</code></a><span data-i18n="s6.lib.text"> — the 5 Python modules (portal_client, domain_inference, index_md_writer, graph_writer, doctor)</span></li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/portal" target="_blank" rel="noopener"><code>portal/</code></a><span data-i18n="s6.portal.text"> — the FastAPI + Vite/Vue local site</span></li>
         </ul>
       </section>
 
