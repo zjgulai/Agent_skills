@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="bg-zinc-950 text-zinc-100 antialiased">
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Architecture · Skills Manager AI Agent</title>
   <meta name="description" content="Two-layer architecture: portal (REST + UI) underneath, agent (orchestration) on top.">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_skills/architecture.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_skills/architecture.html">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['architecture'] = {
+      'nav.getting-started':       '快速开始',
+      'nav.handbook':              '手册',
+      'nav.architecture':          '架构',
+      'nav.github':                'GitHub →',
+      'header.eyebrow':            '文档',
+      'header.title':              '架构',
+      'header.subtitle':           '两层、一份契约、三个元数据文件。',
+      'footer.tagline':            'Skills Manager AI Agent',
+    };
+  </script>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
@@ -34,12 +50,11 @@
       <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
     </a>
     <div class="hidden md:flex items-center gap-6">
-      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Getting Started</a>
-      <a href="./commands.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Commands</a>
-      <a href="./architecture.html" class="text-emerald-400 text-sm">Architecture</a>
-      <a href="./domains.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Domains</a>
-      <a href="./case-study.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors">Case Study</a>
-      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors">GitHub →</a>
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-emerald-400 text-sm" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
     </div>
   </div>
 </nav>
@@ -47,9 +62,9 @@
 <main class="pt-24 max-w-4xl mx-auto px-6 pb-20">
 
   <header class="mb-12">
-    <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">DOCS</p>
-    <h1 class="text-4xl font-bold text-zinc-100 mb-3">Architecture</h1>
-    <p class="text-lg text-zinc-400">Two layers, one contract, three metadata files.</p>
+    <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2" data-i18n="header.eyebrow">DOCS</p>
+    <h1 class="text-4xl font-bold text-zinc-100 mb-3" data-i18n="header.title">Architecture</h1>
+    <p class="text-lg text-zinc-400" data-i18n="header.subtitle">Two layers, one contract, three metadata files.</p>
   </header>
 
   <div class="prose-custom">
@@ -229,5 +244,6 @@ sequenceDiagram
   mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
   hljs.highlightAll();
 </script>
+<script src="./assets/i18n.js" defer></script>
 </body>
 </html>
