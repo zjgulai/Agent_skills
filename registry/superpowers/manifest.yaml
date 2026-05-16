@@ -1,0 +1,29 @@
+kind: skill
+name: superpowers
+version: 0.1.0
+description: Decompose complex engineering tasks into brainstorm / spec / plan / TDD / subagent-execution / review / finalize stages so multi-file multi-module work does not drift. Use when a task spans multiple files, multiple modules, or requires testable iterative refinement.
+domain: meta
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: git
+  ref: obra/superpowers@main
+  subpath: ""
+
+triggers:
+  - complex task
+  - multi-file feature
+  - engineering plan
+  - TDD workflow
+  - superpowers
+
+requires: {}
+
+links:
+  upstream: https://github.com/obra/superpowers

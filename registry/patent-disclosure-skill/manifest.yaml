@@ -1,0 +1,28 @@
+kind: skill
+name: patent-disclosure-skill
+version: 0.1.0
+description: Patent mining, disclosure drafting, prior-art search, and consistency self-check covering full Chinese patent disclosure pipeline — scan project docs to mine patentable points, fuse via discussion, generate disclosure based on a desensitized template, run online prior-art check, self-validate logic closure and formula parameter consistency.
+domain: research
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/patent-disclosure-skill
+
+triggers:
+  - 专利挖掘
+  - 技术交底书
+  - patent disclosure
+  - prior art search
+  - 专利查新
+
+requires: {}
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md

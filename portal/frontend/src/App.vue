@@ -8,6 +8,10 @@ import GraphView from './components/GraphView.vue'
 import SkillDetail from './components/SkillDetail.vue'
 import InstallDialog from './components/InstallDialog.vue'
 import ToastList from './components/ToastList.vue'
+import KindView from './components/KindView.vue'
+
+type TabKey = 'skills' | 'hooks' | 'mcps'
+const tab = ref<TabKey>('skills')
 
 const data = ref<SkillsData | null>(null)
 const loading = ref(true)
@@ -104,6 +108,13 @@ onMounted(load)
       @refresh="onRefresh"
     />
 
+    <nav class="tab-bar">
+      <button :class="{ active: tab === 'skills' }" @click="tab = 'skills'">Skills</button>
+      <button :class="{ active: tab === 'hooks' }" @click="tab = 'hooks'">Hooks</button>
+      <button :class="{ active: tab === 'mcps' }" @click="tab = 'mcps'">MCPs</button>
+    </nav>
+
+    <template v-if="tab === 'skills'">
     <section class="hero">
       <h1>Skills <span class="accent">Portal</span></h1>
       <p class="subtitle">
@@ -179,6 +190,10 @@ onMounted(load)
       @installed="onInstalled"
       @toast="(k, t) => pushToast(k, t)"
     />
+    </template>
+
+    <KindView v-if="tab === 'hooks'" kind="hook" />
+    <KindView v-if="tab === 'mcps'" kind="mcp" />
 
     <ToastList :toasts="toasts" />
   </div>

@@ -1,0 +1,28 @@
+kind: skill
+name: code-review
+version: 0.1.0
+description: Switch to reviewer mindset after non-trivial code generation — examine structure clarity, naming, missing tests, edge cases, performance traps, security issues, and (for frontend) accessibility, state ownership, interaction consistency. Use as the default "second pass" after every meaningful code change, not just before merge.
+domain: code-quality
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: git
+  ref: vercel-labs/agent-skills@main
+  subpath: skills/code-review
+
+triggers:
+  - code review
+  - review my code
+  - second pass
+  - reviewer mindset
+
+requires: {}
+
+links:
+  upstream: https://github.com/vercel-labs/agent-skills

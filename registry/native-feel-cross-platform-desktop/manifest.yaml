@@ -1,0 +1,33 @@
+kind: skill
+name: native-feel-cross-platform-desktop
+version: 0.1.0
+description: Design, prototype, or rewrite cross-platform desktop apps (macOS + Windows + optional Linux) that must feel indistinguishable from native — fast launch, native windowing, native input, native materials. Built from Raycast 2.0 reverse-engineering plus public technical writeups.
+domain: desktop
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/native-feel-cross-platform-desktop
+
+triggers:
+  - cross-platform desktop
+  - Electron alternative
+  - Tauri vs native
+  - WebView wrapper
+  - WKWebView
+  - Raycast architecture
+  - WebKit/WebView2 quirks
+  - system tray app
+  - global hotkey app
+  - launcher app
+
+requires: {}
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md

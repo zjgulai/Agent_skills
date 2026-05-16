@@ -1,0 +1,27 @@
+kind: skill
+name: guizang-ppt-skill
+version: 0.1.0
+description: Generate horizontal-paging web PPT (single HTML file) with WebGL background, chapter cover, data-poster, image grid templates. Provides two styles — electronic magazine (serif) and dynamic poster. Use when the user wants a rich self-contained presentation HTML.
+domain: frontend
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/guizang-ppt-skill
+
+triggers:
+  - PPT
+  - presentation HTML
+  - web slide deck
+  - 网页 PPT
+
+requires: {}
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md

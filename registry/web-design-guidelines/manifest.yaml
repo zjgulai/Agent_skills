@@ -1,0 +1,27 @@
+kind: skill
+name: web-design-guidelines
+version: 0.1.0
+description: Review HTML/CSS/TSX/component code against web design guidelines — accessibility, layout hierarchy, form states, interaction feedback, spacing consistency, visual hierarchy. Pair with frontend-design as the "loose generate then tighten with rules" workflow.
+domain: frontend
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: git
+  ref: vercel-labs/agent-skills@main
+  subpath: skills/web-design-guidelines
+
+triggers:
+  - web design
+  - accessibility
+  - design review
+  - layout review
+  - visual hierarchy
+
+links:
+  upstream: https://github.com/vercel-labs/agent-skills

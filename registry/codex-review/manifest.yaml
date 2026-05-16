@@ -1,0 +1,29 @@
+kind: skill
+name: codex-review
+version: 0.1.0
+description: Run codex review for pre-commit / pre-PR closeout — covers uncommitted local changes, PR branch vs main, parallel tests. Use when about to ship, commit, or open a PR after non-trivial code changes.
+domain: code-quality
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/codex-review
+
+triggers:
+  - codex review
+  - autoreview
+  - pre-commit review
+  - pre-PR review
+  - ship review
+
+requires:
+  binaries: [codex]
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md

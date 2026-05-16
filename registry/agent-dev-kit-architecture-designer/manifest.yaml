@@ -1,0 +1,31 @@
+kind: skill
+name: agent-dev-kit-architecture-designer
+version: 0.1.0
+description: Design, audit, or refactor an AI-agent-ready repository using the Agent Development Kit five-layer pattern (Memory / Knowledge / Guardrail / Delegation / Distribution). Trigger on requests involving CLAUDE.md, skills, hooks, subagents, plugins, agent directory structure, agent guardrails, team-wide agent distribution.
+domain: meta
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/agent-dev-kit-architecture-designer
+
+triggers:
+  - CLAUDE.md
+  - skills
+  - hooks
+  - subagents
+  - plugins
+  - agent directory structure
+  - agent guardrails
+  - team-wide agent distribution
+
+requires: {}
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md

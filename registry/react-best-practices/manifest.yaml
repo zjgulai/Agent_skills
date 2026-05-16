@@ -1,0 +1,30 @@
+kind: skill
+name: react-best-practices
+version: 0.1.0
+description: Write React/Next.js code like a senior engineer — eliminate request waterfalls, oversized bundles, server-vs-client confusion, redundant renders, premature memo, bad data-fetching patterns. Use whenever generating React or Next.js components, especially for performance-sensitive or production code.
+domain: frontend
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: git
+  ref: vercel-labs/agent-skills@main
+  subpath: skills/react-best-practices
+
+triggers:
+  - react
+  - nextjs
+  - performance
+  - bundle size
+  - server component
+  - client component
+  - useEffect
+
+links:
+  upstream: https://github.com/vercel-labs/agent-skills
+  docs: https://vercel.com/blog/introducing-react-best-practices

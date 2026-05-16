@@ -1,0 +1,30 @@
+kind: skill
+name: document-skills
+version: 0.1.0
+description: Handle non-code deliverables — PDF, DOCX, XLSX, PPTX. Use whenever the project needs proposals, reports, contracts, RFPs, slide decks, spreadsheets, or any printable formal document, not just source code. Particularly valuable for consulting/outsourcing/presale/delivery teams.
+domain: ops
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: git
+  ref: anthropics/skills@main
+  subpath: skills/document-skills
+
+triggers:
+  - PDF
+  - DOCX
+  - XLSX
+  - PPTX
+  - report
+  - proposal
+  - contract
+  - 文档生成
+
+links:
+  upstream: https://github.com/anthropics/skills

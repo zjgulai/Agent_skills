@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent Kit · 用户级 AI 工作流工具厂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0e1726;
+  --bg-elev: #16223a;
+  --line: #243352;
+  --ink: #e5ecf7;
+  --ink-dim: #95a4c2;
+  --accent: #fbbf24;
+  --accent-soft: rgba(251, 191, 36, 0.18);
+  --p0: #ef4444;
+  --p1: #f59e0b;
+  --p2: #94a3b8;
+  --ok: #4ade80;
+  --warn: #fb923c;
+  --no: #64748b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background:
+    radial-gradient(ellipse 1200px 600px at 80% -200px, rgba(251, 191, 36, 0.07), transparent 60%),
+    radial-gradient(ellipse 800px 400px at 10% 100%, rgba(99, 102, 241, 0.08), transparent 60%),
+    var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+h1, h2, h3 { font-family: 'Source Serif Pro', Georgia, serif; font-weight: 700; line-height: 1.15; }
+code, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.shell { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+header.top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; border-bottom: 1px solid var(--line);
+}
+.brand { font-family: 'Source Serif Pro'; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+.brand .dot { color: var(--accent); }
+.nav { display: flex; gap: 28px; font-size: 14px; color: var(--ink-dim); }
+.nav a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.nav a:hover { color: var(--accent); }
+
+.hero {
+  display: grid; grid-template-columns: 1fr 380px; gap: 64px;
+  padding: 96px 0 80px;
+}
+.hero h1 { font-size: 64px; letter-spacing: -0.025em; margin-bottom: 24px; }
+.hero h1 .accent { color: var(--accent); font-style: italic; }
+.hero .lead { font-size: 18px; color: var(--ink-dim); max-width: 580px; margin-bottom: 32px; }
+.hero .lead strong { color: var(--ink); font-weight: 600; }
+
+.cta { display: flex; gap: 16px; align-items: center; margin-bottom: 40px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 8px; font-weight: 500; font-size: 15px;
+  text-decoration: none; transition: all 0.15s;
+}
+.btn-primary { background: var(--accent); color: var(--bg); }
+.btn-primary:hover { background: #fbcd56; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--ink-dim); border: 1px solid var(--line); }
+.btn-ghost:hover { color: var(--ink); border-color: var(--ink-dim); }
+
+.stat-panel {
+  background: rgba(22, 34, 58, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 32px;
+  font-size: 14px;
+}
+.stat-panel h3 { font-size: 14px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; font-family: 'Inter'; font-weight: 600; }
+.stat-row { display: flex; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--line); }
+.stat-row:first-of-type { border-top: none; }
+.stat-row .label { color: var(--ink-dim); }
+.stat-row .value { font-family: 'JetBrains Mono'; font-weight: 500; color: var(--accent); font-size: 16px; }
+
+section { padding: 80px 0; border-top: 1px solid var(--line); }
+section h2 { font-size: 36px; margin-bottom: 16px; letter-spacing: -0.015em; }
+section .section-lead { color: var(--ink-dim); font-size: 16px; max-width: 720px; margin-bottom: 48px; }
+
+.repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.repo-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.repo-card:hover { transform: translateY(-4px); border-color: var(--accent-soft); }
+.repo-card .badge {
+  display: inline-block; font-size: 11px; padding: 4px 10px;
+  background: var(--accent-soft); color: var(--accent);
+  border-radius: 12px; margin-bottom: 16px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.repo-card h3 { font-size: 24px; margin-bottom: 12px; }
+.repo-card .desc { color: var(--ink-dim); font-size: 14px; margin-bottom: 20px; line-height: 1.55; }
+.repo-card .count { font-size: 56px; font-family: 'Source Serif Pro'; color: var(--accent); font-weight: 700; line-height: 1; }
+.repo-card .count-suffix { color: var(--ink-dim); font-size: 14px; margin-left: 8px; }
+.repo-card ul { list-style: none; margin-top: 18px; font-size: 13px; }
+.repo-card ul li { padding: 4px 0; color: var(--ink-dim); }
+.repo-card ul li .pri { font-family: 'JetBrains Mono'; font-size: 11px; margin-right: 8px; padding: 1px 6px; border-radius: 3px; color: #fff; }
+.repo-card ul li .pri.p0 { background: var(--p0); }
+.repo-card ul li .pri.p1 { background: var(--p1); color: #0e1726; }
+.repo-card ul li .pri.p2 { background: var(--p2); color: #0e1726; }
+
+.matrix { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.matrix th, .matrix td {
+  text-align: left; padding: 16px 12px;
+  border-bottom: 1px solid var(--line); font-size: 14px;
+}
+.matrix th { color: var(--ink-dim); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.matrix td.kind { font-weight: 600; font-family: 'Source Serif Pro'; font-size: 16px; }
+.chip { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; font-family: 'JetBrains Mono'; }
+.chip.native { background: rgba(74, 222, 128, 0.15); color: var(--ok); }
+.chip.adapter { background: rgba(251, 146, 60, 0.15); color: var(--warn); }
+.chip.unsupported { background: rgba(100, 116, 139, 0.2); color: var(--no); }
+
+.flow {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 40px;
+  margin-top: 32px;
+}
+.flow ol { list-style: none; counter-reset: step; }
+.flow ol li {
+  counter-increment: step;
+  padding: 18px 0 18px 56px;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.flow ol li:last-child { border-bottom: none; }
+.flow ol li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent); color: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Source Serif Pro'; font-weight: 700; font-size: 17px;
+}
+.flow li .step-title { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.flow li .step-desc { color: var(--ink-dim); font-size: 14px; }
+.flow li code { background: rgba(251, 191, 36, 0.1); color: var(--accent); padding: 1px 6px; border-radius: 3px; font-size: 13px; }
+
+footer {
+  padding: 60px 0 80px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  color: var(--ink-dim); font-size: 13px;
+}
+footer .meta { font-family: 'JetBrains Mono'; margin-top: 12px; font-size: 12px; opacity: 0.7; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 64px 0 48px; }
+  .hero h1 { font-size: 44px; }
+  .repo-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="top">
+    <div class="brand">agent<span class="dot">·</span>kit</div>
+    <nav class="nav">
+      <a href="#repos">Three Source Repos</a>
+      <a href="#matrix">Compat Matrix</a>
+      <a href="#flow">Idea → PR Flow</a>
+    </nav>
+  </header>
+
+  <section class="hero" style="border-top: none; padding-top: 96px;">
+    <div>
+      <h1>Your local <span class="accent">AI workflow</span> factory</h1>
+      <p class="lead">
+        Three source repos manage <strong>35 components</strong> across <strong>4 AI CLIs</strong> —
+        opencode, codex, cursor, kimi.
+        One manifest schema, four adapters, zero runtime dependencies in hook code.
+        Real test coverage, real install/uninstall round-trips, real macOS notification.
+      </p>
+      <div class="cta">
+        <a href="#repos" class="btn btn-primary">Explore →</a>
+        <a href="#flow" class="btn btn-ghost">See the idea→PR flow</a>
+      </div>
+    </div>
+
+    <aside class="stat-panel">
+      <h3>Live numbers</h3>
+      <div class="stat-row"><span class="label">Skills</span><span class="value">16</span></div>
+      <div class="stat-row"><span class="label">Hooks</span><span class="value">9</span></div>
+      <div class="stat-row"><span class="label">MCPs</span><span class="value">10</span></div>
+      <div class="stat-row"><span class="label">Tests passing</span><span class="value">185 / 185</span></div>
+      <div class="stat-row"><span class="label">Clients</span><span class="value">4</span></div>
+      <div class="stat-row"><span class="label">Portal API endpoints</span><span class="value">7</span></div>
+    </aside>
+  </section>
+
+  <section id="repos">
+    <h2>Three source repos</h2>
+    <p class="section-lead">
+      Each repo follows the same shape: <code>registry/&lt;name&gt;/manifest.yaml</code> is the single source of truth.
+      <code>adapters/&lt;client&gt;/</code> translates to each CLI's native form.
+      <code>bin/agent-&lt;kind&gt;</code> drives <code>list / install / uninstall / doctor / show</code>.
+    </p>
+
+    <div class="repo-grid">
+      <article class="repo-card">
+        <span class="badge">Skills</span>
+        <h3>Agent_skills</h3>
+        <p class="desc">Methodology layer — how the agent thinks. Frontend design, React best practices, code review, PR craft, document generation.</p>
+        <div><span class="count">16</span><span class="count-suffix">skills</span></div>
+        <ul>
+          <li><span class="pri p0">P0</span>frontend-design</li>
+          <li><span class="pri p0">P0</span>code-review</li>
+          <li><span class="pri p0">P0</span>create-pr</li>
+          <li><span class="pri p0">P0</span>superpowers</li>
+          <li><span class="pri p1">P1</span>react-best-practices</li>
+          <li><span class="pri p1">P1</span>web-design-guidelines</li>
+          <li><span class="pri p1">P1</span>+ 9 more</li>
+        </ul>
+      </article>
+
+      <article class="repo-card">
+        <span class="badge">Hooks</span>
+        <h3>Agent_hook</h3>
+        <p class="desc">Enforcement layer — what must happen. Sensitive file protection, dangerous bash guard, format-on-write, session context, final verify.</p>
+        <div><span class="count">9</span><span class="count-suffix">hooks</span></div>
+        <ul>
+          <li><span class="pri p0">P0</span>protect-sensitive-files</li>
+          <li><span class="pri p0">P0</span>guard-bash</li>
+          <li><span class="pri p0">P0</span>post-edit-format</li>
+          <li><span class="pri p0">P0</span>session-context-injector</li>
+          <li><span class="pri p0">P0</span>final-verify</li>
+          <li><span class="pri p1">P1</span>+ 4 more</li>
+        </ul>
+      </article>
+
+      <article class="repo-card">
+        <span class="badge">MCPs</span>
+        <h3>Agent_mcp</h3>
+        <p class="desc">Context layer — what the agent can touch. GitHub, filesystem, Playwright browser, Context7 docs, sequential thinking, Postgres, Sentry.</p>
+        <div><span class="count">10</span><span class="count-suffix">mcps</span></div>
+        <ul>
+          <li><span class="pri p0">P0</span>github</li>
+          <li><span class="pri p0">P0</span>filesystem</li>
+          <li><span class="pri p0">P0</span>context7</li>
+          <li><span class="pri p0">P0</span>playwright</li>
+          <li><span class="pri p0">P0</span>sequential-thinking</li>
+          <li><span class="pri p0">P0</span>git</li>
+          <li><span class="pri p1">P1</span>+ 4 more</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="matrix">
+    <h2>Compatibility matrix</h2>
+    <p class="section-lead">
+      Different clients handle integration differently. Our adapters know the truth so the manifest stays clean.
+    </p>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>component</th>
+          <th>opencode</th>
+          <th>codex</th>
+          <th>cursor</th>
+          <th>kimi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="kind">Skills</td>
+          <td><span class="chip native">native</span></td>
+          <td><span class="chip native">native</span></td>
+          <td><span class="chip native">native</span></td>
+          <td><span class="chip native">extra_skill_dirs</span></td>
+        </tr>
+        <tr>
+          <td class="kind">Hooks</td>
+          <td><span class="chip native">JS plugin</span></td>
+          <td><span class="chip unsupported">unsupported</span></td>
+          <td><span class="chip adapter">degraded to Rule</span></td>
+          <td><span class="chip native">config.toml hooks=[]</span></td>
+        </tr>
+        <tr>
+          <td class="kind">MCPs</td>
+          <td><span class="chip native">JSON merge</span></td>
+          <td><span class="chip native">TOML merge</span></td>
+          <td><span class="chip native">JSON merge</span></td>
+          <td><span class="chip native">kimi mcp add</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="flow">
+    <h2>Idea → PR · the full chain</h2>
+    <p class="section-lead">
+      A single feature trip. Each box is a real tool invocation with evidence in <code>docs/demo/E2E-DEMO.md</code>.
+    </p>
+    <div class="flow">
+      <ol>
+        <li>
+          <div class="step-title">Idea forms — <code>frontend-design</code> skill loads</div>
+          <div class="step-desc">From <code>anthropics/skills</code> via real git clone. Agent picks a visual direction instead of the SaaS-template mean.</div>
+        </li>
+        <li>
+          <div class="step-title">Page generated — <code>agent-kit.html</code></div>
+          <div class="step-desc">This page right here. Serif headlines, amber accent, glass panels, count-ups.</div>
+        </li>
+        <li>
+          <div class="step-title">Render check — <code>playwright</code> MCP (or fallback)</div>
+          <div class="step-desc">If playwright MCP is installed, the agent navigates and screenshots; if not, falls back to <code>open</code>.</div>
+        </li>
+        <li>
+          <div class="step-title">Self review — <code>code-review</code> skill</div>
+          <div class="step-desc">Semantic HTML, AA contrast, fallback fonts, no inline JS, no surprise dependencies.</div>
+        </li>
+        <li>
+          <div class="step-title">Cleanup attempt — <code>guard-bash</code> hook blocks</div>
+          <div class="step-desc">Agent tries <code>rm -rf .sisyphus/snapshots</code> → hook returns <code>exit 2</code> → opencode shows reason to user.</div>
+        </li>
+        <li>
+          <div class="step-title">PR drafted — <code>create-pr</code> skill</div>
+          <div class="step-desc">Title, summary, verification, risks, rollback. Reviewer-ready.</div>
+        </li>
+        <li>
+          <div class="step-title">Stop — <code>final-verify</code> hook reports</div>
+          <div class="step-desc">Changed files, open TODOs, optional test run, rendered as a JSON summary the agent surfaces.</div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <div>Built by lute · powered by <strong>185 tests</strong> all green and a refusal to declare done without using the artifact.</div>
+    <div class="meta">2026-05-16 · skills/hooks/mcps managed via <code>agent-kit new &lt;kind&gt; &lt;name&gt;</code></div>
+  </footer>
+
+</div>
+</body>
+</html>

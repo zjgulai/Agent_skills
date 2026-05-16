@@ -45,3 +45,46 @@ export interface InstallResponse {
   skill_dir?: string
   warnings?: string[]
 }
+
+export interface HookItem {
+  name: string
+  version: string
+  description: string
+  domain: string
+  priority: 'P0' | 'P1' | 'P2'
+  hook_events: string[]
+  matchers: string[]
+  compatibility: { opencode: string; codex: string; cursor: string; kimi: string }
+  requires: { binaries?: string[]; env?: string[] }
+  triggers: string[]
+  links: Record<string, string>
+}
+
+export interface HooksData {
+  kind: 'hook'
+  repo: string
+  count: number
+  items: HookItem[]
+}
+
+export interface McpItem {
+  name: string
+  version: string
+  description: string
+  domain: string
+  priority: 'P0' | 'P1' | 'P2'
+  mcp_command: string[]
+  compatibility: { opencode: string; codex: string; cursor: string; kimi: string }
+  requires: { binaries?: string[]; env?: string[] }
+  triggers: string[]
+  links: Record<string, string>
+  env_satisfied: Record<string, boolean>
+  binaries_satisfied: Record<string, boolean>
+}
+
+export interface McpsData {
+  kind: 'mcp'
+  repo: string
+  count: number
+  items: McpItem[]
+}

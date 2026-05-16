@@ -21,6 +21,8 @@ from pydantic import BaseModel
 
 from build_index import DATA_FILE, SKILLS_ROOT, build, parse_frontmatter
 from installer import install_from_github, install_from_upload, uninstall
+from hooks_api import router as hooks_router
+from mcps_api import router as mcps_router
 
 app = FastAPI(
     title="Skills Portal API",
@@ -29,6 +31,9 @@ app = FastAPI(
     redoc_url="/api/redoc",
     openapi_url="/api/openapi.json",
 )
+
+app.include_router(hooks_router)
+app.include_router(mcps_router)
 
 
 def _ensure_data() -> dict:

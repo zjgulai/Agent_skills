@@ -1,0 +1,28 @@
+kind: skill
+name: startup-pressure-test
+version: 0.1.0
+description: Brutally evaluate and refine startup ideas with practical early-stage startup frameworks. Use when the user asks to pressure-test a startup idea, validate whether the problem is real, map competitors, or stress the go-to-market plan.
+domain: founder
+priority: P1
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/startup-pressure-test
+
+triggers:
+  - startup idea
+  - pressure test
+  - validate problem
+  - competitor mapping
+  - go-to-market
+
+requires: {}
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md

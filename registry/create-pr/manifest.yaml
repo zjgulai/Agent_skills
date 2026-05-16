@@ -1,0 +1,29 @@
+kind: skill
+name: create-pr
+version: 0.1.0
+description: Package code changes into reviewable, mergeable, communicable pull requests — title, description, scope, test results, risks, screenshots, rollback notes, checklist. Use whenever local changes need to land on remote as a PR a human reviewer can actually approve.
+domain: ops
+priority: P0
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: local
+  path: registry/create-pr/source/
+
+triggers:
+  - create PR
+  - open PR
+  - pull request
+  - PR description
+  - PR template
+
+requires:
+  binaries: [git, gh]
+
+links:
+  docs: https://cli.github.com/manual/gh_pr_create

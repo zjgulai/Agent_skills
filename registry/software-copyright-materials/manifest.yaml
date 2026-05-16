@@ -1,0 +1,28 @@
+kind: skill
+name: software-copyright-materials
+version: 0.1.0
+description: Generate guided Chinese software copyright application materials from a real project. Workflow analyzes the imported project, extracts real source code, creates Markdown drafts for user confirmation, then uses bundled DOCX tooling to produce final Word documents and TXT.
+domain: ops
+priority: P2
+
+compatibility:
+  opencode: native
+  codex: adapter
+  cursor: adapter
+  kimi: adapter
+
+source:
+  type: external
+  path: ~/.config/opencode/skills/software-copyright-materials
+
+triggers:
+  - 软件著作权
+  - 软著申请资料
+  - 软著代码材料
+  - 操作手册
+  - software copyright registration
+
+requires: {}
+
+links:
+  managed_in: ~/.config/opencode/skills/INDEX.md
