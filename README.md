@@ -1,6 +1,39 @@
 # Skills Manager AI Agent
 
-OpenCode 用户级 skills 的统一管理 AI agent。在 `~/.config/opencode/skills/` 之上叠加一层会自动安装、分类、画图、健康检查、选型推荐的智能编排。
+[![Site](https://img.shields.io/badge/site-online-10b981.svg?style=flat-square)](https://zjgulai.github.io/Agent_skills/)
+[![Pages](https://img.shields.io/github/deployments/zjgulai/Agent_skills/github-pages?style=flat-square&label=Pages)](https://github.com/zjgulai/Agent_skills/deployments)
+[![License](https://img.shields.io/github/license/zjgulai/Agent_skills?style=flat-square)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/zjgulai/Agent_skills?style=flat-square)](https://github.com/zjgulai/Agent_skills/commits/main)
+[![Made with](https://img.shields.io/badge/made%20with-OpenCode%20%2B%20Claude-6B5B95?style=flat-square)](https://github.com/anomalyco/opencode)
+[![Bilingual](https://img.shields.io/badge/docs-EN%20%2B%20%E4%B8%AD%E6%96%87-blueviolet?style=flat-square)](https://zjgulai.github.io/Agent_skills/handbook.html)
+
+> **OpenCode skills 缺失的生命周期层。** 安装 · 分类 · 图谱 · 诊断 · 推荐 —— 全部由你笔电上跑的本地 FastAPI + Vue portal 驱动。
+
+📖 **[在线手册](https://zjgulai.github.io/Agent_skills/handbook.html)** · [快速开始](https://zjgulai.github.io/Agent_skills/getting-started.html) · [架构](https://zjgulai.github.io/Agent_skills/architecture.html)
+
+---
+
+## Why this exists
+
+如果你在 OpenCode 上装了 **≥ 3 个 skill**，你大概率遇到过这些痛点：
+
+- 🤔 **不记得哪个 skill 该 load**——"我要做 PPT，是 guizang-ppt-skill 还是 frontend-ui-ux？"
+- 📝 **手工维护 INDEX.md 又累又错**——每装一个新 skill 都得手写分类、画图、改链接
+- 🗂️ **skill 越多越混乱**——8 个、12 个、20 个之后，光"我装了什么"都说不清
+- 🔧 **要在多台机器之间同步 skill 配置**——complex
+- 🩺 **某个 skill 半个月没用，今天调忽然报错**——是依赖缺了还是 frontmatter 出问题？没法快速诊断
+
+**Skills Manager AI Agent 把这 5 件事变成 11 条命令。**
+
+- `/skill-install <url>` —— 一条命令，clone + 推断域 + 改 INDEX + 画 graph + 重渲，**端到端约 30 秒**
+- `/skill-recommend "做一份瑞士风 PPT"` —— 描述任务，自动推 `load_skills=[...]`
+- `/skill-doctor` —— 5 条规则体检每个已装 skill
+- `/skill-graph-sync` —— 自动对齐 INDEX 与图谱
+- ……另外 7 条命令覆盖更新、卸载、归类、portal 控制
+
+它不替代 OpenCode 本身，**只在它之上加一层"管理"**。skill 仓库本体仍住在 `~/.config/opencode/skills/`，不动它的目录结构。
+
+---
 
 ## 这是什么
 
@@ -45,6 +78,8 @@ cd ~/project/Agent/Agent_skills
 | `/skill-graph-sync` | INDEX.md → mmd → png 重渲（幂等） |
 | `/portal-start` `/portal-stop` `/portal-status` | Portal 生命周期 |
 
+完整参考：[手册 §3 11 个方法](https://zjgulai.github.io/Agent_skills/handbook.html#methods)
+
 ## 硬约束
 
 - skill 文件本身的增删改 → **必走 portal API（5174）**
@@ -52,7 +87,12 @@ cd ~/project/Agent/Agent_skills
 
 ## 详细计划
 
+- 在线手册：[zjgulai.github.io/Agent_skills](https://zjgulai.github.io/Agent_skills/handbook.html)
 - 安装：[`docs/INSTALL.md`](docs/INSTALL.md)
 - 主计划：[`.sisyphus/plans/01-skills-manager-agent-bootstrap.md`](.sisyphus/plans/01-skills-manager-agent-bootstrap.md)
 - 执行 TODO：[`.sisyphus/plans/02-execution-todo.md`](.sisyphus/plans/02-execution-todo.md)
 - 域分类规则：[`agent/docs/domain-taxonomy.md`](agent/docs/domain-taxonomy.md)
+
+## License
+
+[MIT](LICENSE) © 2026 Bestore.Pray
