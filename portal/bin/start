@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BACKEND="$ROOT/backend"
+FRONTEND="$ROOT/frontend"
+
+if [ ! -x "$BACKEND/.venv/bin/uvicorn" ]; then
+  echo "❌ backend venv not ready. Run install steps in README first."
+  exit 1
+fi
+
+if [ ! -d "$FRONTEND/node_modules" ]; then
+  echo "❌ frontend deps not installed. Run: cd frontend && npm install"
+  exit 1
+fi
+
+if lsof -ti:5174 >/dev/null 2>&1; then
+  echo "❌ port 5174 already in use. Kill it or change port in backend/app.py."
+  exit 1
+fi
+if lsof -ti:5173 >/dev/null 2>&1; then
+  echo "❌ port 5173 already in use. Kill it or change vite.config.ts."
+  exit 1
+fi
+
+USE_PORTLESS=true
+PORTLESS_HOSTNAME="skills-portal.localhost"
+if ! command -v portless >/dev/null 2>&1; then
+  USE_PORTLESS=false
+  echo "ℹ portless not found; falling back to plain http://localhost:5173"
+fi
+
+mkdir -p "$BACKEND/data"
+"$BACKEND/.venv/bin/python" "$BACKEND/build_index.py" > /dev/null
+
+PIDS=()
+cleanup() {
+  echo ""
+  echo "🛑 stopping..."
+  for pid in "${PIDS[@]}"; do
+    kill "$pid" 2>/dev/null || true
+  done
+  wait 2>/dev/null || true
+  echo "stopped."
+}
+trap cleanup EXIT INT TERM
+
+(
+  cd "$BACKEND"
+  exec .venv/bin/uvicorn app:app --host 127.0.0.1 --port 5174 --reload --log-level warning
+) &
+PIDS+=($!)
+
+sleep 1
+
+if $USE_PORTLESS; then
+  (
+    cd "$FRONTEND"
+    exec portless run --name skills-portal --app-port 5173 -- npm run dev
+  ) &
+  PIDS+=($!)
+else
+  (
+    cd "$FRONTEND"
+    exec npm run dev
+  ) &
+  PIDS+=($!)
+fi
+
+sleep 3
+echo ""
+echo "✅ Skills Portal up:"
+if $USE_PORTLESS; then
+  echo "   Frontend (HTTPS):  https://${PORTLESS_HOSTNAME}"
+  echo "   API health:        https://${PORTLESS_HOSTNAME}/api/health"
+  echo "   OpenAPI:           https://${PORTLESS_HOSTNAME}/api/docs   (or http://localhost:5174/docs)"
+else
+  echo "   Frontend:  http://localhost:5173"
+  echo "   API:       http://localhost:5174/api/health"
+  echo "   OpenAPI:   http://localhost:5174/docs"
+fi
+echo ""
+echo "Press Ctrl+C to stop both."
+
+wait

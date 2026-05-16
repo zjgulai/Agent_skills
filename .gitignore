@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Portal runtime artifacts (regenerated on every start)
+portal/backend/.venv/
+portal/backend/data/skills-data.json
+portal/backend/__pycache__/
+
+# Frontend build / deps
+portal/frontend/node_modules/
+portal/frontend/dist/
+portal/frontend/tsconfig.tsbuildinfo
+
+# Sisyphus scratchpad (notes during a session, not history)
+.sisyphus/scratch/
+
+# OpenCode run-continuation state (per-session, not history)
+.sisyphus/run-continuation/
+
+# Index/graph backups produced by index_md_writer
+INDEX.md.bak.*
+skills-graph.mmd.bak.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
