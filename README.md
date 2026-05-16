@@ -96,3 +96,10 @@ cd ~/project/Agent/Agent_skills
 ## License
 
 [MIT](LICENSE) © 2026 Bestore.Pray
+
+## Related repos
+
+Agent_skills is the **methodology** layer of a three-repo system. The two companion repos share the same `agent/lib/manifest.py` (byte-identical, md5 `b46c2f55…`) and the same 4-client adapter pattern (opencode · codex · cursor · kimi):
+
+- [Agent_hook](https://github.com/zjgulai/Agent_hook) — **enforcement** layer · 9 hooks · Claude Code style Python with stdin/stdout/exit-2 protocol
+- [Agent_mcp](https://github.com/zjgulai/Agent_mcp) — **context** layer · 10 MCP servers · one install command writes to all 4 client configs
