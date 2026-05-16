@@ -1,6 +1,6 @@
 # Skills Portal
 
-本地部署的 OpenCode skills 管理网站。把 [`~/.config/opencode/skills/`](file:///Users/lute/.config/opencode/skills) 下的 skill 仓库管理可视化：分类展示、关联图谱、一键安装/卸载。
+本地部署的 OpenCode skills 管理网站。把 `~/.config/opencode/skills/` 下的 skill 仓库管理可视化：分类展示、关联图谱、一键安装/卸载。
 
 ## 截图
 
@@ -139,11 +139,11 @@ GitHub URL：
 
 ### 加一个新域
 
-编辑 [`build_index.py`](backend/build_index.py) 的 `DOMAIN_DEFAULTS` 和 `DOMAIN_LABEL_TO_ID`，对应再去 [`INDEX.md`](file:///Users/lute/.config/opencode/skills/INDEX.md) 加一个 `### 域 N · 新域名` 段落。
+编辑 [`build_index.py`](backend/build_index.py) 的 `DOMAIN_DEFAULTS` 和 `DOMAIN_LABEL_TO_ID`，对应再去 `INDEX.md` 加一个 `### 域 N · 新域名` 段落。
 
 ### 改 graph 显示
 
-源码在 [`skills-graph.mmd`](file:///Users/lute/.config/opencode/skills/skills-graph.mmd)。GraphView.vue 直接读后端送来的 `mermaid_source` 字段，不需要前端改。
+源码在 `skills-graph.mmd`。GraphView.vue 直接读后端送来的 `mermaid_source` 字段，不需要前端改。
 
 ### 接入"调用 skill 上下文"
 

@@ -11,16 +11,16 @@
 - `.opencode/` — OpenCode 项目级 commands + subagents 自动发现目录。
 - `agent/lib/` — Python 工具层（被 commands 调用），`agent/docs/` — 人类可读 specs。
 
-**Skill 仓库本体住在 [`~/.config/opencode/skills/`](file:///Users/lute/.config/opencode/skills/)，本项目不动它的目录结构，只管"管理"它们。**
+**Skill 仓库本体住在 `~/.config/opencode/skills/`，本项目不动它的目录结构，只管"管理"它们。**
 
 ## 二、必读
 
 接到任何任务前先读：
 
-1. [本计划主文档](file:///Users/lute/project/Agent/Agent_skills/.sisyphus/plans/01-skills-manager-agent-bootstrap.md) — 决策、目标结构、风险、边界
-2. [执行 TODO list](file:///Users/lute/project/Agent/Agent_skills/.sisyphus/plans/02-execution-todo.md) — 28 项可勾选任务
-3. [portal/README.md](file:///Users/lute/project/Agent/Agent_skills/portal/README.md) — portal API 参考与端口规范
-4. [`~/.config/opencode/skills/INDEX.md`](file:///Users/lute/.config/opencode/skills/INDEX.md) — 6 域分类的真相源
+1. [本计划主文档](.sisyphus/plans/01-skills-manager-agent-bootstrap.md) — 决策、目标结构、风险、边界
+2. [执行 TODO list](.sisyphus/plans/02-execution-todo.md) — 28 项可勾选任务
+3. [portal/README.md](portal/README.md) — portal API 参考与端口规范
+4. `~/.config/opencode/skills/INDEX.md` — 6 域分类的真相源
 
 ## 三、硬约束（不可违反）
 
@@ -93,7 +93,7 @@ ip         知识产权交付（专利, 软著, copyright）
 tooling    工具增强 · 横切层（git, screenshot, ppt, docx, image, markdown）
 ```
 
-详见 [agent/docs/domain-taxonomy.md](file:///Users/lute/project/Agent/Agent_skills/agent/docs/domain-taxonomy.md)（落地时生成）。
+详见 [agent/docs/domain-taxonomy.md](agent/docs/domain-taxonomy.md)（落地时生成）。
 
 ## 七、不要做的事（v1 边界）
 

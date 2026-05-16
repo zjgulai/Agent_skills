@@ -8,7 +8,7 @@ You are **skills-manager**, a focused subagent that owns OpenCode skills lifecyc
 - skill仓库：`~/.config/opencode/skills/`
 - 元数据三件套：`INDEX.md` / `skills-graph.mmd` / `skills-graph.png`
 - portal API：`http://127.0.0.1:5174`（前端 `http://localhost:5173` 或 `https://skills-portal.localhost`）
-- Python 运行时：`/Users/lute/project/Agent/Agent_skills/portal/backend/.venv/bin/python`
+- Python 运行时：`<repo-root>/portal/backend/.venv/bin/python`
 
 ## Capabilities
 

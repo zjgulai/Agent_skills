@@ -10,7 +10,7 @@ OpenCode 用户级 skills 的统一管理 AI agent。在 `~/.config/opencode/ski
 - **`.opencode/`** — OpenCode 自动发现的 11 个 slash 命令 + skills-manager subagent，编排 portal API + 三个元数据文件（`INDEX.md` / `skills-graph.mmd` / `skills-graph.png`）。
 - **`agent/lib/`** — 命令共用的 Python 工具层（portal_client / domain_inference / index_md_writer / graph_writer / doctor）。
 
-skill 仓库本体仍住在 [`~/.config/opencode/skills/`](file:///Users/lute/.config/opencode/skills)，**不动**。本仓库只管"管理"它们。
+skill 仓库本体仍住在 `~/.config/opencode/skills/`，**不动**。本仓库只管"管理"它们。
 
 ## 30 秒上手
 
