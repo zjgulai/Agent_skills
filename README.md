@@ -14,9 +14,12 @@ skill 仓库本体仍住在 [`~/.config/opencode/skills/`](file:///Users/lute/.c
 
 ## 30 秒上手
 
+> 第一次装？看 [`docs/INSTALL.md`](docs/INSTALL.md) —— 完整的新机器从 0 安装手册。
+> 已经装好？继续：
+
 ```bash
-# 进入仓库（OpenCode 自动加载本目录的 AGENTS.md + agent/commands/ + agent/subagents/）
-cd /Users/lute/project/Agent/Agent_skills
+# 进入仓库（OpenCode 自动加载本目录的 AGENTS.md + .opencode/commands/ + .opencode/agent/）
+cd ~/project/Agent/Agent_skills
 
 # 起 portal
 ./portal/bin/start
@@ -49,4 +52,7 @@ cd /Users/lute/project/Agent/Agent_skills
 
 ## 详细计划
 
-[`.sisyphus/plans/01-skills-manager-agent-bootstrap.md`](file:///Users/lute/project/Agent/Agent_skills/.sisyphus/plans/01-skills-manager-agent-bootstrap.md)
+- 安装：[`docs/INSTALL.md`](docs/INSTALL.md)
+- 主计划：[`.sisyphus/plans/01-skills-manager-agent-bootstrap.md`](.sisyphus/plans/01-skills-manager-agent-bootstrap.md)
+- 执行 TODO：[`.sisyphus/plans/02-execution-todo.md`](.sisyphus/plans/02-execution-todo.md)
+- 域分类规则：[`agent/docs/domain-taxonomy.md`](agent/docs/domain-taxonomy.md)
