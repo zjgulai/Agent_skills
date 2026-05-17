@@ -190,27 +190,57 @@
       "desc_en": "garrytan/gstack is a YC-style full-stack engineering methodology monorepo (51 SKILL.md). Selected 18 to complete the plan→review→QA→deploy→context-mgmt chain. 13 → meta (methodology+review+context), 1 → closeout (land-and-deploy), 4 → tooling (design trio + doc output duo). Skipped OpenClaw-specific (N/A) and browser group (overlaps with bb-browser).",
       "trigger_cmd": "/skill-install https://github.com/garrytan/gstack (× 18 sub-paths, 手选模式)",
       "skill_added": "gstack (18 sub-skills)",
-    "domain_added": "meta + closeout + tooling",
-    "delta_zh": "+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 域 10→22 · closeout 域 7→8 · tooling 域 4→9 · PNG 528282 → 545053 (+3.2%)",
-    "delta_en": "+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 10→22 · closeout 7→8 · tooling 4→9 · PNG 528282 → 545053 (+3.2%)",
-    "bullets_zh": [
-      "monorepo 形态：gstack 仓库共 51 个 SKILL.md，agent 自动 scan 后展示菜单让用户手选了 18 个",
-      "meta 域 +12：autoplan / investigate / office-hours / plan-ceo-review / plan-eng-review / plan-design-review / plan-devex-review / plan-tune / qa / qa-only / context-save / context-restore（YC 全套方法论）",
-      "closeout 域 +1：land-and-deploy（merge → CI → 部署 → canary 验证一气呵成）",
-      "tooling 域 +5：design-consultation / design-review / design-html（设计三件套）+ make-pdf / document-generate（文档输出）",
-      "明确跳过：OpenClaw 4 个专版（用户不用 OpenClaw）、浏览器组 7 个（与已装的 bb-browser 重叠）、gbrain 设施类（不在当前优先级）",
-      "总规模：43 skill 跨 6 域，meta 域已成绝对主体（22 个，从「方法论真空」到「YC 全栈方法论库」）"
-    ],
-    "bullets_en": [
-      "Monorepo: gstack ships 51 SKILL.md; agent auto-scanned, presented a menu, user picked 18.",
-      "meta +12: autoplan, investigate, office-hours, plan-{ceo,eng,design,devex}-review, plan-tune, qa, qa-only, context-save, context-restore (YC methodology suite).",
-      "closeout +1: land-and-deploy (merge → CI → deploy → canary verify in one shot).",
-      "tooling +5: design-consultation/review/html (design trio) + make-pdf/document-generate (doc output).",
-      "Explicitly skipped: 4 OpenClaw-specific skills (user doesn't use OpenClaw), 7 browser skills (overlaps installed bb-browser), gbrain infra (not yet prioritized).",
-      "Total: 43 skills across 6 domains; meta now dominant (22) — from methodology void to full YC engineering library."
-    ],
+      "domain_added": "meta + closeout + tooling",
+      "delta_zh": "+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 域 10→22 · closeout 域 7→8 · tooling 域 4→9 · PNG 528282 → 545053 (+3.2%)",
+      "delta_en": "+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 10→22 · closeout 7→8 · tooling 4→9 · PNG 528282 → 545053 (+3.2%)",
+      "bullets_zh": [
+        "monorepo 形态：gstack 仓库共 51 个 SKILL.md，agent 自动 scan 后展示菜单让用户手选了 18 个",
+        "meta 域 +12：autoplan / investigate / office-hours / plan-ceo-review / plan-eng-review / plan-design-review / plan-devex-review / plan-tune / qa / qa-only / context-save / context-restore（YC 全套方法论）",
+        "closeout 域 +1：land-and-deploy（merge → CI → 部署 → canary 验证一气呵成）",
+        "tooling 域 +5：design-consultation / design-review / design-html（设计三件套）+ make-pdf / document-generate（文档输出）",
+        "明确跳过：OpenClaw 4 个专版（用户不用 OpenClaw）、浏览器组 7 个（与已装的 bb-browser 重叠）、gbrain 设施类（不在当前优先级）",
+        "总规模：43 skill 跨 6 域，meta 域已成绝对主体（22 个，从「方法论真空」到「YC 全栈方法论库」）"
+      ],
+      "bullets_en": [
+        "Monorepo: gstack ships 51 SKILL.md; agent auto-scanned, presented a menu, user picked 18.",
+        "meta +12: autoplan, investigate, office-hours, plan-{ceo,eng,design,devex}-review, plan-tune, qa, qa-only, context-save, context-restore (YC methodology suite).",
+        "closeout +1: land-and-deploy (merge → CI → deploy → canary verify in one shot).",
+        "tooling +5: design-consultation/review/html (design trio) + make-pdf/document-generate (doc output).",
+        "Explicitly skipped: 4 OpenClaw-specific skills (user doesn't use OpenClaw), 7 browser skills (overlaps installed bb-browser), gbrain infra (not yet prioritized).",
+        "Total: 43 skills across 6 domains; meta now dominant (22) — from methodology void to full YC engineering library."
+      ],
       "png": "skills-graph.png",
       "png_bytes": 545053
+    },
+    {
+      "id": 8,
+      "title_zh": "State 8：装 ui-ux-pro-max（dry-run 后精挑 1 个）",
+      "title_en": "State 8: ui-ux-pro-max installed (1 picked after dry-run)",
+      "desc_zh": "UI/UX 设计智能库 — 50+ 风格、161 配色、57 字体配对、161 产品类型、99 UX 指南、25 图表类型，跨 10 个技术栈（React/Next/Vue/Svelte/SwiftUI/RN/Flutter/Tailwind/shadcn/HTML）。这是 dry-run 流程首次实战的成果：原 monorepo 7 个 SKILL.md 中 6 个因为 name 含 `ckm:` 冒号违反命名规则、且都在 `.claude/` 路径下被 installer 过滤；只有 ui-ux-pro-max 这 1 个合法且零重叠，最终只装它。归 tooling 域。",
+      "desc_en": "UI/UX design intelligence — 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, 25 chart types across 10 stacks (React/Next/Vue/Svelte/SwiftUI/RN/Flutter/Tailwind/shadcn/HTML). First real use of the dry-run flow: of the 7 SKILL.md in the monorepo, 6 were rejected (names contain 'ckm:' colon violating naming regex, all under .claude/ filtered by installer); only ui-ux-pro-max passed and had zero overlap. Goes to tooling.",
+      "trigger_cmd": "/skill-install https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --dry-run (then install --subdir .claude/skills/ui-ux-pro-max)",
+      "skill_added": "ui-ux-pro-max",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node (UUPM in tooling) · tooling 域 9→10 · PNG 545053 → 544443 (-0.1%)",
+      "delta_en": "+1 node (UUPM in tooling) · tooling 9→10 · PNG 545053 → 544443 (-0.1%)",
+      "bullets_zh": [
+        "dry-run 流程首战：scan 发现 7 个 SKILL.md → 读 frontmatter → 与已装 9 个 tooling skill 做重叠分析 → 推荐 'A. 只装 ui-ux-pro-max' → 用户确认后才真装",
+        "工程发现 1：portal installer 的 SKILL_NAME_RE = ^[a-z0-9]+(-[a-z0-9]+)*$ 不接受冒号，6 个 ckm:* skill 即使能 clone 也会 frontmatter 校验失败",
+        "工程发现 2：installer 过滤 . 起头目录（防止扫到 .git/.github），但 scan_monorepo 的 GitHub trees API 调用没过滤 — 两端语义不一致，是个待修的小 bug",
+        "工程发现 3：dry-run 模式让 mega-skill 'ckm:design'（一个 skill 包 logo+CIP+slides+banner+icon+social photos）的功能重叠在装之前就暴露，避免噪声入库",
+        "ui-ux-pro-max 真实价值：UI/UX 知识库（50 风格 / 161 配色 / 57 字体 / 99 UX 指南），不是「执行型」而是「参考型」 — agent 在你说「设计一个 SaaS dashboard」时能查询匹配风格 + 配色 + 字体",
+        "tooling 域第 10 个成员，与 design-* / make-pdf / guizang-ppt-skill 形成「输出工具链 + 设计参考库」格局"
+      ],
+      "bullets_en": [
+        "First real dry-run: scan found 7 SKILL.md → read frontmatter → overlap analysis vs 9 existing tooling skills → recommended 'A. install only ui-ux-pro-max' → user confirmed before install.",
+        "Engineering finding 1: portal installer's SKILL_NAME_RE = ^[a-z0-9]+(-[a-z0-9]+)*$ rejects colons; 6 'ckm:*' skills would fail frontmatter validation even if cloned.",
+        "Engineering finding 2: installer filters dot-prefixed dirs (.git/.github protection) but scan_monorepo's GitHub trees API call does NOT — semantic inconsistency, minor bug to fix.",
+        "Engineering finding 3: dry-run exposed mega-skill 'ckm:design' (one skill bundling logo+CIP+slides+banner+icon+social photos) duplicating existing tools before install — avoided noise.",
+        "ui-ux-pro-max's real value: a UI/UX knowledge base (50 styles, 161 palettes, 57 fonts, 99 UX guides) — reference, not execution. Agent queries it when you say 'design a SaaS dashboard' to match style + palette + fonts.",
+        "10th tooling member; with design-* / make-pdf / guizang-ppt-skill forms 'output toolchain + design reference library' structure."
+      ],
+      "png": "skills-graph.png",
+      "png_bytes": 544443
     }
   ]
 }

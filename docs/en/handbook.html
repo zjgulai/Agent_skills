@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. Graph Case Studies</h2>
-<p>8 graph states walking through how the graph mutates as new skills are added.</p>
+<p>9 graph states walking through how the graph mutates as new skills are added.</p>
 <h3 id="state-0">5.1 State 0: initial 6 skills</h3>
 <p>The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.</p>
 <ul>
@@ -610,6 +610,19 @@ flowchart LR
 <li>Total: 43 skills across 6 domains; meta now dominant (22) — from methodology void to full YC engineering library.</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 7" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-8">5.9 State 8: ui-ux-pro-max installed (1 picked after dry-run)</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --dry-run (then install --subdir .claude/skills/ui-ux-pro-max)</code></p>
+<p>UI/UX design intelligence — 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, 25 chart types across 10 stacks (React/Next/Vue/Svelte/SwiftUI/RN/Flutter/Tailwind/shadcn/HTML). First real use of the dry-run flow: of the 7 SKILL.md in the monorepo, 6 were rejected (names contain 'ckm:' colon violating naming regex, all under .claude/ filtered by installer); only ui-ux-pro-max passed and had zero overlap. Goes to tooling.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+1 node (UUPM in tooling) · tooling 9→10 · PNG 545053 → 544443 (-0.1%)</span></div>
+<ul>
+<li>First real dry-run: scan found 7 SKILL.md → read frontmatter → overlap analysis vs 9 existing tooling skills → recommended 'A. install only ui-ux-pro-max' → user confirmed before install.</li>
+<li>Engineering finding 1: portal installer's SKILL_NAME_RE = ^[a-z0-9]+(-[a-z0-9]+)*$ rejects colons; 6 'ckm:*' skills would fail frontmatter validation even if cloned.</li>
+<li>Engineering finding 2: installer filters dot-prefixed dirs (.git/.github protection) but scan_monorepo's GitHub trees API call does NOT — semantic inconsistency, minor bug to fix.</li>
+<li>Engineering finding 3: dry-run exposed mega-skill 'ckm:design' (one skill bundling logo+CIP+slides+banner+icon+social photos) duplicating existing tools before install — avoided noise.</li>
+<li>ui-ux-pro-max's real value: a UI/UX knowledge base (50 styles, 161 palettes, 57 fonts, 99 UX guides) — reference, not execution. Agent queries it when you say 'design a SaaS dashboard' to match style + palette + fonts.</li>
+<li>10th tooling member; with design-* / make-pdf / guizang-ppt-skill forms 'output toolchain + design reference library' structure.</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 8" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

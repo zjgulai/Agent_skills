@@ -88,6 +88,10 @@ flowchart LR
 
     DG[document-generate]:::toolingDomain
 
+    %% Tooling domain
+
+    UUPM[ui-ux-pro-max]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -131,6 +135,7 @@ flowchart LR
     CR2 -. "同域" .-> ADK
     MP -. "同域" .-> GPS
     DG -. "同域" .-> GPS
+    UUPM -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 

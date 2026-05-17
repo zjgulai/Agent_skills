@@ -107,7 +107,7 @@
     "order": 6,
     "desc_zh": "不绑定特定项目类型，但任何项目都可能需要的能力。",
     "desc_en": "Not bound to any project type — capabilities any project may need.",
-    "count": 9,
+    "count": 10,
     "skill_names": [
       "guizang-ppt-skill",
       "agent-reach",
@@ -117,7 +117,8 @@
       "design-consultation",
       "design-html",
       "make-pdf",
-      "document-generate"
+      "document-generate",
+      "ui-ux-pro-max"
     ]
   }
 ]

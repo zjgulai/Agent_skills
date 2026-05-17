@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. 图谱演化案例</h2>
-<p>8 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<p>9 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
 <h3 id="state-0">5.1 State 0：初始 6-skill</h3>
 <p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
 <ul>
@@ -610,6 +610,19 @@ flowchart LR
 <li>总规模：43 skill 跨 6 域，meta 域已成绝对主体（22 个，从「方法论真空」到「YC 全栈方法论库」）</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 7" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-8">5.9 State 8：装 ui-ux-pro-max（dry-run 后精挑 1 个）</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --dry-run (then install --subdir .claude/skills/ui-ux-pro-max)</code></p>
+<p>UI/UX 设计智能库 — 50+ 风格、161 配色、57 字体配对、161 产品类型、99 UX 指南、25 图表类型，跨 10 个技术栈（React/Next/Vue/Svelte/SwiftUI/RN/Flutter/Tailwind/shadcn/HTML）。这是 dry-run 流程首次实战的成果：原 monorepo 7 个 SKILL.md 中 6 个因为 name 含 `ckm:` 冒号违反命名规则、且都在 `.claude/` 路径下被 installer 过滤；只有 ui-ux-pro-max 这 1 个合法且零重叠，最终只装它。归 tooling 域。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node (UUPM in tooling) · tooling 域 9→10 · PNG 545053 → 544443 (-0.1%)</span></div>
+<ul>
+<li>dry-run 流程首战：scan 发现 7 个 SKILL.md → 读 frontmatter → 与已装 9 个 tooling skill 做重叠分析 → 推荐 'A. 只装 ui-ux-pro-max' → 用户确认后才真装</li>
+<li>工程发现 1：portal installer 的 SKILL_NAME_RE = ^[a-z0-9]+(-[a-z0-9]+)*$ 不接受冒号，6 个 ckm:* skill 即使能 clone 也会 frontmatter 校验失败</li>
+<li>工程发现 2：installer 过滤 . 起头目录（防止扫到 .git/.github），但 scan_monorepo 的 GitHub trees API 调用没过滤 — 两端语义不一致，是个待修的小 bug</li>
+<li>工程发现 3：dry-run 模式让 mega-skill 'ckm:design'（一个 skill 包 logo+CIP+slides+banner+icon+social photos）的功能重叠在装之前就暴露，避免噪声入库</li>
+<li>ui-ux-pro-max 真实价值：UI/UX 知识库（50 风格 / 161 配色 / 57 字体 / 99 UX 指南），不是「执行型」而是「参考型」 — agent 在你说「设计一个 SaaS dashboard」时能查询匹配风格 + 配色 + 字体</li>
+<li>tooling 域第 10 个成员，与 design-* / make-pdf / guizang-ppt-skill 形成「输出工具链 + 设计参考库」格局</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 8" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

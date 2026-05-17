@@ -342,5 +342,13 @@
     "extra": "document generate,Diataxis,tutorial,how-to,reference",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/document-generate/manifest.yaml",
     "local_path": "~/.config/opencode/skills/document-generate/SKILL.md"
+  },
+  {
+    "name": "ui-ux-pro-max",
+    "domain": "tooling",
+    "role": "UI/UX 设计智能（50+ 风格 / 161 配色 / 57 字体 / 跨 10 栈）",
+    "extra": "UI,UX,shadcn,tailwind,color palette,font pairing,style",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ui-ux-pro-max/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/ui-ux-pro-max/SKILL.md"
   }
 ]
