@@ -109,11 +109,16 @@ def _strip_fence(text: str) -> str:
 
 
 def _clone_repo(url: str, dest: pathlib.Path) -> Optional[str]:
-    """git clone --depth 1. Returns None on success, error message on failure."""
+    """git clone --depth 1 --filter=blob:none. Returns None on success, error msg on failure.
+
+    --filter=blob:none lets git fetch only commit + tree metadata initially, then lazy-fetch
+    blobs as needed. Combined with --depth 1, this dramatically cuts clone time for huge
+    monorepos (open-design: 1011 commits, multi-MB binary assets) without affecting correctness.
+    """
     env = {"GIT_TERMINAL_PROMPT": "0", "GIT_PAGER": "cat", "PATH": "/usr/bin:/usr/local/bin:/opt/homebrew/bin"}
     res = subprocess.run(
-        ["git", "clone", "--depth", "1", url, str(dest)],
-        capture_output=True, text=True, timeout=120, env=env,
+        ["git", "clone", "--depth", "1", "--filter=blob:none", url, str(dest)],
+        capture_output=True, text=True, timeout=300, env=env,
     )
     if res.returncode != 0:
         return f"git clone failed: {res.stderr.strip()[:500]}"
