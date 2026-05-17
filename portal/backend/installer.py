@@ -21,6 +21,8 @@ SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 MAX_NAME_LEN = 64
 MAX_DESC_LEN = 1024
 SKIP_TOP_LEVEL = {".git", "LICENSE", "README.md", ".gitignore", "package.json"}
+SKIP_DIRS = {".git", ".github", ".idea", ".vscode", ".cache", ".pytest_cache",
+             "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
 
 
 @dataclass
@@ -40,12 +42,31 @@ def _validate_frontmatter(skill_md: pathlib.Path) -> tuple[Optional[dict], list[
     name = str(fm.get("name", "")).strip()
     desc = str(fm.get("description", "")).strip()
     if not SKILL_NAME_RE.fullmatch(name):
-        errors.append(f"name '{name}' does not match ^[a-z0-9]+(-[a-z0-9]+)*$")
+        if ":" in name:
+            sanitized = name.replace(":", "-")
+            errors.append(
+                f"name '{name}' contains ':' which is not allowed. "
+                f"Namespace-prefixed names like 'ckm:foo' are author-specific conventions, "
+                f"not part of the official SKILL.md spec. Suggested sanitized name: '{sanitized}'. "
+                f"Re-publish your SKILL.md with that name, or fork+rename to install."
+            )
+        else:
+            errors.append(f"name '{name}' does not match ^[a-z0-9]+(-[a-z0-9]+)*$")
     if not (1 <= len(name) <= MAX_NAME_LEN):
         errors.append(f"name length {len(name)} out of [1, {MAX_NAME_LEN}]")
     if not (1 <= len(desc) <= MAX_DESC_LEN):
         errors.append(f"description length {len(desc)} out of [1, {MAX_DESC_LEN}]")
     return fm, errors
+
+
+def _is_skip_dir(name: str) -> bool:
+    """True if a directory should be skipped during SKILL.md discovery.
+
+    Skips well-known infrastructure dirs (.git, node_modules, etc) but
+    NOT user-defined hidden dirs like .claude/skills/ — those are valid
+    skill containers and must be reachable via explicit --subdir.
+    """
+    return name in SKIP_DIRS
 
 
 def _find_skill_md(root: pathlib.Path) -> list[pathlib.Path]:
@@ -54,7 +75,7 @@ def _find_skill_md(root: pathlib.Path) -> list[pathlib.Path]:
     if direct.exists():
         candidates.append(direct)
     for child in sorted(root.iterdir()):
-        if not child.is_dir() or child.name.startswith("."):
+        if not child.is_dir() or _is_skip_dir(child.name):
             continue
         nested = child / "SKILL.md"
         if nested.exists():
@@ -186,7 +207,8 @@ def install_monorepo_from_github(url: str, subdirs: Optional[list[str]] = None) 
         if subdirs is None:
             discovered: list[str] = []
             for skill_md in tmp_repo.rglob("SKILL.md"):
-                if any(p.startswith(".") for p in skill_md.relative_to(tmp_repo).parts):
+                parts = skill_md.relative_to(tmp_repo).parts
+                if any(_is_skip_dir(p) for p in parts):
                     continue
                 rel = skill_md.parent.relative_to(tmp_repo).as_posix()
                 discovered.append(rel if rel != "." else "")

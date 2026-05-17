@@ -134,6 +134,10 @@ def refresh() -> dict:
         return r.json()
 
 
+SCAN_SKIP_DIRS = {".git", ".github", ".idea", ".vscode", ".cache", ".pytest_cache",
+                  "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
+
+
 def scan_monorepo(url: str) -> list[str]:
     """List all SKILL.md subpaths in a GitHub repo (one HTTP call to git/trees API).
 
@@ -167,7 +171,11 @@ def scan_monorepo(url: str) -> list[str]:
     subdirs = []
     for entry in data.get("tree", []):
         if entry.get("type") == "blob" and entry["path"].endswith("/SKILL.md"):
-            subdirs.append(entry["path"][: -len("/SKILL.md")])
+            path = entry["path"]
+            parts = path.split("/")[:-1]
+            if any(p in SCAN_SKIP_DIRS for p in parts):
+                continue
+            subdirs.append(path[: -len("/SKILL.md")])
     return sorted(subdirs)
 
 
