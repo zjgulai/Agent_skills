@@ -103,6 +103,37 @@ def install_github(url: str, subdir: Optional[str] = None) -> dict:
         return r.json()
 
 
+def install_upload(md_path: str | pathlib.Path) -> dict:
+    p = pathlib.Path(md_path)
+    if not p.is_file():
+        raise PortalError(f"not a file: {p}")
+    with _client() as c, p.open("rb") as f:
+        files = {"file": (p.name, f, "text/markdown")}
+        r = c.post("/api/install/upload", files=files)
+        r.raise_for_status()
+        data = r.json()
+        if not data.get("ok"):
+            raise PortalError(f"upload install failed: {data.get('message', 'unknown')}")
+        return data
+
+
+def uninstall(name: str) -> dict:
+    with _client() as c:
+        r = c.delete(f"/api/skills/{name}")
+        r.raise_for_status()
+        data = r.json()
+        if not data.get("ok"):
+            raise PortalError(f"uninstall failed: {data.get('message', 'unknown')}")
+        return data
+
+
+def refresh() -> dict:
+    with _client() as c:
+        r = c.post("/api/refresh")
+        r.raise_for_status()
+        return r.json()
+
+
 def scan_monorepo(url: str) -> list[str]:
     """List all SKILL.md subpaths in a GitHub repo (one HTTP call to git/trees API).
 
