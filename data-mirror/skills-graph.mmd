@@ -11,9 +11,23 @@ flowchart LR
     %% Domain 1 - Meta
     ADK[agent-dev-kit-architecture-designer]:::metaDomain
     SC[skill-creator]:::metaDomain
+    B[brainstorming]:::metaDomain
+    DPA[dispatching-parallel-agents]:::metaDomain
+    SDD[subagent-driven-development]:::metaDomain
+    SD[systematic-debugging]:::metaDomain
+    TDD[test-driven-development]:::metaDomain
+    US[using-superpowers]:::metaDomain
+    WP[writing-plans]:::metaDomain
+    WS[writing-skills]:::metaDomain
 
     %% Domain 2 - Closeout
     CR[codex-review]:::closeoutDomain
+    EP[executing-plans]:::closeoutDomain
+    FADB[finishing-a-development-branch]:::closeoutDomain
+    RCR[receiving-code-review]:::closeoutDomain
+    RCR2[requesting-code-review]:::closeoutDomain
+    UGW[using-git-worktrees]:::closeoutDomain
+    VBC[verification-before-completion]:::closeoutDomain
 
     %% Domain 3 - Desktop
     NF[native-feel-cross-platform-desktop]:::desktopDomain
@@ -42,6 +56,20 @@ flowchart LR
     GPS -. "独立节点" .-> GPS
     SC -. "同域" .-> ADK
     AR -. "同域" .-> GPS
+    B -. "同域" .-> ADK
+    DPA -. "同域" .-> ADK
+    EP -. "同域" .-> CR
+    FADB -. "同域" .-> CR
+    RCR -. "同域" .-> CR
+    RCR2 -. "同域" .-> CR
+    SDD -. "同域" .-> ADK
+    SD -. "同域" .-> ADK
+    TDD -. "同域" .-> ADK
+    UGW -. "同域" .-> CR
+    US -. "同域" .-> ADK
+    VBC -. "同域" .-> CR
+    WP -. "同域" .-> ADK
+    WS -. "同域" .-> ADK
 
     %% --- Lifecycle flows ---
 

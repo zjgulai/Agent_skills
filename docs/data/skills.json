@@ -16,12 +16,124 @@
     "local_path": "~/.config/opencode/skills/skill-creator/SKILL.md"
   },
   {
+    "name": "brainstorming",
+    "domain": "meta",
+    "role": "头脑风暴/发散",
+    "extra": "brainstorm,ideation,divergent",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/brainstorming/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/brainstorming/SKILL.md"
+  },
+  {
+    "name": "dispatching-parallel-agents",
+    "domain": "meta",
+    "role": "并行调度子代理",
+    "extra": "parallel,subagent,dispatch",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dispatching-parallel-agents/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dispatching-parallel-agents/SKILL.md"
+  },
+  {
+    "name": "subagent-driven-development",
+    "domain": "meta",
+    "role": "子代理驱动开发",
+    "extra": "subagent,delegation,parallel",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/subagent-driven-development/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/subagent-driven-development/SKILL.md"
+  },
+  {
+    "name": "systematic-debugging",
+    "domain": "meta",
+    "role": "系统化调试方法论",
+    "extra": "debug,systematic,hypothesis",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/systematic-debugging/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/systematic-debugging/SKILL.md"
+  },
+  {
+    "name": "test-driven-development",
+    "domain": "meta",
+    "role": "测试驱动开发 TDD",
+    "extra": "tdd,test-first,red-green-refactor",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/test-driven-development/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/test-driven-development/SKILL.md"
+  },
+  {
+    "name": "using-superpowers",
+    "domain": "meta",
+    "role": "使用 superpowers 入口",
+    "extra": "superpowers,index,meta",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/using-superpowers/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/using-superpowers/SKILL.md"
+  },
+  {
+    "name": "writing-plans",
+    "domain": "meta",
+    "role": "撰写工程计划",
+    "extra": "plan,spec,decompose",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/writing-plans/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/writing-plans/SKILL.md"
+  },
+  {
+    "name": "writing-skills",
+    "domain": "meta",
+    "role": "撰写 skill 文件",
+    "extra": "skill,write,frontmatter",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/writing-skills/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/writing-skills/SKILL.md"
+  },
+  {
     "name": "codex-review",
     "domain": "closeout",
     "role": "用 `codex review` 做提交前的二次审查（uncommitted / PR vs main / 并行测试）",
     "extra": "`codex review`, autoreview, 二次审查, 提交前审查, ship/commit/PR 前的最后检查",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codex-review/manifest.yaml",
     "local_path": "~/.config/opencode/skills/codex-review/SKILL.md"
+  },
+  {
+    "name": "executing-plans",
+    "domain": "closeout",
+    "role": "按计划执行",
+    "extra": "execute,plan,follow",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/executing-plans/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/executing-plans/SKILL.md"
+  },
+  {
+    "name": "finishing-a-development-branch",
+    "domain": "closeout",
+    "role": "结束开发分支",
+    "extra": "branch,finish,merge",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/finishing-a-development-branch/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/finishing-a-development-branch/SKILL.md"
+  },
+  {
+    "name": "receiving-code-review",
+    "domain": "closeout",
+    "role": "接收代码评审反馈",
+    "extra": "code review,receive,respond",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/receiving-code-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/receiving-code-review/SKILL.md"
+  },
+  {
+    "name": "requesting-code-review",
+    "domain": "closeout",
+    "role": "发起代码评审请求",
+    "extra": "code review,request,prepare",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/requesting-code-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/requesting-code-review/SKILL.md"
+  },
+  {
+    "name": "using-git-worktrees",
+    "domain": "closeout",
+    "role": "使用 git worktree",
+    "extra": "worktree,git,parallel-branch",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/using-git-worktrees/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/using-git-worktrees/SKILL.md"
+  },
+  {
+    "name": "verification-before-completion",
+    "domain": "closeout",
+    "role": "完成前的验证",
+    "extra": "verify,evidence,proof",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/verification-before-completion/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/verification-before-completion/SKILL.md"
   },
   {
     "name": "native-feel-cross-platform-desktop",

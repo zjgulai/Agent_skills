@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. 图谱演化案例</h2>
-<p>4 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<p>5 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
 <h3 id="state-0">5.1 State 0：初始 6-skill</h3>
 <p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
 <ul>
@@ -560,6 +560,19 @@ flowchart LR
 <li>桥接：~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach（symlink）</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 3" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-4">5.5 State 4：装 superpowers 全套（14 个 sub-skill）</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/obra/superpowers (× 14 sub-paths)</code></p>
+<p>obra/superpowers 是一个 monorepo 形态的 skill 集合——14 个独立 sub-skill 覆盖工程方法论：brainstorm / TDD / subagent / debug / review 全链。8 个归 meta 域（方法论与工程基础设施），6 个归 closeout 域（review/branch/verification）。一次性装入，让 agent 拥有完整的「decompose → execute → review → finish」能力。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+14 nodes (8 meta + 6 closeout) · meta 域 2→10 · closeout 域 1→7 · PNG 280641 → 508189 (+81%)</span></div>
+<ul>
+<li>monorepo 形态：obra/superpowers 仓库下 skills/ 子目录里 14 个独立 SKILL.md，每个走 portal API 单独装</li>
+<li>推断挑战：14 个里 7 个返回 uncategorized，agent 按 "工程方法论 → meta，提交闭环 → closeout" 原则手工归类</li>
+<li>meta 域新增 8 个：brainstorming / dispatching-parallel-agents / subagent-driven-development / systematic-debugging / test-driven-development / using-superpowers / writing-plans / writing-skills</li>
+<li>closeout 域新增 6 个：executing-plans / finishing-a-development-branch / receiving-code-review / requesting-code-review / using-git-worktrees / verification-before-completion</li>
+<li>图谱体积：280641 → 508189 字节（+81%），meta/closeout 两个域块都明显变大</li>
+<li>核心价值：让 agent 在做复杂工程时有「先 brainstorm、再写 plan、然后 TDD、并行 dispatch、最后 verify-before-completion」的方法论支架</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 4" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

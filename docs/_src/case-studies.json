@@ -95,6 +95,36 @@
       ],
       "png": "skills-graph.png",
       "png_bytes": 280641
+    },
+    {
+      "id": 4,
+      "title_zh": "State 4：装 superpowers 全套（14 个 sub-skill）",
+      "title_en": "State 4: installed superpowers suite (14 sub-skills)",
+      "desc_zh": "obra/superpowers 是一个 monorepo 形态的 skill 集合——14 个独立 sub-skill 覆盖工程方法论：brainstorm / TDD / subagent / debug / review 全链。8 个归 meta 域（方法论与工程基础设施），6 个归 closeout 域（review/branch/verification）。一次性装入，让 agent 拥有完整的「decompose → execute → review → finish」能力。",
+      "desc_en": "obra/superpowers ships as a monorepo of 14 sub-skills covering engineering methodology: brainstorm / TDD / subagent / debug / review end-to-end. 8 go to meta (methodology + infra), 6 go to closeout (review/branch/verification). Installed in one shot — gives agents the full decompose → execute → review → finish loop.",
+      "trigger_cmd": "/skill-install https://github.com/obra/superpowers (× 14 sub-paths)",
+      "skill_added": "superpowers (14 sub-skills)",
+      "domain_added": "meta + closeout",
+      "delta_zh": "+14 nodes (8 meta + 6 closeout) · meta 域 2→10 · closeout 域 1→7 · PNG 280641 → 508189 (+81%)",
+      "delta_en": "+14 nodes (8 meta + 6 closeout) · meta domain 2→10 · closeout domain 1→7 · PNG 280641 → 508189 (+81%)",
+      "bullets_zh": [
+        "monorepo 形态：obra/superpowers 仓库下 skills/ 子目录里 14 个独立 SKILL.md，每个走 portal API 单独装",
+        "推断挑战：14 个里 7 个返回 uncategorized，agent 按 \"工程方法论 → meta，提交闭环 → closeout\" 原则手工归类",
+        "meta 域新增 8 个：brainstorming / dispatching-parallel-agents / subagent-driven-development / systematic-debugging / test-driven-development / using-superpowers / writing-plans / writing-skills",
+        "closeout 域新增 6 个：executing-plans / finishing-a-development-branch / receiving-code-review / requesting-code-review / using-git-worktrees / verification-before-completion",
+        "图谱体积：280641 → 508189 字节（+81%），meta/closeout 两个域块都明显变大",
+        "核心价值：让 agent 在做复杂工程时有「先 brainstorm、再写 plan、然后 TDD、并行 dispatch、最后 verify-before-completion」的方法论支架"
+      ],
+      "bullets_en": [
+        "Monorepo form: 14 independent SKILL.md under obra/superpowers/skills/, each installed via portal API one by one",
+        "Inference challenge: 7 of 14 returned uncategorized; agent manually classified by 'engineering methodology → meta, commit closeout → closeout'",
+        "meta domain +8: brainstorming / dispatching-parallel-agents / subagent-driven-development / systematic-debugging / test-driven-development / using-superpowers / writing-plans / writing-skills",
+        "closeout domain +6: executing-plans / finishing-a-development-branch / receiving-code-review / requesting-code-review / using-git-worktrees / verification-before-completion",
+        "Graph size: 280641 → 508189 bytes (+81%), both meta and closeout domain blocks visibly grew",
+        "Core value: gives agents methodology scaffolding for complex work — brainstorm first, write plan, then TDD, dispatch in parallel, verify before completion"
+      ],
+      "png": "skills-graph.png",
+      "png_bytes": 508189
     }
   ]
 }

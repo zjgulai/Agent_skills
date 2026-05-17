@@ -8,10 +8,18 @@
     "order": 1,
     "desc_zh": "你不是在写业务代码，而是在设计/审计 AI agent 自身的工作环境 —— 仓库结构、agent 记忆、skill 库、hook、subagent、plugin。",
     "desc_en": "You're not writing business code — you're designing/auditing the AI agent's own working environment.",
-    "count": 2,
+    "count": 10,
     "skill_names": [
       "agent-dev-kit-architecture-designer",
-      "skill-creator"
+      "skill-creator",
+      "brainstorming",
+      "dispatching-parallel-agents",
+      "subagent-driven-development",
+      "systematic-debugging",
+      "test-driven-development",
+      "using-superpowers",
+      "writing-plans",
+      "writing-skills"
     ]
   },
   {
@@ -23,9 +31,15 @@
     "order": 2,
     "desc_zh": "代码已经写完，进入「提交 / PR / 发布」前的最后一公里。",
     "desc_en": "Code is done; last-mile before commit / PR / release.",
-    "count": 1,
+    "count": 7,
     "skill_names": [
-      "codex-review"
+      "codex-review",
+      "executing-plans",
+      "finishing-a-development-branch",
+      "receiving-code-review",
+      "requesting-code-review",
+      "using-git-worktrees",
+      "verification-before-completion"
     ]
   },
   {

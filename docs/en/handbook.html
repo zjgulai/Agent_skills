@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. Graph Case Studies</h2>
-<p>4 graph states walking through how the graph mutates as new skills are added.</p>
+<p>5 graph states walking through how the graph mutates as new skills are added.</p>
 <h3 id="state-0">5.1 State 0: initial 6 skills</h3>
 <p>The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.</p>
 <ul>
@@ -560,6 +560,19 @@ flowchart LR
 <li>Bridge: ~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach (symlink)</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 3" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-4">5.5 State 4: installed superpowers suite (14 sub-skills)</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/obra/superpowers (× 14 sub-paths)</code></p>
+<p>obra/superpowers ships as a monorepo of 14 sub-skills covering engineering methodology: brainstorm / TDD / subagent / debug / review end-to-end. 8 go to meta (methodology + infra), 6 go to closeout (review/branch/verification). Installed in one shot — gives agents the full decompose → execute → review → finish loop.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+14 nodes (8 meta + 6 closeout) · meta domain 2→10 · closeout domain 1→7 · PNG 280641 → 508189 (+81%)</span></div>
+<ul>
+<li>Monorepo form: 14 independent SKILL.md under obra/superpowers/skills/, each installed via portal API one by one</li>
+<li>Inference challenge: 7 of 14 returned uncategorized; agent manually classified by 'engineering methodology → meta, commit closeout → closeout'</li>
+<li>meta domain +8: brainstorming / dispatching-parallel-agents / subagent-driven-development / systematic-debugging / test-driven-development / using-superpowers / writing-plans / writing-skills</li>
+<li>closeout domain +6: executing-plans / finishing-a-development-branch / receiving-code-review / requesting-code-review / using-git-worktrees / verification-before-completion</li>
+<li>Graph size: 280641 → 508189 bytes (+81%), both meta and closeout domain blocks visibly grew</li>
+<li>Core value: gives agents methodology scaffolding for complex work — brainstorm first, write plan, then TDD, dispatch in parallel, verify before completion</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 4" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">
