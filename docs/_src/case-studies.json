@@ -153,6 +153,34 @@
       ],
       "png": "skills-graph.png",
       "png_bytes": 521852
+    },
+    {
+      "id": 6,
+      "title_zh": "State 6：装 bb-browser 后",
+      "title_en": "State 6: after installing bb-browser",
+      "desc_zh": "带登录态的浏览器自动化 — 让 agent 用你的浏览器 session 访问公域 + 私域信息。36 平台 103 命令开箱即用，支持表单填写、网络请求拦截/mock、操作录制。归 tooling 域，与 agent-reach（API 接入）、notebooklm（NotebookLM 知识库）形成「读外部信息」三件套：bb-browser 主打登录态后的私域、agent-reach 主打公开 API、notebooklm 主打个人文档库。",
+      "desc_en": "Logged-in browser automation — lets agents use your real browser session to access public AND private web data. 36 platforms / 103 commands out of the box; form filling, network intercept/mock, action recording. Goes to tooling, joining agent-reach (API access) and notebooklm (private docs) as the read-external information trio: bb-browser for logged-in private web, agent-reach for public APIs, notebooklm for personal docs.",
+      "trigger_cmd": "/skill-install https://github.com/epiral/bb-browser --subdir skills/bb-browser",
+      "skill_added": "bb-browser",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node (BB in tooling) · tooling 域 3→4 · PNG 521852 → 528282 (+1.2%)",
+      "delta_en": "+1 node (BB in tooling) · tooling 3→4 · PNG 521852 → 528282 (+1.2%)",
+      "bullets_zh": [
+        "monorepo 形态：bb-browser 仓库下有通用版 + OpenClaw 专版两个 SKILL.md，agent 自动检测后让用户选了通用版",
+        "核心能力：用真实浏览器跑（不是 headless），所以登录态、cookie、user-agent 都是你本人的，能进任何已登录的内部系统",
+        "36 平台 103 命令：Twitter / Reddit / GitHub / YouTube / 知乎 / B站 / 微博 等，每个都封成单条 CLI 命令开箱即用",
+        "高阶能力：带登录态 fetch、网络请求拦截与 mock、操作录制 — 不是单纯爬虫而是浏览器自动化平台",
+        "tooling 域第 4 个成员：与 agent-reach（公共 API）、notebooklm（私有文档库）、guizang-ppt-skill（PPT 输出）共同构成「读外部 / 写内部」工具集"
+      ],
+      "bullets_en": [
+        "Monorepo: bb-browser repo has a generic version + an OpenClaw-specific one; agent auto-detected and user picked the generic.",
+        "Core capability: runs against your real browser (not headless), so login state, cookies, user-agent are all yours — can access any logged-in internal system.",
+        "36 platforms / 103 commands: Twitter, Reddit, GitHub, YouTube, Zhihu, Bilibili, Weibo, etc. — each wrapped as a single CLI command, ready to use.",
+        "Advanced: logged-in fetch, network request intercept + mock, action recording — not just a scraper, a full browser automation platform.",
+        "4th tooling member: with agent-reach (public APIs), notebooklm (private docs), guizang-ppt-skill (PPT output), forms the read-external / write-internal toolkit."
+      ],
+      "png": "skills-graph.png",
+      "png_bytes": 528282
     }
   ]
 }

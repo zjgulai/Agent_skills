@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. 图谱演化案例</h2>
-<p>6 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<p>7 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
 <h3 id="state-0">5.1 State 0：初始 6-skill</h3>
 <p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
 <ul>
@@ -585,6 +585,18 @@ flowchart LR
 <li>tooling 域第 3 个成员：与 agent-reach（互联网公共信息）、guizang-ppt-skill（PPT 输出）形成「读外部 / 写内部」工具集</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 5" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-6">5.7 State 6：装 bb-browser 后</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/epiral/bb-browser --subdir skills/bb-browser</code></p>
+<p>带登录态的浏览器自动化 — 让 agent 用你的浏览器 session 访问公域 + 私域信息。36 平台 103 命令开箱即用，支持表单填写、网络请求拦截/mock、操作录制。归 tooling 域，与 agent-reach（API 接入）、notebooklm（NotebookLM 知识库）形成「读外部信息」三件套：bb-browser 主打登录态后的私域、agent-reach 主打公开 API、notebooklm 主打个人文档库。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node (BB in tooling) · tooling 域 3→4 · PNG 521852 → 528282 (+1.2%)</span></div>
+<ul>
+<li>monorepo 形态：bb-browser 仓库下有通用版 + OpenClaw 专版两个 SKILL.md，agent 自动检测后让用户选了通用版</li>
+<li>核心能力：用真实浏览器跑（不是 headless），所以登录态、cookie、user-agent 都是你本人的，能进任何已登录的内部系统</li>
+<li>36 平台 103 命令：Twitter / Reddit / GitHub / YouTube / 知乎 / B站 / 微博 等，每个都封成单条 CLI 命令开箱即用</li>
+<li>高阶能力：带登录态 fetch、网络请求拦截与 mock、操作录制 — 不是单纯爬虫而是浏览器自动化平台</li>
+<li>tooling 域第 4 个成员：与 agent-reach（公共 API）、notebooklm（私有文档库）、guizang-ppt-skill（PPT 输出）共同构成「读外部 / 写内部」工具集</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 6" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

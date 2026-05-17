@@ -190,5 +190,13 @@
     "extra": "notebooklm,query notebook,document-grounded,citation",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/notebooklm/manifest.yaml",
     "local_path": "~/.config/opencode/skills/notebooklm/SKILL.md"
+  },
+  {
+    "name": "bb-browser",
+    "domain": "tooling",
+    "role": "带登录态的浏览器自动化（36 平台 103 命令）",
+    "extra": "browser automation,登录态 fetch,36 平台,form filling,mock",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/bb-browser/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/bb-browser/SKILL.md"
   }
 ]

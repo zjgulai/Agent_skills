@@ -51,6 +51,10 @@ flowchart LR
 
     N[notebooklm]:::toolingDomain
 
+    %% Tooling domain
+
+    BB[bb-browser]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -75,6 +79,7 @@ flowchart LR
     WP -. "同域" .-> ADK
     WS -. "同域" .-> ADK
     N -. "同域" .-> GPS
+    BB -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 
