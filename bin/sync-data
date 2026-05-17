@@ -3,13 +3,10 @@
 # 用法：
 #   bin/sync-data         # 从用户级 skills 仓库同步三个核心元数据文件
 #   bin/sync-data --check # 干跑，列出会变更的文件但不改动
+#   bin/sync-data --diff-skills  # 打印 INDEX.md 新增了哪些 skill（agent 用，机读）
 #
 # 真相源：~/.config/opencode/skills/{INDEX.md, skills-graph.mmd, skills-graph.png}
 # 镜像点：./data-mirror/{INDEX.md, skills-graph.mmd, skills-graph.png}
-#
-# 这是 docs 站点动态化方案的"本地侧"——CI 运行在 GitHub Pages 上，
-# 没有 ~/.config/opencode/skills/，所以必须把核心元数据提交到 git 里。
-# /skill-install 后，请在仓库根跑一次 `bin/sync-data && git add data-mirror/`。
 
 set -euo pipefail
 
@@ -18,8 +15,32 @@ SKILLS_ROOT="${SKILLS_ROOT:-$HOME/.config/opencode/skills}"
 MIRROR="$REPO_ROOT/data-mirror"
 
 CHECK_ONLY=0
+DIFF_SKILLS=0
 if [[ "${1:-}" == "--check" ]]; then
     CHECK_ONLY=1
+elif [[ "${1:-}" == "--diff-skills" ]]; then
+    DIFF_SKILLS=1
+fi
+
+extract_skill_names() {
+    grep -oE '\[[a-z0-9][a-z0-9-]+\]\(file:///[^)]+SKILL\.md\)' "$1" 2>/dev/null \
+        | sed -E 's/^\[([^]]+)\].*/\1/' | sort -u
+}
+
+if [[ $DIFF_SKILLS -eq 1 ]]; then
+    OLD="$MIRROR/INDEX.md"
+    NEW="$SKILLS_ROOT/INDEX.md"
+    if [[ ! -f "$NEW" ]]; then
+        echo "❌ 缺源：$NEW" >&2; exit 1
+    fi
+    if [[ ! -f "$OLD" ]]; then
+        echo "ALL"
+        extract_skill_names "$NEW"
+        exit 0
+    fi
+    diff <(extract_skill_names "$OLD") <(extract_skill_names "$NEW") \
+        | awk '/^> /{print substr($0,3)}' | sort -u
+    exit 0
 fi
 
 if [[ ! -d "$SKILLS_ROOT" ]]; then
@@ -65,5 +86,4 @@ fi
 if [[ $CHANGED -gt 0 ]]; then
     echo ""
     echo "🎉 已同步 $CHANGED 个文件到 data-mirror/。"
-    echo "下一步：cd $REPO_ROOT && git add data-mirror/ && git commit -m 'chore(docs): sync skill metadata'"
 fi

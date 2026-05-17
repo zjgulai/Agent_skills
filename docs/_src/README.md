@@ -63,13 +63,27 @@ Settings → Pages → Source 改为 **GitHub Actions**（不是 "Deploy from a 
 
 ## 装新 skill 后的流程
 
+### 一句话搞定（推荐）
+
+直接在 opencode 里说：
+```
+/skill-install https://github.com/<org>/<repo>
+```
+
+agent 会自动完成 11 步：portal 安装 → INDEX/graph 更新 → sync-data → 问你 3 句话补 case-study → commit → push → 报告 GitHub Actions 链接。
+
+### 手工流程（如果 /skill-install 不可用）
+
 ```bash
-/skill-install <github-url>           # 1. 装到 ~/.config/opencode/skills/
-bin/sync-data                          # 2. 镜像到 data-mirror/
-# 3. 在 docs/_src/case-studies.json 里追加一条 State N+1 记录（含 trigger_cmd / desc / bullets / delta）
+# 1. 装到本地
+portal/backend/.venv/bin/python -m agent.lib.portal_client install <URL>
+# 2. 同步元数据
+bin/sync-data
+# 3. 编辑 docs/_src/case-studies.json 追加 State N+1
+# 4. 提交
 git add data-mirror/ docs/_src/case-studies.json
 git commit -m "feat(skills): add <skill-name>"
-git push                               # 4. CI 自动重建并部署
+git push
 ```
 
 ## 边界 / 已知限制（v2 后）
