@@ -19,6 +19,18 @@ flowchart LR
     US[using-superpowers]:::metaDomain
     WP[writing-plans]:::metaDomain
     WS[writing-skills]:::metaDomain
+    A[autoplan]:::metaDomain
+    I[investigate]:::metaDomain
+    OH[office-hours]:::metaDomain
+    PCR[plan-ceo-review]:::metaDomain
+    PER[plan-eng-review]:::metaDomain
+    PDR[plan-design-review]:::metaDomain
+    PDR2[plan-devex-review]:::metaDomain
+    PT[plan-tune]:::metaDomain
+    Q[qa]:::metaDomain
+    QO[qa-only]:::metaDomain
+    CS[context-save]:::metaDomain
+    CR2[context-restore]:::metaDomain
 
     %% Domain 2 - Closeout
     CR[codex-review]:::closeoutDomain
@@ -28,6 +40,7 @@ flowchart LR
     RCR2[requesting-code-review]:::closeoutDomain
     UGW[using-git-worktrees]:::closeoutDomain
     VBC[verification-before-completion]:::closeoutDomain
+    LAD[land-and-deploy]:::closeoutDomain
 
     %% Domain 3 - Desktop
     NF[native-feel-cross-platform-desktop]:::desktopDomain
@@ -55,6 +68,26 @@ flowchart LR
 
     BB[bb-browser]:::toolingDomain
 
+    %% Tooling domain
+
+    DR[design-review]:::toolingDomain
+
+    %% Tooling domain
+
+    DC[design-consultation]:::toolingDomain
+
+    %% Tooling domain
+
+    DH[design-html]:::toolingDomain
+
+    %% Tooling domain
+
+    MP[make-pdf]:::toolingDomain
+
+    %% Tooling domain
+
+    DG[document-generate]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -80,6 +113,24 @@ flowchart LR
     WS -. "同域" .-> ADK
     N -. "同域" .-> GPS
     BB -. "同域" .-> GPS
+    A -. "同域" .-> ADK
+    I -. "同域" .-> ADK
+    LAD -. "同域" .-> CR
+    OH -. "同域" .-> ADK
+    PCR -. "同域" .-> ADK
+    PER -. "同域" .-> ADK
+    PDR -. "同域" .-> ADK
+    PDR2 -. "同域" .-> ADK
+    PT -. "同域" .-> ADK
+    Q -. "同域" .-> ADK
+    QO -. "同域" .-> ADK
+    DR -. "同域" .-> GPS
+    DC -. "同域" .-> GPS
+    DH -. "同域" .-> GPS
+    CS -. "同域" .-> ADK
+    CR2 -. "同域" .-> ADK
+    MP -. "同域" .-> GPS
+    DG -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 

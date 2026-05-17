@@ -80,6 +80,102 @@
     "local_path": "~/.config/opencode/skills/writing-skills/SKILL.md"
   },
   {
+    "name": "autoplan",
+    "domain": "meta",
+    "role": "一键跑完 4 个 plan review",
+    "extra": "autoplan,plan review,CEO,eng,design,DX",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/autoplan/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/autoplan/SKILL.md"
+  },
+  {
+    "name": "investigate",
+    "domain": "meta",
+    "role": "系统化调试 + 根因分析",
+    "extra": "investigate,root cause,debug,Iron Law",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/investigate/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/investigate/SKILL.md"
+  },
+  {
+    "name": "office-hours",
+    "domain": "meta",
+    "role": "YC Office Hours（6 forcing questions）",
+    "extra": "office hours,YC,founder,demand,desperation",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/office-hours/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/office-hours/SKILL.md"
+  },
+  {
+    "name": "plan-ceo-review",
+    "domain": "meta",
+    "role": "创始人视角评审 plan（10-star 产品）",
+    "extra": "plan review,CEO,founder mode,10-star",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-ceo-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/plan-ceo-review/SKILL.md"
+  },
+  {
+    "name": "plan-eng-review",
+    "domain": "meta",
+    "role": "工程经理视角评审 plan（架构、测试）",
+    "extra": "plan review,eng manager,architecture,test",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-eng-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/plan-eng-review/SKILL.md"
+  },
+  {
+    "name": "plan-design-review",
+    "domain": "meta",
+    "role": "设计师视角评审 plan（0-10 评分）",
+    "extra": "plan review,design,visual,UX",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-design-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/plan-design-review/SKILL.md"
+  },
+  {
+    "name": "plan-devex-review",
+    "domain": "meta",
+    "role": "开发体验视角评审 plan",
+    "extra": "plan review,DX,developer experience",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-devex-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/plan-devex-review/SKILL.md"
+  },
+  {
+    "name": "plan-tune",
+    "domain": "meta",
+    "role": "plan 系统自调优 + 用户心理画像",
+    "extra": "plan tune,psychographic,question sensitivity",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-tune/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/plan-tune/SKILL.md"
+  },
+  {
+    "name": "qa",
+    "domain": "meta",
+    "role": "自动 QA 测试 + 迭代修 bug",
+    "extra": "QA,bug fix,web app testing,iterate",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/qa/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/qa/SKILL.md"
+  },
+  {
+    "name": "qa-only",
+    "domain": "meta",
+    "role": "只测不修，出 QA 报告",
+    "extra": "QA report,health score,screenshot",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/qa-only/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/qa-only/SKILL.md"
+  },
+  {
+    "name": "context-save",
+    "domain": "meta",
+    "role": "保存工作上下文（git + 决策 + 未完）",
+    "extra": "context save,session,handoff,git state",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/context-save/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/context-save/SKILL.md"
+  },
+  {
+    "name": "context-restore",
+    "domain": "meta",
+    "role": "恢复之前保存的工作上下文",
+    "extra": "context restore,resume session,last branch",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/context-restore/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/context-restore/SKILL.md"
+  },
+  {
     "name": "codex-review",
     "domain": "closeout",
     "role": "用 `codex review` 做提交前的二次审查（uncommitted / PR vs main / 并行测试）",
@@ -134,6 +230,14 @@
     "extra": "verify,evidence,proof",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/verification-before-completion/manifest.yaml",
     "local_path": "~/.config/opencode/skills/verification-before-completion/SKILL.md"
+  },
+  {
+    "name": "land-and-deploy",
+    "domain": "closeout",
+    "role": "merge PR + 等 CI + 部署 + canary 验证",
+    "extra": "land,deploy,merge PR,canary,CI",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/land-and-deploy/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/land-and-deploy/SKILL.md"
   },
   {
     "name": "native-feel-cross-platform-desktop",
@@ -198,5 +302,45 @@
     "extra": "browser automation,登录态 fetch,36 平台,form filling,mock",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/bb-browser/manifest.yaml",
     "local_path": "~/.config/opencode/skills/bb-browser/SKILL.md"
+  },
+  {
+    "name": "design-review",
+    "domain": "tooling",
+    "role": "设计师之眼 QA（视觉/AI slop/间距）",
+    "extra": "design review,visual QA,spacing,slop",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/design-review/SKILL.md"
+  },
+  {
+    "name": "design-consultation",
+    "domain": "tooling",
+    "role": "设计咨询 + 完整设计系统提案",
+    "extra": "design consultation,design system,aesthetic,typography",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-consultation/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/design-consultation/SKILL.md"
+  },
+  {
+    "name": "design-html",
+    "domain": "tooling",
+    "role": "出 production-quality HTML/CSS",
+    "extra": "design html,Pretext-native,production CSS",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-html/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/design-html/SKILL.md"
+  },
+  {
+    "name": "make-pdf",
+    "domain": "tooling",
+    "role": "markdown → 出版级 PDF（页码/封面）",
+    "extra": "PDF,markdown,publication,1in margin,cover",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/make-pdf/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/make-pdf/SKILL.md"
+  },
+  {
+    "name": "document-generate",
+    "domain": "tooling",
+    "role": "从零生成文档（Diataxis 框架）",
+    "extra": "document generate,Diataxis,tutorial,how-to,reference",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/document-generate/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/document-generate/SKILL.md"
   }
 ]

@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. 图谱演化案例</h2>
-<p>7 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<p>8 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
 <h3 id="state-0">5.1 State 0：初始 6-skill</h3>
 <p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
 <ul>
@@ -597,6 +597,19 @@ flowchart LR
 <li>tooling 域第 4 个成员：与 agent-reach（公共 API）、notebooklm（私有文档库）、guizang-ppt-skill（PPT 输出）共同构成「读外部 / 写内部」工具集</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 6" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-7">5.8 State 7：装 gstack 精选 18 件套</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/garrytan/gstack (× 18 sub-paths, 手选模式)</code></p>
+<p>garrytan/gstack 是 YC 风格的全栈工程方法论 monorepo（51 个 SKILL.md），从中精选 18 个补全「规划→评审→QA→发布→上下文管理」全链路。13 个归 meta（方法论+评审+上下文），1 个归 closeout（land-and-deploy），4 个归 tooling（design 三件 + 文档输出两件）。跳过 OpenClaw 专版（不适用）和浏览器组（与 bb-browser 重叠）。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 域 10→22 · closeout 域 7→8 · tooling 域 4→9 · PNG 528282 → 545053 (+3.2%)</span></div>
+<ul>
+<li>monorepo 形态：gstack 仓库共 51 个 SKILL.md，agent 自动 scan 后展示菜单让用户手选了 18 个</li>
+<li>meta 域 +12：autoplan / investigate / office-hours / plan-ceo-review / plan-eng-review / plan-design-review / plan-devex-review / plan-tune / qa / qa-only / context-save / context-restore（YC 全套方法论）</li>
+<li>closeout 域 +1：land-and-deploy（merge → CI → 部署 → canary 验证一气呵成）</li>
+<li>tooling 域 +5：design-consultation / design-review / design-html（设计三件套）+ make-pdf / document-generate（文档输出）</li>
+<li>明确跳过：OpenClaw 4 个专版（用户不用 OpenClaw）、浏览器组 7 个（与已装的 bb-browser 重叠）、gbrain 设施类（不在当前优先级）</li>
+<li>总规模：43 skill 跨 6 域，meta 域已成绝对主体（22 个，从「方法论真空」到「YC 全栈方法论库」）</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 7" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

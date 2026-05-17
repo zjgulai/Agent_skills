@@ -181,6 +181,36 @@
       ],
       "png": "skills-graph.png",
       "png_bytes": 528282
+    },
+    {
+      "id": 7,
+      "title_zh": "State 7：装 gstack 精选 18 件套",
+      "title_en": "State 7: installed gstack selected 18-piece kit",
+      "desc_zh": "garrytan/gstack 是 YC 风格的全栈工程方法论 monorepo（51 个 SKILL.md），从中精选 18 个补全「规划→评审→QA→发布→上下文管理」全链路。13 个归 meta（方法论+评审+上下文），1 个归 closeout（land-and-deploy），4 个归 tooling（design 三件 + 文档输出两件）。跳过 OpenClaw 专版（不适用）和浏览器组（与 bb-browser 重叠）。",
+      "desc_en": "garrytan/gstack is a YC-style full-stack engineering methodology monorepo (51 SKILL.md). Selected 18 to complete the plan→review→QA→deploy→context-mgmt chain. 13 → meta (methodology+review+context), 1 → closeout (land-and-deploy), 4 → tooling (design trio + doc output duo). Skipped OpenClaw-specific (N/A) and browser group (overlaps with bb-browser).",
+      "trigger_cmd": "/skill-install https://github.com/garrytan/gstack (× 18 sub-paths, 手选模式)",
+      "skill_added": "gstack (18 sub-skills)",
+    "domain_added": "meta + closeout + tooling",
+    "delta_zh": "+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 域 10→22 · closeout 域 7→8 · tooling 域 4→9 · PNG 528282 → 545053 (+3.2%)",
+    "delta_en": "+18 nodes (12 meta + 1 closeout + 5 tooling) · meta 10→22 · closeout 7→8 · tooling 4→9 · PNG 528282 → 545053 (+3.2%)",
+    "bullets_zh": [
+      "monorepo 形态：gstack 仓库共 51 个 SKILL.md，agent 自动 scan 后展示菜单让用户手选了 18 个",
+      "meta 域 +12：autoplan / investigate / office-hours / plan-ceo-review / plan-eng-review / plan-design-review / plan-devex-review / plan-tune / qa / qa-only / context-save / context-restore（YC 全套方法论）",
+      "closeout 域 +1：land-and-deploy（merge → CI → 部署 → canary 验证一气呵成）",
+      "tooling 域 +5：design-consultation / design-review / design-html（设计三件套）+ make-pdf / document-generate（文档输出）",
+      "明确跳过：OpenClaw 4 个专版（用户不用 OpenClaw）、浏览器组 7 个（与已装的 bb-browser 重叠）、gbrain 设施类（不在当前优先级）",
+      "总规模：43 skill 跨 6 域，meta 域已成绝对主体（22 个，从「方法论真空」到「YC 全栈方法论库」）"
+    ],
+    "bullets_en": [
+      "Monorepo: gstack ships 51 SKILL.md; agent auto-scanned, presented a menu, user picked 18.",
+      "meta +12: autoplan, investigate, office-hours, plan-{ceo,eng,design,devex}-review, plan-tune, qa, qa-only, context-save, context-restore (YC methodology suite).",
+      "closeout +1: land-and-deploy (merge → CI → deploy → canary verify in one shot).",
+      "tooling +5: design-consultation/review/html (design trio) + make-pdf/document-generate (doc output).",
+      "Explicitly skipped: 4 OpenClaw-specific skills (user doesn't use OpenClaw), 7 browser skills (overlaps installed bb-browser), gbrain infra (not yet prioritized).",
+      "Total: 43 skills across 6 domains; meta now dominant (22) — from methodology void to full YC engineering library."
+    ],
+      "png": "skills-graph.png",
+      "png_bytes": 545053
     }
   ]
 }
