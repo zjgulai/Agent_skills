@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. Graph Case Studies</h2>
-<p>9 graph states walking through how the graph mutates as new skills are added.</p>
+<p>10 graph states walking through how the graph mutates as new skills are added.</p>
 <h3 id="state-0">5.1 State 0: initial 6 skills</h3>
 <p>The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.</p>
 <ul>
@@ -623,6 +623,20 @@ flowchart LR
 <li>10th tooling member; with design-* / make-pdf / guizang-ppt-skill forms 'output toolchain + design reference library' structure.</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 8" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-9">5.10 State 9: dry-scan open-design → install 5 upstream repos (8 skills)</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/nexu-io/open-design --dry-scan → 5 upstream repos installed</code></p>
+<p>dry-scan revealed nexu-io/open-design is NOT a skill collection but a Claude Design / Figma open-source alternative (43k stars). Its skills/ contains 131 'catalogue entries' — each just a card saying 'real skill lives at upstream repo X'. Instead of installing the cards, we followed them to 5 upstream repos and installed 8 real skills, all in tooling.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+8 nodes · tooling 10→18 · PNG 544443 → 625457 (+14.9%)</span></div>
+<ul>
+<li>dry-scan lesson: open-design's skills/ is a catalogue (ad cards), not the actual skills. Each card has an 'upstream' field pointing to the real repo.</li>
+<li>5 upstream repos + 8 skills: (1) meodai/skill.color-expert (1) (2) Leonxlnx/taste-skill (picked 1 of 12) (3) smixs/creative-director-skill (1) (4) coreyhaines31/marketingskills (picked 2 of 40: marketing-psychology + copywriting) (5) raintree-technology/apple-hig-skills (picked 3 of 14: foundations + platforms + components-controls).</li>
+<li>color-expert: 286K-word color science library (OKLCH/OKLAB/contrast/palette generation) — much deeper than ui-ux-pro-max's 161-palette list.</li>
+<li>design-taste-frontend (Leonxlnx): actual name is design-taste-frontend, NOT taste-skill — reminder: subdir name ≠ frontmatter name.</li>
+<li>apple-hig trio: foundations (design principles) + platforms (iOS/macOS/visionOS/watchOS/tvOS baselines) + components-controls (buttons/pickers/sliders).</li>
+<li>Performance: marketingskills 2 → 4.7s (one clone); apple-hig 3 → 17.9s; normal repos 5-6s each.</li>
+<li>Critical finding: open-design itself git-clones for 5+ min even with --filter=blob:none. Combination of huge pack + IP throttle. Conclusion: massive product repos are NOT suitable for portal install.</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 9" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

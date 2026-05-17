@@ -241,6 +241,38 @@
       ],
       "png": "skills-graph.png",
       "png_bytes": 544443
+    },
+    {
+      "id": 9,
+      "title_zh": "State 9：dry-scan open-design → 装 5 个上游正牌仓库（8 个 skill）",
+      "title_en": "State 9: dry-scan open-design → install 5 upstream repos (8 skills)",
+      "desc_zh": "dry-scan nexu-io/open-design 揭示一个重要工程教训：该仓库不是 skill 集，是 Claude Design / Figma 的开源替代品产品（43k stars），它的 skills/ 是 131 个「目录卡片」（catalogue entries），每张卡只是个广告说「真 skill 在某个上游仓库」。我们没装这些卡片，而是顺着卡片找到 5 个上游正牌仓库，装了 8 个真实 skill，全归 tooling 域。",
+      "desc_en": "dry-scan revealed nexu-io/open-design is NOT a skill collection but a Claude Design / Figma open-source alternative (43k stars). Its skills/ contains 131 'catalogue entries' — each just a card saying 'real skill lives at upstream repo X'. Instead of installing the cards, we followed them to 5 upstream repos and installed 8 real skills, all in tooling.",
+      "trigger_cmd": "/skill-install https://github.com/nexu-io/open-design --dry-scan → 5 upstream repos installed",
+      "skill_added": "8 skills from 5 upstream repos",
+      "domain_added": "tooling",
+      "delta_zh": "+8 nodes · tooling 域 10→18 · PNG 544443 → 625457 (+14.9%)",
+      "delta_en": "+8 nodes · tooling 10→18 · PNG 544443 → 625457 (+14.9%)",
+      "bullets_zh": [
+        "dry-scan 工程教训：open-design 的 skills/ 是 catalogue（广告卡），不是真 skill 本体。装卡片等于装一堆指路牌，真内容在卡片的 upstream 字段",
+        "5 个上游仓库 + 8 个 skill：(1) meodai/skill.color-expert (1) (2) Leonxlnx/taste-skill (1, 内含 12 个挑了 1) (3) smixs/creative-director-skill (1) (4) coreyhaines31/marketingskills (2, 内含 40 个挑了 marketing-psychology + copywriting) (5) raintree-technology/apple-hig-skills (3, 内含 14 个挑了 foundations + platforms + components-controls)",
+        "color-expert：286K 字色彩科学库（OKLCH/OKLAB/contrast/palette generation）— 比 ui-ux-pro-max 的 161 配色清单深得多",
+        "design-taste-frontend (Leonxlnx)：实际 name=design-taste-frontend 不是 taste-skill — 提醒未来：subdir 名 ≠ frontmatter name",
+        "apple-hig 3 件套：foundations (设计原则) + platforms (iOS/macOS/visionOS/watchOS/tvOS 基线) + components-controls (按钮/选择器/滑块)",
+        "性能：marketingskills 2 个 → 4.7s（一次 clone）；apple-hig 3 个 → 17.9s；普通仓库 5-6s 内搞定",
+        "重要工程发现：open-design 仓库本身 git clone 超时 5+ 分钟，installer 加 --filter=blob:none 也没用 — 这是它的 pack 文件巨大 + 我们 IP throttling 双重问题。结论：超大产品级仓库不适合走 portal install 路径"
+      ],
+      "bullets_en": [
+        "dry-scan lesson: open-design's skills/ is a catalogue (ad cards), not the actual skills. Each card has an 'upstream' field pointing to the real repo.",
+        "5 upstream repos + 8 skills: (1) meodai/skill.color-expert (1) (2) Leonxlnx/taste-skill (picked 1 of 12) (3) smixs/creative-director-skill (1) (4) coreyhaines31/marketingskills (picked 2 of 40: marketing-psychology + copywriting) (5) raintree-technology/apple-hig-skills (picked 3 of 14: foundations + platforms + components-controls).",
+        "color-expert: 286K-word color science library (OKLCH/OKLAB/contrast/palette generation) — much deeper than ui-ux-pro-max's 161-palette list.",
+        "design-taste-frontend (Leonxlnx): actual name is design-taste-frontend, NOT taste-skill — reminder: subdir name ≠ frontmatter name.",
+        "apple-hig trio: foundations (design principles) + platforms (iOS/macOS/visionOS/watchOS/tvOS baselines) + components-controls (buttons/pickers/sliders).",
+        "Performance: marketingskills 2 → 4.7s (one clone); apple-hig 3 → 17.9s; normal repos 5-6s each.",
+        "Critical finding: open-design itself git-clones for 5+ min even with --filter=blob:none. Combination of huge pack + IP throttle. Conclusion: massive product repos are NOT suitable for portal install."
+      ],
+      "png": "skills-graph.png",
+      "png_bytes": 625457
     }
   ]
 }

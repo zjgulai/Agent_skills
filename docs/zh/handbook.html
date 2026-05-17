@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. 图谱演化案例</h2>
-<p>9 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<p>10 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
 <h3 id="state-0">5.1 State 0：初始 6-skill</h3>
 <p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
 <ul>
@@ -623,6 +623,20 @@ flowchart LR
 <li>tooling 域第 10 个成员，与 design-* / make-pdf / guizang-ppt-skill 形成「输出工具链 + 设计参考库」格局</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 8" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-9">5.10 State 9：dry-scan open-design → 装 5 个上游正牌仓库（8 个 skill）</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/nexu-io/open-design --dry-scan → 5 upstream repos installed</code></p>
+<p>dry-scan nexu-io/open-design 揭示一个重要工程教训：该仓库不是 skill 集，是 Claude Design / Figma 的开源替代品产品（43k stars），它的 skills/ 是 131 个「目录卡片」（catalogue entries），每张卡只是个广告说「真 skill 在某个上游仓库」。我们没装这些卡片，而是顺着卡片找到 5 个上游正牌仓库，装了 8 个真实 skill，全归 tooling 域。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+8 nodes · tooling 域 10→18 · PNG 544443 → 625457 (+14.9%)</span></div>
+<ul>
+<li>dry-scan 工程教训：open-design 的 skills/ 是 catalogue（广告卡），不是真 skill 本体。装卡片等于装一堆指路牌，真内容在卡片的 upstream 字段</li>
+<li>5 个上游仓库 + 8 个 skill：(1) meodai/skill.color-expert (1) (2) Leonxlnx/taste-skill (1, 内含 12 个挑了 1) (3) smixs/creative-director-skill (1) (4) coreyhaines31/marketingskills (2, 内含 40 个挑了 marketing-psychology + copywriting) (5) raintree-technology/apple-hig-skills (3, 内含 14 个挑了 foundations + platforms + components-controls)</li>
+<li>color-expert：286K 字色彩科学库（OKLCH/OKLAB/contrast/palette generation）— 比 ui-ux-pro-max 的 161 配色清单深得多</li>
+<li>design-taste-frontend (Leonxlnx)：实际 name=design-taste-frontend 不是 taste-skill — 提醒未来：subdir 名 ≠ frontmatter name</li>
+<li>apple-hig 3 件套：foundations (设计原则) + platforms (iOS/macOS/visionOS/watchOS/tvOS 基线) + components-controls (按钮/选择器/滑块)</li>
+<li>性能：marketingskills 2 个 → 4.7s（一次 clone）；apple-hig 3 个 → 17.9s；普通仓库 5-6s 内搞定</li>
+<li>重要工程发现：open-design 仓库本身 git clone 超时 5+ 分钟，installer 加 --filter=blob:none 也没用 — 这是它的 pack 文件巨大 + 我们 IP throttling 双重问题。结论：超大产品级仓库不适合走 portal install 路径</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 9" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

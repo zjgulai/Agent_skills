@@ -350,5 +350,69 @@
     "extra": "UI,UX,shadcn,tailwind,color palette,font pairing,style",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ui-ux-pro-max/manifest.yaml",
     "local_path": "~/.config/opencode/skills/ui-ux-pro-max/SKILL.md"
+  },
+  {
+    "name": "color-expert",
+    "domain": "tooling",
+    "role": "色彩科学专家（OKLCH/OKLAB/286K 字参考）",
+    "extra": "color theory,palette,oklch,oklab,contrast,accessibility",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/color-expert/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/color-expert/SKILL.md"
+  },
+  {
+    "name": "design-taste-frontend",
+    "domain": "tooling",
+    "role": "高 agency 前端 skill, 抑制 AI 视觉 slop",
+    "extra": "taste,design variance,motion intensity,visual density,AI slop",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-taste-frontend/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/design-taste-frontend/SKILL.md"
+  },
+  {
+    "name": "creative-director",
+    "domain": "tooling",
+    "role": "AI 创意总监 + 20+ 方法论（SIT/TRIZ/SCAMPER）",
+    "extra": "creative director,methodologies,SIT,TRIZ,SCAMPER",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/creative-director/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/creative-director/SKILL.md"
+  },
+  {
+    "name": "marketing-psychology",
+    "domain": "tooling",
+    "role": "行为心理学用于文案与定价",
+    "extra": "marketing psychology,behavioral science,pricing,framing",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/marketing-psychology/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/marketing-psychology/SKILL.md"
+  },
+  {
+    "name": "copywriting",
+    "domain": "tooling",
+    "role": "营销文案 copy chief partner",
+    "extra": "copywriting,landing page,homepage,ads",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/copywriting/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/copywriting/SKILL.md"
+  },
+  {
+    "name": "hig-foundations",
+    "domain": "tooling",
+    "role": "Apple HIG 基础原则（platforms/foundations）",
+    "extra": "apple hig,foundations,principles,accessibility,ios,macos",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-foundations/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/hig-foundations/SKILL.md"
+  },
+  {
+    "name": "hig-platforms",
+    "domain": "tooling",
+    "role": "Apple HIG 跨平台基线（ios/macos/visionos/watch/tv）",
+    "extra": "apple hig,platforms,ios,macos,visionos,watchos,tvos",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-platforms/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/hig-platforms/SKILL.md"
+  },
+  {
+    "name": "hig-components-controls",
+    "domain": "tooling",
+    "role": "Apple HIG 控件细节（buttons/pickers/sliders）",
+    "extra": "apple hig,components,controls,buttons,pickers,sliders",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-components-controls/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/hig-components-controls/SKILL.md"
   }
 ]
