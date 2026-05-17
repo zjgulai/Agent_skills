@@ -16,6 +16,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DOCS = REPO_ROOT / "docs"
+ORIGINALS = DOCS / "_src" / "originals"
 OUT = REPO_ROOT / "docs" / "_src" / "i18n"
 
 HTML_PAGES = [
@@ -35,7 +36,7 @@ DICT_PATTERN = re.compile(
 
 
 def js_obj_to_pairs(body: str) -> list[tuple[str, str]]:
-    """轻量级 JS 对象字面量解析。仅支持 'key': 'value', 形态。"""
+    """轻量级 JS 对象字面量解析。仅支持 'key': 'value' / "key": "value" 形态。"""
     pairs: list[tuple[str, str]] = []
     pos = 0
     n = len(body)
@@ -60,13 +61,8 @@ def js_obj_to_pairs(body: str) -> list[tuple[str, str]]:
             if body[cur] == quote:
                 break
             cur += 1
-        value = body[value_start:cur]
-        try:
-            value = json.loads(f'"{value}"') if quote == '"' else json.loads(
-                f'"{value.encode().decode("unicode_escape")}"'.replace("\\", "\\\\")
-            )
-        except Exception:
-            value = value
+        raw = body[value_start:cur]
+        value = raw.replace("\\'", "'").replace('\\"', '"').replace("\\\\", "\\").replace("\\n", "\n").replace("\\t", "\t")
         pairs.append((key, value))
         pos = cur + 1
     return pairs
@@ -76,7 +72,7 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     zh: dict[str, dict[str, str]] = {}
     for page in HTML_PAGES:
-        path = DOCS / page
+        path = ORIGINALS / page
         if not path.exists():
             continue
         text = path.read_text(encoding="utf-8")
