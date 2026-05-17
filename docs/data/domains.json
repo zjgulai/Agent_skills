@@ -94,10 +94,11 @@
     "order": 6,
     "desc_zh": "不绑定特定项目类型，但任何项目都可能需要的能力。",
     "desc_en": "Not bound to any project type — capabilities any project may need.",
-    "count": 2,
+    "count": 3,
     "skill_names": [
       "guizang-ppt-skill",
-      "agent-reach"
+      "agent-reach",
+      "notebooklm"
     ]
   }
 ]

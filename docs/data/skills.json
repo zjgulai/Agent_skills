@@ -182,5 +182,13 @@
     "extra": "twitter,reddit,youtube,github,xiaohongshu,bilibili,weibo,搜索,网页,rss",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/agent-reach/manifest.yaml",
     "local_path": "~/.config/opencode/skills/agent-reach/SKILL.md"
+  },
+  {
+    "name": "notebooklm",
+    "domain": "tooling",
+    "role": "查询 Google NotebookLM 笔记本（document-grounded）",
+    "extra": "notebooklm,query notebook,document-grounded,citation",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/notebooklm/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/notebooklm/SKILL.md"
   }
 ]

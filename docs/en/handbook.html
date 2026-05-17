@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. Graph Case Studies</h2>
-<p>5 graph states walking through how the graph mutates as new skills are added.</p>
+<p>6 graph states walking through how the graph mutates as new skills are added.</p>
 <h3 id="state-0">5.1 State 0: initial 6 skills</h3>
 <p>The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.</p>
 <ul>
@@ -573,6 +573,18 @@ flowchart LR
 <li>Core value: gives agents methodology scaffolding for complex work — brainstorm first, write plan, then TDD, dispatch in parallel, verify before completion</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 4" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-5">5.6 State 5: after installing notebooklm</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/PleasePrompto/notebooklm-skill</code></p>
+<p>Citation-grounded remote knowledge base — lets agents query your personal Google NotebookLM library; Gemini answers strictly from your uploaded documents with citations attached. Goes to tooling domain, joining agent-reach (internet read) and guizang-ppt-skill (PPT generation) as the three external-information adapters.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+1 node (N in tooling) · tooling 2→3 · PNG 508189 → 521852 (+2.7%)</span></div>
+<ul>
+<li>Browser automation queries NotebookLM, each question opens a fresh session then closes</li>
+<li>Gemini answers strictly from your uploaded documents — hallucinations drastically reduced, every reply has citations</li>
+<li>smart-add: drop a NotebookLM URL, the skill queries it first to auto-generate description/topics before registering</li>
+<li>Requires Google auth (cookies persisted locally) + Python + playwright/browser-use</li>
+<li>3rd tooling member: with agent-reach (public internet) and guizang-ppt-skill (PPT output), forms the read-external / write-internal tool trio</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 5" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

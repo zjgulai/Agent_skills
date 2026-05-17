@@ -125,6 +125,34 @@
       ],
       "png": "skills-graph.png",
       "png_bytes": 508189
+    },
+    {
+      "id": 5,
+      "title_zh": "State 5：装 notebooklm 后",
+      "title_en": "State 5: after installing notebooklm",
+      "desc_zh": "带 citation 的远程知识库 — 让 agent 调 Google NotebookLM 问你的个人文档库，Gemini 仅基于上传的文档回答，每条回复带出处引用。归 tooling 域，与 agent-reach（互联网读取）、guizang-ppt-skill（PPT 生成）共同构成横切层「外部信息源接入」三件套。",
+      "desc_en": "Citation-grounded remote knowledge base — lets agents query your personal Google NotebookLM library; Gemini answers strictly from your uploaded documents with citations attached. Goes to tooling domain, joining agent-reach (internet read) and guizang-ppt-skill (PPT generation) as the three external-information adapters.",
+      "trigger_cmd": "/skill-install https://github.com/PleasePrompto/notebooklm-skill",
+      "skill_added": "notebooklm",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node (N in tooling) · tooling 域 2→3 · PNG 508189 → 521852 (+2.7%)",
+      "delta_en": "+1 node (N in tooling) · tooling 2→3 · PNG 508189 → 521852 (+2.7%)",
+      "bullets_zh": [
+        "Browser 自动化查询 NotebookLM，每问一次开独立 session 再关闭",
+        "Gemini 仅从你上传的文档里拿答案 — 严重压低 hallucination，每条带 citation 出处",
+        "smart-add：扔个 NotebookLM URL 进来，先查一次问内容自动生成 description/topics 再入库",
+        "需要 Google 账号认证（Cookie 持久化在本机）+ Python + playwright/browser-use",
+        "tooling 域第 3 个成员：与 agent-reach（互联网公共信息）、guizang-ppt-skill（PPT 输出）形成「读外部 / 写内部」工具集"
+      ],
+      "bullets_en": [
+        "Browser automation queries NotebookLM, each question opens a fresh session then closes",
+        "Gemini answers strictly from your uploaded documents — hallucinations drastically reduced, every reply has citations",
+        "smart-add: drop a NotebookLM URL, the skill queries it first to auto-generate description/topics before registering",
+        "Requires Google auth (cookies persisted locally) + Python + playwright/browser-use",
+        "3rd tooling member: with agent-reach (public internet) and guizang-ppt-skill (PPT output), forms the read-external / write-internal tool trio"
+      ],
+      "png": "skills-graph.png",
+      "png_bytes": 521852
     }
   ]
 }
