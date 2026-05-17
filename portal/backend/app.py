@@ -2,12 +2,13 @@
 
 Routes:
   GET    /api/health
-  GET    /api/skills                  -> full skills-data.json
-  GET    /api/skills/{name}/markdown  -> raw SKILL.md text
-  POST   /api/install/github          {url, subdir?}
-  POST   /api/install/upload          multipart file
+  GET    /api/skills                       -> full skills-data.json
+  GET    /api/skills/{name}/markdown       -> raw SKILL.md text
+  POST   /api/install/github               {url, subdir?}
+  POST   /api/install/github/monorepo      {url, subdirs?: [str]}  one clone, many installs
+  POST   /api/install/upload               multipart file
   DELETE /api/skills/{name}
-  POST   /api/refresh                 -> rerun build_index
+  POST   /api/refresh                       -> rerun build_index
 """
 from __future__ import annotations
 
@@ -20,7 +21,7 @@ from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 
 from build_index import DATA_FILE, SKILLS_ROOT, build, parse_frontmatter
-from installer import install_from_github, install_from_upload, uninstall
+from installer import install_from_github, install_from_upload, install_monorepo_from_github, uninstall
 from hooks_api import router as hooks_router
 from mcps_api import router as mcps_router
 
@@ -80,6 +81,11 @@ class GithubInstallRequest(BaseModel):
     subdir: Optional[str] = None
 
 
+class GithubMonorepoInstallRequest(BaseModel):
+    url: str
+    subdirs: Optional[list[str]] = None
+
+
 @app.post("/api/install/github")
 def post_install_github(req: GithubInstallRequest) -> dict:
     res = install_from_github(req.url, req.subdir)
@@ -92,6 +98,14 @@ def post_install_github(req: GithubInstallRequest) -> dict:
         "skill_dir": res.skill_dir,
         "warnings": res.warnings,
     }
+
+
+@app.post("/api/install/github/monorepo")
+def post_install_github_monorepo(req: GithubMonorepoInstallRequest) -> dict:
+    res = install_monorepo_from_github(req.url, req.subdirs)
+    if res.get("succeeded", 0) > 0:
+        _refresh()
+    return res
 
 
 @app.post("/api/install/upload")

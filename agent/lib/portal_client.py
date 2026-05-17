@@ -172,14 +172,41 @@ def scan_monorepo(url: str) -> list[str]:
 
 
 def install_monorepo(url: str, subdirs: Optional[list[str]] = None) -> dict:
-    """Install multiple skills from a monorepo. Auto-scans if subdirs is None.
+    """Install multiple skills from a monorepo (one clone, many installs).
 
-    Returns dict {scanned: [...], installed: [{subdir, ok, skill_name, error}]}.
-    Continues on individual failures so partial monorepo installs are visible.
+    Calls portal API /api/install/github/monorepo which clones once and
+    iterates over subdirs server-side — drastically faster than N round-trips.
+
+    If subdirs is None: server auto-discovers every dir containing a SKILL.md.
+
+    Returns dict {ok, message, total, succeeded, failed, results: [...]}.
+    Falls back to per-subdir loop if portal returns 404 (older portal version).
     """
+    payload: dict = {"url": url}
+    if subdirs is not None:
+        payload["subdirs"] = subdirs
+    with _client() as c:
+        r = c.post(
+            "/api/install/github/monorepo",
+            json=payload,
+            timeout=httpx.Timeout(connect=2.0, read=900.0, write=30.0, pool=5.0),
+        )
+        if r.status_code == 404:
+            return _install_monorepo_fallback(url, subdirs)
+        if r.status_code == 400:
+            data = r.json()
+            raise PortalError(f"monorepo install failed: {data.get('detail', r.text)}")
+        r.raise_for_status()
+        return r.json()
+
+
+def _install_monorepo_fallback(url: str, subdirs: Optional[list[str]] = None) -> dict:
+    """Legacy per-subdir loop. Used when portal /api/install/github/monorepo is unavailable."""
     if subdirs is None:
         subdirs = scan_monorepo(url)
     results = []
+    succeeded = 0
+    failed = 0
     for sub in subdirs:
         try:
             res = install_github(url, sub)
@@ -188,9 +215,18 @@ def install_monorepo(url: str, subdirs: Optional[list[str]] = None) -> dict:
                 "ok": True,
                 "skill_name": res.get("skill_name"),
             })
+            succeeded += 1
         except (PortalError, httpx.HTTPError) as e:
             results.append({"subdir": sub, "ok": False, "error": str(e)[:200]})
-    return {"scanned": subdirs, "installed": results}
+            failed += 1
+    return {
+        "ok": failed == 0,
+        "message": f"monorepo install (fallback): {succeeded} ok, {failed} failed",
+        "total": len(subdirs),
+        "succeeded": succeeded,
+        "failed": failed,
+        "results": results,
+    }
 
 
 def _port_in_use(port: int) -> bool:
