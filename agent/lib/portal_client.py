@@ -7,6 +7,8 @@ Public API (mirrors portal/backend/app.py routes):
     get_markdown(name)                -> str
     install_github(url, subdir=None)  -> dict {ok, message, skill_name, skill_dir, warnings}
     install_upload(md_path)           -> dict (same shape)
+    scan_monorepo(url)                -> list[str] (subdir paths containing SKILL.md)
+    install_monorepo(url, subdirs=None) -> dict {scanned, installed: [...]}
     uninstall(name)                   -> dict {ok, message, skill_name}
     refresh()                         -> dict {ok, skill_count, generated_at}
     ensure_running(timeout=20)        -> bool   (auto-spawns ./portal/bin/start if not up)
@@ -17,7 +19,9 @@ Constants:
     PORTAL_BASE = "http://127.0.0.1:5174"
 
 CLI: python -m agent.lib.portal_client <command> [args...]
-  Commands: health, list, refresh, ensure, stop, status, get <name>, install <url>, uninstall <name>
+  Commands: health, list, refresh, ensure, stop, status, get <name>,
+            install <url> [<subdir>], scan <url>,
+            install-monorepo <url> [<subdir>...], uninstall <name>
 
 This module uses httpx for HTTP. All errors raise PortalError with a clear message.
 """
@@ -92,42 +96,70 @@ def install_github(url: str, subdir: Optional[str] = None) -> dict:
         payload["subdir"] = subdir
     with _client() as c:
         r = c.post("/api/install/github", json=payload)
-        r.raise_for_status()
-        data = r.json()
-        if not data.get("ok"):
-            raise PortalError(f"install failed: {data.get('message', 'unknown')}")
-        return data
-
-
-def install_upload(md_path: str | pathlib.Path) -> dict:
-    p = pathlib.Path(md_path)
-    if not p.is_file():
-        raise PortalError(f"not a file: {p}")
-    with _client() as c, p.open("rb") as f:
-        files = {"file": (p.name, f, "text/markdown")}
-        r = c.post("/api/install/upload", files=files)
-        r.raise_for_status()
-        data = r.json()
-        if not data.get("ok"):
-            raise PortalError(f"upload install failed: {data.get('message', 'unknown')}")
-        return data
-
-
-def uninstall(name: str) -> dict:
-    with _client() as c:
-        r = c.delete(f"/api/skills/{name}")
-        r.raise_for_status()
-        data = r.json()
-        if not data.get("ok"):
-            raise PortalError(f"uninstall failed: {data.get('message', 'unknown')}")
-        return data
-
-
-def refresh() -> dict:
-    with _client() as c:
-        r = c.post("/api/refresh")
+        if r.status_code == 400:
+            data = r.json()
+            raise PortalError(f"install failed: {data.get('detail', r.text)}")
         r.raise_for_status()
         return r.json()
+
+
+def scan_monorepo(url: str) -> list[str]:
+    """List all SKILL.md subpaths in a GitHub repo (one HTTP call to git/trees API).
+
+    Returns list of subdirs (parent of each SKILL.md), e.g.
+    ['skills/brainstorming', 'skills/test-driven-development', ...].
+    Excludes the repo root itself (which is handled by plain install).
+    """
+    if not url.startswith(("https://github.com/", "git@github.com:", "http://github.com/")):
+        raise PortalError(f"only GitHub URLs supported, got: {url}")
+    if url.startswith("git@github.com:"):
+        owner_repo = url[len("git@github.com:"):]
+    else:
+        owner_repo = url.split("github.com/", 1)[1]
+    owner_repo = owner_repo.rstrip("/").removesuffix(".git")
+
+    api = f"https://api.github.com/repos/{owner_repo}/git/trees/main?recursive=1"
+    with httpx.Client(timeout=httpx.Timeout(30.0)) as c:
+        r = c.get(api)
+        if r.status_code == 404:
+            api = api.replace("/main?", "/master?")
+            r = c.get(api)
+        r.raise_for_status()
+        data = r.json()
+
+    if data.get("truncated"):
+        raise PortalError(
+            f"repo tree exceeds GitHub API limits (truncated). "
+            f"Run install with explicit --subdir for each skill."
+        )
+
+    subdirs = []
+    for entry in data.get("tree", []):
+        if entry.get("type") == "blob" and entry["path"].endswith("/SKILL.md"):
+            subdirs.append(entry["path"][: -len("/SKILL.md")])
+    return sorted(subdirs)
+
+
+def install_monorepo(url: str, subdirs: Optional[list[str]] = None) -> dict:
+    """Install multiple skills from a monorepo. Auto-scans if subdirs is None.
+
+    Returns dict {scanned: [...], installed: [{subdir, ok, skill_name, error}]}.
+    Continues on individual failures so partial monorepo installs are visible.
+    """
+    if subdirs is None:
+        subdirs = scan_monorepo(url)
+    results = []
+    for sub in subdirs:
+        try:
+            res = install_github(url, sub)
+            results.append({
+                "subdir": sub,
+                "ok": True,
+                "skill_name": res.get("skill_name"),
+            })
+        except (PortalError, httpx.HTTPError) as e:
+            results.append({"subdir": sub, "ok": False, "error": str(e)[:200]})
+    return {"scanned": subdirs, "installed": results}
 
 
 def _port_in_use(port: int) -> bool:
@@ -246,7 +278,8 @@ def _main(argv: list[str]) -> int:
     if not argv:
         print(
             "usage: python -m agent.lib.portal_client "
-            "<health|list|refresh|ensure|stop|status|get NAME|install URL [SUBDIR]|uninstall NAME>",
+            "<health|list|refresh|ensure|stop|status|get NAME|install URL [SUBDIR]|"
+            "scan URL|install-monorepo URL [SUBDIR...]|uninstall NAME>",
             file=sys.stderr,
         )
         return 2
@@ -278,6 +311,16 @@ def _main(argv: list[str]) -> int:
             url = argv[1]
             subdir = argv[2] if len(argv) >= 3 else None
             _print(install_github(url, subdir))
+        elif cmd == "scan":
+            if len(argv) < 2:
+                print("usage: scan URL", file=sys.stderr); return 2
+            _print({"subdirs": scan_monorepo(argv[1])})
+        elif cmd == "install-monorepo":
+            if len(argv) < 2:
+                print("usage: install-monorepo URL [SUBDIR...]", file=sys.stderr); return 2
+            url = argv[1]
+            subs = argv[2:] if len(argv) > 2 else None
+            _print(install_monorepo(url, subs))
         elif cmd == "uninstall":
             if len(argv) < 2:
                 print("usage: uninstall NAME", file=sys.stderr); return 2
