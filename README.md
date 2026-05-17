@@ -68,7 +68,7 @@ cd ~/project/Agent/Agent_skills
 
 | 命令 | 用途 |
 |---|---|
-| `/skill-install <url> [--subdir X]` | GitHub URL 一键装 skill，自动分类、改 INDEX、画 graph |
+| `/skill-install <url> [--subdir X] [--dry-scan]` | GitHub URL 一句话到部署：自动检测单 skill / monorepo / catalog stub → 装 → INDEX → graph → sync → commit → push → CI。`--dry-scan` 只读分析不装 |
 | `/skill-uninstall <name>` | 卸载 + 反向清理元数据 |
 | `/skill-update <name\|all>` | git pull + 刷新索引 |
 | `/skill-list` | 按域分组打印所有已装 skill |
@@ -77,6 +77,16 @@ cd ~/project/Agent/Agent_skills
 | `/skill-doctor [name\|all]` | 5 条规则健康检查 |
 | `/skill-graph-sync` | INDEX.md → mmd → png 重渲（幂等） |
 | `/portal-start` `/portal-stop` `/portal-status` | Portal 生命周期 |
+
+**配套 CLI**（agent 不可用时手工跑）：
+
+| 子命令 | 用途 |
+|---|---|
+| `scan <url>` | 列仓库内所有 SKILL.md 子目录路径（机读 JSON） |
+| `install <url> [<subdir>]` | 单 skill 装 |
+| `install-monorepo <url> [<subdir>...]` | 一次 clone 批量装（实测 17× 加速） |
+| `bin/sync-data` | 把 `~/.config/opencode/skills/` 元数据镜像到 `data-mirror/` |
+| `bin/sync-data --diff-skills` | 机读输出 INDEX.md 新增的 skill 名 |
 
 完整参考：[手册 §3 11 个方法](https://zjgulai.github.io/Agent_skills/handbook.html#methods)
 
