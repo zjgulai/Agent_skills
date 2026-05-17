@@ -30,6 +30,9 @@ portal/frontend/tsconfig.tsbuildinfo
 INDEX.md.bak.*
 skills-graph.mmd.bak.*
 
+# agent-reach runtime config (mcporter.json with API endpoints)
+config/
+
 # IDE
 .vscode/
 .idea/

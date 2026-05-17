@@ -1,0 +1,3 @@
+# 此目录由本机 `bin/sync-data` 写入，是 docs 站点的真相源
+# CI 在 GitHub Actions 上仅"读"这个目录里的 INDEX.md / skills-graph.mmd / skills-graph.png
+# 三个文件由 ~/.config/opencode/skills/ 同步而来

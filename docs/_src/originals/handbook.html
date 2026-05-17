@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handbook · Skills Manager AI Agent</title>
+  <meta name="description" content="The single reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph case studies.">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_skills/handbook.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_skills/handbook.html">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .gradient-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.15), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(59,130,246,0.10), transparent 50%);
+    }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .mermaid { background: #0a0a0a; border: 1px solid #27272a; border-radius: 0.5rem; padding: 1.5rem; }
+    .mermaid svg { width: 100% !important; height: auto !important; max-width: none !important; }
+
+    /* Domain badge colors mirror skills-graph.mmd classDef */
+    .badge-meta     { background:#dbeafe; color:#1d4ed8; }
+    .badge-closeout { background:#dcfce7; color:#166534; }
+    .badge-desktop  { background:#ffedd5; color:#9a3412; }
+    .badge-founder  { background:#f3e8ff; color:#6b21a8; }
+    .badge-ip       { background:#ccfbf1; color:#115e59; }
+    .badge-tooling  { background:#e4e4e7; color:#3f3f46; }
+
+    /* Pills (read/write/lifecycle) — pure CSS, NOT @apply */
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-weight: 600;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .pill-read      { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.30); }
+    .pill-write     { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.30); }
+    .pill-lifecycle { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.30); }
+
+    /* TOC sticky right rail — explicit styles instead of @apply */
+    .toc-link {
+      display: block;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #71717a;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 150ms, border-color 150ms;
+    }
+    .toc-link:hover { color: #34d399; }
+    .toc-link.active { color: #34d399; border-left-color: #10b981; font-weight: 500; }
+
+    /* Smooth scroll with header offset */
+    section[id] { scroll-margin-top: 5rem; }
+
+    /* Prose typography — pure CSS, scoped to .prose-custom */
+    .prose-custom { color: #a1a1aa; line-height: 1.7; }
+    .prose-custom > * + * { margin-top: 1rem; }
+    .prose-custom h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #fafafa;
+      margin-top: 4rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #27272a;
+      letter-spacing: -0.01em;
+    }
+    .prose-custom h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #e4e4e7;
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .prose-custom h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #d4d4d8;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; max-width: 70ch; }
+    .prose-custom ul, .prose-custom ol { color: #a1a1aa; padding-left: 1.5rem; max-width: 70ch; }
+    .prose-custom ul { list-style: disc; }
+    .prose-custom ol { list-style: decimal; }
+    .prose-custom li { margin: 0.35rem 0; }
+    .prose-custom code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.875em;
+      color: #34d399;
+      background: #18181b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .prose-custom pre { max-width: none; }
+    .prose-custom pre code { background: transparent; padding: 0; white-space: pre; color: #e4e4e7; }
+    .prose-custom a { color: #34d399; text-decoration: underline; text-underline-offset: 2px; }
+    .prose-custom a:hover { color: #6ee7b7; }
+    .prose-custom strong { color: #fafafa; }
+
+    /* Tables */
+    .prose-custom table {
+      width: 100%;
+      max-width: none;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .prose-custom thead th {
+      text-align: left;
+      color: #fafafa;
+      font-weight: 600;
+      border-bottom: 1px solid #3f3f46;
+      padding: 0.75rem 0.75rem;
+      background: #18181b;
+    }
+    .prose-custom tbody td {
+      border-bottom: 1px solid #1f1f23;
+      padding: 0.75rem 0.75rem;
+      vertical-align: top;
+      color: #a1a1aa;
+    }
+    .prose-custom tbody tr:hover { background: #18181b; }
+    /* Command tables: first column should not wrap commands awkwardly */
+    .prose-custom td:first-child code { white-space: nowrap; }
+
+    /* Keyword tags — concrete CSS so spaces work */
+    .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .kw-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      color: #d4d4d8;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Domain card with left accent border */
+    .domain-card {
+      background: rgba(24,24,27,0.5);
+      border: 1px solid #27272a;
+      border-left-width: 4px;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      max-width: none;
+    }
+    .domain-card.dom-meta     { border-left-color: #3b82f6; }
+    .domain-card.dom-closeout { border-left-color: #22c55e; }
+    .domain-card.dom-desktop  { border-left-color: #f97316; }
+    .domain-card.dom-founder  { border-left-color: #a855f7; }
+    .domain-card.dom-ip       { border-left-color: #14b8a6; }
+    .domain-card.dom-tooling  { border-left-color: #71717a; }
+
+    /* Case-study delta callout */
+    .delta-callout {
+      background: rgba(16,185,129,0.06);
+      border-left: 3px solid #10b981;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    .delta-callout strong { color: #34d399; }
+
+    /* Image with click-to-open lightbox via target="_blank" link wrap */
+    .graph-img {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #27272a;
+      margin: 1rem 0;
+      cursor: zoom-in;
+      transition: transform 200ms;
+    }
+    .graph-img:hover { transform: scale(1.005); border-color: #3f3f46; }
+  </style>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['handbook'] = {
+      // Top nav
+      'nav.getting-started':   '快速开始',
+      'nav.handbook':          '手册',
+      'nav.architecture':      '架构',
+      'nav.github':            'GitHub →',
+      // Header
+      'header.eyebrow':        '在线参考手册',
+      'header.title':          '技能手册',
+      'header.subtitle':       'OpenCode 技能生命周期的统一参考：6 个域、11 个方法、技能图谱与 4 个真实演化案例。',
+      'header.lastupdate':     '最后更新',
+      // TOC
+      'toc.heading':           '本页目录',
+      'toc.overview':          '概览',
+      'toc.domains':           '域分类',
+      'toc.methods':           '11 个方法',
+      'toc.graph':             '技能图谱',
+      'toc.case-studies':      '图谱演化案例',
+      'toc.crossref':          '相关索引',
+      // §1 Overview
+      's1.title':              '§1. 概览',
+      's1.lead':               '本页是 OpenCode 技能日常管理的核心查询页。把它当作"始终打开的速查手册"——下面 5 个章节从最基础的分类规则讲到真实 graph 演化，逐层递进。',
+      's1.what-is-here':       '本页包含什么',
+      's1.what-is-here-li1':   '6 个 skill 域的判定规则与关键词',
+      's1.what-is-here-li2':   '11 个 slash 命令的精炼参考表',
+      's1.what-is-here-li3':   '当前 Skills Graph 的实时渲染 + 图例',
+      's1.what-is-here-li4':   '场景套餐表（哪种任务该装哪些 skill）',
+      's1.what-is-here-li5':   '4 个真实/假想的图演化案例（State 0 → State 3）',
+      's1.what-is-not-here':   '本页不包含',
+      's1.what-is-not-here-li1':'安装步骤——见 ',
+      's1.what-is-not-here-li2':'两层架构详解——见 ',
+      's1.who':                '面向谁',
+      's1.who-li1':            '已经装好 ≥ 3 个 skill、需要"该装哪个 / 调哪个"快速决断的用户',
+      's1.who-li2':            '想理解为什么 graph 长这样、graph 装新 skill 后怎么变的开发者',
+      's1.who-li3':            '需要远程查询而不能跑命令的场景（飞机、客户笔电、纯 Web）',
+      // §2 Domain Taxonomy
+      's2.title':              '§2. 域分类',
+      's2.lead':               '6 个域。一条规则：当判定不确定时，向用户提问。分类器永远不会暗中误归类。',
+      's2.how-it-works':       '推断算法',
+      's2.algo-li1':           '把 skill 的 name + description 拼接、转小写',
+      's2.algo-li2':           '对每个域，统计关键词在文本中的出现次数（每词最多算一次）',
+      's2.algo-li3':           '取得分最高的域。平局时按域优先级取第一个：',
+      's2.algo-li4':           '若所有得分为 0 → 返回 uncategorized，agent 提示用户手选',
+      's2.6-domains':          '6 个域',
+      's2.regression':         '回归测试',
+      's2.regression-lead':    '当前 7 个 skill 全部回归用例 7/7 通过：',
+      's2.regression-th-skill':'Skill 名称',
+      's2.regression-th-desc': 'description 关键词',
+      's2.regression-th-domain':'期望域',
+      's2.regression-th-evidence':'命中证据',
+      's2.update-rule':        '更新规则',
+      's2.update-rule-li':     '更新关键词时：先改 ',
+      's2.update-rule-li-2':   '，再改 ',
+      's2.update-rule-li-3':   ' 中的 KEYWORDS 表，最后跑 pytest 回归。',
+      // §3 Methods
+      's3.title':              '§3. 11 个方法',
+      's3.lead':               '11 个 slash 命令按生命周期阶段分组。每条都有读/写/生命周期标记，方便快速判断对系统状态的影响。',
+      's3.phase1':              '阶段一：技能生命周期',
+      's3.phase2':              '阶段二：检查与查询',
+      's3.phase3':              '阶段三：维护',
+      's3.phase4':              '阶段四：Portal 控制',
+      's3.fullref':             '完整命令参考',
+      's3.fullref-text':        '每个命令的完整提示模版在仓库源码 ',
+      // §4 Skills Graph
+      's4.title':              '§4. 技能图谱',
+      's4.lead':               '图谱是 6 个域 + builtin skill 之间关系的可视化视图。读懂图谱 = 读懂"在哪个项目阶段，该叠哪个 skill"。',
+      's4.legend':             '4.1 图例：怎么读图',
+      's4.legend-arrow-h':     '边类型',
+      's4.legend-color-h':     '域配色',
+      's4.legend-shape-h':     '节点形状',
+      's4.live':               '4.2 当前实时图谱',
+      's4.live-lead':          '下面是当前 8 个安装 skill 的实时 mermaid 渲染（与仓库 ',
+      's4.live-lead-2':        ' 同源）。',
+      's4.bundles':            '4.3 典型场景套餐',
+      's4.bundles-lead':       '常见场景下"该一次性 load 哪几个 skill"的速查表。直接复制 load_skills 数组到 task() 即可：',
+      's4.bundles-th-scene':   '场景',
+      's4.bundles-th-load':    '加载组合',
+      's4.bundles-th-note':    '备注',
+      // §5 Case studies
+      's5.title':              '§5. 图谱演化案例',
+      's5.lead':               '4 个图谱状态，按时间序展示新装 skill 时图谱怎么变。前 3 个是真实历史（State 0 → State 1 → State 2），第 4 个是假想场景演练。',
+      's5.s0':                 '5.1 State 0：初始 6-skill',
+      's5.s0-desc':            '项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链，加 5 条 cross-domain 增援边。',
+      's5.s0-bullet1':         '6 个用户级 skill：ADK、CR、NF、SPT、PAT、SCS（IP 双子星）',
+      's5.s0-bullet2':         '5 个 builtin（虚线边框）：GM、RW、ASR、FE、PW',
+      's5.s0-bullet3':         '主链：SPT → ADK → NF → CR → PAT → SCS（紫→蓝→橙→绿→青→青）',
+      's5.s0-bullet4':         '没有 tooling 域块（因为还没有任何 tooling skill）',
+      's5.s0-png-alt':         'Skills graph state 0：6 用户 skill + 5 builtin',
+      's5.s1':                 '5.2 State 1：装 guizang-ppt-skill 后',
+      's5.s1-cmd':             '触发：',
+      's5.s1-desc':            '装完 guizang-ppt-skill 后的图谱。tooling 域块自动创建，GPS 节点孤立加入。注意：因为 tooling 域之前空，agent 自动添加了 toolingDomain classDef 和 "%% Tooling domain" 注释块。',
+      's5.s1-bullet1':         '推断结果：tooling 域（命中 ppt / swiss style / html，得分 3）',
+      's5.s1-bullet2':         '新节点：GPS[guizang-ppt-skill]:::toolingDomain',
+      's5.s1-bullet3':         '新边：GPS -. "独立节点" .-> GPS（同域无 peer 时的 self-loop fallback）',
+      's5.s1-bullet4':         '尺寸变化：state-0 (224500) → state-1 (259330)，+34830 字节',
+      's5.s1-png-alt':         'Skills graph state 1：装 guizang 后 +1 节点',
+      's5.s2':                 '5.3 State 2：装 skill-creator 后',
+      's5.s2-cmd':             '触发：',
+      's5.s2-desc':            '装完 skill-creator 后的当前态。这个 skill 的 description 用语过宽（"create new skills"），关键词推断返回 uncategorized，agent 提示用户后手工归到 meta 域。新节点 SC 与已有 ADK 同域，因此自动添加 "同域" dashed 边。',
+      's5.s2-bullet1':         '推断结果：uncategorized → 用户手选 meta',
+      's5.s2-bullet2':         '新节点：SC[skill-creator]:::metaDomain',
+      's5.s2-bullet3':         '新边：SC -. "同域" .-> ADK（meta 域已有 peer，加同域 dashed 边）',
+      's5.s2-bullet4':         '尺寸变化：state-1 (259330) → state-2 (270529)，+11199 字节',
+      's5.s2-png-alt':         'Skills graph state 2：装 skill-creator 后 +1 节点',
+      's5.s3':                 '5.4 State 3 (假想)：装 3 个 desktop skills',
+      's5.s3-desc':            '想象一下：如果你接下来装 3 个新的桌面应用相关 skill（如 "tauri-template"、"electron-perf-audit"、"webview-survival-kit"）会怎样？图谱会演化成下面这样——desktop 域从 1 个节点扩到 4 个节点，自动加 3 条同域边。注意 NF 仍然保有原来到 PW 和 FE 的 cross-domain 边。',
+      's5.s3-bullet1':         '所有新 skill 都推断为 desktop 域（关键词 tauri / electron / webview 强信号）',
+      's5.s3-bullet2':         '新节点：TT、EPA、WSK（按 SHORT_ID 命名规则首字母）',
+      's5.s3-bullet3':         '新边：每个新节点 -. "同域" .-> NF（同域 dashed，链向首个 peer）',
+      's5.s3-bullet4':         'desktop classDef 已存在，不需新建',
+      // §6 Crossref
+      's6.title':              '§6. 相关索引',
+      's6.lead':                '本手册是入口；以下文档进一步深入：',
+      's6.code':                '源码索引',
+      // Footer
+      'footer.tagline':         '一个 OpenCode 技能生命周期管理 AI agent。',
+
+      // §2 Domain subtitles (英文 → 中文)
+      'dom.meta.subtitle':      'AI 工程基础设施',
+      'dom.closeout.subtitle':  '代码质量与交付闭环',
+      'dom.desktop.subtitle':   '桌面应用工程',
+      'dom.founder.subtitle':   '创业与产品验证',
+      'dom.ip.subtitle':        '知识产权交付',
+      'dom.tooling.subtitle':   '工具增强（横切层）',
+
+      // §2 "When to enter:" prefix + per-domain content
+      'dom.label.when':         '何时进入：',
+      'dom.label.note-prefix':  '注意：',
+      'dom.meta.when':          '任务的对象是 <strong>AI agent 自身</strong>——仓库脚手架、agent 记忆、skill 库、hook、subagent、plugin、agent 自治。',
+      'dom.closeout.when':      '代码已写完，进入最后一公里——commit / PR / release / lint / audit。',
+      'dom.desktop.when':       '跨平台桌面应用，且用户体感必须像原生。',
+      'dom.founder.when':       '手上是点子或早期产品，在判断「这事值不值得做」。',
+      'dom.ip.when':            '项目进入商业化保护阶段——把代码资产变成可申报的法律文件。',
+      'dom.tooling.when':       '不绑定特定项目类型，但<strong>任何项目都可能需要</strong>的能力。',
+      'dom.meta.note':          '注意：单独的 <code>skill</code> 不在 meta 关键词表里——太宽泛；几乎每份 SKILL.md 都会提到它。只有 <code>subagent</code>、<code>agent</code> 和明确的配置文件才是强信号。',
+
+      // §3 Phase descriptions
+      's3.t.command':           '命令',
+      's3.t.effect':            '作用',
+      's3.t.phase':             '阶段',
+      'cmd.install.eff':        '通过 portal API clone → 推断域 → 加 INDEX.md → 加 graph 节点并重渲 PNG → 刷新（7 步，写）',
+      'cmd.uninstall.eff':      'install 的逆操作。确认 → 删 graph 节点 → 删 INDEX 行 → DELETE 物理文件（4 步，写）',
+      'cmd.update.eff':         '在 skill 目录跑 <code>git pull --ff-only</code>，然后刷新 portal 索引',
+      'cmd.list.eff':           '只读：按域分组打印所有已装 skill，含描述与触发词',
+      'cmd.recommend.eff':      '把自由文本任务匹配到场景套餐表或对关键词打分；输出 <code>load_skills=[…]</code>',
+      'cmd.doctor.eff':         '5 条规则体检：frontmatter / 目录名 / INDEX 收录 / graph 收录 / 依赖',
+      'cmd.classify.eff':       '把一个 skill 在域之间移动；同时改 INDEX 行、graph 节点、classDef',
+      'cmd.graphsync.eff':      '把 graph 与 INDEX 对齐；检测 MISSING / EXTRA / MISMATCH；幂等',
+      'cmd.portalstart.eff':    '把 portal 起来；幂等；自动检测 portless HTTPS',
+      'cmd.portalstop.eff':     '杀 5173 + 5174 端口上的进程；幂等',
+      'cmd.portalstatus.eff':   '只读：API 是否在跑、端口、PIDs、上次索引时间、skill 数量',
+      'pill.read':              '读',
+      'pill.write':             '写',
+      'pill.lifecycle':         '生命周期',
+
+      // §4 Legend
+      'legend.solid.label':     '<strong>实线</strong> — 生命周期依赖',
+      'legend.dashed.label':    '<strong>虚线</strong> — 跨域增援',
+      'legend.double.label':    '<strong>双向</strong> — 并行耦合',
+      'legend.box.label':       '用户安装的 skill',
+      'legend.round.label':     '内置（无需安装）',
+      'legend.sid.label':       '<code style="font-size:11px;">guizang-ppt-skill</code> → <code style="font-size:11px;">GPS</code>',
+
+      // §4.3 Scenario bundles table headers + rows
+      's4.bundles.scene':       '场景',
+      's4.bundles.load':        '加载组合',
+      's4.bundles.note':        '备注',
+      'sce.idea':               '「我有个新点子，看看靠不靠谱」',
+      'sce.idea.note':          '单 skill——不要立刻加 ADK',
+      'sce.scaffold':           '「搭一个跨平台桌面 app 的脚手架」',
+      'sce.scaffold.note':      'ADK 给工程结构；NF 给桌面架构原则',
+      'sce.preship':            '「PR 准备 ship 之前」',
+      'sce.preship.note':       '审查三件套',
+      'sce.ip':                 '「这个项目要申请软著 + 挖专利」',
+      'sce.ip.note':            'IP 双子星必须一起加——保持软件名 / 版本号在两个流程里一致',
+      'sce.audit':              '「给现有 OpenCode 仓库做架构审计」',
+      'sce.audit.note':         '单 skill——输出五层架构 gap 分析',
+      'sce.electron':           '「我的 Electron 应用启动慢 / 窗口卡」',
+      'sce.electron.note':      'NF 出诊断方向；playwright 验证 fix',
+      'sce.swiss':              '「基于这篇文章做一份瑞士风 PPT」',
+      'sce.swiss.note':         'tooling 域 skill，不需要搭档',
+      'sce.skillnew':           '「从零创建一个新 skill」',
+      'sce.skillnew.note':      'meta 域——bootstrap 另一个 skill',
+
+      // §5 Case study state details
+      's5.s0.b1':               '6 个用户级 skill：ADK、CR、NF、SPT、PAT、SCS（IP 双子星）',
+      's5.s0.b2':               '5 个内置（虚线边框）：GM、RW、ASR、FE、PW',
+      's5.s0.b3':               '主链：SPT → ADK → NF → CR → PAT → SCS（紫→蓝→橙→绿→青→青）',
+      's5.s0.b4':               '没有 tooling 域块（还没有 tooling skill）',
+      's5.delta.label':         'Δ vs 上一态：',
+      's5.s1.delta':            '+1 节点（GPS 进 tooling）· +1 classDef（toolingDomain） · +1 自循环边 · PNG 字节 224 500 → 259 330（+15.5%）',
+      's5.s1.b1':               '推断结果：tooling 域（命中 ppt / swiss style / html，得分 3）',
+      's5.s1.b2':               '新节点：<code>GPS[guizang-ppt-skill]:::toolingDomain</code>',
+      's5.s1.b3':               '新边：<code>GPS -. "isolated" .-> GPS</code>（同域无 peer 时的自循环兜底）',
+      's5.s2.delta':            '+1 节点（SC 进 meta）· +1 同域边到 ADK · 0 新 classDef（meta 已存在）· PNG 字节 259 330 → 270 529（+4.3%）',
+      's5.s2.b1':               '推断结果：uncategorized → 用户手选 meta',
+      's5.s2.b2':               '新节点：<code>SC[skill-creator]:::metaDomain</code>',
+      's5.s2.b3':               '新边：<code>SC -. "same domain" .-> ADK</code>（meta 已有 peer，加同域虚线边）',
+      's5.s3.b1':               '3 个新 skill 全部推断为 desktop 域（关键词 tauri / electron / webview 强信号）',
+      's5.s3.b2':               '新节点：TT、EPA、WSK（SHORT_ID = 各连字段首字母）',
+      's5.s3.b3':               '新边：每个新节点 <code>-. "same domain" .-> NF</code>（虚线，连到首个 peer）',
+      's5.s3.b4':               'desktop classDef 已存在，不需新建',
+
+      // §6 Cross-references
+      's6.gs.text':              ' — 在新机器上 10 分钟搞定安装',
+      's6.arch.text':            ' — 两层设计、5 个 Python lib 模块、安装时序图',
+      's6.tax.text':             ' — 6 域规则的真相源',
+      's6.cmds.text':            ' — 11 个 slash 命令的提示模版（Markdown）',
+      's6.lib.text':             ' — 5 个 Python 模块（portal_client, domain_inference, index_md_writer, graph_writer, doctor）',
+      's6.portal.text':          ' — FastAPI + Vite/Vue 本地站点',
+
+      // Common nav extras
+      'nav.repo-link':          'Skills Manager',
+      'nav.gs.alt':             'Getting Started（快速开始）',
+      'nav.arch.alt':           'Architecture（架构）',
+      'header.editlink':        '在 GitHub 编辑',
+    };
+  </script>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🧠</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-emerald-400 text-sm" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 pb-20">
+
+<div class="max-w-7xl mx-auto px-6">
+  <div class="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12">
+
+    <article class="prose-custom min-w-0">
+
+      <!-- HEADER -->
+      <header class="mb-12">
+        <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2" data-i18n="header.eyebrow">REFERENCE HANDBOOK</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4" data-i18n="header.title">The Handbook</h1>
+        <p class="text-lg text-zinc-400" data-i18n="header.subtitle">A unified reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph evolution case studies.</p>
+        <p class="text-sm text-zinc-600 mt-4">
+          <span data-i18n="header.lastupdate">Last updated</span>: 2026-05-16 ·
+          <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" target="_blank" rel="noopener" data-i18n="header.editlink">edit on GitHub</a>
+        </p>
+      </header>
+
+      <!-- §1 OVERVIEW -->
+      <section id="overview">
+        <h2 data-i18n="s1.title">§1. Overview</h2>
+        <p data-i18n="s1.lead">This page is the single reference for day-to-day OpenCode skills management. Treat it as the always-open cheat sheet — the five sections below build from raw classification rules up to real graph evolution, layer by layer.</p>
+
+        <h3 data-i18n="s1.what-is-here">What's on this page</h3>
+        <ul>
+          <li data-i18n="s1.what-is-here-li1">The decision rules and keywords for all 6 skill domains</li>
+          <li data-i18n="s1.what-is-here-li2">A condensed reference for all 11 slash commands</li>
+          <li data-i18n="s1.what-is-here-li3">A live render of the current Skills Graph + a legend</li>
+          <li data-i18n="s1.what-is-here-li4">The scenario bundles table (which skills to load for which task)</li>
+          <li data-i18n="s1.what-is-here-li5">Four real and hypothetical graph evolution cases (State 0 → State 3)</li>
+        </ul>
+
+        <h3 data-i18n="s1.what-is-not-here">What's not on this page</h3>
+        <ul>
+          <li><span data-i18n="s1.what-is-not-here-li1">Install steps — see </span><a href="./getting-started.html">Getting Started</a></li>
+          <li><span data-i18n="s1.what-is-not-here-li2">Two-layer architecture deep dive — see </span><a href="./architecture.html">Architecture</a></li>
+        </ul>
+
+        <h3 data-i18n="s1.who">Who it's for</h3>
+        <ul>
+          <li data-i18n="s1.who-li1">Users who already have ≥ 3 skills installed and need "which one to load / which one to invoke" decisions in seconds</li>
+          <li data-i18n="s1.who-li2">Developers who want to understand why the graph looks the way it does and how it changes when a new skill is installed</li>
+          <li data-i18n="s1.who-li3">Read-only contexts where you can't run commands (airplane, client laptop, pure web)</li>
+        </ul>
+      </section>
+
+      <!-- §2 DOMAINS -->
+      <section id="domains">
+        <h2 data-i18n="s2.title">§2. Domain Taxonomy</h2>
+        <p data-i18n="s2.lead">Six domains. One rule: when the classifier is uncertain, ask the user. The classifier never silently miscategorizes.</p>
+
+        <h3 data-i18n="s2.how-it-works">How inference works</h3>
+        <ol>
+          <li data-i18n="s2.algo-li1">Concatenate <code>name</code> + <code>description</code>, lowercase</li>
+          <li data-i18n="s2.algo-li2">For each domain, count how many of its keywords appear (each keyword counted at most once)</li>
+          <li data-i18n="s2.algo-li3">Pick the highest-scoring domain. Ties broken by priority order:</li>
+        </ol>
+        <div class="cmd-block rounded-lg p-3 my-3 text-sm">
+          <pre><code class="language-text">ip → desktop → founder → meta → closeout → tooling</code></pre>
+        </div>
+        <ol start="4">
+          <li data-i18n="s2.algo-li4">If every score is 0 → returns <code>uncategorized</code>; the agent prompts the user to manually pick</li>
+        </ol>
+
+        <h3 data-i18n="s2.6-domains">The 6 domains</h3>
+
+        <!-- Domain meta -->
+        <div class="domain-card dom-meta">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="pill badge-meta">meta</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.meta.subtitle">AI Engineering Infrastructure</span>
+          </div>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.meta.when">the task targets <strong>AI agents themselves</strong> — repository scaffolding, agent memory, skill libraries, hooks, subagents, plugins, agent self-governance.</span></p>
+          <div class="kw-row"><span class="kw-tag">agent</span><span class="kw-tag">subagent</span><span class="kw-tag">hook</span><span class="kw-tag">plugin</span><span class="kw-tag">mcp server</span><span class="kw-tag">prompt template</span><span class="kw-tag">AGENTS.md</span><span class="kw-tag">CLAUDE.md</span><span class="kw-tag">.opencode/</span><span class="kw-tag">opencode.json</span><span class="kw-tag">agent guardrails</span></div>
+          <p class="text-zinc-500 text-xs" data-i18n-html="dom.meta.note">Note: bare <code>skill</code> is NOT a meta keyword — too generic; almost every SKILL.md mentions it. Only <code>subagent</code>, <code>agent</code>, and explicit config files are strong signals.</p>
+        </div>
+
+        <!-- Domain closeout -->
+        <div class="domain-card dom-closeout">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="pill badge-closeout">closeout</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.closeout.subtitle">Code Quality &amp; Delivery Closeout</span>
+          </div>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.closeout.when">code is written, you're at the last mile — commit / PR / release / lint / audit.</span></p>
+          <div class="kw-row"><span class="kw-tag">review</span><span class="kw-tag">code review</span><span class="kw-tag">commit</span><span class="kw-tag">pull request</span><span class="kw-tag">merge</span><span class="kw-tag">release</span><span class="kw-tag">ship</span><span class="kw-tag">lint</span><span class="kw-tag">audit</span><span class="kw-tag">codex review</span><span class="kw-tag">pre-commit</span></div>
+        </div>
+
+        <!-- Domain desktop -->
+        <div class="domain-card dom-desktop">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="pill badge-desktop">desktop</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.desktop.subtitle">Desktop App Engineering</span>
+          </div>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.desktop.when">cross-platform desktop app where user-facing experience must feel native.</span></p>
+          <div class="kw-row"><span class="kw-tag">tauri</span><span class="kw-tag">electron</span><span class="kw-tag">webview</span><span class="kw-tag">webview2</span><span class="kw-tag">wkwebview</span><span class="kw-tag">webkit</span><span class="kw-tag">native macos</span><span class="kw-tag">launcher app</span><span class="kw-tag">system tray</span><span class="kw-tag">global hotkey</span><span class="kw-tag">raycast</span><span class="kw-tag">native feel</span></div>
+        </div>
+
+        <!-- Domain founder -->
+        <div class="domain-card dom-founder">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="pill badge-founder">founder</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.founder.subtitle">Founder &amp; Product Validation</span>
+          </div>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.founder.when">you have an idea or early-stage product, deciding "is this worth building?"</span></p>
+          <div class="kw-row"><span class="kw-tag">mvp</span><span class="kw-tag">icp</span><span class="kw-tag">pressure-test</span><span class="kw-tag">validate problem</span><span class="kw-tag">market fit</span><span class="kw-tag">founder-market fit</span><span class="kw-tag">first 10 customers</span><span class="kw-tag">pivot</span><span class="kw-tag">2-week launch</span></div>
+        </div>
+
+        <!-- Domain ip -->
+        <div class="domain-card dom-ip">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="pill badge-ip">ip</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.ip.subtitle">Intellectual Property Deliverables</span>
+          </div>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.ip.when">project enters commercial-protection phase — turn code assets into legally filed documents.</span></p>
+          <div class="kw-row"><span class="kw-tag">专利</span><span class="kw-tag">软著</span><span class="kw-tag">软件著作权</span><span class="kw-tag">技术交底书</span><span class="kw-tag">国知局</span><span class="kw-tag">patent</span><span class="kw-tag">copyright</span><span class="kw-tag">software copyright</span><span class="kw-tag">prior-art</span><span class="kw-tag">claim drafting</span></div>
+        </div>
+
+        <!-- Domain tooling -->
+        <div class="domain-card dom-tooling">
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="pill badge-tooling">tooling</span>
+            <span class="text-zinc-400 text-sm" data-i18n="dom.tooling.subtitle">Cross-cutting Tooling</span>
+          </div>
+          <p class="text-zinc-400 text-sm mb-2"><strong data-i18n="dom.label.when">When to enter:</strong> <span data-i18n-html="dom.tooling.when">not bound to any project type, useful across <strong>any</strong> project.</span></p>
+          <div class="kw-row"><span class="kw-tag">ppt</span><span class="kw-tag">slide deck</span><span class="kw-tag">presentation</span><span class="kw-tag">magazine</span><span class="kw-tag">swiss style</span><span class="kw-tag">cover</span><span class="kw-tag">image prompt</span><span class="kw-tag">image generation</span><span class="kw-tag">screenshot</span><span class="kw-tag">docx</span><span class="kw-tag">pdf</span><span class="kw-tag">html</span></div>
+        </div>
+
+        <h3 data-i18n="s2.regression">Regression test</h3>
+        <p data-i18n="s2.regression-lead">All 7 currently-installed skills pass the regression test (7/7):</p>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="s2.regression-th-skill">Skill</th>
+              <th data-i18n="s2.regression-th-domain">Expected domain</th>
+              <th data-i18n="s2.regression-th-evidence">Evidence keywords</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>agent-dev-kit-architecture-designer</code></td><td><span class="pill badge-meta">meta</span></td><td>agent / hook / subagent / plugin</td></tr>
+            <tr><td><code>codex-review</code></td><td><span class="pill badge-closeout">closeout</span></td><td>codex review / 二次审查 / ship / commit / PR</td></tr>
+            <tr><td><code>native-feel-cross-platform-desktop</code></td><td><span class="pill badge-desktop">desktop</span></td><td>tauri / webview / raycast / wkwebview</td></tr>
+            <tr><td><code>startup-pressure-test</code></td><td><span class="pill badge-founder">founder</span></td><td>icp / mvp / founder-market fit</td></tr>
+            <tr><td><code>patent-disclosure-skill</code></td><td><span class="pill badge-ip">ip</span></td><td>专利 / 交底书 / 国知局</td></tr>
+            <tr><td><code>software-copyright-materials</code></td><td><span class="pill badge-ip">ip</span></td><td>软件著作权 / 软著</td></tr>
+            <tr><td><code>guizang-ppt-skill</code></td><td><span class="pill badge-tooling">tooling</span></td><td>ppt / swiss style / html</td></tr>
+          </tbody>
+        </table>
+
+        <h3 data-i18n="s2.update-rule">Updating the taxonomy</h3>
+        <p>
+          <span data-i18n="s2.update-rule-li">When updating keywords: edit </span>
+          <a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" target="_blank" rel="noopener"><code>agent/docs/domain-taxonomy.md</code></a>
+          <span data-i18n="s2.update-rule-li-2"> first, then mirror the change in </span>
+          <a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/lib/domain_inference.py" target="_blank" rel="noopener"><code>agent/lib/domain_inference.py</code></a>
+          <span data-i18n="s2.update-rule-li-3"> KEYWORDS table, finally run pytest regression.</span>
+        </p>
+      </section>
+
+      <!-- §3 METHODS -->
+      <section id="methods">
+        <h2 data-i18n="s3.title">§3. The 11 Methods</h2>
+        <p data-i18n="s3.lead">11 slash commands grouped by lifecycle phase. Each carries a read / write / lifecycle badge so you can tell at a glance how it affects state.</p>
+
+        <h3 data-i18n="s3.phase1">Phase 1: Skill Lifecycle</h3>
+        <table>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
+          <tbody>
+            <tr><td><code>/skill-install &lt;url&gt;</code></td><td data-i18n-html="cmd.install.eff">Clone via portal API → infer domain → append INDEX.md → add graph node + render PNG → refresh</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+            <tr><td><code>/skill-uninstall &lt;name&gt;</code></td><td data-i18n-html="cmd.uninstall.eff">Reverse of install. Confirm → remove graph node → remove INDEX row → DELETE physical files</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+            <tr><td><code>/skill-update &lt;name|all&gt;</code></td><td data-i18n-html="cmd.update.eff"><code>git pull --ff-only</code> in skill dirs, refresh portal index</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3 data-i18n="s3.phase2">Phase 2: Inspection</h3>
+        <table>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
+          <tbody>
+            <tr><td><code>/skill-list</code></td><td data-i18n-html="cmd.list.eff">Print all installed skills grouped by domain with descriptions and triggers</td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
+            <tr><td><code>/skill-recommend &lt;task&gt;</code></td><td data-i18n-html="cmd.recommend.eff">Match free-form task against scenario table or score keywords; output <code>load_skills=[…]</code></td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
+            <tr><td><code>/skill-doctor [name|all]</code></td><td data-i18n-html="cmd.doctor.eff">5-rule check: frontmatter / dir name / INDEX presence / graph presence / dependencies</td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3 data-i18n="s3.phase3">Phase 3: Maintenance</h3>
+        <table>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
+          <tbody>
+            <tr><td><code>/skill-classify &lt;name&gt;</code></td><td data-i18n-html="cmd.classify.eff">Move a skill between domains; updates INDEX row, graph node, classDef</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+            <tr><td><code>/skill-graph-sync</code></td><td data-i18n-html="cmd.graphsync.eff">Reconcile graph against INDEX; detect MISSING / EXTRA / MISMATCH; idempotent</td><td><span class="pill pill-write" data-i18n="pill.write">write</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3 data-i18n="s3.phase4">Phase 4: Portal Control</h3>
+        <table>
+          <thead><tr><th data-i18n="s3.t.command">Command</th><th data-i18n="s3.t.effect">Effect</th><th data-i18n="s3.t.phase">Phase</th></tr></thead>
+          <tbody>
+            <tr><td><code>/portal-start</code></td><td data-i18n-html="cmd.portalstart.eff">Bring portal up; idempotent; auto-detects portless HTTPS</td><td><span class="pill pill-lifecycle" data-i18n="pill.lifecycle">lifecycle</span></td></tr>
+            <tr><td><code>/portal-stop</code></td><td data-i18n-html="cmd.portalstop.eff">Kill PIDs on 5173 + 5174; idempotent</td><td><span class="pill pill-lifecycle" data-i18n="pill.lifecycle">lifecycle</span></td></tr>
+            <tr><td><code>/portal-status</code></td><td data-i18n-html="cmd.portalstatus.eff">Read-only: API up?, ports, PIDs, last index time, skill count</td><td><span class="pill pill-read" data-i18n="pill.read">read</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3 data-i18n="s3.fullref">Full command reference</h3>
+        <p>
+          <span data-i18n="s3.fullref-text">Each command's full prompt template lives in </span>
+          <a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" target="_blank" rel="noopener"><code>.opencode/commands/</code></a>
+          on GitHub.
+        </p>
+      </section>
+
+      <!-- §4 GRAPH -->
+      <section id="graph">
+        <h2 data-i18n="s4.title">§4. Skills Graph</h2>
+        <p data-i18n="s4.lead">The graph is a visual view of relationships between the 6 domains plus builtin skills. Reading the graph fluently = knowing which skill to stack on which project phase.</p>
+
+        <h3 data-i18n="s4.legend">4.1 Legend: how to read the graph</h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+
+          <div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;" data-i18n="s4.legend-arrow-h">Edge types</div>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="2" y1="7" x2="40" y2="7" stroke="#34d399" stroke-width="2"/><polygon points="40,3 46,7 40,11" fill="#34d399"/></svg>
+                <span data-i18n-html="legend.solid.label"><strong style="color:#e4e4e7;">solid</strong> — lifecycle dependency</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="2" y1="7" x2="40" y2="7" stroke="#a1a1aa" stroke-width="2" stroke-dasharray="4 3"/><polygon points="40,3 46,7 40,11" fill="#a1a1aa"/></svg>
+                <span data-i18n-html="legend.dashed.label"><strong style="color:#e4e4e7;">dashed</strong> — cross-domain reinforcement</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <svg width="48" height="14" viewBox="0 0 48 14" style="flex-shrink: 0;"><line x1="6" y1="5" x2="42" y2="5" stroke="#34d399" stroke-width="1.5"/><line x1="6" y1="9" x2="42" y2="9" stroke="#34d399" stroke-width="1.5"/><polygon points="42,1 47,7 42,13" fill="#34d399"/><polygon points="6,1 1,7 6,13" fill="#34d399"/></svg>
+                <span data-i18n-html="legend.double.label"><strong style="color:#e4e4e7;">double</strong> — parallel coupling</span>
+              </li>
+            </ul>
+          </div>
+
+          <div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;" data-i18n="s4.legend-color-h">Domain colors</div>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px;">
+              <li><span class="pill badge-meta">meta</span></li>
+              <li><span class="pill badge-closeout">closeout</span></li>
+              <li><span class="pill badge-desktop">desktop</span></li>
+              <li><span class="pill badge-founder">founder</span></li>
+              <li><span class="pill badge-ip">ip</span></li>
+              <li><span class="pill badge-tooling">tooling</span></li>
+            </ul>
+          </div>
+
+          <div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;" data-i18n="s4.legend-shape-h">Node shapes</div>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <span style="display:inline-block; padding: 3px 8px; background:#dbeafe; color:#1d4ed8; border-radius:3px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">box</span>
+                <span data-i18n="legend.box.label">user-installed skill</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+                <span style="display:inline-block; padding: 3px 8px; background:#eee; color:#616161; border:1px dashed #888; border-radius:8px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">round</span>
+                <span data-i18n="legend.round.label">builtin (no install)</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 10px; padding: 4px 0;">
+                <span style="font-family: ui-monospace,monospace; color: #34d399; flex-shrink: 0; margin-top: 1px;">SID</span>
+                <span data-i18n-html="legend.sid.label"><code style="font-size: 11px;">guizang-ppt-skill</code> → <code style="font-size: 11px;">GPS</code></span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <h3 data-i18n="s4.live">4.2 Live current graph</h3>
+        <p>
+          <span data-i18n="s4.live-lead">Below is a live mermaid render of the current 8-skill state (mirrors the repo's </span>
+          <a href="https://github.com/zjgulai/Agent_skills/blob/main/.opencode/commands/skill-graph-sync.md" target="_blank" rel="noopener"><code>skills-graph.mmd</code></a>
+          <span data-i18n="s4.live-lead-2">):</span>
+        </p>
+
+        <div class="mermaid">
+flowchart LR
+    classDef metaDomain fill:#e3f2fd,stroke:#1976d2,color:#000
+    classDef closeoutDomain fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef desktopDomain fill:#fff3e0,stroke:#e65100,color:#000
+    classDef founderDomain fill:#f3e5f5,stroke:#6a1b9a,color:#000
+    classDef ipDomain fill:#e0f2f1,stroke:#00695c,color:#000
+    classDef toolingDomain fill:#f5f5f5,stroke:#616161,color:#000
+    classDef builtin fill:#eeeeee,stroke:#616161,color:#000,stroke-dasharray: 4 2
+
+    %% Meta
+    ADK[agent-dev-kit-architecture-designer]:::metaDomain
+    SC[skill-creator]:::metaDomain
+
+    %% Closeout
+    CR[codex-review]:::closeoutDomain
+
+    %% Desktop
+    NF[native-feel-cross-platform-desktop]:::desktopDomain
+
+    %% Founder
+    SPT[startup-pressure-test]:::founderDomain
+
+    %% IP
+    PAT[patent-disclosure-skill]:::ipDomain
+    SCS[software-copyright-materials]:::ipDomain
+
+    %% Tooling
+    GPS[guizang-ppt-skill]:::toolingDomain
+
+    %% Builtin
+    GM(git-master · builtin):::builtin
+    RW(review-work · builtin):::builtin
+    ASR(ai-slop-remover · builtin):::builtin
+    FE(frontend-ui-ux · builtin):::builtin
+    PW(playwright · builtin):::builtin
+
+    SPT --> ADK --> NF --> CR --> PAT
+    PAT <==> SCS
+    SC -. "same domain" .-> ADK
+    GPS -. "isolated" .-> GPS
+    NF -.-> PW
+    NF -.-> FE
+    CR -.-> GM
+    CR -.-> ASR
+    CR -.-> RW
+        </div>
+
+        <h3 data-i18n="s4.bundles">4.3 Typical scenario bundles</h3>
+        <p data-i18n="s4.bundles-lead">A cheat sheet for "which skills to load for which task". Just copy the load_skills array into your task() call:</p>
+        <table>
+          <thead><tr>
+            <th data-i18n="s4.bundles-th-scene">Scenario</th>
+            <th data-i18n="s4.bundles-th-load">load_skills</th>
+            <th data-i18n="s4.bundles-th-note">Note</th>
+          </tr></thead>
+          <tbody>
+            <tr><td data-i18n="sce.idea">"I have a new idea, let me see if it's worth doing"</td><td><code>["startup-pressure-test"]</code></td><td data-i18n="sce.idea.note">Single skill — don't add ADK yet</td></tr>
+            <tr><td data-i18n="sce.scaffold">"Bootstrap a cross-platform desktop app scaffold"</td><td><code>["agent-dev-kit-architecture-designer", "native-feel-cross-platform-desktop"]</code></td><td data-i18n="sce.scaffold.note">ADK gives engineering structure; NF gives desktop-arch principles</td></tr>
+            <tr><td data-i18n="sce.preship">"Pre-ship checklist for a PR"</td><td><code>["codex-review", "git-master", "review-work"]</code></td><td data-i18n="sce.preship.note">The closeout trio</td></tr>
+            <tr><td data-i18n="sce.ip">"Apply for software copyright + patent for this project"</td><td><code>["patent-disclosure-skill", "software-copyright-materials"]</code></td><td data-i18n="sce.ip.note">IP duo must be loaded together — keeps software name + version coherent across both flows</td></tr>
+            <tr><td data-i18n="sce.audit">"Audit the architecture of an existing OpenCode repo"</td><td><code>["agent-dev-kit-architecture-designer"]</code></td><td data-i18n="sce.audit.note">Single skill — outputs a 5-layer gap analysis</td></tr>
+            <tr><td data-i18n="sce.electron">"My Electron app starts slowly / windows feel janky"</td><td><code>["native-feel-cross-platform-desktop", "playwright"]</code></td><td data-i18n="sce.electron.note">NF for direction, playwright for verification</td></tr>
+            <tr><td data-i18n="sce.swiss">"Make a Swiss-style PPT from this article"</td><td><code>["guizang-ppt-skill"]</code></td><td data-i18n="sce.swiss.note">tooling domain skill, no peer needed</td></tr>
+            <tr><td data-i18n="sce.skillnew">"Create a new skill from scratch"</td><td><code>["skill-creator"]</code></td><td data-i18n="sce.skillnew.note">meta domain — bootstraps another skill</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- §5 CASE STUDIES -->
+      <section id="case-studies">
+        <h2 data-i18n="s5.title">§5. Graph Case Studies</h2>
+        <p data-i18n="s5.lead">Four graph states, walking through how the graph mutates as new skills are added. The first three are real history (State 0 → 1 → 2); the fourth is a hypothetical exercise.</p>
+
+        <!-- State 0 -->
+        <h3 data-i18n="s5.s0">5.1 State 0: initial 6 skills</h3>
+        <p data-i18n="s5.s0-desc">The very first state of the project: 6 user-level skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip, plus 5 cross-domain reinforcement edges.</p>
+        <ul>
+          <li data-i18n-html="s5.s0.b1">6 user skills: ADK, CR, NF, SPT, PAT, SCS (the IP duo)</li>
+          <li data-i18n-html="s5.s0.b2">5 builtins (dashed border): GM, RW, ASR, FE, PW</li>
+          <li data-i18n-html="s5.s0.b3">Main chain: SPT → ADK → NF → CR → PAT → SCS (purple → blue → orange → green → teal → teal)</li>
+          <li data-i18n-html="s5.s0.b4">No tooling domain block (none yet)</li>
+        </ul>
+        <a href="./assets/screenshots/graph-state-0.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-0.png" data-i18n-attr="alt:s5.s0-png-alt" alt="Skills graph state 0: 6 user skills + 5 builtin" class="graph-img"></a>
+
+        <!-- State 1 -->
+        <h3 data-i18n="s5.s1">5.2 State 1: after installing guizang-ppt-skill</h3>
+        <p><span data-i18n="s5.s1-cmd">Triggered by:</span> <code>/skill-install https://github.com/op7418/guizang-ppt-skill</code></p>
+        <p data-i18n="s5.s1-desc">After installing guizang-ppt-skill. The tooling domain block is auto-created and GPS joins as an isolated node. Note: because the tooling domain was empty, the agent automatically added the toolingDomain classDef and the "%% Tooling domain" comment block.</p>
+        <div class="delta-callout">
+          <strong data-i18n="s5.delta.label">Δ vs State 0:</strong> <span data-i18n-html="s5.s1.delta">+1 node (GPS in tooling) · +1 classDef (toolingDomain) · +1 self-loop edge · PNG bytes 224 500 → 259 330 (+15.5%)</span>
+        </div>
+        <ul>
+          <li data-i18n-html="s5.s1.b1">Inference result: tooling domain (matched ppt / swiss style / html, score 3)</li>
+          <li data-i18n-html="s5.s1.b2">New node: <code>GPS[guizang-ppt-skill]:::toolingDomain</code></li>
+          <li data-i18n-html="s5.s1.b3">New edge: <code>GPS -. "isolated" .-> GPS</code> (self-loop fallback when same-domain peer is absent)</li>
+        </ul>
+        <a href="./assets/screenshots/graph-state-1.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-1.png" data-i18n-attr="alt:s5.s1-png-alt" alt="Skills graph state 1: post-guizang +1 node" class="graph-img"></a>
+
+        <!-- State 2 -->
+        <h3 data-i18n="s5.s2">5.3 State 2: after installing skill-creator</h3>
+        <p><span data-i18n="s5.s2-cmd">Triggered by:</span> <code>/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator</code></p>
+        <p data-i18n="s5.s2-desc">The current state, after installing skill-creator. The skill's description is too generic ("create new skills"), keyword inference returns uncategorized, the agent prompts the user, and we manually pick meta. The new SC node is in the same domain as ADK, so a "same-domain" dashed edge is added automatically.</p>
+        <div class="delta-callout">
+          <strong data-i18n="s5.delta.label">Δ vs State 1:</strong> <span data-i18n-html="s5.s2.delta">+1 node (SC in meta) · +1 same-domain edge to ADK · 0 new classDefs (meta already existed) · PNG bytes 259 330 → 270 529 (+4.3%)</span>
+        </div>
+        <ul>
+          <li data-i18n-html="s5.s2.b1">Inference result: uncategorized → user manually picks meta</li>
+          <li data-i18n-html="s5.s2.b2">New node: <code>SC[skill-creator]:::metaDomain</code></li>
+          <li data-i18n-html="s5.s2.b3">New edge: <code>SC -. "same domain" .-> ADK</code> (meta has an existing peer, so dashed same-domain edge)</li>
+        </ul>
+        <a href="./assets/screenshots/graph-state-2.png" target="_blank" rel="noopener" title="Click to view full size"><img src="./assets/screenshots/graph-state-2.png" data-i18n-attr="alt:s5.s2-png-alt" alt="Skills graph state 2: post-skill-creator +1 node" class="graph-img"></a>
+
+        <!-- State 3: hypothetical -->
+        <h3 data-i18n="s5.s3">5.4 State 3 (hypothetical): installing 3 desktop skills</h3>
+        <p data-i18n="s5.s3-desc">Imagine: what would the graph look like if you installed 3 new desktop-app skills next (e.g. "tauri-template", "electron-perf-audit", "webview-survival-kit")? The graph would evolve as below — desktop domain expands from 1 node to 4 nodes, with 3 same-domain edges automatically added. Note that NF retains its original cross-domain edges to PW and FE.</p>
+        <ul>
+          <li data-i18n-html="s5.s3.b1">All 3 new skills infer to desktop (strong keywords: tauri / electron / webview)</li>
+          <li data-i18n-html="s5.s3.b2">New nodes: TT, EPA, WSK (SHORT_ID = first letter of each hyphen segment)</li>
+          <li data-i18n-html="s5.s3.b3">New edges: each new node <code>-. "same domain" .-> NF</code> (dashed, linking to the first peer)</li>
+          <li data-i18n-html="s5.s3.b4">desktop classDef already exists, no new ones created</li>
+        </ul>
+
+        <div class="mermaid">
+flowchart LR
+    classDef metaDomain fill:#e3f2fd,stroke:#1976d2,color:#000
+    classDef closeoutDomain fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef desktopDomain fill:#fff3e0,stroke:#e65100,color:#000
+    classDef founderDomain fill:#f3e5f5,stroke:#6a1b9a,color:#000
+    classDef ipDomain fill:#e0f2f1,stroke:#00695c,color:#000
+    classDef toolingDomain fill:#f5f5f5,stroke:#616161,color:#000
+    classDef builtin fill:#eeeeee,stroke:#616161,color:#000,stroke-dasharray: 4 2
+    classDef hypothetical stroke-dasharray: 5 5,stroke-width:2px
+
+    NF[native-feel-cross-platform-desktop]:::desktopDomain
+    TT[tauri-template]:::desktopDomain
+    EPA[electron-perf-audit]:::desktopDomain
+    WSK[webview-survival-kit]:::desktopDomain
+    PW(playwright · builtin):::builtin
+    FE(frontend-ui-ux · builtin):::builtin
+
+    TT -. "same domain (new)" .-> NF
+    EPA -. "same domain (new)" .-> NF
+    WSK -. "same domain (new)" .-> NF
+    NF -.-> PW
+    NF -.-> FE
+
+    class TT,EPA,WSK hypothetical
+        </div>
+      </section>
+
+      <!-- §6 CROSSREF -->
+      <section id="crossref">
+        <h2 data-i18n="s6.title">§6. Related References</h2>
+        <p data-i18n="s6.lead">This handbook is the entry point; the following docs go deeper:</p>
+        <ul>
+          <li><a href="./getting-started.html">Getting Started</a><span data-i18n="s6.gs.text"> — install on a fresh machine in 10 minutes</span></li>
+          <li><a href="./architecture.html">Architecture</a><span data-i18n="s6.arch.text"> — the two-layer design, the 5 Python lib modules, the install sequence diagram</span></li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" target="_blank" rel="noopener"><code>agent/docs/domain-taxonomy.md</code></a><span data-i18n="s6.tax.text"> — the source of truth for the 6-domain rules</span></li>
+        </ul>
+
+        <h3 data-i18n="s6.code">Source code</h3>
+        <ul>
+          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" target="_blank" rel="noopener"><code>.opencode/commands/</code></a><span data-i18n="s6.cmds.text"> — the 11 slash command prompt templates (Markdown)</span></li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/agent/lib" target="_blank" rel="noopener"><code>agent/lib/</code></a><span data-i18n="s6.lib.text"> — the 5 Python modules (portal_client, domain_inference, index_md_writer, graph_writer, doctor)</span></li>
+          <li><a href="https://github.com/zjgulai/Agent_skills/tree/main/portal" target="_blank" rel="noopener"><code>portal/</code></a><span data-i18n="s6.portal.text"> — the FastAPI + Vite/Vue local site</span></li>
+        </ul>
+      </section>
+
+    </article>
+
+    <!-- STICKY TOC -->
+    <aside class="hidden lg:block">
+      <div class="sticky top-24">
+        <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3" data-i18n="toc.heading">On this page</p>
+        <nav>
+          <a href="#overview"     class="toc-link" data-i18n="toc.overview">§1. Overview</a>
+          <a href="#domains"      class="toc-link" data-i18n="toc.domains">§2. Domain Taxonomy</a>
+          <a href="#methods"      class="toc-link" data-i18n="toc.methods">§3. The 11 Methods</a>
+          <a href="#graph"        class="toc-link" data-i18n="toc.graph">§4. Skills Graph</a>
+          <a href="#case-studies" class="toc-link" data-i18n="toc.case-studies">§5. Graph Case Studies</a>
+          <a href="#crossref"     class="toc-link" data-i18n="toc.crossref">§6. Related References</a>
+        </nav>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+    <div class="flex items-center gap-2"><span>🧠</span><span data-i18n="footer.tagline">An OpenCode skills lifecycle management AI agent.</span></div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">GitHub</a>
+      <a href="https://github.com/zjgulai/Agent_skills/issues" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">Issues</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose', flowchart: { useMaxWidth: false, htmlLabels: true } });
+  hljs.highlightAll();
+
+  // Active TOC highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="./assets/i18n.js" defer></script>
+
+</body>
+</html>

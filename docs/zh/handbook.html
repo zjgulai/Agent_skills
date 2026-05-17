@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html class="bg-zinc-950 text-zinc-100 antialiased scroll-smooth" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Handbook · Skills Manager AI Agent</title>
+<meta content="The single reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph case studies." name="description"/>
+<link href="https://zjgulai.github.io/Agent_skills/handbook.html" hreflang="en" rel="alternate"/>
+<link href="https://zjgulai.github.io/Agent_skills/handbook.html" hreflang="x-default" rel="alternate"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .gradient-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.15), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(59,130,246,0.10), transparent 50%);
+    }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .mermaid { background: #0a0a0a; border: 1px solid #27272a; border-radius: 0.5rem; padding: 1.5rem; }
+    .mermaid svg { width: 100% !important; height: auto !important; max-width: none !important; }
+
+    /* Domain badge colors mirror skills-graph.mmd classDef */
+    .badge-meta     { background:#dbeafe; color:#1d4ed8; }
+    .badge-closeout { background:#dcfce7; color:#166534; }
+    .badge-desktop  { background:#ffedd5; color:#9a3412; }
+    .badge-founder  { background:#f3e8ff; color:#6b21a8; }
+    .badge-ip       { background:#ccfbf1; color:#115e59; }
+    .badge-tooling  { background:#e4e4e7; color:#3f3f46; }
+
+    /* Pills (read/write/lifecycle) — pure CSS, NOT @apply */
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-weight: 600;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .pill-read      { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.30); }
+    .pill-write     { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.30); }
+    .pill-lifecycle { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.30); }
+
+    /* TOC sticky right rail — explicit styles instead of @apply */
+    .toc-link {
+      display: block;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #71717a;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 150ms, border-color 150ms;
+    }
+    .toc-link:hover { color: #34d399; }
+    .toc-link.active { color: #34d399; border-left-color: #10b981; font-weight: 500; }
+
+    /* Smooth scroll with header offset */
+    section[id] { scroll-margin-top: 5rem; }
+
+    /* Prose typography — pure CSS, scoped to .prose-custom */
+    .prose-custom { color: #a1a1aa; line-height: 1.7; }
+    .prose-custom > * + * { margin-top: 1rem; }
+    .prose-custom h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #fafafa;
+      margin-top: 4rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #27272a;
+      letter-spacing: -0.01em;
+    }
+    .prose-custom h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #e4e4e7;
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .prose-custom h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #d4d4d8;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; max-width: 70ch; }
+    .prose-custom ul, .prose-custom ol { color: #a1a1aa; padding-left: 1.5rem; max-width: 70ch; }
+    .prose-custom ul { list-style: disc; }
+    .prose-custom ol { list-style: decimal; }
+    .prose-custom li { margin: 0.35rem 0; }
+    .prose-custom code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.875em;
+      color: #34d399;
+      background: #18181b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .prose-custom pre { max-width: none; }
+    .prose-custom pre code { background: transparent; padding: 0; white-space: pre; color: #e4e4e7; }
+    .prose-custom a { color: #34d399; text-decoration: underline; text-underline-offset: 2px; }
+    .prose-custom a:hover { color: #6ee7b7; }
+    .prose-custom strong { color: #fafafa; }
+
+    /* Tables */
+    .prose-custom table {
+      width: 100%;
+      max-width: none;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .prose-custom thead th {
+      text-align: left;
+      color: #fafafa;
+      font-weight: 600;
+      border-bottom: 1px solid #3f3f46;
+      padding: 0.75rem 0.75rem;
+      background: #18181b;
+    }
+    .prose-custom tbody td {
+      border-bottom: 1px solid #1f1f23;
+      padding: 0.75rem 0.75rem;
+      vertical-align: top;
+      color: #a1a1aa;
+    }
+    .prose-custom tbody tr:hover { background: #18181b; }
+    /* Command tables: first column should not wrap commands awkwardly */
+    .prose-custom td:first-child code { white-space: nowrap; }
+
+    /* Keyword tags — concrete CSS so spaces work */
+    .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .kw-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      color: #d4d4d8;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Domain card with left accent border */
+    .domain-card {
+      background: rgba(24,24,27,0.5);
+      border: 1px solid #27272a;
+      border-left-width: 4px;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      max-width: none;
+    }
+    .domain-card.dom-meta     { border-left-color: #3b82f6; }
+    .domain-card.dom-closeout { border-left-color: #22c55e; }
+    .domain-card.dom-desktop  { border-left-color: #f97316; }
+    .domain-card.dom-founder  { border-left-color: #a855f7; }
+    .domain-card.dom-ip       { border-left-color: #14b8a6; }
+    .domain-card.dom-tooling  { border-left-color: #71717a; }
+
+    /* Case-study delta callout */
+    .delta-callout {
+      background: rgba(16,185,129,0.06);
+      border-left: 3px solid #10b981;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    .delta-callout strong { color: #34d399; }
+
+    /* Image with click-to-open lightbox via target="_blank" link wrap */
+    .graph-img {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #27272a;
+      margin: 1rem 0;
+      cursor: zoom-in;
+      transition: transform 200ms;
+    }
+    .graph-img:hover { transform: scale(1.005); border-color: #3f3f46; }
+  </style>
+
+</head>
+<body>
+<!-- TOP NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+<div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+<a class="flex items-center gap-2 group" href="../index.html">
+<span class="text-xl">🧠</span>
+<span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+</a>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../getting-started.html">å¿«éå¼å§</a>
+<a class="text-emerald-400 text-sm" href="../handbook.html">æå</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">æ¶æ</a>
+<a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub â</a>
+
+<a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../en/index.html">EN</a></div>
+</div>
+</nav>
+<main class="pt-24 pb-20">
+<div class="max-w-7xl mx-auto px-6">
+<div class="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12">
+<article class="prose-custom min-w-0">
+<!-- HEADER -->
+<header class="mb-12">
+<p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">å¨çº¿åèæå</p>
+<h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">æè½æå</h1>
+<p class="text-lg text-zinc-400">OpenCode æè½çå½å¨æçç»ä¸åèï¼6 ä¸ªåã11 ä¸ªæ¹æ³ãæè½å¾è°±ä¸ 4 ä¸ªçå®æ¼åæ¡ä¾ã</p>
+<p class="text-sm text-zinc-600 mt-4">
+<span>æåæ´æ°</span>: 2026-05-16 ·
+          <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" rel="noopener" target="_blank">å¨ GitHub ç¼è¾</a>
+</p>
+</header>
+<!-- §1 OVERVIEW -->
+<section id="overview">
+<h2>Â§1. æ¦è§</h2>
+<p>本页是 OpenCode 技能日常管理的核心查询页。把它当作"始终打开的速查手册"——下面 5 个章节从最基础的分类规则讲到真实 graph 演化，逐层递进。</p>
+<h3>æ¬é¡µåå«ä»ä¹</h3>
+<ul>
+<li>6 ä¸ª skill åçå¤å®è§åä¸å³é®è¯</li>
+<li>11 ä¸ª slash å½ä»¤çç²¾ç¼åèè¡¨</li>
+<li>å½å Skills Graph çå®æ¶æ¸²æ + å¾ä¾</li>
+<li>åºæ¯å¥é¤è¡¨ï¼åªç§ä»»å¡è¯¥è£åªäº skillï¼</li>
+<li>4 ä¸ªçå®/åæ³çå¾æ¼åæ¡ä¾ï¼State 0 â State 3ï¼</li>
+</ul>
+<h3>æ¬é¡µä¸åå«</h3>
+<ul>
+<li><span>å®è£æ­¥éª¤ââè§ </span><a href="../getting-started.html">Getting Started</a></li>
+<li><span>ä¸¤å±æ¶æè¯¦è§£ââè§ </span><a href="../architecture.html">Architecture</a></li>
+</ul>
+<h3>é¢åè°</h3>
+<ul>
+<li>已经装好 ≥ 3 个 skill、需要"该装哪个 / 调哪个"快速决断的用户</li>
+<li>æ³çè§£ä¸ºä»ä¹ graph é¿è¿æ ·ãgraph è£æ° skill åæä¹åçå¼åè</li>
+<li>éè¦è¿ç¨æ¥è¯¢èä¸è½è·å½ä»¤çåºæ¯ï¼é£æºãå®¢æ·ç¬çµãçº¯ Webï¼</li>
+</ul>
+</section>
+<!-- §2 DOMAINS -->
+<section id="domains">
+<h2>Â§2. ååç±»</h2>
+<p>6 ä¸ªåãä¸æ¡è§åï¼å½å¤å®ä¸ç¡®å®æ¶ï¼åç¨æ·æé®ãåç±»å¨æ°¸è¿ä¸ä¼æä¸­è¯¯å½ç±»ã</p>
+<h3>æ¨æ­ç®æ³</h3>
+<ol>
+<li>æ skill ç name + description æ¼æ¥ãè½¬å°å</li>
+<li>å¯¹æ¯ä¸ªåï¼ç»è®¡å³é®è¯å¨ææ¬ä¸­çåºç°æ¬¡æ°ï¼æ¯è¯æå¤ç®ä¸æ¬¡ï¼</li>
+<li>åå¾åæé«çåãå¹³å±æ¶æåä¼åçº§åç¬¬ä¸ä¸ªï¼</li>
+</ol>
+<div class="cmd-block rounded-lg p-3 my-3 text-sm">
+<pre><code class="language-text">ip → desktop → founder → meta → closeout → tooling</code></pre>
+</div>
+<ol start="4">
+<li>è¥ææå¾åä¸º 0 â è¿å uncategorizedï¼agent æç¤ºç¨æ·æé</li>
+</ol>
+<h3>6 ä¸ªå</h3>
+<!-- Domain meta -->
+<div class="domain-card dom-meta">
+<div class="flex items-baseline gap-3 mb-2">
+<span class="pill badge-meta">meta</span>
+<span class="text-zinc-400 text-sm">AI å·¥ç¨åºç¡è®¾æ½</span>
+</div>
+<p class="text-zinc-400 text-sm mb-2"><strong>ä½æ¶è¿å¥ï¼</strong> <span>ä»»å¡çå¯¹è±¡æ¯ <strong>AI agent èªèº«</strong>ââä»åºèææ¶ãagent è®°å¿ãskill åºãhookãsubagentãpluginãagent èªæ²»ã</span></p>
+<div class="kw-row"><span class="kw-tag">agent</span><span class="kw-tag">subagent</span><span class="kw-tag">hook</span><span class="kw-tag">plugin</span><span class="kw-tag">mcp server</span><span class="kw-tag">prompt template</span><span class="kw-tag">AGENTS.md</span><span class="kw-tag">CLAUDE.md</span><span class="kw-tag">.opencode/</span><span class="kw-tag">opencode.json</span><span class="kw-tag">agent guardrails</span></div>
+<p class="text-zinc-500 text-xs">æ³¨æï¼åç¬ç <code>skill</code> ä¸å¨ meta å³é®è¯è¡¨éââå¤ªå®½æ³ï¼å ä¹æ¯ä»½ SKILL.md é½ä¼æå°å®ãåªæ <code>subagent</code>ã<code>agent</code> åæç¡®çéç½®æä»¶ææ¯å¼ºä¿¡å·ã</p>
+</div>
+<!-- Domain closeout -->
+<div class="domain-card dom-closeout">
+<div class="flex items-baseline gap-3 mb-2">
+<span class="pill badge-closeout">closeout</span>
+<span class="text-zinc-400 text-sm">ä»£ç è´¨éä¸äº¤ä»é­ç¯</span>
+</div>
+<p class="text-zinc-400 text-sm mb-2"><strong>ä½æ¶è¿å¥ï¼</strong> <span>ä»£ç å·²åå®ï¼è¿å¥æåä¸å¬éââcommit / PR / release / lint / auditã</span></p>
+<div class="kw-row"><span class="kw-tag">review</span><span class="kw-tag">code review</span><span class="kw-tag">commit</span><span class="kw-tag">pull request</span><span class="kw-tag">merge</span><span class="kw-tag">release</span><span class="kw-tag">ship</span><span class="kw-tag">lint</span><span class="kw-tag">audit</span><span class="kw-tag">codex review</span><span class="kw-tag">pre-commit</span></div>
+</div>
+<!-- Domain desktop -->
+<div class="domain-card dom-desktop">
+<div class="flex items-baseline gap-3 mb-2">
+<span class="pill badge-desktop">desktop</span>
+<span class="text-zinc-400 text-sm">æ¡é¢åºç¨å·¥ç¨</span>
+</div>
+<p class="text-zinc-400 text-sm mb-2"><strong>ä½æ¶è¿å¥ï¼</strong> <span>è·¨å¹³å°æ¡é¢åºç¨ï¼ä¸ç¨æ·ä½æå¿é¡»ååçã</span></p>
+<div class="kw-row"><span class="kw-tag">tauri</span><span class="kw-tag">electron</span><span class="kw-tag">webview</span><span class="kw-tag">webview2</span><span class="kw-tag">wkwebview</span><span class="kw-tag">webkit</span><span class="kw-tag">native macos</span><span class="kw-tag">launcher app</span><span class="kw-tag">system tray</span><span class="kw-tag">global hotkey</span><span class="kw-tag">raycast</span><span class="kw-tag">native feel</span></div>
+</div>
+<!-- Domain founder -->
+<div class="domain-card dom-founder">
+<div class="flex items-baseline gap-3 mb-2">
+<span class="pill badge-founder">founder</span>
+<span class="text-zinc-400 text-sm">åä¸ä¸äº§åéªè¯</span>
+</div>
+<p class="text-zinc-400 text-sm mb-2"><strong>ä½æ¶è¿å¥ï¼</strong> <span>æä¸æ¯ç¹å­ææ©æäº§åï¼å¨å¤æ­ãè¿äºå¼ä¸å¼å¾åãã</span></p>
+<div class="kw-row"><span class="kw-tag">mvp</span><span class="kw-tag">icp</span><span class="kw-tag">pressure-test</span><span class="kw-tag">validate problem</span><span class="kw-tag">market fit</span><span class="kw-tag">founder-market fit</span><span class="kw-tag">first 10 customers</span><span class="kw-tag">pivot</span><span class="kw-tag">2-week launch</span></div>
+</div>
+<!-- Domain ip -->
+<div class="domain-card dom-ip">
+<div class="flex items-baseline gap-3 mb-2">
+<span class="pill badge-ip">ip</span>
+<span class="text-zinc-400 text-sm">ç¥è¯äº§æäº¤ä»</span>
+</div>
+<p class="text-zinc-400 text-sm mb-2"><strong>ä½æ¶è¿å¥ï¼</strong> <span>é¡¹ç®è¿å¥åä¸åä¿æ¤é¶æ®µââæä»£ç èµäº§åæå¯ç³æ¥çæ³å¾æä»¶ã</span></p>
+<div class="kw-row"><span class="kw-tag">专利</span><span class="kw-tag">软著</span><span class="kw-tag">软件著作权</span><span class="kw-tag">技术交底书</span><span class="kw-tag">国知局</span><span class="kw-tag">patent</span><span class="kw-tag">copyright</span><span class="kw-tag">software copyright</span><span class="kw-tag">prior-art</span><span class="kw-tag">claim drafting</span></div>
+</div>
+<!-- Domain tooling -->
+<div class="domain-card dom-tooling">
+<div class="flex items-baseline gap-3 mb-2">
+<span class="pill badge-tooling">tooling</span>
+<span class="text-zinc-400 text-sm">å·¥å·å¢å¼ºï¼æ¨ªåå±ï¼</span>
+</div>
+<p class="text-zinc-400 text-sm mb-2"><strong>ä½æ¶è¿å¥ï¼</strong> <span>ä¸ç»å®ç¹å®é¡¹ç®ç±»åï¼ä½<strong>ä»»ä½é¡¹ç®é½å¯è½éè¦</strong>çè½åã</span></p>
+<div class="kw-row"><span class="kw-tag">ppt</span><span class="kw-tag">slide deck</span><span class="kw-tag">presentation</span><span class="kw-tag">magazine</span><span class="kw-tag">swiss style</span><span class="kw-tag">cover</span><span class="kw-tag">image prompt</span><span class="kw-tag">image generation</span><span class="kw-tag">screenshot</span><span class="kw-tag">docx</span><span class="kw-tag">pdf</span><span class="kw-tag">html</span></div>
+</div>
+<h3>åå½æµè¯</h3>
+<p>å½å 7 ä¸ª skill å¨é¨åå½ç¨ä¾ 7/7 éè¿ï¼</p>
+<table>
+<thead>
+<tr>
+<th>Skill åç§°</th>
+<th>ææå</th>
+<th>å½ä¸­è¯æ®</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><code>agent-dev-kit-architecture-designer</code></td><td><span class="pill badge-meta">meta</span></td><td>agent / hook / subagent / plugin</td></tr>
+<tr><td><code>codex-review</code></td><td><span class="pill badge-closeout">closeout</span></td><td>codex review / 二次审查 / ship / commit / PR</td></tr>
+<tr><td><code>native-feel-cross-platform-desktop</code></td><td><span class="pill badge-desktop">desktop</span></td><td>tauri / webview / raycast / wkwebview</td></tr>
+<tr><td><code>startup-pressure-test</code></td><td><span class="pill badge-founder">founder</span></td><td>icp / mvp / founder-market fit</td></tr>
+<tr><td><code>patent-disclosure-skill</code></td><td><span class="pill badge-ip">ip</span></td><td>专利 / 交底书 / 国知局</td></tr>
+<tr><td><code>software-copyright-materials</code></td><td><span class="pill badge-ip">ip</span></td><td>软件著作权 / 软著</td></tr>
+<tr><td><code>guizang-ppt-skill</code></td><td><span class="pill badge-tooling">tooling</span></td><td>ppt / swiss style / html</td></tr>
+</tbody>
+</table>
+<h3>æ´æ°è§å</h3>
+<p>
+<span>æ´æ°å³é®è¯æ¶ï¼åæ¹ </span>
+<a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" rel="noopener" target="_blank"><code>agent/docs/domain-taxonomy.md</code></a>
+<span>ï¼åæ¹ </span>
+<a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/lib/domain_inference.py" rel="noopener" target="_blank"><code>agent/lib/domain_inference.py</code></a>
+<span> ä¸­ç KEYWORDS è¡¨ï¼æåè· pytest åå½ã</span>
+</p>
+</section>
+<!-- §3 METHODS -->
+<section id="methods">
+<h2>Â§3. 11 ä¸ªæ¹æ³</h2>
+<p>11 ä¸ª slash å½ä»¤æçå½å¨æé¶æ®µåç»ãæ¯æ¡é½æè¯»/å/çå½å¨ææ è®°ï¼æ¹ä¾¿å¿«éå¤æ­å¯¹ç³»ç»ç¶æçå½±åã</p>
+<h3>é¶æ®µä¸ï¼æè½çå½å¨æ</h3>
+<table>
+<thead><tr><th>å½ä»¤</th><th>ä½ç¨</th><th>é¶æ®µ</th></tr></thead>
+<tbody>
+<tr><td><code>/skill-install &lt;url&gt;</code></td><td>éè¿ portal API clone â æ¨æ­å â å  INDEX.md â å  graph èç¹å¹¶éæ¸² PNG â å·æ°ï¼7 æ­¥ï¼åï¼</td><td><span class="pill pill-write">å</span></td></tr>
+<tr><td><code>/skill-uninstall &lt;name&gt;</code></td><td>install çéæä½ãç¡®è®¤ â å  graph èç¹ â å  INDEX è¡ â DELETE ç©çæä»¶ï¼4 æ­¥ï¼åï¼</td><td><span class="pill pill-write">å</span></td></tr>
+<tr><td><code>/skill-update &lt;name|all&gt;</code></td><td>å¨ skill ç®å½è· <code>git pull --ff-only</code>ï¼ç¶åå·æ° portal ç´¢å¼</td><td><span class="pill pill-write">å</span></td></tr>
+</tbody>
+</table>
+<h3>é¶æ®µäºï¼æ£æ¥ä¸æ¥è¯¢</h3>
+<table>
+<thead><tr><th>å½ä»¤</th><th>ä½ç¨</th><th>é¶æ®µ</th></tr></thead>
+<tbody>
+<tr><td><code>/skill-list</code></td><td>åªè¯»ï¼æååç»æå°ææå·²è£ skillï¼å«æè¿°ä¸è§¦åè¯</td><td><span class="pill pill-read">è¯»</span></td></tr>
+<tr><td><code>/skill-recommend &lt;task&gt;</code></td><td>æèªç±ææ¬ä»»å¡å¹éå°åºæ¯å¥é¤è¡¨æå¯¹å³é®è¯æåï¼è¾åº <code>load_skills=[â¦]</code></td><td><span class="pill pill-read">è¯»</span></td></tr>
+<tr><td><code>/skill-doctor [name|all]</code></td><td>5 æ¡è§åä½æ£ï¼frontmatter / ç®å½å / INDEX æ¶å½ / graph æ¶å½ / ä¾èµ</td><td><span class="pill pill-read">è¯»</span></td></tr>
+</tbody>
+</table>
+<h3>é¶æ®µä¸ï¼ç»´æ¤</h3>
+<table>
+<thead><tr><th>å½ä»¤</th><th>ä½ç¨</th><th>é¶æ®µ</th></tr></thead>
+<tbody>
+<tr><td><code>/skill-classify &lt;name&gt;</code></td><td>æä¸ä¸ª skill å¨åä¹é´ç§»å¨ï¼åæ¶æ¹ INDEX è¡ãgraph èç¹ãclassDef</td><td><span class="pill pill-write">å</span></td></tr>
+<tr><td><code>/skill-graph-sync</code></td><td>æ graph ä¸ INDEX å¯¹é½ï¼æ£æµ MISSING / EXTRA / MISMATCHï¼å¹ç­</td><td><span class="pill pill-write">å</span></td></tr>
+</tbody>
+</table>
+<h3>é¶æ®µåï¼Portal æ§å¶</h3>
+<table>
+<thead><tr><th>å½ä»¤</th><th>ä½ç¨</th><th>é¶æ®µ</th></tr></thead>
+<tbody>
+<tr><td><code>/portal-start</code></td><td>æ portal èµ·æ¥ï¼å¹ç­ï¼èªå¨æ£æµ portless HTTPS</td><td><span class="pill pill-lifecycle">çå½å¨æ</span></td></tr>
+<tr><td><code>/portal-stop</code></td><td>æ 5173 + 5174 ç«¯å£ä¸çè¿ç¨ï¼å¹ç­</td><td><span class="pill pill-lifecycle">çå½å¨æ</span></td></tr>
+<tr><td><code>/portal-status</code></td><td>åªè¯»ï¼API æ¯å¦å¨è·ãç«¯å£ãPIDsãä¸æ¬¡ç´¢å¼æ¶é´ãskill æ°é</td><td><span class="pill pill-read">è¯»</span></td></tr>
+</tbody>
+</table>
+<h3>å®æ´å½ä»¤åè</h3>
+<p>
+<span>æ¯ä¸ªå½ä»¤çå®æ´æç¤ºæ¨¡çå¨ä»åºæºç  </span>
+<a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" rel="noopener" target="_blank"><code>.opencode/commands/</code></a>
+          on GitHub.
+        </p>
+</section>
+<!-- §4 GRAPH -->
+<section id="graph">
+<h2>Â§4. æè½å¾è°±</h2>
+<p>图谱是 6 个域 + builtin skill 之间关系的可视化视图。读懂图谱 = 读懂"在哪个项目阶段，该叠哪个 skill"。</p>
+<h3>4.1 å¾ä¾ï¼æä¹è¯»å¾</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+<div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+<div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;">è¾¹ç±»å</div>
+<ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
+<li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+<svg height="14" style="flex-shrink: 0;" viewbox="0 0 48 14" width="48"><line stroke="#34d399" stroke-width="2" x1="2" x2="40" y1="7" y2="7"></line><polygon fill="#34d399" points="40,3 46,7 40,11"></polygon></svg>
+<span><strong>å®çº¿</strong> â çå½å¨æä¾èµ</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+<svg height="14" style="flex-shrink: 0;" viewbox="0 0 48 14" width="48"><line stroke="#a1a1aa" stroke-dasharray="4 3" stroke-width="2" x1="2" x2="40" y1="7" y2="7"></line><polygon fill="#a1a1aa" points="40,3 46,7 40,11"></polygon></svg>
+<span><strong>èçº¿</strong> â è·¨åå¢æ´</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+<svg height="14" style="flex-shrink: 0;" viewbox="0 0 48 14" width="48"><line stroke="#34d399" stroke-width="1.5" x1="6" x2="42" y1="5" y2="5"></line><line stroke="#34d399" stroke-width="1.5" x1="6" x2="42" y1="9" y2="9"></line><polygon fill="#34d399" points="42,1 47,7 42,13"></polygon><polygon fill="#34d399" points="6,1 1,7 6,13"></polygon></svg>
+<span><strong>åå</strong> â å¹¶è¡è¦å</span>
+</li>
+</ul>
+</div>
+<div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+<div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;">åéè²</div>
+<ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px;">
+<li><span class="pill badge-meta">meta</span></li>
+<li><span class="pill badge-closeout">closeout</span></li>
+<li><span class="pill badge-desktop">desktop</span></li>
+<li><span class="pill badge-founder">founder</span></li>
+<li><span class="pill badge-ip">ip</span></li>
+<li><span class="pill badge-tooling">tooling</span></li>
+</ul>
+</div>
+<div style="background: rgba(24,24,27,0.5); border: 1px solid #27272a; border-radius: 8px; padding: 1rem 1.25rem;">
+<div style="font-weight: 600; color: #fafafa; margin-bottom: 0.75rem; font-size: 14px;">èç¹å½¢ç¶</div>
+<ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: #a1a1aa;">
+<li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+<span style="display:inline-block; padding: 3px 8px; background:#dbeafe; color:#1d4ed8; border-radius:3px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">box</span>
+<span>ç¨æ·å®è£ç skill</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 4px 0;">
+<span style="display:inline-block; padding: 3px 8px; background:#eee; color:#616161; border:1px dashed #888; border-radius:8px; font-family: ui-monospace,monospace; font-size: 11px; flex-shrink: 0;">round</span>
+<span>åç½®ï¼æ éå®è£ï¼</span>
+</li>
+<li style="display: flex; align-items: flex-start; gap: 10px; padding: 4px 0;">
+<span style="font-family: ui-monospace,monospace; color: #34d399; flex-shrink: 0; margin-top: 1px;">SID</span>
+<span><code style="font-size:11px;">guizang-ppt-skill</code> → <code style="font-size:11px;">GPS</code></span>
+</li>
+</ul>
+</div>
+</div>
+<h3>4.2 å½åå®æ¶å¾è°±</h3>
+<p>
+<span>ä¸é¢æ¯å½å 8 ä¸ªå®è£ skill çå®æ¶ mermaid æ¸²æï¼ä¸ä»åº </span>
+<a href="https://github.com/zjgulai/Agent_skills/blob/main/.opencode/commands/skill-graph-sync.md" rel="noopener" target="_blank"><code>skills-graph.mmd</code></a>
+<span> åæºï¼ã</span>
+</p>
+<div class="mermaid">
+flowchart LR
+    classDef metaDomain fill:#e3f2fd,stroke:#1976d2,color:#000
+    classDef closeoutDomain fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef desktopDomain fill:#fff3e0,stroke:#e65100,color:#000
+    classDef founderDomain fill:#f3e5f5,stroke:#6a1b9a,color:#000
+    classDef ipDomain fill:#e0f2f1,stroke:#00695c,color:#000
+    classDef toolingDomain fill:#f5f5f5,stroke:#616161,color:#000
+    classDef builtin fill:#eeeeee,stroke:#616161,color:#000,stroke-dasharray: 4 2
+
+    %% Meta
+    ADK[agent-dev-kit-architecture-designer]:::metaDomain
+    SC[skill-creator]:::metaDomain
+
+    %% Closeout
+    CR[codex-review]:::closeoutDomain
+
+    %% Desktop
+    NF[native-feel-cross-platform-desktop]:::desktopDomain
+
+    %% Founder
+    SPT[startup-pressure-test]:::founderDomain
+
+    %% IP
+    PAT[patent-disclosure-skill]:::ipDomain
+    SCS[software-copyright-materials]:::ipDomain
+
+    %% Tooling
+    GPS[guizang-ppt-skill]:::toolingDomain
+
+    %% Builtin
+    GM(git-master · builtin):::builtin
+    RW(review-work · builtin):::builtin
+    ASR(ai-slop-remover · builtin):::builtin
+    FE(frontend-ui-ux · builtin):::builtin
+    PW(playwright · builtin):::builtin
+
+    SPT --&gt; ADK --&gt; NF --&gt; CR --&gt; PAT
+    PAT &lt;==&gt; SCS
+    SC -. "same domain" .-&gt; ADK
+    GPS -. "isolated" .-&gt; GPS
+    NF -.-&gt; PW
+    NF -.-&gt; FE
+    CR -.-&gt; GM
+    CR -.-&gt; ASR
+    CR -.-&gt; RW
+        </div>
+<h3>4.3 å¸ååºæ¯å¥é¤</h3>
+<p>常见场景下"该一次性 load 哪几个 skill"的速查表。直接复制 load_skills 数组到 task() 即可：</p>
+<table>
+<thead><tr>
+<th>åºæ¯</th>
+<th>å è½½ç»å</th>
+<th>å¤æ³¨</th>
+</tr></thead>
+<tbody>
+<tr><td>ãææä¸ªæ°ç¹å­ï¼ççé ä¸é è°±ã</td><td><code>["startup-pressure-test"]</code></td><td>å skillââä¸è¦ç«å»å  ADK</td></tr>
+<tr><td>ãæ­ä¸ä¸ªè·¨å¹³å°æ¡é¢ app çèææ¶ã</td><td><code>["agent-dev-kit-architecture-designer", "native-feel-cross-platform-desktop"]</code></td><td>ADK ç»å·¥ç¨ç»æï¼NF ç»æ¡é¢æ¶æåå</td></tr>
+<tr><td>ãPR åå¤ ship ä¹åã</td><td><code>["codex-review", "git-master", "review-work"]</code></td><td>å®¡æ¥ä¸ä»¶å¥</td></tr>
+<tr><td>ãè¿ä¸ªé¡¹ç®è¦ç³è¯·è½¯è + æä¸å©ã</td><td><code>["patent-disclosure-skill", "software-copyright-materials"]</code></td><td>IP åå­æå¿é¡»ä¸èµ·å ââä¿æè½¯ä»¶å / çæ¬å·å¨ä¸¤ä¸ªæµç¨éä¸è´</td></tr>
+<tr><td>ãç»ç°æ OpenCode ä»åºåæ¶æå®¡è®¡ã</td><td><code>["agent-dev-kit-architecture-designer"]</code></td><td>å skillââè¾åºäºå±æ¶æ gap åæ</td></tr>
+<tr><td>ãæç Electron åºç¨å¯å¨æ¢ / çªå£å¡ã</td><td><code>["native-feel-cross-platform-desktop", "playwright"]</code></td><td>NF åºè¯æ­æ¹åï¼playwright éªè¯ fix</td></tr>
+<tr><td>ãåºäºè¿ç¯æç« åä¸ä»½çå£«é£ PPTã</td><td><code>["guizang-ppt-skill"]</code></td><td>tooling å skillï¼ä¸éè¦æ­æ¡£</td></tr>
+<tr><td>ãä»é¶åå»ºä¸ä¸ªæ° skillã</td><td><code>["skill-creator"]</code></td><td>meta åââbootstrap å¦ä¸ä¸ª skill</td></tr>
+</tbody>
+</table>
+</section>
+<!-- §5 CASE STUDIES -->
+<section id="case-studies">
+<h2>§5. 图谱演化案例</h2>
+<p>4 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<h3 id="state-0">5.1 State 0：初始 6-skill</h3>
+<p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
+<ul>
+<li>6 个用户级 skill：ADK、CR、NF、SPT、PAT、SCS</li>
+<li>5 个 builtin（虚线边框）：GM、RW、ASR、FE、PW</li>
+<li>主链：SPT → ADK → NF → CR → PAT → SCS</li>
+</ul>
+<a href="../assets/screenshots/graph-state-0.png" rel="noopener" target="_blank"><img alt="图谱状态 0" class="graph-img" src="../assets/screenshots/graph-state-0.png"/></a>
+<h3 id="state-1">5.2 State 1：装 guizang-ppt-skill 后</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/op7418/guizang-ppt-skill</code></p>
+<p>tooling 域块自动创建，GPS 节点孤立加入。agent 自动添加 toolingDomain classDef。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node (GPS in tooling) · +1 classDef · +1 self-loop edge · PNG 224500 → 259330 (+15.5%)</span></div>
+<ul>
+<li>推断结果：tooling 域（命中 ppt / swiss style / html，得分 3）</li>
+<li>新节点：GPS[guizang-ppt-skill]:::toolingDomain</li>
+<li>新边：GPS 自环 fallback（同域无 peer）</li>
+</ul>
+<a href="../assets/screenshots/graph-state-1.png" rel="noopener" target="_blank"><img alt="图谱状态 1" class="graph-img" src="../assets/screenshots/graph-state-1.png"/></a>
+<h3 id="state-2">5.3 State 2：装 skill-creator 后</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator</code></p>
+<p>skill 的 description 过宽，关键词推断返回 uncategorized，agent 提示用户手工归 meta。SC 与 ADK 同域，自动加 dashed 边。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node (SC in meta) · +1 same-domain edge → ADK · PNG 259330 → 270529 (+4.3%)</span></div>
+<ul>
+<li>推断结果：uncategorized → 用户手选 meta</li>
+<li>新节点：SC[skill-creator]:::metaDomain</li>
+<li>新边：SC -. "同域" .-&gt; ADK</li>
+</ul>
+<a href="../assets/screenshots/graph-state-2.png" rel="noopener" target="_blank"><img alt="图谱状态 2" class="graph-img" src="../assets/screenshots/graph-state-2.png"/></a>
+<h3 id="state-3">5.4 State 3：装 agent-reach 后</h3>
+<p><span>触发命令：</span> <code>pipx install agent-reach &amp;&amp; agent-reach install --env=auto</code></p>
+<p>agent-reach 是个特殊 skill —— 来自 Python CLI 工具（pipx install agent-reach），SKILL.md 落在 ~/.agents/skills/。通过软链桥接到 opencode 和 portal。归入 tooling 域，与 GPS 同域。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node (AR in tooling) · +1 same-domain edge → GPS · PNG 270529 → 280641 (+3.7%)</span></div>
+<ul>
+<li>推断结果：meta（命中 agent）→ 手工归到 tooling（更符合「横切层」定位）</li>
+<li>新节点：AR[agent-reach]:::toolingDomain</li>
+<li>新边：AR -. "同域" .-&gt; GPS（tooling 域内 peer 已存在）</li>
+<li>桥接：~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach（symlink）</li>
+</ul>
+<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 3" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+</section>
+<!-- §6 CROSSREF -->
+<section id="crossref">
+<h2>Â§6. ç¸å³ç´¢å¼</h2>
+<p>æ¬æåæ¯å¥å£ï¼ä»¥ä¸ææ¡£è¿ä¸æ­¥æ·±å¥ï¼</p>
+<ul>
+<li><a href="../getting-started.html">Getting Started</a><span> â å¨æ°æºå¨ä¸ 10 åéæå®å®è£</span></li>
+<li><a href="../architecture.html">Architecture</a><span> â ä¸¤å±è®¾è®¡ã5 ä¸ª Python lib æ¨¡åãå®è£æ¶åºå¾</span></li>
+<li><a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" rel="noopener" target="_blank"><code>agent/docs/domain-taxonomy.md</code></a><span> â 6 åè§åççç¸æº</span></li>
+</ul>
+<h3>æºç ç´¢å¼</h3>
+<ul>
+<li><a href="https://github.com/zjgulai/Agent_skills/tree/main/.opencode/commands" rel="noopener" target="_blank"><code>.opencode/commands/</code></a><span> â 11 ä¸ª slash å½ä»¤çæç¤ºæ¨¡çï¼Markdownï¼</span></li>
+<li><a href="https://github.com/zjgulai/Agent_skills/tree/main/agent/lib" rel="noopener" target="_blank"><code>agent/lib/</code></a><span> â 5 ä¸ª Python æ¨¡åï¼portal_client, domain_inference, index_md_writer, graph_writer, doctorï¼</span></li>
+<li><a href="https://github.com/zjgulai/Agent_skills/tree/main/portal" rel="noopener" target="_blank"><code>portal/</code></a><span> â FastAPI + Vite/Vue æ¬å°ç«ç¹</span></li>
+</ul>
+</section>
+</article>
+<!-- STICKY TOC -->
+<aside class="hidden lg:block">
+<div class="sticky top-24">
+<p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">æ¬é¡µç®å½</p>
+<nav>
+<a class="toc-link" href="#overview">æ¦è§</a>
+<a class="toc-link" href="#domains">ååç±»</a>
+<a class="toc-link" href="#methods">11 ä¸ªæ¹æ³</a>
+<a class="toc-link" href="#graph">æè½å¾è°±</a>
+<a class="toc-link" href="#case-studies">å¾è°±æ¼åæ¡ä¾</a>
+<a class="toc-link" href="#crossref">ç¸å³ç´¢å¼</a>
+</nav>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-zinc-900 bg-zinc-950">
+<div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+<div class="flex items-center gap-2"><span>🧠</span><span>ä¸ä¸ª OpenCode æè½çå½å¨æç®¡ç AI agentã</span></div>
+<div class="flex items-center gap-4">
+<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub</a>
+<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills/issues" rel="noopener" target="_blank">Issues</a>
+</div>
+</div>
+</footer>
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose', flowchart: { useMaxWidth: false, htmlLabels: true } });
+  hljs.highlightAll();
+
+  // Active TOC highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

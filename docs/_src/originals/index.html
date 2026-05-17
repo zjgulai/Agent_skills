@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-100 antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Manager AI Agent — give OpenCode a brain</title>
+  <meta name="description" content="OpenCode skills lifecycle manager: install, classify, graph, doctor — backed by a local FastAPI + Vite portal.">
+  <meta property="og:title" content="Skills Manager AI Agent">
+  <meta property="og:description" content="Auto-install / classify / graph / health-check OpenCode skills. Backed by a local portal.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zjgulai.github.io/Agent_skills/">
+  <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_skills/index.html">
+  <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_skills/index.html">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .gradient-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.15), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(59,130,246,0.10), transparent 50%);
+    }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .nav-link { color: #a1a1aa; transition: color 150ms; font-size: 14px; font-weight: 500; }
+    .nav-link:hover { color: #34d399; }
+    .nav-link.active { color: #34d399; }
+  </style>
+
+  <script>
+    window.I18N_ZH = window.I18N_ZH || {};
+    window.I18N_ZH['index'] = {
+      'nav.getting-started':       '快速开始',
+      'nav.handbook':              '手册',
+      'nav.architecture':          '架构',
+      'nav.github':                'GitHub →',
+      'hero.badge':                'v1.0 · 端到端验证完成',
+      'hero.title':                '为 <span class="text-emerald-400">OpenCode</span><br>装上 skills 大脑。',
+      'hero.subtitle':             'Skills Manager AI Agent 是 OpenCode skills 缺失的生命周期层：<span class="text-zinc-200">安装 · 分类 · 图谱 · 诊断 · 推荐</span>—— 全部由你笔电上跑的本地 FastAPI + Vue portal 驱动。',
+      'hero.cta-start':            '快速开始 →',
+      'hero.cta-github':           '查看 GitHub',
+      'hero.cta-arch':             '查看架构 →',
+      'demo.eyebrow':              '30 秒',
+      'demo.title':                '一条命令，端到端装一个 skill。',
+      'demo.desc':                 '一个 slash 命令。Agent 通过 portal API clone 仓库、推断正确的域、更新 <code class="text-emerald-400">INDEX.md</code>、重渲 <code class="text-emerald-400">skills-graph.png</code>、刷新 portal —— 每一步都带时间戳备份和写后验证。',
+      'demo.cta':                  '查看案例 →',
+      'cmds.eyebrow':              '11 个 SLASH 命令',
+      'cmds.title':                '完整的 skill 生命周期。',
+      'cmds.cta':                  '查看完整命令参考 →',
+      'cmds.install-desc':         '从 GitHub URL 安装。自动分类、写 INDEX、画 graph。',
+      'cmds.uninstall-desc':       '反向清理元数据。幂等。',
+      'cmds.update-desc':          'git pull 一个或全部，刷新 portal 索引。',
+      'cmds.list-desc':            '按域分组打印所有已装 skill。',
+      'cmds.recommend-desc':       '为某任务推荐 load_skills=[...] 组合。',
+      'cmds.classify-desc':        '手工把一个 skill 移到另一个域。',
+      'cmds.doctor-desc':          '5 条规则的健康体检。',
+      'cmds.sync-desc':            '把 graph 与 INDEX 对齐。幂等。',
+      'cmds.start-desc':           '把 portal 起来（5174 + 5173）。幂等。',
+      'cmds.stop-desc':            '杀 5173 / 5174 端口上的进程。',
+      'cmds.status-desc':          'PID / 上次索引时间 / skill 数量。',
+      'arch.eyebrow':              '两层架构',
+      'arch.title':                '底层 portal。上层 agent。',
+      'arch.desc':                 '<strong class="text-zinc-200">portal</strong>（FastAPI :5174 + Vue :5173）持有物理 skill 文件：clone、validate、copy、uninstall。<strong class="text-zinc-200">agent</strong> 编排 portal API 并直接写 3 个元数据文件（<code class="text-emerald-400">INDEX.md</code>、<code class="text-emerald-400">skills-graph.mmd</code>、<code class="text-emerald-400">skills-graph.png</code>）—— 用 atomic write、微秒级备份、写后验证。',
+      'arch.cta':                  '查看完整架构 →',
+      'who.title':                 '为 OpenCode 重度用户而做。',
+      'who.bullet1-h':             '你装了 ≥ 3 个 skill',
+      'who.bullet1':               '老忘了哪个该 load。Skill 推荐来自你真实的 INDEX。',
+      'who.bullet2-h':             '你每月装新 skill',
+      'who.bullet2':               '手工分类 + graph + INDEX 维护正在变成累赘。让 agent 来。',
+      'who.bullet3-h':             '你想把 meta 层做对',
+      'who.bullet3':               '健康检查、依赖审计、域一致性 —— 一条 <code class="text-emerald-400">/skill-doctor</code> 全搞定。',
+      'cta-final.title':           '约 10 分钟搞定。',
+      'cta-final.desc':            'clone、bootstrap portal venv、装前端依赖。然后 OpenCode 自动发现一切。',
+      'cta-final.button':          '开始安装指南 →',
+      'footer.tagline':            'Skills Manager AI Agent · MIT 风格使用，欢迎署名',
+    };
+  </script>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="./index.html" class="flex items-center gap-2 group">
+      <span class="text-xl">🧠</span>
+      <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="./handbook.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.handbook">Handbook</a>
+      <a href="./architecture.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.architecture">Architecture</a>
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
+      <button id="lang-toggle" onclick="window.i18nToggle()" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" aria-label="Toggle language">中文</button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16">
+
+<!-- HERO -->
+<section class="gradient-bg">
+  <div class="max-w-6xl mx-auto px-6 py-24 md:py-32">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span data-i18n="hero.badge">v1.0 · End-to-end verified</span>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 mb-6" data-i18n-html="hero.title">
+        Give <span class="text-emerald-400">OpenCode</span><br>
+        a brain for skills.
+      </h1>
+
+      <p class="text-xl text-zinc-400 leading-relaxed mb-8" data-i18n-html="hero.subtitle">
+        Skills Manager AI Agent is the missing lifecycle layer for OpenCode skills:
+        <span class="text-zinc-200">install · classify · graph · doctor · recommend</span> —
+        all driven by a local FastAPI + Vue portal you can run on your laptop.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <a href="./getting-started.html" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-md font-medium transition-colors" data-i18n="hero.cta-start">
+          Get Started →
+        </a>
+        <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-md font-medium transition-colors" data-i18n="hero.cta-github">
+          View on GitHub
+        </a>
+        <a href="./architecture.html" class="px-5 py-2.5 text-zinc-400 hover:text-emerald-400 rounded-md font-medium transition-colors" data-i18n="hero.cta-arch">
+          See Architecture →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 30 SEC DEMO -->
+<section class="border-t border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider" data-i18n="demo.eyebrow">30 SECONDS</p>
+        <h2 class="text-3xl font-bold mb-4 text-zinc-100" data-i18n="demo.title">Install a skill, end-to-end.</h2>
+        <p class="text-zinc-400 mb-6 leading-relaxed" data-i18n-html="demo.desc">
+          One slash command. The agent clones the repo via portal API, infers the right domain,
+          updates <code class="text-emerald-400">INDEX.md</code>, redraws
+          <code class="text-emerald-400">skills-graph.png</code>, and refreshes the portal —
+          with timestamped backups and post-write verification at every step.
+        </p>
+        <a href="./handbook.html#case-studies" class="text-emerald-400 hover:text-emerald-300 font-medium" data-i18n="demo.cta">
+          Read the case study →
+        </a>
+      </div>
+      <div class="cmd-block rounded-lg p-5 font-mono text-sm">
+<pre><code class="language-bash">$ /skill-install https://github.com/op7418/guizang-ppt-skill
+
+✅ portal API health
+✅ git clone ok
+✅ frontmatter validated: name=guizang-ppt-skill
+✅ domain inference: tooling (evidence: ppt, swiss style, html)
+✅ INDEX.md row inserted (backup: .bak.20260515T212727)
+✅ skills-graph.mmd node added as GPS
+✅ skills-graph.png re-rendered (259330 bytes)
+✅ portal refreshed: skill_count = 6 → 7</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 COMMANDS -->
+<section class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider" data-i18n="cmds.eyebrow">11 SLASH COMMANDS</p>
+    <h2 class="text-3xl font-bold mb-12 text-zinc-100" data-i18n="cmds.title">A complete skill lifecycle.</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <!-- install -->
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-install</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.install-desc">Install from GitHub URL. Auto-classify, INDEX, graph.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-uninstall</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.uninstall-desc">Reverse all metadata cleanup. Idempotent.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-update</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.update-desc">git pull one skill or all + refresh portal index.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-list</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.list-desc">Print all installed skills grouped by domain.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-recommend</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.recommend-desc">Suggest a load_skills=[...] combo for a task.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-classify</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.classify-desc">Manually reassign a skill to a different domain.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-doctor</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.doctor-desc">5-rule health check per skill.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/skill-graph-sync</code>
+        <p class="text-zinc-400 text-sm mt-2">Reconcile graph against INDEX. Idempotent.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/portal-start</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.start-desc">Bring portal (5174 + 5173) online. Idempotent.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/portal-stop</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.stop-desc">Kill processes on ports 5173 + 5174.</p>
+      </div>
+      <div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+        <code class="text-emerald-400 font-mono text-sm">/portal-status</code>
+        <p class="text-zinc-400 text-sm mt-2" data-i18n="cmds.status-desc">PID, last index time, skill count.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="./handbook.html#methods" class="text-emerald-400 hover:text-emerald-300 font-medium" data-i18n="cmds.cta">
+        Full command reference →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ARCH PEEK -->
+<section class="border-t border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="order-2 md:order-1">
+        <img src="./assets/screenshots/portal-after-install.png" alt="Skills Portal showing 7 installed skills grouped by domain" class="rounded-lg border border-zinc-800 shadow-2xl">
+      </div>
+      <div class="order-1 md:order-2">
+        <p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider" data-i18n="arch.eyebrow">TWO-LAYER ARCHITECTURE</p>
+        <h2 class="text-3xl font-bold mb-4 text-zinc-100" data-i18n="arch.title">Portal underneath. Agent on top.</h2>
+        <p class="text-zinc-400 mb-6 leading-relaxed" data-i18n-html="arch.desc">
+          The <strong class="text-zinc-200">portal</strong> (FastAPI on :5174 + Vue on :5173) owns
+          the physical skill files: clone, validate, copy, uninstall.
+          The <strong class="text-zinc-200">agent</strong> orchestrates the portal API and writes
+          three metadata files directly (<code class="text-emerald-400">INDEX.md</code>,
+          <code class="text-emerald-400">skills-graph.mmd</code>,
+          <code class="text-emerald-400">skills-graph.png</code>) — with atomic writes, microsecond-stamped
+          backups, and post-write verification.
+        </p>
+        <a href="./architecture.html" class="text-emerald-400 hover:text-emerald-300 font-medium" data-i18n="arch.cta">
+          See the full architecture →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-12 text-center text-zinc-100" data-i18n="who.title">Built for the OpenCode power user.</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="p-6">
+        <div class="text-3xl mb-3">🧩</div>
+        <h3 class="font-semibold text-zinc-100 mb-2" data-i18n="who.bullet1-h">You have ≥ 3 skills installed</h3>
+        <p class="text-zinc-400 text-sm" data-i18n="who.bullet1">And keep forgetting which one to load. Skill recommendations come from your real INDEX.</p>
+      </div>
+      <div class="p-6">
+        <div class="text-3xl mb-3">🛠️</div>
+        <h3 class="font-semibold text-zinc-100 mb-2" data-i18n="who.bullet2-h">You install new skills monthly</h3>
+        <p class="text-zinc-400 text-sm" data-i18n="who.bullet2">Manual classify + graph + INDEX upkeep is becoming a chore. Let the agent do it.</p>
+      </div>
+      <div class="p-6">
+        <div class="text-3xl mb-3">📐</div>
+        <h3 class="font-semibold text-zinc-100 mb-2" data-i18n="who.bullet3-h">You want the meta-layer right</h3>
+        <p class="text-zinc-400 text-sm" data-i18n-html="who.bullet3">Health checks, dependency audit, domain coherence — all in one <code class="text-emerald-400">/skill-doctor</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="border-t border-zinc-900 gradient-bg">
+  <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-4xl font-bold mb-4 text-zinc-100" data-i18n="cta-final.title">Ready in ~10 minutes.</h2>
+    <p class="text-zinc-400 mb-8 text-lg" data-i18n="cta-final.desc">
+      Clone, bootstrap the portal venv, install frontend deps. Then OpenCode auto-discovers everything.
+    </p>
+    <a href="./getting-started.html" class="inline-block px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-md font-medium transition-colors" data-i18n="cta-final.button">
+      Start the install guide →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+    <div class="flex items-center gap-2">
+      <span>🧠</span>
+      <span data-i18n="footer.tagline">Skills Manager AI Agent · MIT-style use, attribution welcomed</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">GitHub</a>
+      <a href="https://github.com/zjgulai/Agent_skills/issues" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors">Issues</a>
+      <a href="./architecture.html" class="hover:text-emerald-400 transition-colors" data-i18n="nav.architecture">Architecture</a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script>hljs.highlightAll();</script>
+<script src="./assets/i18n.js" defer></script>
+</body>
+</html>

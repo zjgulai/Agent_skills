@@ -1,0 +1,295 @@
+{
+  "index": {
+    "nav.getting-started": "å¿«éå¼å§",
+    "nav.handbook": "æå",
+    "nav.architecture": "æ¶æ",
+    "nav.github": "GitHub â",
+    "hero.badge": "v1.0 Â· ç«¯å°ç«¯éªè¯å®æ",
+    "hero.title": "为 <span class=\"text-emerald-400\">OpenCode</span><br>装上 skills 大脑。",
+    "hero.subtitle": "Skills Manager AI Agent 是 OpenCode skills 缺失的生命周期层：<span class=\"text-zinc-200\">安装 · 分类 · 图谱 · 诊断 · 推荐</span>—— 全部由你笔电上跑的本地 FastAPI + Vue portal 驱动。",
+    "hero.cta-start": "å¿«éå¼å§ â",
+    "hero.cta-github": "æ¥ç GitHub",
+    "hero.cta-arch": "æ¥çæ¶æ â",
+    "demo.eyebrow": "30 ç§",
+    "demo.title": "ä¸æ¡å½ä»¤ï¼ç«¯å°ç«¯è£ä¸ä¸ª skillã",
+    "demo.desc": "一个 slash 命令。Agent 通过 portal API clone 仓库、推断正确的域、更新 <code class=\"text-emerald-400\">INDEX.md</code>、重渲 <code class=\"text-emerald-400\">skills-graph.png</code>、刷新 portal —— 每一步都带时间戳备份和写后验证。",
+    "demo.cta": "æ¥çæ¡ä¾ â",
+    "cmds.eyebrow": "11 ä¸ª SLASH å½ä»¤",
+    "cmds.title": "å®æ´ç skill çå½å¨æã",
+    "cmds.cta": "æ¥çå®æ´å½ä»¤åè â",
+    "cmds.install-desc": "ä» GitHub URL å®è£ãèªå¨åç±»ãå INDEXãç» graphã",
+    "cmds.uninstall-desc": "ååæ¸çåæ°æ®ãå¹ç­ã",
+    "cmds.update-desc": "git pull ä¸ä¸ªæå¨é¨ï¼å·æ° portal ç´¢å¼ã",
+    "cmds.list-desc": "æååç»æå°ææå·²è£ skillã",
+    "cmds.recommend-desc": "ä¸ºæä»»å¡æ¨è load_skills=[...] ç»åã",
+    "cmds.classify-desc": "æå·¥æä¸ä¸ª skill ç§»å°å¦ä¸ä¸ªåã",
+    "cmds.doctor-desc": "5 æ¡è§åçå¥åº·ä½æ£ã",
+    "cmds.sync-desc": "æ graph ä¸ INDEX å¯¹é½ãå¹ç­ã",
+    "cmds.start-desc": "æ portal èµ·æ¥ï¼5174 + 5173ï¼ãå¹ç­ã",
+    "cmds.stop-desc": "æ 5173 / 5174 ç«¯å£ä¸çè¿ç¨ã",
+    "cmds.status-desc": "PID / ä¸æ¬¡ç´¢å¼æ¶é´ / skill æ°éã",
+    "arch.eyebrow": "ä¸¤å±æ¶æ",
+    "arch.title": "åºå± portalãä¸å± agentã",
+    "arch.desc": "<strong class=\"text-zinc-200\">portal</strong>（FastAPI :5174 + Vue :5173）持有物理 skill 文件：clone、validate、copy、uninstall。<strong class=\"text-zinc-200\">agent</strong> 编排 portal API 并直接写 3 个元数据文件（<code class=\"text-emerald-400\">INDEX.md</code>、<code class=\"text-emerald-400\">skills-graph.mmd</code>、<code class=\"text-emerald-400\">skills-graph.png</code>）—— 用 atomic write、微秒级备份、写后验证。",
+    "arch.cta": "æ¥çå®æ´æ¶æ â",
+    "who.title": "ä¸º OpenCode éåº¦ç¨æ·èåã",
+    "who.bullet1-h": "ä½ è£äº â¥ 3 ä¸ª skill",
+    "who.bullet1": "èå¿äºåªä¸ªè¯¥ loadãSkill æ¨èæ¥èªä½ çå®ç INDEXã",
+    "who.bullet2-h": "ä½ æ¯æè£æ° skill",
+    "who.bullet2": "æå·¥åç±» + graph + INDEX ç»´æ¤æ­£å¨åæç´¯èµãè®© agent æ¥ã",
+    "who.bullet3-h": "ä½ æ³æ meta å±åå¯¹",
+    "who.bullet3": "健康检查、依赖审计、域一致性 —— 一条 <code class=\"text-emerald-400\">/skill-doctor</code> 全搞定。",
+    "cta-final.title": "çº¦ 10 åéæå®ã",
+    "cta-final.desc": "cloneãbootstrap portal venvãè£åç«¯ä¾èµãç¶å OpenCode èªå¨åç°ä¸åã",
+    "cta-final.button": "å¼å§å®è£æå â",
+    "footer.tagline": "Skills Manager AI Agent Â· MIT é£æ ¼ä½¿ç¨ï¼æ¬¢è¿ç½²å"
+  },
+  "handbook": {
+    "nav.getting-started": "å¿«éå¼å§",
+    "nav.handbook": "æå",
+    "nav.architecture": "æ¶æ",
+    "nav.github": "GitHub â",
+    "header.eyebrow": "å¨çº¿åèæå",
+    "header.title": "æè½æå",
+    "header.subtitle": "OpenCode æè½çå½å¨æçç»ä¸åèï¼6 ä¸ªåã11 ä¸ªæ¹æ³ãæè½å¾è°±ä¸ 4 ä¸ªçå®æ¼åæ¡ä¾ã",
+    "header.lastupdate": "æåæ´æ°",
+    "toc.heading": "æ¬é¡µç®å½",
+    "toc.overview": "æ¦è§",
+    "toc.domains": "ååç±»",
+    "toc.methods": "11 ä¸ªæ¹æ³",
+    "toc.graph": "æè½å¾è°±",
+    "toc.case-studies": "å¾è°±æ¼åæ¡ä¾",
+    "toc.crossref": "ç¸å³ç´¢å¼",
+    "s1.title": "Â§1. æ¦è§",
+    "s1.lead": "本页是 OpenCode 技能日常管理的核心查询页。把它当作\"始终打开的速查手册\"——下面 5 个章节从最基础的分类规则讲到真实 graph 演化，逐层递进。",
+    "s1.what-is-here": "æ¬é¡µåå«ä»ä¹",
+    "s1.what-is-here-li1": "6 ä¸ª skill åçå¤å®è§åä¸å³é®è¯",
+    "s1.what-is-here-li2": "11 ä¸ª slash å½ä»¤çç²¾ç¼åèè¡¨",
+    "s1.what-is-here-li3": "å½å Skills Graph çå®æ¶æ¸²æ + å¾ä¾",
+    "s1.what-is-here-li4": "åºæ¯å¥é¤è¡¨ï¼åªç§ä»»å¡è¯¥è£åªäº skillï¼",
+    "s1.what-is-here-li5": "4 ä¸ªçå®/åæ³çå¾æ¼åæ¡ä¾ï¼State 0 â State 3ï¼",
+    "s1.what-is-not-here": "æ¬é¡µä¸åå«",
+    "s1.what-is-not-here-li1": "å®è£æ­¥éª¤ââè§ ",
+    "s1.what-is-not-here-li2": "ä¸¤å±æ¶æè¯¦è§£ââè§ ",
+    "s1.who": "é¢åè°",
+    "s1.who-li1": "已经装好 ≥ 3 个 skill、需要\"该装哪个 / 调哪个\"快速决断的用户",
+    "s1.who-li2": "æ³çè§£ä¸ºä»ä¹ graph é¿è¿æ ·ãgraph è£æ° skill åæä¹åçå¼åè",
+    "s1.who-li3": "éè¦è¿ç¨æ¥è¯¢èä¸è½è·å½ä»¤çåºæ¯ï¼é£æºãå®¢æ·ç¬çµãçº¯ Webï¼",
+    "s2.title": "Â§2. ååç±»",
+    "s2.lead": "6 ä¸ªåãä¸æ¡è§åï¼å½å¤å®ä¸ç¡®å®æ¶ï¼åç¨æ·æé®ãåç±»å¨æ°¸è¿ä¸ä¼æä¸­è¯¯å½ç±»ã",
+    "s2.how-it-works": "æ¨æ­ç®æ³",
+    "s2.algo-li1": "æ skill ç name + description æ¼æ¥ãè½¬å°å",
+    "s2.algo-li2": "å¯¹æ¯ä¸ªåï¼ç»è®¡å³é®è¯å¨ææ¬ä¸­çåºç°æ¬¡æ°ï¼æ¯è¯æå¤ç®ä¸æ¬¡ï¼",
+    "s2.algo-li3": "åå¾åæé«çåãå¹³å±æ¶æåä¼åçº§åç¬¬ä¸ä¸ªï¼",
+    "s2.algo-li4": "è¥ææå¾åä¸º 0 â è¿å uncategorizedï¼agent æç¤ºç¨æ·æé",
+    "s2.6-domains": "6 ä¸ªå",
+    "s2.regression": "åå½æµè¯",
+    "s2.regression-lead": "å½å 7 ä¸ª skill å¨é¨åå½ç¨ä¾ 7/7 éè¿ï¼",
+    "s2.regression-th-skill": "Skill åç§°",
+    "s2.regression-th-desc": "description å³é®è¯",
+    "s2.regression-th-domain": "ææå",
+    "s2.regression-th-evidence": "å½ä¸­è¯æ®",
+    "s2.update-rule": "æ´æ°è§å",
+    "s2.update-rule-li": "æ´æ°å³é®è¯æ¶ï¼åæ¹ ",
+    "s2.update-rule-li-2": "ï¼åæ¹ ",
+    "s2.update-rule-li-3": " ä¸­ç KEYWORDS è¡¨ï¼æåè· pytest åå½ã",
+    "s3.title": "Â§3. 11 ä¸ªæ¹æ³",
+    "s3.lead": "11 ä¸ª slash å½ä»¤æçå½å¨æé¶æ®µåç»ãæ¯æ¡é½æè¯»/å/çå½å¨ææ è®°ï¼æ¹ä¾¿å¿«éå¤æ­å¯¹ç³»ç»ç¶æçå½±åã",
+    "s3.phase1": "é¶æ®µä¸ï¼æè½çå½å¨æ",
+    "s3.phase2": "é¶æ®µäºï¼æ£æ¥ä¸æ¥è¯¢",
+    "s3.phase3": "é¶æ®µä¸ï¼ç»´æ¤",
+    "s3.phase4": "é¶æ®µåï¼Portal æ§å¶",
+    "s3.fullref": "å®æ´å½ä»¤åè",
+    "s3.fullref-text": "æ¯ä¸ªå½ä»¤çå®æ´æç¤ºæ¨¡çå¨ä»åºæºç  ",
+    "s4.title": "Â§4. æè½å¾è°±",
+    "s4.lead": "图谱是 6 个域 + builtin skill 之间关系的可视化视图。读懂图谱 = 读懂\"在哪个项目阶段，该叠哪个 skill\"。",
+    "s4.legend": "4.1 å¾ä¾ï¼æä¹è¯»å¾",
+    "s4.legend-arrow-h": "è¾¹ç±»å",
+    "s4.legend-color-h": "åéè²",
+    "s4.legend-shape-h": "èç¹å½¢ç¶",
+    "s4.live": "4.2 å½åå®æ¶å¾è°±",
+    "s4.live-lead": "ä¸é¢æ¯å½å 8 ä¸ªå®è£ skill çå®æ¶ mermaid æ¸²æï¼ä¸ä»åº ",
+    "s4.live-lead-2": " åæºï¼ã",
+    "s4.bundles": "4.3 å¸ååºæ¯å¥é¤",
+    "s4.bundles-lead": "常见场景下\"该一次性 load 哪几个 skill\"的速查表。直接复制 load_skills 数组到 task() 即可：",
+    "s4.bundles-th-scene": "åºæ¯",
+    "s4.bundles-th-load": "å è½½ç»å",
+    "s4.bundles-th-note": "å¤æ³¨",
+    "s5.title": "Â§5. å¾è°±æ¼åæ¡ä¾",
+    "s5.lead": "4 ä¸ªå¾è°±ç¶æï¼ææ¶é´åºå±ç¤ºæ°è£ skill æ¶å¾è°±æä¹åãå 3 ä¸ªæ¯çå®åå²ï¼State 0 â State 1 â State 2ï¼ï¼ç¬¬ 4 ä¸ªæ¯åæ³åºæ¯æ¼ç»ã",
+    "s5.s0": "5.1 State 0ï¼åå§ 6-skill",
+    "s5.s0-desc": "é¡¹ç®åæ­èµ·çæåç¶æï¼6 ä¸ªç¨æ·çº§ skill + 5 ä¸ª builtinãä¸æ¡ founder â meta â desktop â closeout â ip çä¸»çå½å¨æé¾ï¼å  5 æ¡ cross-domain å¢æ´è¾¹ã",
+    "s5.s0-bullet1": "6 ä¸ªç¨æ·çº§ skillï¼ADKãCRãNFãSPTãPATãSCSï¼IP åå­æï¼",
+    "s5.s0-bullet2": "5 ä¸ª builtinï¼èçº¿è¾¹æ¡ï¼ï¼GMãRWãASRãFEãPW",
+    "s5.s0-bullet3": "ä¸»é¾ï¼SPT â ADK â NF â CR â PAT â SCSï¼ç´«âèâæ©âç»¿âéâéï¼",
+    "s5.s0-bullet4": "æ²¡æ tooling ååï¼å ä¸ºè¿æ²¡æä»»ä½ tooling skillï¼",
+    "s5.s0-png-alt": "Skills graph state 0ï¼6 ç¨æ· skill + 5 builtin",
+    "s5.s1": "5.2 State 1ï¼è£ guizang-ppt-skill å",
+    "s5.s1-cmd": "è§¦åï¼",
+    "s5.s1-desc": "装完 guizang-ppt-skill 后的图谱。tooling 域块自动创建，GPS 节点孤立加入。注意：因为 tooling 域之前空，agent 自动添加了 toolingDomain classDef 和 \"%% Tooling domain\" 注释块。",
+    "s5.s1-bullet1": "æ¨æ­ç»æï¼tooling åï¼å½ä¸­ ppt / swiss style / htmlï¼å¾å 3ï¼",
+    "s5.s1-bullet2": "æ°èç¹ï¼GPS[guizang-ppt-skill]:::toolingDomain",
+    "s5.s1-bullet3": "新边：GPS -. \"独立节点\" .-> GPS（同域无 peer 时的 self-loop fallback）",
+    "s5.s1-bullet4": "å°ºå¯¸ååï¼state-0 (224500) â state-1 (259330)ï¼+34830 å­è",
+    "s5.s1-png-alt": "Skills graph state 1ï¼è£ guizang å +1 èç¹",
+    "s5.s2": "5.3 State 2ï¼è£ skill-creator å",
+    "s5.s2-cmd": "è§¦åï¼",
+    "s5.s2-desc": "装完 skill-creator 后的当前态。这个 skill 的 description 用语过宽（\"create new skills\"），关键词推断返回 uncategorized，agent 提示用户后手工归到 meta 域。新节点 SC 与已有 ADK 同域，因此自动添加 \"同域\" dashed 边。",
+    "s5.s2-bullet1": "æ¨æ­ç»æï¼uncategorized â ç¨æ·æé meta",
+    "s5.s2-bullet2": "æ°èç¹ï¼SC[skill-creator]:::metaDomain",
+    "s5.s2-bullet3": "新边：SC -. \"同域\" .-> ADK（meta 域已有 peer，加同域 dashed 边）",
+    "s5.s2-bullet4": "å°ºå¯¸ååï¼state-1 (259330) â state-2 (270529)ï¼+11199 å­è",
+    "s5.s2-png-alt": "Skills graph state 2ï¼è£ skill-creator å +1 èç¹",
+    "s5.s3": "5.4 State 3 (åæ³)ï¼è£ 3 ä¸ª desktop skills",
+    "s5.s3-desc": "想象一下：如果你接下来装 3 个新的桌面应用相关 skill（如 \"tauri-template\"、\"electron-perf-audit\"、\"webview-survival-kit\"）会怎样？图谱会演化成下面这样——desktop 域从 1 个节点扩到 4 个节点，自动加 3 条同域边。注意 NF 仍然保有原来到 PW 和 FE 的 cross-domain 边。",
+    "s5.s3-bullet1": "æææ° skill é½æ¨æ­ä¸º desktop åï¼å³é®è¯ tauri / electron / webview å¼ºä¿¡å·ï¼",
+    "s5.s3-bullet2": "æ°èç¹ï¼TTãEPAãWSKï¼æ SHORT_ID å½åè§åé¦å­æ¯ï¼",
+    "s5.s3-bullet3": "新边：每个新节点 -. \"同域\" .-> NF（同域 dashed，链向首个 peer）",
+    "s5.s3-bullet4": "desktop classDef å·²å­å¨ï¼ä¸éæ°å»º",
+    "s6.title": "Â§6. ç¸å³ç´¢å¼",
+    "s6.lead": "æ¬æåæ¯å¥å£ï¼ä»¥ä¸ææ¡£è¿ä¸æ­¥æ·±å¥ï¼",
+    "s6.code": "æºç ç´¢å¼",
+    "footer.tagline": "ä¸ä¸ª OpenCode æè½çå½å¨æç®¡ç AI agentã",
+    "dom.meta.subtitle": "AI å·¥ç¨åºç¡è®¾æ½",
+    "dom.closeout.subtitle": "ä»£ç è´¨éä¸äº¤ä»é­ç¯",
+    "dom.desktop.subtitle": "æ¡é¢åºç¨å·¥ç¨",
+    "dom.founder.subtitle": "åä¸ä¸äº§åéªè¯",
+    "dom.ip.subtitle": "ç¥è¯äº§æäº¤ä»",
+    "dom.tooling.subtitle": "å·¥å·å¢å¼ºï¼æ¨ªåå±ï¼",
+    "dom.label.when": "ä½æ¶è¿å¥ï¼",
+    "dom.label.note-prefix": "æ³¨æï¼",
+    "dom.meta.when": "ä»»å¡çå¯¹è±¡æ¯ <strong>AI agent èªèº«</strong>ââä»åºèææ¶ãagent è®°å¿ãskill åºãhookãsubagentãpluginãagent èªæ²»ã",
+    "dom.closeout.when": "ä»£ç å·²åå®ï¼è¿å¥æåä¸å¬éââcommit / PR / release / lint / auditã",
+    "dom.desktop.when": "è·¨å¹³å°æ¡é¢åºç¨ï¼ä¸ç¨æ·ä½æå¿é¡»ååçã",
+    "dom.founder.when": "æä¸æ¯ç¹å­ææ©æäº§åï¼å¨å¤æ­ãè¿äºå¼ä¸å¼å¾åãã",
+    "dom.ip.when": "é¡¹ç®è¿å¥åä¸åä¿æ¤é¶æ®µââæä»£ç èµäº§åæå¯ç³æ¥çæ³å¾æä»¶ã",
+    "dom.tooling.when": "ä¸ç»å®ç¹å®é¡¹ç®ç±»åï¼ä½<strong>ä»»ä½é¡¹ç®é½å¯è½éè¦</strong>çè½åã",
+    "dom.meta.note": "æ³¨æï¼åç¬ç <code>skill</code> ä¸å¨ meta å³é®è¯è¡¨éââå¤ªå®½æ³ï¼å ä¹æ¯ä»½ SKILL.md é½ä¼æå°å®ãåªæ <code>subagent</code>ã<code>agent</code> åæç¡®çéç½®æä»¶ææ¯å¼ºä¿¡å·ã",
+    "s3.t.command": "å½ä»¤",
+    "s3.t.effect": "ä½ç¨",
+    "s3.t.phase": "é¶æ®µ",
+    "cmd.install.eff": "éè¿ portal API clone â æ¨æ­å â å  INDEX.md â å  graph èç¹å¹¶éæ¸² PNG â å·æ°ï¼7 æ­¥ï¼åï¼",
+    "cmd.uninstall.eff": "install çéæä½ãç¡®è®¤ â å  graph èç¹ â å  INDEX è¡ â DELETE ç©çæä»¶ï¼4 æ­¥ï¼åï¼",
+    "cmd.update.eff": "å¨ skill ç®å½è· <code>git pull --ff-only</code>ï¼ç¶åå·æ° portal ç´¢å¼",
+    "cmd.list.eff": "åªè¯»ï¼æååç»æå°ææå·²è£ skillï¼å«æè¿°ä¸è§¦åè¯",
+    "cmd.recommend.eff": "æèªç±ææ¬ä»»å¡å¹éå°åºæ¯å¥é¤è¡¨æå¯¹å³é®è¯æåï¼è¾åº <code>load_skills=[â¦]</code>",
+    "cmd.doctor.eff": "5 æ¡è§åä½æ£ï¼frontmatter / ç®å½å / INDEX æ¶å½ / graph æ¶å½ / ä¾èµ",
+    "cmd.classify.eff": "æä¸ä¸ª skill å¨åä¹é´ç§»å¨ï¼åæ¶æ¹ INDEX è¡ãgraph èç¹ãclassDef",
+    "cmd.graphsync.eff": "æ graph ä¸ INDEX å¯¹é½ï¼æ£æµ MISSING / EXTRA / MISMATCHï¼å¹ç­",
+    "cmd.portalstart.eff": "æ portal èµ·æ¥ï¼å¹ç­ï¼èªå¨æ£æµ portless HTTPS",
+    "cmd.portalstop.eff": "æ 5173 + 5174 ç«¯å£ä¸çè¿ç¨ï¼å¹ç­",
+    "cmd.portalstatus.eff": "åªè¯»ï¼API æ¯å¦å¨è·ãç«¯å£ãPIDsãä¸æ¬¡ç´¢å¼æ¶é´ãskill æ°é",
+    "pill.read": "è¯»",
+    "pill.write": "å",
+    "pill.lifecycle": "çå½å¨æ",
+    "legend.solid.label": "<strong>å®çº¿</strong> â çå½å¨æä¾èµ",
+    "legend.dashed.label": "<strong>èçº¿</strong> â è·¨åå¢æ´",
+    "legend.double.label": "<strong>åå</strong> â å¹¶è¡è¦å",
+    "legend.box.label": "ç¨æ·å®è£ç skill",
+    "legend.round.label": "åç½®ï¼æ éå®è£ï¼",
+    "legend.sid.label": "<code style=\"font-size:11px;\">guizang-ppt-skill</code> → <code style=\"font-size:11px;\">GPS</code>",
+    "s4.bundles.scene": "åºæ¯",
+    "s4.bundles.load": "å è½½ç»å",
+    "s4.bundles.note": "å¤æ³¨",
+    "sce.idea": "ãææä¸ªæ°ç¹å­ï¼ççé ä¸é è°±ã",
+    "sce.idea.note": "å skillââä¸è¦ç«å»å  ADK",
+    "sce.scaffold": "ãæ­ä¸ä¸ªè·¨å¹³å°æ¡é¢ app çèææ¶ã",
+    "sce.scaffold.note": "ADK ç»å·¥ç¨ç»æï¼NF ç»æ¡é¢æ¶æåå",
+    "sce.preship": "ãPR åå¤ ship ä¹åã",
+    "sce.preship.note": "å®¡æ¥ä¸ä»¶å¥",
+    "sce.ip": "ãè¿ä¸ªé¡¹ç®è¦ç³è¯·è½¯è + æä¸å©ã",
+    "sce.ip.note": "IP åå­æå¿é¡»ä¸èµ·å ââä¿æè½¯ä»¶å / çæ¬å·å¨ä¸¤ä¸ªæµç¨éä¸è´",
+    "sce.audit": "ãç»ç°æ OpenCode ä»åºåæ¶æå®¡è®¡ã",
+    "sce.audit.note": "å skillââè¾åºäºå±æ¶æ gap åæ",
+    "sce.electron": "ãæç Electron åºç¨å¯å¨æ¢ / çªå£å¡ã",
+    "sce.electron.note": "NF åºè¯æ­æ¹åï¼playwright éªè¯ fix",
+    "sce.swiss": "ãåºäºè¿ç¯æç« åä¸ä»½çå£«é£ PPTã",
+    "sce.swiss.note": "tooling å skillï¼ä¸éè¦æ­æ¡£",
+    "sce.skillnew": "ãä»é¶åå»ºä¸ä¸ªæ° skillã",
+    "sce.skillnew.note": "meta åââbootstrap å¦ä¸ä¸ª skill",
+    "s5.s0.b1": "6 ä¸ªç¨æ·çº§ skillï¼ADKãCRãNFãSPTãPATãSCSï¼IP åå­æï¼",
+    "s5.s0.b2": "5 ä¸ªåç½®ï¼èçº¿è¾¹æ¡ï¼ï¼GMãRWãASRãFEãPW",
+    "s5.s0.b3": "ä¸»é¾ï¼SPT â ADK â NF â CR â PAT â SCSï¼ç´«âèâæ©âç»¿âéâéï¼",
+    "s5.s0.b4": "æ²¡æ tooling ååï¼è¿æ²¡æ tooling skillï¼",
+    "s5.delta.label": "Î vs ä¸ä¸æï¼",
+    "s5.s1.delta": "+1 èç¹ï¼GPS è¿ toolingï¼Â· +1 classDefï¼toolingDomainï¼ Â· +1 èªå¾ªç¯è¾¹ Â· PNG å­è 224 500 â 259 330ï¼+15.5%ï¼",
+    "s5.s1.b1": "æ¨æ­ç»æï¼tooling åï¼å½ä¸­ ppt / swiss style / htmlï¼å¾å 3ï¼",
+    "s5.s1.b2": "æ°èç¹ï¼<code>GPS[guizang-ppt-skill]:::toolingDomain</code>",
+    "s5.s1.b3": "新边：<code>GPS -. \"isolated\" .-> GPS</code>（同域无 peer 时的自循环兜底）",
+    "s5.s2.delta": "+1 èç¹ï¼SC è¿ metaï¼Â· +1 ååè¾¹å° ADK Â· 0 æ° classDefï¼meta å·²å­å¨ï¼Â· PNG å­è 259 330 â 270 529ï¼+4.3%ï¼",
+    "s5.s2.b1": "æ¨æ­ç»æï¼uncategorized â ç¨æ·æé meta",
+    "s5.s2.b2": "æ°èç¹ï¼<code>SC[skill-creator]:::metaDomain</code>",
+    "s5.s2.b3": "新边：<code>SC -. \"same domain\" .-> ADK</code>（meta 已有 peer，加同域虚线边）",
+    "s5.s3.b1": "3 ä¸ªæ° skill å¨é¨æ¨æ­ä¸º desktop åï¼å³é®è¯ tauri / electron / webview å¼ºä¿¡å·ï¼",
+    "s5.s3.b2": "æ°èç¹ï¼TTãEPAãWSKï¼SHORT_ID = åè¿å­æ®µé¦å­æ¯ï¼",
+    "s5.s3.b3": "新边：每个新节点 <code>-. \"same domain\" .-> NF</code>（虚线，连到首个 peer）",
+    "s5.s3.b4": "desktop classDef å·²å­å¨ï¼ä¸éæ°å»º",
+    "s6.gs.text": " â å¨æ°æºå¨ä¸ 10 åéæå®å®è£",
+    "s6.arch.text": " â ä¸¤å±è®¾è®¡ã5 ä¸ª Python lib æ¨¡åãå®è£æ¶åºå¾",
+    "s6.tax.text": " â 6 åè§åççç¸æº",
+    "s6.cmds.text": " â 11 ä¸ª slash å½ä»¤çæç¤ºæ¨¡çï¼Markdownï¼",
+    "s6.lib.text": " â 5 ä¸ª Python æ¨¡åï¼portal_client, domain_inference, index_md_writer, graph_writer, doctorï¼",
+    "s6.portal.text": " â FastAPI + Vite/Vue æ¬å°ç«ç¹",
+    "nav.repo-link": "Skills Manager",
+    "nav.gs.alt": "Getting Startedï¼å¿«éå¼å§ï¼",
+    "nav.arch.alt": "Architectureï¼æ¶æï¼",
+    "header.editlink": "å¨ GitHub ç¼è¾"
+  },
+  "architecture": {
+    "nav.getting-started": "å¿«éå¼å§",
+    "nav.handbook": "æå",
+    "nav.architecture": "æ¶æ",
+    "nav.github": "GitHub â",
+    "header.eyebrow": "ææ¡£",
+    "header.title": "æ¶æ",
+    "header.subtitle": "ä¸¤å±ãä¸ä»½å¥çº¦ãä¸ä¸ªåæ°æ®æä»¶ã",
+    "footer.tagline": "Skills Manager AI Agent"
+  },
+  "getting-started": {
+    "nav.getting-started": "å¿«éå¼å§",
+    "nav.handbook": "æå",
+    "nav.architecture": "æ¶æ",
+    "nav.github": "GitHub â",
+    "header.eyebrow": "ææ¡£",
+    "header.title": "å¿«éå¼å§",
+    "header.subtitle": "ä»ä¸å°ç©ºç½æºå¨å°è½ç¨ç Skills Managerï¼çº¦ 10 åéã",
+    "prereq.h": "åç½®æ¡ä»¶",
+    "prereq.optional": "å¯éä½æ¨èï¼macOSï¼ï¼",
+    "prereq.optional-text": " ç¨äº ",
+    "step1.h": "1. clone å¹¶ bootstrap portal",
+    "step1.intro": "åéå°ä»»æä½ç½®ãä¸é¢ç¨ ~/project/Agent ä½ä¸ºä¾å­ã",
+    "step1b.intro": "è£ portal åç«¯ï¼éç¦» venv ä¸­ç FastAPIï¼ã",
+    "step1c.intro": "è£ portal åç«¯ä¾èµã",
+    "step1d.intro": "Smoke-test portalã",
+    "step2.h": "2. bootstrap skill ä»åº",
+    "step2.intro": "skill ä»ä½äº ~/.config/opencode/skills/ï¼OpenCode çº¦å®ï¼ä¸è¦æ¢ä½ç½®ï¼ãå¦æä½ ä¹åæ²¡ç¨è¿ OpenCode skillsï¼å»ºç«ç©ºèææ¶ï¼",
+    "step2.seed": "ç¨ 6 åéª¨æ¶å¡« INDEX.mdï¼ç¤ºä¾è§ ",
+    "step2.seed-2": "ï¼ãç¨æå° mermaid å¤´å¡« skills-graph.mmdã",
+    "step2.skip": "å¦æä½ å·²ç»æç°æç skill ä»ï¼è·³è¿è¿æ­¥ã",
+    "step3.h": "3. æ¥å¥ OpenCode",
+    "step3.intro": "OpenCode èªå¨åç°å½ä»¤å subagentãå¼ä»åºå³å¯ï¼",
+    "step3.try": "å¨å¯¹è¯æ¡è¾ /skill- â åºçå°ææ 11 ä¸ªå½ä»¤è¡¥å¨ã",
+    "step4.h": "4. ç¬¬ä¸æ¬¡è·",
+    "step4.intro": "ç«¯å°ç«¯ smoke æµç¨ï¼",
+    "step4.outro": "å¦æ /skill-install å¨ç»¿ â + portal UI æ¾ç¤ºæ° skill å¨æ­£ç¡®åï¼æå®ã",
+    "verify.h": "éªè¯",
+    "verify.intro": "è·æµè¯å¥ä»¶ç¡®è®¤æ¥çº¿æ­£ç¡®ï¼",
+    "troubleshoot.h": "æéææ¥",
+    "troubleshoot.ports-h": "ç«¯å£ 5173 / 5174 å·²è¢«å ",
+    "troubleshoot.proxy-h": "浏览器报 \"400\" 或 portal 加载失败",
+    "troubleshoot.proxy-text": "ç³»ç» HTTP ä»£çæ¦æªäº localhostãæ£æ¥ macOS ç³»ç»è®¾ç½® â ç½ç» â ä»£çï¼æä¸º localhost,127.0.0.1,*.localhost è®¾ç½® bypassã",
+    "troubleshoot.graph-h": "graph æ¸²æéè¯¯",
+    "troubleshoot.graph-text": "ä¸º render-mermaid.py è£ playwright + chromiumï¼",
+    "next.h": "ä¸ä¸æ­¥",
+    "next.li1-pre": "å®æ´å½ä»¤åè",
+    "next.li1": " â 11 ä¸ª slash å½ä»¤çå¨é¨ç»è",
+    "next.li2-pre": "æ¶ææ·±å¥",
+    "next.li2": " â portal vs agent vs skills ä¸å±",
+    "next.li3-pre": "ååç±»",
+    "next.li3": " â skill æä¹èªå¨å½å¥ 6 å",
+    "next.li4-pre": "æ¡ä¾ç ç©¶",
+    "next.li4": " â guizang-ppt-skill ä¸ skill-creator ç«¯å°ç«¯å®æ",
+    "next.fullref": "éè¦å®æ´ README èµ°æ¥ï¼",
+    "footer.tagline": "Skills Manager AI Agent"
+  }
+}

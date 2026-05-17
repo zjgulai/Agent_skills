@@ -1,0 +1,100 @@
+{
+  "states": [
+    {
+      "id": 0,
+      "title_zh": "State 0：初始 6-skill",
+      "title_en": "State 0: initial 6 skills",
+      "desc_zh": "项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。",
+      "desc_en": "The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.",
+      "trigger_cmd": null,
+      "skill_added": null,
+      "domain_added": null,
+      "bullets_zh": [
+        "6 个用户级 skill：ADK、CR、NF、SPT、PAT、SCS",
+        "5 个 builtin（虚线边框）：GM、RW、ASR、FE、PW",
+        "主链：SPT → ADK → NF → CR → PAT → SCS"
+      ],
+      "bullets_en": [
+        "6 user skills: ADK, CR, NF, SPT, PAT, SCS",
+        "5 builtins (dashed): GM, RW, ASR, FE, PW",
+        "Main chain: SPT → ADK → NF → CR → PAT → SCS"
+      ],
+      "png": "graph-state-0.png",
+      "png_bytes": 224500
+    },
+    {
+      "id": 1,
+      "title_zh": "State 1：装 guizang-ppt-skill 后",
+      "title_en": "State 1: after installing guizang-ppt-skill",
+      "desc_zh": "tooling 域块自动创建，GPS 节点孤立加入。agent 自动添加 toolingDomain classDef。",
+      "desc_en": "tooling domain block is auto-created; GPS joins as isolated node. Agent adds toolingDomain classDef.",
+      "trigger_cmd": "/skill-install https://github.com/op7418/guizang-ppt-skill",
+      "skill_added": "guizang-ppt-skill",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node (GPS in tooling) · +1 classDef · +1 self-loop edge · PNG 224500 → 259330 (+15.5%)",
+      "delta_en": "+1 node (GPS in tooling) · +1 classDef · +1 self-loop edge · PNG 224500 → 259330 (+15.5%)",
+      "bullets_zh": [
+        "推断结果：tooling 域（命中 ppt / swiss style / html，得分 3）",
+        "新节点：GPS[guizang-ppt-skill]:::toolingDomain",
+        "新边：GPS 自环 fallback（同域无 peer）"
+      ],
+      "bullets_en": [
+        "Inference: tooling (matched ppt / swiss style / html, score 3)",
+        "New node: GPS[guizang-ppt-skill]:::toolingDomain",
+        "New edge: GPS self-loop (no same-domain peer yet)"
+      ],
+      "png": "graph-state-1.png",
+      "png_bytes": 259330
+    },
+    {
+      "id": 2,
+      "title_zh": "State 2：装 skill-creator 后",
+      "title_en": "State 2: after installing skill-creator",
+      "desc_zh": "skill 的 description 过宽，关键词推断返回 uncategorized，agent 提示用户手工归 meta。SC 与 ADK 同域，自动加 dashed 边。",
+      "desc_en": "Description too generic; inference returns uncategorized; user manually picks meta. SC joins meta with ADK; dashed same-domain edge added.",
+      "trigger_cmd": "/skill-install https://github.com/anthropics/skills --subdir skills/skill-creator",
+      "skill_added": "skill-creator",
+      "domain_added": "meta",
+      "delta_zh": "+1 node (SC in meta) · +1 same-domain edge → ADK · PNG 259330 → 270529 (+4.3%)",
+      "delta_en": "+1 node (SC in meta) · +1 same-domain edge → ADK · PNG 259330 → 270529 (+4.3%)",
+      "bullets_zh": [
+        "推断结果：uncategorized → 用户手选 meta",
+        "新节点：SC[skill-creator]:::metaDomain",
+        "新边：SC -. \"同域\" .-> ADK"
+      ],
+      "bullets_en": [
+        "Inference: uncategorized → user picks meta manually",
+        "New node: SC[skill-creator]:::metaDomain",
+        "New edge: SC -. \"same domain\" .-> ADK"
+      ],
+      "png": "graph-state-2.png",
+      "png_bytes": 270529
+    },
+    {
+      "id": 3,
+      "title_zh": "State 3：装 agent-reach 后",
+      "title_en": "State 3: after installing agent-reach",
+      "desc_zh": "agent-reach 是个特殊 skill —— 来自 Python CLI 工具（pipx install agent-reach），SKILL.md 落在 ~/.agents/skills/。通过软链桥接到 opencode 和 portal。归入 tooling 域，与 GPS 同域。",
+      "desc_en": "agent-reach is a special skill — it ships as a Python CLI (pipx install agent-reach) and writes SKILL.md to ~/.agents/skills/. Symlinked into opencode and portal. Classified as tooling, peer to GPS.",
+      "trigger_cmd": "pipx install agent-reach && agent-reach install --env=auto",
+      "skill_added": "agent-reach",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node (AR in tooling) · +1 same-domain edge → GPS · PNG 270529 → 280641 (+3.7%)",
+      "delta_en": "+1 node (AR in tooling) · +1 same-domain edge → GPS · PNG 270529 → 280641 (+3.7%)",
+      "bullets_zh": [
+        "推断结果：meta（命中 agent）→ 手工归到 tooling（更符合「横切层」定位）",
+        "新节点：AR[agent-reach]:::toolingDomain",
+        "新边：AR -. \"同域\" .-> GPS（tooling 域内 peer 已存在）",
+        "桥接：~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach（symlink）"
+      ],
+      "bullets_en": [
+        "Inference: meta (matched 'agent') → manually reclassified to tooling (better fits cross-cutting)",
+        "New node: AR[agent-reach]:::toolingDomain",
+        "New edge: AR -. \"same domain\" .-> GPS (tooling now has a peer)",
+        "Bridge: ~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach (symlink)"
+      ],
+      "png": "skills-graph.png",
+      "png_bytes": 280641
+    }
+  ]
+}

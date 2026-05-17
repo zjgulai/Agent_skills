@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# bin/sync-data — 把本机 ~/.config/opencode/skills/ 的元数据同步到 data-mirror/
+# 用法：
+#   bin/sync-data         # 从用户级 skills 仓库同步三个核心元数据文件
+#   bin/sync-data --check # 干跑，列出会变更的文件但不改动
+#
+# 真相源：~/.config/opencode/skills/{INDEX.md, skills-graph.mmd, skills-graph.png}
+# 镜像点：./data-mirror/{INDEX.md, skills-graph.mmd, skills-graph.png}
+#
+# 这是 docs 站点动态化方案的"本地侧"——CI 运行在 GitHub Pages 上，
+# 没有 ~/.config/opencode/skills/，所以必须把核心元数据提交到 git 里。
+# /skill-install 后，请在仓库根跑一次 `bin/sync-data && git add data-mirror/`。
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SKILLS_ROOT="${SKILLS_ROOT:-$HOME/.config/opencode/skills}"
+MIRROR="$REPO_ROOT/data-mirror"
+
+CHECK_ONLY=0
+if [[ "${1:-}" == "--check" ]]; then
+    CHECK_ONLY=1
+fi
+
+if [[ ! -d "$SKILLS_ROOT" ]]; then
+    echo "❌ 真相源不存在：$SKILLS_ROOT" >&2
+    exit 1
+fi
+
+mkdir -p "$MIRROR"
+
+FILES=(INDEX.md skills-graph.mmd skills-graph.png)
+CHANGED=0
+
+for f in "${FILES[@]}"; do
+    src="$SKILLS_ROOT/$f"
+    dst="$MIRROR/$f"
+    if [[ ! -f "$src" ]]; then
+        echo "⚠️  缺源文件：$src（跳过）"
+        continue
+    fi
+    if [[ ! -f "$dst" ]] || ! cmp -s "$src" "$dst"; then
+        if [[ $CHECK_ONLY -eq 1 ]]; then
+            echo "📝 会更新：$f"
+        else
+            cp "$src" "$dst"
+            echo "✅ 同步：$f"
+        fi
+        CHANGED=$((CHANGED + 1))
+    else
+        echo "⏸  无变化：$f"
+    fi
+done
+
+if [[ $CHECK_ONLY -eq 1 ]]; then
+    echo ""
+    if [[ $CHANGED -eq 0 ]]; then
+        echo "🎯 data-mirror/ 已是最新，无需 sync。"
+    else
+        echo "📦 共 $CHANGED 个文件需 sync。运行 \`bin/sync-data\` 应用。"
+    fi
+    exit 0
+fi
+
+if [[ $CHANGED -gt 0 ]]; then
+    echo ""
+    echo "🎉 已同步 $CHANGED 个文件到 data-mirror/。"
+    echo "下一步：cd $REPO_ROOT && git add data-mirror/ && git commit -m 'chore(docs): sync skill metadata'"
+fi

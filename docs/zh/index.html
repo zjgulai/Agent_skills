@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="bg-zinc-950 text-zinc-100 antialiased" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skills Manager AI Agent — give OpenCode a brain</title>
+<meta content="OpenCode skills lifecycle manager: install, classify, graph, doctor — backed by a local FastAPI + Vite portal." name="description"/>
+<meta content="Skills Manager AI Agent" property="og:title"/>
+<meta content="Auto-install / classify / graph / health-check OpenCode skills. Backed by a local portal." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://zjgulai.github.io/Agent_skills/" property="og:url"/>
+<link href="https://zjgulai.github.io/Agent_skills/index.html" hreflang="en" rel="alternate"/>
+<link href="https://zjgulai.github.io/Agent_skills/index.html" hreflang="x-default" rel="alternate"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .gradient-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.15), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(59,130,246,0.10), transparent 50%);
+    }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .nav-link { color: #a1a1aa; transition: color 150ms; font-size: 14px; font-weight: 500; }
+    .nav-link:hover { color: #34d399; }
+    .nav-link.active { color: #34d399; }
+  </style>
+
+</head>
+<body>
+<!-- TOP NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+<a class="flex items-center gap-2 group" href="../index.html">
+<span class="text-xl">🧠</span>
+<span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+</a>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../getting-started.html">å¿«éå¼å§</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../handbook.html">æå</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">æ¶æ</a>
+<a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub â</a>
+
+<a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../en/index.html">EN</a></div>
+</div>
+</nav>
+<main class="pt-16">
+<!-- HERO -->
+<section class="gradient-bg">
+<div class="max-w-6xl mx-auto px-6 py-24 md:py-32">
+<div class="max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>v1.0 Â· ç«¯å°ç«¯éªè¯å®æ</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 mb-6">为 <span class="text-emerald-400">OpenCode</span><br/>装上 skills 大脑。</h1>
+<p class="text-xl text-zinc-400 leading-relaxed mb-8">Skills Manager AI Agent 是 OpenCode skills 缺失的生命周期层：<span class="text-zinc-200">安装 · 分类 · 图谱 · 诊断 · 推荐</span>—— 全部由你笔电上跑的本地 FastAPI + Vue portal 驱动。</p>
+<div class="flex flex-wrap gap-3">
+<a class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-md font-medium transition-colors" href="../getting-started.html">å¿«éå¼å§ â</a>
+<a class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-md font-medium transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">æ¥ç GitHub</a>
+<a class="px-5 py-2.5 text-zinc-400 hover:text-emerald-400 rounded-md font-medium transition-colors" href="../architecture.html">æ¥çæ¶æ â</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 30 SEC DEMO -->
+<section class="border-t border-zinc-900">
+<div class="max-w-6xl mx-auto px-6 py-20">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div>
+<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">30 ç§</p>
+<h2 class="text-3xl font-bold mb-4 text-zinc-100">ä¸æ¡å½ä»¤ï¼ç«¯å°ç«¯è£ä¸ä¸ª skillã</h2>
+<p class="text-zinc-400 mb-6 leading-relaxed">一个 slash 命令。Agent 通过 portal API clone 仓库、推断正确的域、更新 <code class="text-emerald-400">INDEX.md</code>、重渲 <code class="text-emerald-400">skills-graph.png</code>、刷新 portal —— 每一步都带时间戳备份和写后验证。</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-medium" href="../handbook.html#case-studies">æ¥çæ¡ä¾ â</a>
+</div>
+<div class="cmd-block rounded-lg p-5 font-mono text-sm">
+<pre><code class="language-bash">$ /skill-install https://github.com/op7418/guizang-ppt-skill
+
+✅ portal API health
+✅ git clone ok
+✅ frontmatter validated: name=guizang-ppt-skill
+✅ domain inference: tooling (evidence: ppt, swiss style, html)
+✅ INDEX.md row inserted (backup: .bak.20260515T212727)
+✅ skills-graph.mmd node added as GPS
+✅ skills-graph.png re-rendered (259330 bytes)
+✅ portal refreshed: skill_count = 8 → 9</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- 11 COMMANDS -->
+<section class="border-t border-zinc-900 bg-zinc-950">
+<div class="max-w-6xl mx-auto px-6 py-20">
+<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">11 ä¸ª SLASH å½ä»¤</p>
+<h2 class="text-3xl font-bold mb-12 text-zinc-100">å®æ´ç skill çå½å¨æã</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+<!-- install -->
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-install</code>
+<p class="text-zinc-400 text-sm mt-2">ä» GitHub URL å®è£ãèªå¨åç±»ãå INDEXãç» graphã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-uninstall</code>
+<p class="text-zinc-400 text-sm mt-2">ååæ¸çåæ°æ®ãå¹ç­ã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-update</code>
+<p class="text-zinc-400 text-sm mt-2">git pull ä¸ä¸ªæå¨é¨ï¼å·æ° portal ç´¢å¼ã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-list</code>
+<p class="text-zinc-400 text-sm mt-2">æååç»æå°ææå·²è£ skillã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-recommend</code>
+<p class="text-zinc-400 text-sm mt-2">ä¸ºæä»»å¡æ¨è load_skills=[...] ç»åã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-classify</code>
+<p class="text-zinc-400 text-sm mt-2">æå·¥æä¸ä¸ª skill ç§»å°å¦ä¸ä¸ªåã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-doctor</code>
+<p class="text-zinc-400 text-sm mt-2">5 æ¡è§åçå¥åº·ä½æ£ã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/skill-graph-sync</code>
+<p class="text-zinc-400 text-sm mt-2">Reconcile graph against INDEX. Idempotent.</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/portal-start</code>
+<p class="text-zinc-400 text-sm mt-2">æ portal èµ·æ¥ï¼5174 + 5173ï¼ãå¹ç­ã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/portal-stop</code>
+<p class="text-zinc-400 text-sm mt-2">æ 5173 / 5174 ç«¯å£ä¸çè¿ç¨ã</p>
+</div>
+<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+<code class="text-emerald-400 font-mono text-sm">/portal-status</code>
+<p class="text-zinc-400 text-sm mt-2">PID / ä¸æ¬¡ç´¢å¼æ¶é´ / skill æ°éã</p>
+</div>
+</div>
+<div class="mt-8 text-center">
+<a class="text-emerald-400 hover:text-emerald-300 font-medium" href="../handbook.html#methods">æ¥çå®æ´å½ä»¤åè â</a>
+</div>
+</div>
+</section>
+<!-- ARCH PEEK -->
+<section class="border-t border-zinc-900">
+<div class="max-w-6xl mx-auto px-6 py-20">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div class="order-2 md:order-1">
+<img alt="Skills 图谱 · 当前 9 个用户级 skill" class="rounded-lg border border-zinc-800 shadow-2xl" src="../assets/skills-graph.png"/>
+</div>
+<div class="order-1 md:order-2">
+<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">ä¸¤å±æ¶æ</p>
+<h2 class="text-3xl font-bold mb-4 text-zinc-100">åºå± portalãä¸å± agentã</h2>
+<p class="text-zinc-400 mb-6 leading-relaxed"><strong class="text-zinc-200">portal</strong>（FastAPI :5174 + Vue :5173）持有物理 skill 文件：clone、validate、copy、uninstall。<strong class="text-zinc-200">agent</strong> 编排 portal API 并直接写 3 个元数据文件（<code class="text-emerald-400">INDEX.md</code>、<code class="text-emerald-400">skills-graph.mmd</code>、<code class="text-emerald-400">skills-graph.png</code>）—— 用 atomic write、微秒级备份、写后验证。</p>
+<a class="text-emerald-400 hover:text-emerald-300 font-medium" href="../architecture.html">æ¥çå®æ´æ¶æ â</a>
+</div>
+</div>
+</div>
+</section>
+<!-- WHO IT'S FOR -->
+<section class="border-t border-zinc-900 bg-zinc-950">
+<div class="max-w-6xl mx-auto px-6 py-20">
+<h2 class="text-3xl font-bold mb-12 text-center text-zinc-100">ä¸º OpenCode éåº¦ç¨æ·èåã</h2>
+<div class="grid md:grid-cols-3 gap-6">
+<div class="p-6">
+<div class="text-3xl mb-3">🧩</div>
+<h3 class="font-semibold text-zinc-100 mb-2">ä½ è£äº â¥ 3 ä¸ª skill</h3>
+<p class="text-zinc-400 text-sm">èå¿äºåªä¸ªè¯¥ loadãSkill æ¨èæ¥èªä½ çå®ç INDEXã</p>
+</div>
+<div class="p-6">
+<div class="text-3xl mb-3">🛠️</div>
+<h3 class="font-semibold text-zinc-100 mb-2">ä½ æ¯æè£æ° skill</h3>
+<p class="text-zinc-400 text-sm">æå·¥åç±» + graph + INDEX ç»´æ¤æ­£å¨åæç´¯èµãè®© agent æ¥ã</p>
+</div>
+<div class="p-6">
+<div class="text-3xl mb-3">📐</div>
+<h3 class="font-semibold text-zinc-100 mb-2">ä½ æ³æ meta å±åå¯¹</h3>
+<p class="text-zinc-400 text-sm">健康检查、依赖审计、域一致性 —— 一条 <code class="text-emerald-400">/skill-doctor</code> 全搞定。</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section class="border-t border-zinc-900 gradient-bg">
+<div class="max-w-4xl mx-auto px-6 py-20 text-center">
+<h2 class="text-4xl font-bold mb-4 text-zinc-100">çº¦ 10 åéæå®ã</h2>
+<p class="text-zinc-400 mb-8 text-lg">cloneãbootstrap portal venvãè£åç«¯ä¾èµãç¶å OpenCode èªå¨åç°ä¸åã</p>
+<a class="inline-block px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-md font-medium transition-colors" href="../getting-started.html">å¼å§å®è£æå â</a>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="border-t border-zinc-900 bg-zinc-950">
+<div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+<div class="flex items-center gap-2">
+<span>🧠</span>
+<span>Skills Manager AI Agent Â· MIT é£æ ¼ä½¿ç¨ï¼æ¬¢è¿ç½²å</span>
+</div>
+<div class="flex items-center gap-4">
+<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub</a>
+<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills/issues" rel="noopener" target="_blank">Issues</a>
+<a class="hover:text-emerald-400 transition-colors" href="../architecture.html">æ¶æ</a>
+</div>
+</div>
+</footer>
+</main>
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+[
+  {
+    "key": "meta",
+    "label_zh": "AI 工程基础设施",
+    "label_en": "Meta-Engineering",
+    "color": "#e3f2fd",
+    "stroke": "#1976d2",
+    "order": 1,
+    "desc_zh": "你不是在写业务代码，而是在设计/审计 AI agent 自身的工作环境 —— 仓库结构、agent 记忆、skill 库、hook、subagent、plugin。",
+    "desc_en": "You're not writing business code — you're designing/auditing the AI agent's own working environment.",
+    "count": 2,
+    "skill_names": [
+      "agent-dev-kit-architecture-designer",
+      "skill-creator"
+    ]
+  },
+  {
+    "key": "closeout",
+    "label_zh": "代码质量与交付闭环",
+    "label_en": "Code Closeout",
+    "color": "#c8e6c9",
+    "stroke": "#2e7d32",
+    "order": 2,
+    "desc_zh": "代码已经写完，进入「提交 / PR / 发布」前的最后一公里。",
+    "desc_en": "Code is done; last-mile before commit / PR / release.",
+    "count": 1,
+    "skill_names": [
+      "codex-review"
+    ]
+  },
+  {
+    "key": "desktop",
+    "label_zh": "桌面应用工程",
+    "label_en": "Desktop Native Feel",
+    "color": "#fff3e0",
+    "stroke": "#e65100",
+    "order": 3,
+    "desc_zh": "在做跨平台桌面应用，并且用户体感必须像原生。",
+    "desc_en": "Cross-platform desktop apps that must feel native.",
+    "count": 1,
+    "skill_names": [
+      "native-feel-cross-platform-desktop"
+    ]
+  },
+  {
+    "key": "founder",
+    "label_zh": "创业与产品验证",
+    "label_en": "Founder / Product",
+    "color": "#f3e5f5",
+    "stroke": "#6a1b9a",
+    "order": 4,
+    "desc_zh": "手上有一个点子，需要在写一行代码之前判断「这事儿值不值得做」。",
+    "desc_en": "Validate an idea before writing a single line of code.",
+    "count": 1,
+    "skill_names": [
+      "startup-pressure-test"
+    ]
+  },
+  {
+    "key": "ip",
+    "label_zh": "知识产权交付",
+    "label_en": "IP Deliverables",
+    "color": "#e0f2f1",
+    "stroke": "#00695c",
+    "order": 5,
+    "desc_zh": "项目进入商业化保护阶段，要把代码资产变成可申报的法律文件。",
+    "desc_en": "Commercialization stage — turn code assets into legal deliverables.",
+    "count": 2,
+    "skill_names": [
+      "patent-disclosure-skill",
+      "software-copyright-materials"
+    ]
+  },
+  {
+    "key": "tooling",
+    "label_zh": "工具增强 (横切层)",
+    "label_en": "Tooling (cross-cutting)",
+    "color": "#f5f5f5",
+    "stroke": "#616161",
+    "order": 6,
+    "desc_zh": "不绑定特定项目类型，但任何项目都可能需要的能力。",
+    "desc_en": "Not bound to any project type — capabilities any project may need.",
+    "count": 2,
+    "skill_names": [
+      "guizang-ppt-skill",
+      "agent-reach"
+    ]
+  }
+]

@@ -1,0 +1,70 @@
+flowchart LR
+    %% Class definitions for color coding
+    classDef metaDomain fill:#e3f2fd,stroke:#1976d2,color:#000
+    classDef closeoutDomain fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef desktopDomain fill:#fff3e0,stroke:#e65100,color:#000
+    classDef founderDomain fill:#f3e5f5,stroke:#6a1b9a,color:#000
+    classDef ipDomain fill:#e0f2f1,stroke:#00695c,color:#000
+    classDef builtin fill:#eeeeee,stroke:#616161,color:#000,stroke-dasharray: 4 2
+    classDef toolingDomain fill:#f5f5f5,stroke:#616161,color:#000
+
+    %% Domain 1 - Meta
+    ADK[agent-dev-kit-architecture-designer]:::metaDomain
+    SC[skill-creator]:::metaDomain
+
+    %% Domain 2 - Closeout
+    CR[codex-review]:::closeoutDomain
+
+    %% Domain 3 - Desktop
+    NF[native-feel-cross-platform-desktop]:::desktopDomain
+
+    %% Domain 4 - Founder
+    SPT[startup-pressure-test]:::founderDomain
+
+    %% Domain 5 - IP
+    PAT[patent-disclosure-skill]:::ipDomain
+    SCS[software-copyright-materials]:::ipDomain
+
+    %% Tooling domain
+
+    GPS[guizang-ppt-skill]:::toolingDomain
+
+    %% Tooling domain
+
+    AR[agent-reach]:::toolingDomain
+
+    %% Domain 6 - Builtin (referenced for context)
+    GM(git-master · builtin):::builtin
+    RW(review-work · builtin):::builtin
+    ASR(ai-slop-remover · builtin):::builtin
+    FE(frontend-ui-ux · builtin):::builtin
+    PW(playwright · builtin):::builtin
+    GPS -. "独立节点" .-> GPS
+    SC -. "同域" .-> ADK
+    AR -. "同域" .-> GPS
+
+    %% --- Lifecycle flows ---
+
+    %% Founder lifecycle: idea -> meta-design -> code -> review -> ship -> IP
+    SPT -- "idea 通过压力测试 → 进入工程化" --> ADK
+    ADK -- "工程化骨架就绪 → 进入实际编码" --> NF
+    NF -- "代码完成 → 进入交付闭环" --> CR
+    CR -- "review 通过 → 进入 IP 保护" --> PAT
+    PAT -- "专利点已锁定 → 启动软著申请" --> SCS
+
+    %% --- Cross-domain reinforcements ---
+
+    %% Desktop work strongly benefits from playwright (UI verification) + frontend-ui-ux
+    NF -. "UI 验证" .-> PW
+    NF -. "视觉细节" .-> FE
+
+    %% Closeout chains
+    CR -. "提交 commits" .-> GM
+    CR -. "review 后清理 AI slop" .-> ASR
+    CR -. "完成实现后总验收" .-> RW
+
+    %% Meta-engineering applies recursively
+    ADK -. "用本架构反思 skills 自身" .-> ADK
+
+    %% IP duo internal coupling
+    PAT <==> |"项目同一阶段并行使用"| SCS

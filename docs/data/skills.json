@@ -1,0 +1,74 @@
+[
+  {
+    "name": "agent-dev-kit-architecture-designer",
+    "domain": "meta",
+    "role": "给 AI 编码 agent 设计仓库五层架构（Memory / Knowledge / Guardrail / Delegation / Distribution）",
+    "extra": "`CLAUDE.md`, skills, hooks, subagents, plugins, agent directory structure, agent guardrails, team-wide agent distribution",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/agent-dev-kit-architecture-designer/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/agent-dev-kit-architecture-designer/SKILL.md"
+  },
+  {
+    "name": "skill-creator",
+    "domain": "meta",
+    "role": "Create / modify / measure skills（含变异分析与触发准确率优化）",
+    "extra": "skill creation, skill creator, run evals, optimize description",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/skill-creator/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/skill-creator/SKILL.md"
+  },
+  {
+    "name": "codex-review",
+    "domain": "closeout",
+    "role": "用 `codex review` 做提交前的二次审查（uncommitted / PR vs main / 并行测试）",
+    "extra": "`codex review`, autoreview, 二次审查, 提交前审查, ship/commit/PR 前的最后检查",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codex-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/codex-review/SKILL.md"
+  },
+  {
+    "name": "native-feel-cross-platform-desktop",
+    "domain": "desktop",
+    "role": "Raycast 2.0 重写公开技术 + 逆向 `Raycast Beta.app` 提炼出的八大架构原则、四层架构、WebKit/WebView2 生存指南、75 项 ship 前自检清单",
+    "extra": "`cross-platform desktop`, `Electron alternative`, `Tauri vs native`, `WebView wrapper`, `WKWebView`, `Raycast architecture`, `WebKit/WebView2 quirks`, `system tray app`, `global hotkey app`, `launcher app`",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/native-feel-cross-platform-desktop/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/native-feel-cross-platform-desktop/SKILL.md"
+  },
+  {
+    "name": "startup-pressure-test",
+    "domain": "founder",
+    "role": "用 Paul Graham 早期创业框架对点子做\"残酷压力测试\"：问题真不真、ICP、首批 10 个客户、MVP、2 周 launch 计划、founder-market fit、强/弱/转向的直接判决",
+    "extra": "pressure-test startup idea, validate problem, ICP, first 10 customers, MVP, 2-week launch plan, founder-market fit, strong/weak/pivot verdict",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/startup-pressure-test/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/startup-pressure-test/SKILL.md"
+  },
+  {
+    "name": "patent-disclosure-skill",
+    "domain": "ip",
+    "role": "从代码 / 设计文档挖掘专利点 → 国知局公布站查新 → 脱敏成稿 → 自检闭环 → 出 `.docx` 技术交底书",
+    "extra": "`{案件名}_{时间戳}.md` + `.docx` 技术交底书",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/patent-disclosure-skill/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/patent-disclosure-skill/SKILL.md"
+  },
+  {
+    "name": "software-copyright-materials",
+    "domain": "ip",
+    "role": "从真实代码生成中国软著申请全套：业务理解 → 申请表 → 60 页代码材料（前/后 30 页拆分） → 操作手册 → 多轮自检",
+    "extra": "`软件著作权申请资料/正式资料/` 下的 `.docx` + `.txt` 全套",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/software-copyright-materials/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/software-copyright-materials/SKILL.md"
+  },
+  {
+    "name": "guizang-ppt-skill",
+    "domain": "tooling",
+    "role": "网页 PPT 生成（HTML deck + 配图 + 多平台封面）",
+    "extra": "PPT, slide deck, 瑞士风, image prompts, social cover",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/guizang-ppt-skill/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/guizang-ppt-skill/SKILL.md"
+  },
+  {
+    "name": "agent-reach",
+    "domain": "tooling",
+    "role": "给 agent 装互联网读写能力（17 平台）",
+    "extra": "twitter,reddit,youtube,github,xiaohongshu,bilibili,weibo,搜索,网页,rss",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/agent-reach/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/agent-reach/SKILL.md"
+  }
+]

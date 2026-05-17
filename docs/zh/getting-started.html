@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="bg-zinc-950 text-zinc-100 antialiased" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Getting Started · Skills Manager AI Agent</title>
+<meta content="Install Skills Manager AI Agent on a fresh machine in ~10 minutes." name="description"/>
+<link href="https://zjgulai.github.io/Agent_skills/getting-started.html" hreflang="en" rel="alternate"/>
+<link href="https://zjgulai.github.io/Agent_skills/getting-started.html" hreflang="x-default" rel="alternate"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
+    pre code.hljs { background: transparent !important; padding: 0 !important; }
+    .prose-custom h2 { font-size: 1.5rem; font-weight: 700; color: #fafafa; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #27272a; }
+    .prose-custom h3 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose-custom p { color: #a1a1aa; line-height: 1.7; margin-bottom: 1rem; max-width: 70ch; }
+    .prose-custom code { color: #34d399; background: #18181b; padding: 2px 6px; border-radius: 4px; font-size: 0.875em; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .prose-custom pre code { color: #e4e4e7; background: transparent; padding: 0; white-space: pre; }
+    .prose-custom ul { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; max-width: 70ch; }
+    .prose-custom ul li { margin: 0.35rem 0; }
+    .prose-custom ol { color: #a1a1aa; margin-bottom: 1rem; padding-left: 1.5rem; list-style: decimal; max-width: 70ch; }
+    .prose-custom ol li { margin: 0.35rem 0; }
+    .prose-custom a { color: #34d399; text-decoration: underline; text-underline-offset: 2px; }
+    .prose-custom a:hover { color: #6ee7b7; }
+    .prose-custom table { font-size: 0.875rem; color: #a1a1aa; margin: 1.5rem 0; border-collapse: collapse; width: 100%; }
+    .prose-custom th { text-align: left; color: #fafafa; font-weight: 600; border-bottom: 1px solid #3f3f46; padding: 0.75rem; background: #18181b; }
+    .prose-custom td { border-bottom: 1px solid #1f1f23; padding: 0.75rem; vertical-align: top; }
+    .step { padding-left: 1.5rem; border-left: 2px solid rgba(16,185,129,0.4); margin-bottom: 2rem; }
+  </style>
+
+</head>
+<body>
+<!-- TOP NAV -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+<a class="flex items-center gap-2 group" href="../index.html">
+<span class="text-xl">🧠</span>
+<span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+</a>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-emerald-400 text-sm" href="../getting-started.html">å¿«éå¼å§</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../handbook.html">æå</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">æ¶æ</a>
+<a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub â</a>
+
+<a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../en/index.html">EN</a></div>
+</div>
+</nav>
+<main class="pt-24 max-w-4xl mx-auto px-6 pb-20">
+<header class="mb-12">
+<p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">ææ¡£</p>
+<h1 class="text-4xl font-bold text-zinc-100 mb-3">å¿«éå¼å§</h1>
+<p class="text-lg text-zinc-400">ä»ä¸å°ç©ºç½æºå¨å°è½ç¨ç Skills Managerï¼çº¦ 10 åéã</p>
+</header>
+<div class="prose-custom">
+<h2>åç½®æ¡ä»¶</h2>
+<table class="w-full">
+<thead>
+<tr><th>Tool</th><th>Min version</th><th>Check</th></tr>
+</thead>
+<tbody>
+<tr><td>git</td><td>2.30+</td><td><code>git --version</code></td></tr>
+<tr><td>Python</td><td>3.9+</td><td><code>python3 --version</code></td></tr>
+<tr><td>Node</td><td>22+</td><td><code>node --version</code></td></tr>
+<tr><td>npm</td><td>11+</td><td><code>npm --version</code></td></tr>
+<tr><td>OpenCode CLI</td><td>logged in</td><td><code>opencode --version</code></td></tr>
+</tbody>
+</table>
+<p>Optional but recommended on macOS: <a href="https://github.com/portless/portless" rel="noopener" target="_blank">portless</a> for <code>https://*.localhost</code>.</p>
+<h2>1. Clone and bootstrap the portal</h2>
+<div class="step">
+<p>Clone wherever you keep your projects. The path is up to you; we'll use <code>~/project/Agent</code> as an example.</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">mkdir -p ~/project/Agent
+cd ~/project/Agent
+git clone https://github.com/zjgulai/Agent_skills.git
+cd Agent_skills</code></pre>
+</div>
+</div>
+<div class="step">
+<p>Install the portal backend (FastAPI in an isolated venv).</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">cd portal/backend
+python3 -m venv .venv
+.venv/bin/pip install --upgrade pip
+.venv/bin/pip install fastapi 'uvicorn[standard]' pyyaml python-multipart httpx mistune pytest
+cd ../..</code></pre>
+</div>
+</div>
+<div class="step">
+<p>Install the portal frontend dependencies.</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">cd portal/frontend
+npm install
+cd ../..</code></pre>
+</div>
+</div>
+<div class="step">
+<p>Smoke-test the portal.</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">./portal/bin/start
+# Look for "✅ Skills Portal up:" then Ctrl+C</code></pre>
+</div>
+</div>
+<h2>2. Bootstrap the skills repo</h2>
+<p>The skill repo lives at <code>~/.config/opencode/skills/</code> (this is OpenCode's convention; do not relocate). If you've never used OpenCode skills before, create the bare scaffold:</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">mkdir -p ~/.config/opencode/skills
+cd ~/.config/opencode/skills
+touch INDEX.md skills-graph.mmd</code></pre>
+</div>
+<p>Seed <code>INDEX.md</code> with the 6-domain skeleton (an example is in
+    <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/INSTALL.md" rel="noopener" target="_blank">docs/INSTALL.md</a>).
+    Seed <code>skills-graph.mmd</code> with a minimal mermaid header.</p>
+<p>If you already have a working skills repo, <strong>skip this step</strong>.</p>
+<h2>3. Wire OpenCode</h2>
+<p>OpenCode auto-discovers commands and subagents. Just open the repo:</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">cd ~/project/Agent/Agent_skills
+opencode</code></pre>
+</div>
+<p>Type <code>/skill-</code> in the chat — you should see all 11 commands autocomplete.</p>
+<h2>4. First run</h2>
+<p>The end-to-end smoke flow:</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">/portal-start
+/skill-list
+/skill-doctor
+/skill-install https://github.com/op7418/guizang-ppt-skill</code></pre>
+</div>
+<p>If <code>/skill-install</code> finishes with all green ✅ checks and the portal UI shows the new skill in the right domain, you're done.</p>
+<h2>Verification</h2>
+<p>Run the test suite to confirm everything is wired correctly:</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">portal/backend/.venv/bin/python -m pytest tests/ -q
+# Expected: 20 passed</code></pre>
+</div>
+<h2>Troubleshooting</h2>
+<h3>Ports 5173 / 5174 already in use</h3>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">lsof -ti:5173,5174 | xargs kill -9</code></pre>
+</div>
+<h3>Browser shows "400" or fails to load portal</h3>
+<p>System HTTP proxy is intercepting localhost. Check macOS System Settings → Network → Proxies, or set bypass for <code>localhost,127.0.0.1,*.localhost</code>.</p>
+<h3>Graph rendering errors</h3>
+<p>Install playwright + chromium for <code>render-mermaid.py</code>:</p>
+<div class="cmd-block rounded-lg p-4 my-4">
+<pre><code class="language-bash">~/Library/Python/3.9/bin/pip install playwright
+~/Library/Python/3.9/bin/python -m playwright install chromium</code></pre>
+</div>
+<h2>What's next</h2>
+<ul>
+<li><a href="../handbook.html#methods">Full command reference</a> — what each of the 11 slash commands does</li>
+<li><a href="../architecture.html">Architecture deep-dive</a> — portal vs agent vs skills layers</li>
+<li><a href="../handbook.html#domains">Domain taxonomy</a> — how skills get classified into 6 domains</li>
+<li><a href="../handbook.html#case-studies">Case study</a> — install <code>guizang-ppt-skill</code> and <code>skill-creator</code> end-to-end</li>
+</ul>
+<p class="mt-8 text-zinc-500 text-sm">
+      Need the full README walkthrough?
+      <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/INSTALL.md" rel="noopener" target="_blank">docs/INSTALL.md on GitHub</a>
+      has every edge case and uninstall steps.
+    </p>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-zinc-900 bg-zinc-950">
+<div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+<div class="flex items-center gap-2"><span>🧠</span><span>Skills Manager AI Agent</span></div>
+<div class="flex items-center gap-4">
+<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub</a>
+<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills/issues" rel="noopener" target="_blank">Issues</a>
+</div>
+</div>
+</footer>
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>
