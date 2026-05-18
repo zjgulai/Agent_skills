@@ -295,6 +295,30 @@
         "Domain inference returned uncategorized; manually set to tooling — algorithmic analysis/performance optimization clearly belongs to engineering tooling.",
         "Core capability: detects O(n²) loops, N+1 DB queries, nested iteration, cacheable recomputation, then produces reproducible optimization PRs while guaranteeing behavioral consistency via the existing test suite."
       ]
+    },
+    {
+      "id": 11,
+      "title_zh": "State 11：安装 baoyu-wechat-summary — 微信群聊精华摘要 skill",
+      "title_en": "State 11: install baoyu-wechat-summary — WeChat group chat digest skill",
+      "desc_zh": "baoyu-wechat-summary 来自 JimLiu/baoyu-skills 仓库的 skills/baoyu-wechat-summary/ 子目录。单 skill，tooling 域。定位：调用本地 wx-cli 二进制读取微信群聊记录，提炼成结构化摘要；支持普通版与「毒舌版」；跨次运行维护 history.json 与群友画像文件，内置隐私保护。安装时因仓库体积导致 portal install 超时，降级为本地 clone 后手动复制安装路径，功能完整。",
+      "desc_en": "baoyu-wechat-summary from JimLiu/baoyu-skills skills/baoyu-wechat-summary/. Single skill, tooling domain. Uses local wx-cli binary to read WeChat group chats and produce structured digests — normal and roast (毒舌) variants. Maintains per-run history.json and per-user profiles with privacy guardrails. Portal install timed out due to repo size; fallback to local clone + manual copy worked cleanly.",
+      "trigger_cmd": "/skill-install https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-wechat-summary",
+      "skill_added": "baoyu-wechat-summary",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node · tooling 域 +1 · PNG 622002 → 617505 bytes · 总 skill 数 53→54",
+      "delta_en": "+1 node · tooling +1 · PNG 622002 → 617505 bytes · total skills 53→54",
+      "bullets_zh": [
+        "仓库为 monorepo（23 个 SKILL.md），用户明确指定 skills/baoyu-wechat-summary，只装该子目录，不批量安装",
+        "portal install 因仓库体积超时（>120s）；降级方案：本地 git clone --depth=1 已有缓存，直接 cp 到 ~/.config/opencode/skills/，portal get 验证识别正常",
+        "依赖外部二进制 wx-cli（wx 命令），SKILL.md 内明确声明 anyBins: [wx]；skill 沙盒受限，需 dangerouslyDisableSandbox: true 运行 wx 命令",
+        "功能亮点：毒舌版（roast）摘要选项、跨次运行群友画像积累、history.json 去重追踪，适合需要每日/每周回顾微信群重点的场景"
+      ],
+      "bullets_en": [
+        "Monorepo with 23 SKILL.md files; user specified skills/baoyu-wechat-summary only — single-skill install, no batch.",
+        "portal install timed out (>120s) due to repo size; fallback: reuse existing git clone --depth=1 cache, cp to ~/.config/opencode/skills/, portal get confirmed recognition.",
+        "Requires external wx-cli binary (wx command); SKILL.md declares anyBins: [wx]; needs dangerouslyDisableSandbox: true for wx invocations.",
+        "Highlights: roast (毒舌) digest variant, cross-run user profile accumulation, history.json deduplication tracking — ideal for daily/weekly WeChat group recap workflows."
+      ]
     }
   ]
 }

@@ -128,6 +128,10 @@ flowchart LR
 
     CO[complexity-optimizer]:::toolingDomain
 
+    %% Tooling domain
+
+    BWS[baoyu-wechat-summary]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -181,6 +185,7 @@ flowchart LR
     HP -. "同域" .-> GPS
     HCC -. "同域" .-> GPS
     CO -. "同域" .-> GPS
+    BWS -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 
