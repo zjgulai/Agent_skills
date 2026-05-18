@@ -273,6 +273,28 @@
       ],
       "png": "skills-graph.png",
       "png_bytes": 625457
+    },
+    {
+      "id": 10,
+      "title_zh": "State 10：安装 complexity-optimizer — 算法复杂度分析与优化 skill",
+      "title_en": "State 10: install complexity-optimizer — algorithmic complexity analysis & optimization skill",
+      "desc_zh": "complexity-optimizer 来自 Kappaemme-git/codex-complexity-optimizer 仓库的 complexity-optimizer/ 子目录。单 skill，tooling 域。定位：让 Codex 自动扫描代码库的算法复杂度热点（O(n²)、N+1 查询、嵌套循环、重复扫描），并提出安全优化方案（O(n²)→O(n log n)/O(n)），同时保证测试、API、输出行为不变。",
+      "desc_en": "complexity-optimizer comes from the complexity-optimizer/ subdir of Kappaemme-git/codex-complexity-optimizer. A single skill in the tooling domain. It enables Codex to automatically scan codebases for algorithmic complexity hotspots (O(n²), N+1 queries, nested loops, repeated scans) and propose safe optimizations (O(n²)→O(n log n)/O(n)) while preserving tests, APIs, and output behavior.",
+      "trigger_cmd": "/skill-install https://github.com/Kappaemme-git/codex-complexity-optimizer",
+      "skill_added": "complexity-optimizer",
+      "domain_added": "tooling",
+      "delta_zh": "+1 node · tooling 域 +1 · skills-graph.png 재렌더 · 总 skill 数 52→53",
+      "delta_en": "+1 node · tooling +1 · skills-graph.png re-rendered · total skills 52→53",
+      "bullets_zh": [
+        "scan 阶段正确识别单 SKILL.md 位于 complexity-optimizer/ 子目录，GitHub API 限流后降级为 git clone 本地探测，流程正常",
+        "域推断返回 uncategorized，手动指定 tooling — 算法分析/性能优化明显属于工程工具场景",
+        "skill 核心能力：检测 O(n²) 循环、N+1 数据库查询、嵌套遍历、可缓存的重复计算，并生成可复现优化 PR，行为一致性由原有测试套件保证"
+      ],
+      "bullets_en": [
+        "Scan phase correctly identified single SKILL.md under complexity-optimizer/ subdir; GitHub API rate-limited so fallback to local git clone detection worked fine.",
+        "Domain inference returned uncategorized; manually set to tooling — algorithmic analysis/performance optimization clearly belongs to engineering tooling.",
+        "Core capability: detects O(n²) loops, N+1 DB queries, nested iteration, cacheable recomputation, then produces reproducible optimization PRs while guaranteeing behavioral consistency via the existing test suite."
+      ]
     }
   ]
 }
