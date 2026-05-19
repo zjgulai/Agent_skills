@@ -311,13 +311,15 @@
         "仓库为 monorepo（23 个 SKILL.md），用户明确指定 skills/baoyu-wechat-summary，只装该子目录，不批量安装",
         "portal install 因仓库体积超时（>120s）；降级方案：本地 git clone --depth=1 已有缓存，直接 cp 到 ~/.config/opencode/skills/，portal get 验证识别正常",
         "依赖外部二进制 wx-cli（wx 命令），SKILL.md 内明确声明 anyBins: [wx]；skill 沙盒受限，需 dangerouslyDisableSandbox: true 运行 wx 命令",
-        "功能亮点：毒舌版（roast）摘要选项、跨次运行群友画像积累、history.json 去重追踪，适合需要每日/每周回顾微信群重点的场景"
+        "功能亮点：毒舌版（roast）摘要选项、跨次运行群友画像积累、history.json 去重追踪，适合需要每日/每周回顾微信群重点的场景",
+        "wx-cli 完整打通：sudo wx init 初始化后，通过 ~/.wx-cli/config.json 定位账号 wxid，写入 EXTEND.md，成功为「240526数据指标体系方法论群1」生成7天摘要文件至 ~/wechat-digests/；同步在桌面生成《微信群聊摘要 SOP.md》操作手册"
       ],
       "bullets_en": [
         "Monorepo with 23 SKILL.md files; user specified skills/baoyu-wechat-summary only — single-skill install, no batch.",
         "portal install timed out (>120s) due to repo size; fallback: reuse existing git clone --depth=1 cache, cp to ~/.config/opencode/skills/, portal get confirmed recognition.",
         "Requires external wx-cli binary (wx command); SKILL.md declares anyBins: [wx]; needs dangerouslyDisableSandbox: true for wx invocations.",
-        "Highlights: roast (毒舌) digest variant, cross-run user profile accumulation, history.json deduplication tracking — ideal for daily/weekly WeChat group recap workflows."
+        "Highlights: roast (毒舌) digest variant, cross-run user profile accumulation, history.json deduplication tracking — ideal for daily/weekly WeChat group recap workflows.",
+        "wx-cli fully connected: after sudo wx init, located account wxid from ~/.wx-cli/config.json, wrote EXTEND.md, successfully generated 7-day digest for 240526数据指标体系方法论群1 into ~/wechat-digests/; also produced a Desktop SOP guide 微信群聊摘要 SOP.md for self-serve onboarding"
       ]
     }
   ]
