@@ -347,6 +347,28 @@
         "Domain split: 5 tooling (engineering fundamentals) + 2 closeout (release quality gates); skills-graph +7 nodes (AC / CMG / PAWS / SH / OH2 / RRH / TSH).",
         "INDEX.md appended 7 rows; skills-graph.mmd +7 nodes re-rendered; portal refresh confirmed skill_count=64; data-mirror 3-file sync complete."
       ]
+    },
+    {
+      "id": 13,
+      "title_zh": "karpathy-guidelines — LLM 编码行为准则（closeout 域）",
+      "title_en": "karpathy-guidelines — LLM Coding Behavioral Guidelines (closeout domain)",
+      "desc_zh": "安装 Andrej Karpathy 编写的 LLM 编码行为准则 skill，规避过度工程、外科式修改、思考前先编码等常见 AI 编码陷阱。",
+      "desc_en": "Install Andrej Karpathy's LLM coding behavioral guidelines skill, guarding against overcomplication, non-surgical changes, and coding before thinking.",
+      "trigger_cmd": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "skill_added": "karpathy-guidelines",
+      "domain_added": "closeout",
+      "delta_zh": "+1 节点 · closeout 域 · PNG 609300 字节 · 总 skill 数 68→69",
+      "delta_en": "+1 node · domain closeout · PNG 609300 bytes · total skills 68→69",
+      "bullets_zh": [
+        "通过 portal API 从 GitHub 克隆并安装，subdir: skills/karpathy-guidelines，无任何 warning",
+        "推断 domain=closeout（evidence: 含 review 关键词），符合该 skill 主打代码审查与提交质量闭环的定位",
+        "Skill 能力摘要：减少 LLM 常见编码错误的行为准则——编前思考、简洁优先、外科式改动、目标驱动执行"
+      ],
+      "bullets_en": [
+        "Installed via portal API from GitHub (subdir: skills/karpathy-guidelines), zero warnings",
+        "Domain inferred as closeout (evidence: keyword \"review\"), fitting its focus on code review and commit quality",
+        "Skill summary: Behavioral guidelines to reduce LLM coding mistakes — think before coding, simplicity first, surgical changes, goal-driven execution"
+      ]
     }
   ]
 }
