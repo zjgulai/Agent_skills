@@ -107,17 +107,56 @@ bin/sync-data
 
 ### Step 9 — Append to case-studies.json
 
-**Single skill**: ask user 3 short questions:
-> 我要给 docs 站补一条 State N+1 记录。三个问题一起回我：
-> 1. 一句话定位（<40 字）？
-> 2. 它做的最有意思的事（1-3 个 bullet）？
-> 3. 还有什么我应该知道的（可选）？
+**Auto-fill first, ask only if needed.**
 
-**Monorepo**: ask 1 question (since 13+ skills would otherwise generate 13+ states):
-> 我把 monorepo 整体当作 **1 个 State** 来记。给我一句话定位（这个 suite 整体能让 agent 做什么）。
-> bullets 我会自动按 (a) skill 列表 (b) 域分布 (c) 体积变化 生成。
+#### 9-A: Collect auto-fillable facts
+
+```python
+# Read current last state id
+data = json.load(open("docs/_src/case-studies.json"))
+next_id = data["states"][-1]["id"] + 1
+
+# From portal get <skill_name> (already fetched in Step 3):
+#   name, description, domain
+# From skills-graph delta (Step 6):
+#   nodes added, PNG bytes before/after
+# From portal refresh (Step 7):
+#   skill_count before/after
+# From git log / install result:
+#   trigger_cmd = the URL/subdir the user gave
+#   any install warnings (e.g. YAML parse fallback, timeout)
+```
+
+Auto-generate:
+- `title_zh` / `title_en` — from skill name + domain
+- `trigger_cmd` — the exact URL the user provided
+- `skill_added` — name(s) from Step 2 install result
+- `domain_added` — from Step 4 domain inference
+- `delta_zh` / `delta_en` — "+N nodes · domain +M · PNG X→Y bytes · total skills A→B"
+- `bullets_zh` / `bullets_en` (3 bullets auto-generated):
+  - bullet 1: install method (portal API / manual fallback / monorepo batch) + any notable warnings
+  - bullet 2: domain assignment rationale (from Step 4 evidence)
+  - bullet 3: skill capability summary (first 200 chars of description)
+
+#### 9-B: Ask ONLY if desc is ambiguous or >1 bullet needs human context
+
+For **single skill** with clear frontmatter: **ask 0 questions** — auto-fill and proceed.
+
+For **single skill** where description is <30 chars or `uncategorized` or install had notable workarounds:
+> 补一句话定位（<40 字）给 State {next_id}？（或回「跳过」用 description 代替）
+
+For **monorepo suite**: **ask 0 questions** — auto-generate bullets from (a) skill list (b) domain distribution (c) PNG delta. Use the suite repo name + skill count as title.
+
+#### 9-C: Write
+
+```python
+# Append new_state to data["states"]
+# Write back with json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+```
 
 Append to `docs/_src/case-studies.json` (Python read → append → write back).
+
+> **Rule**: Step 9 is NEVER skipped. If user gives no answer within the same turn, auto-fill with 0 questions and proceed. The only acceptable outcome is a written State entry.
 
 ### Step 10 — Commit
 
