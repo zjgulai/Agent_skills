@@ -31,6 +31,16 @@ flowchart LR
     QO[qa-only]:::metaDomain
     CS[context-save]:::metaDomain
     CR2[context-restore]:::metaDomain
+    D[diagnose]:::metaDomain
+    GWD[grill-with-docs]:::metaDomain
+    ICA[improve-codebase-architecture]:::metaDomain
+    TI[to-issues]:::metaDomain
+    TP[to-prd]:::metaDomain
+    T2[triage]:::metaDomain
+    ZO[zoom-out]:::metaDomain
+    C2[caveman]:::metaDomain
+    GM[grill-me]:::metaDomain
+    H[handoff]:::metaDomain
 
     %% Domain 2 - Closeout
     CR[codex-review]:::closeoutDomain
@@ -44,6 +54,9 @@ flowchart LR
     RRH[release-readiness-hardening]:::closeoutDomain
     TSH[test-strategy-hardening]:::closeoutDomain
     KG[karpathy-guidelines]:::closeoutDomain
+    P[prototype]:::closeoutDomain
+    T[tdd]:::closeoutDomain
+    R[review]:::closeoutDomain
 
     %% Domain 3 - Desktop
     NF[native-feel-cross-platform-desktop]:::desktopDomain
@@ -155,6 +168,14 @@ flowchart LR
 
     OH2[observability-hardening]:::toolingDomain
 
+    %% Tooling domain
+
+    GGCC[git-guardrails-claude-code]:::toolingDomain
+
+    %% Tooling domain
+
+    WAS[write-a-skill]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -217,6 +238,21 @@ flowchart LR
     RRH -. "同域" .-> CR
     TSH -. "同域" .-> CR
     KG -. "同域" .-> CR
+    D -. "同域" .-> ADK
+    GWD -. "同域" .-> ADK
+    ICA -. "同域" .-> ADK
+    P -. "同域" .-> CR
+    T -. "同域" .-> CR
+    TI -. "同域" .-> ADK
+    TP -. "同域" .-> ADK
+    T2 -. "同域" .-> ADK
+    ZO -. "同域" .-> ADK
+    R -. "同域" .-> CR
+    GGCC -. "同域" .-> GPS
+    C2 -. "同域" .-> ADK
+    GM -. "同域" .-> ADK
+    H -. "同域" .-> ADK
+    WAS -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 

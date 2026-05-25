@@ -369,6 +369,28 @@
         "Domain inferred as closeout (evidence: keyword \"review\"), fitting its focus on code review and commit quality",
         "Skill summary: Behavioral guidelines to reduce LLM coding mistakes — think before coding, simplicity first, surgical changes, goal-driven execution"
       ]
+    },
+    {
+      "id": 14,
+      "title_zh": "mattpocock/skills — Matt Pocock 工程+生产力 skills 套件（15 个）",
+      "title_en": "mattpocock/skills — Matt Pocock Engineering + Productivity Skill Suite (15 skills)",
+      "desc_zh": "从 mattpocock/skills 仓库批量安装 15 个核心 skills，覆盖系统调试、架构改善、TDD、代码评审、issue 管理、PRD、原型、Git 安全守卫等工程场景，以及 handoff、caveman 模式等生产力工具。",
+      "desc_en": "Batch-installed 15 core skills from mattpocock/skills covering engineering workflows (diagnose, TDD, architecture, review, triage, to-issues, to-prd, prototype, zoom-out, grill-with-docs) and productivity tools (handoff, caveman, grill-me, write-a-skill, git-guardrails).",
+      "trigger_cmd": "https://github.com/mattpocock/skills",
+      "skill_added": "diagnose, grill-with-docs, improve-codebase-architecture, prototype, tdd, to-issues, to-prd, triage, zoom-out, review, git-guardrails-claude-code, caveman, grill-me, handoff, write-a-skill",
+      "domain_added": "meta+10, closeout+3, tooling+2",
+      "delta_zh": "+15 节点 · meta+10 / closeout+3 / tooling+2 · PNG 609300→627587 bytes · 总 skill 数 69→84",
+      "delta_en": "+15 nodes · meta+10 / closeout+3 / tooling+2 · PNG 609300→627587 bytes · total skills 69→84",
+      "bullets_zh": [
+        "通过 portal API install-monorepo 批量安装，15/15 成功，0 failures，0 warnings，耗时约 30 秒",
+        "domain 分布：meta（方法论/规划）×10 — diagnose/grill-with-docs/improve-codebase-architecture/to-issues/to-prd/triage/zoom-out/caveman/grill-me/handoff；closeout（代码实现闭环）×3 — prototype/tdd/review；tooling（工具链）×2 — git-guardrails-claude-code/write-a-skill",
+        "Skill 套件亮点：diagnose 提供 6 阶段 bug 诊断流程；tdd 强调行为测试而非实现细节；review 双轴评审（Standards + Spec）；git-guardrails 拦截危险 git 操作；caveman 降低 ~75% token 消耗"
+      ],
+      "bullets_en": [
+        "Batch installed via portal API install-monorepo: 15/15 succeeded, 0 failed, 0 warnings (~30s)",
+        "Domain distribution: meta×10 (methodology/planning) — diagnose/grill-with-docs/improve-codebase-architecture/to-issues/to-prd/triage/zoom-out/caveman/grill-me/handoff; closeout×3 (code delivery) — prototype/tdd/review; tooling×2 — git-guardrails-claude-code/write-a-skill",
+        "Suite highlights: diagnose 6-phase bug loop; tdd behavior-not-implementation philosophy; review dual-axis (Standards+Spec); git-guardrails blocks destructive git ops; caveman mode ~75% token reduction"
+      ]
     }
   ]
 }
