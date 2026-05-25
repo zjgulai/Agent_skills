@@ -240,6 +240,22 @@
     "local_path": "~/.config/opencode/skills/land-and-deploy/SKILL.md"
   },
   {
+    "name": "release-readiness-hardening",
+    "domain": "closeout",
+    "role": "安全发布门控：环境验证、部署检查、冒烟测试、回滚路径、功能开关",
+    "extra": "release gates, deploy checklist, smoke tests, rollback, feature flags",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/release-readiness-hardening/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/release-readiness-hardening/SKILL.md"
+  },
+  {
+    "name": "test-strategy-hardening",
+    "domain": "closeout",
+    "role": "审计并强化测试套件，确保测试真正覆盖关键行为而非装饰性断言",
+    "extra": "test strategy, flaky tests, contract tests, coverage, regression, e2e",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/test-strategy-hardening/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/test-strategy-hardening/SKILL.md"
+  },
+  {
     "name": "native-feel-cross-platform-desktop",
     "domain": "desktop",
     "role": "Raycast 2.0 重写公开技术 + 逆向 `Raycast Beta.app` 提炼出的八大架构原则、四层架构、WebKit/WebView2 生存指南、75 项 ship 前自检清单",
@@ -414,5 +430,61 @@
     "extra": "apple hig,components,controls,buttons,pickers,sliders",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-components-controls/manifest.yaml",
     "local_path": "~/.config/opencode/skills/hig-components-controls/SKILL.md"
+  },
+  {
+    "name": "complexity-optimizer",
+    "domain": "tooling",
+    "role": "Analyze codebase for algorithmic complexity hotspots and implement safe optimizations (O(n²)→O(n log n))",
+    "extra": "scan complexity, find O(n^2), N+1 queries, performance hotspots",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/complexity-optimizer/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/complexity-optimizer/SKILL.md"
+  },
+  {
+    "name": "baoyu-wechat-summary",
+    "domain": "tooling",
+    "role": "Summarize WeChat group chat highlights into structured digest with user profiles and optional roast version",
+    "extra": "总结群聊, 群聊精华, group chat digest, 毒舌版",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/baoyu-wechat-summary/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/baoyu-wechat-summary/SKILL.md"
+  },
+  {
+    "name": "antislop-codebase",
+    "domain": "tooling",
+    "role": "把杂乱/原型仓库重构为可维护产品级代码库，保留现有行为",
+    "extra": "antislop codebase, clean up messy repo, maintainability migration, refactor plan",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/antislop-codebase/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/antislop-codebase/SKILL.md"
+  },
+  {
+    "name": "codebase-maintainability-guardrails",
+    "domain": "tooling",
+    "role": "编码工程默认标准：小文件、类型化、功能分治、合约驱动、保留行为",
+    "extra": "coding standards, maintainability, frontend refactor, production code shape",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codebase-maintainability-guardrails/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/codebase-maintainability-guardrails/SKILL.md"
+  },
+  {
+    "name": "productionize-app-with-services",
+    "domain": "tooling",
+    "role": "将可运行的 demo/原型转化为生产级产品：审计追踪、权限、API、可观测性",
+    "extra": "productionize, harden repo, API keys, audit trails, feature flags, admin UX",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/productionize-app-with-services/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/productionize-app-with-services/SKILL.md"
+  },
+  {
+    "name": "security-hardening",
+    "domain": "tooling",
+    "role": "实用 appsec 安全加固通道：auth/会话风险、密钥、依赖、CORS/CSRF、限流",
+    "extra": "appsec review, security audit, auth risk, secrets, SSRF, rate limits",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/security-hardening/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/security-hardening/SKILL.md"
+  },
+  {
+    "name": "observability-hardening",
+    "domain": "tooling",
+    "role": "生产可见性：结构化日志、错误分类、请求 ID、链路追踪、指标、告警",
+    "extra": "observability, structured logs, error tracking, traces, metrics, dashboards",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/observability-hardening/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/observability-hardening/SKILL.md"
   }
 ]

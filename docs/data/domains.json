@@ -43,7 +43,7 @@
     "order": 2,
     "desc_zh": "代码已经写完，进入「提交 / PR / 发布」前的最后一公里。",
     "desc_en": "Code is done; last-mile before commit / PR / release.",
-    "count": 8,
+    "count": 10,
     "skill_names": [
       "codex-review",
       "executing-plans",
@@ -52,7 +52,9 @@
       "requesting-code-review",
       "using-git-worktrees",
       "verification-before-completion",
-      "land-and-deploy"
+      "land-and-deploy",
+      "release-readiness-hardening",
+      "test-strategy-hardening"
     ]
   },
   {
@@ -107,7 +109,7 @@
     "order": 6,
     "desc_zh": "不绑定特定项目类型，但任何项目都可能需要的能力。",
     "desc_en": "Not bound to any project type — capabilities any project may need.",
-    "count": 18,
+    "count": 25,
     "skill_names": [
       "guizang-ppt-skill",
       "agent-reach",
@@ -126,7 +128,14 @@
       "copywriting",
       "hig-foundations",
       "hig-platforms",
-      "hig-components-controls"
+      "hig-components-controls",
+      "complexity-optimizer",
+      "baoyu-wechat-summary",
+      "antislop-codebase",
+      "codebase-maintainability-guardrails",
+      "productionize-app-with-services",
+      "security-hardening",
+      "observability-hardening"
     ]
   }
 ]

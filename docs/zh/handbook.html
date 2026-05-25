@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. 图谱演化案例</h2>
-<p>10 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
+<p>13 个图谱状态，按时间序展示新装 skill 时图谱怎么变。</p>
 <h3 id="state-0">5.1 State 0：初始 6-skill</h3>
 <p>项目刚搭起的最初状态：6 个用户级 skill + 5 个 builtin。一条 founder → meta → desktop → closeout → ip 的主生命周期链。</p>
 <ul>
@@ -637,6 +637,37 @@ flowchart LR
 <li>重要工程发现：open-design 仓库本身 git clone 超时 5+ 分钟，installer 加 --filter=blob:none 也没用 — 这是它的 pack 文件巨大 + 我们 IP throttling 双重问题。结论：超大产品级仓库不适合走 portal install 路径</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 9" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-10">5.11 State 10：安装 complexity-optimizer — 算法复杂度分析与优化 skill</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/Kappaemme-git/codex-complexity-optimizer</code></p>
+<p>complexity-optimizer 来自 Kappaemme-git/codex-complexity-optimizer 仓库的 complexity-optimizer/ 子目录。单 skill，tooling 域。定位：让 Codex 自动扫描代码库的算法复杂度热点（O(n²)、N+1 查询、嵌套循环、重复扫描），并提出安全优化方案（O(n²)→O(n log n)/O(n)），同时保证测试、API、输出行为不变。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node · tooling 域 +1 · skills-graph.png 재렌더 · 总 skill 数 52→53</span></div>
+<ul>
+<li>scan 阶段正确识别单 SKILL.md 位于 complexity-optimizer/ 子目录，GitHub API 限流后降级为 git clone 本地探测，流程正常</li>
+<li>域推断返回 uncategorized，手动指定 tooling — 算法分析/性能优化明显属于工程工具场景</li>
+<li>skill 核心能力：检测 O(n²) 循环、N+1 数据库查询、嵌套遍历、可缓存的重复计算，并生成可复现优化 PR，行为一致性由原有测试套件保证</li>
+</ul>
+<h3 id="state-11">5.12 State 11：安装 baoyu-wechat-summary — 微信群聊精华摘要 skill</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-wechat-summary</code></p>
+<p>baoyu-wechat-summary 来自 JimLiu/baoyu-skills 仓库的 skills/baoyu-wechat-summary/ 子目录。单 skill，tooling 域。定位：调用本地 wx-cli 二进制读取微信群聊记录，提炼成结构化摘要；支持普通版与「毒舌版」；跨次运行维护 history.json 与群友画像文件，内置隐私保护。安装时因仓库体积导致 portal install 超时，降级为本地 clone 后手动复制安装路径，功能完整。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+1 node · tooling 域 +1 · PNG 622002 → 617505 bytes · 总 skill 数 53→54</span></div>
+<ul>
+<li>仓库为 monorepo（23 个 SKILL.md），用户明确指定 skills/baoyu-wechat-summary，只装该子目录，不批量安装</li>
+<li>portal install 因仓库体积超时（&gt;120s）；降级方案：本地 git clone --depth=1 已有缓存，直接 cp 到 ~/.config/opencode/skills/，portal get 验证识别正常</li>
+<li>依赖外部二进制 wx-cli（wx 命令），SKILL.md 内明确声明 anyBins: [wx]；skill 沙盒受限，需 dangerouslyDisableSandbox: true 运行 wx 命令</li>
+<li>功能亮点：毒舌版（roast）摘要选项、跨次运行群友画像积累、history.json 去重追踪，适合需要每日/每周回顾微信群重点的场景</li>
+<li>wx-cli 完整打通：sudo wx init 初始化后，通过 ~/.wx-cli/config.json 定位账号 wxid，写入 EXTEND.md，成功为「240526数据指标体系方法论群1」生成7天摘要文件至 ~/wechat-digests/；同步在桌面生成《微信群聊摘要 SOP.md》操作手册</li>
+</ul>
+<h3 id="state-12">5.13 State 12：安装 Kakuna Codebase Hardening Suite（swyxio/skills，7 个 skill）</h3>
+<p><span>触发命令：</span> <code>/skill-install https://github.com/swyxio/skills (monorepo, Kakuna subset)</code></p>
+<p>从 swyxio/skills monorepo 批量安装 Kakuna 代码库加固套件全部 7 个核心 skill，覆盖从基础结构清理到生产发布的完整工程质量闭环。monorepo scan 发现 23 个 SKILL.md 候选；用户选择 Kakuna Suite 的 7 个子目录批量安装。其中 codebase-maintainability-guardrails 因 description 含多个冒号触发 YAML 解析边界问题，portal installer 报 frontmatter 校验失败；降级为 curl raw 直拉 SKILL.md 手动写入，功能完整。</p>
+<div class="delta-callout"><strong>Δ vs 上一个状态：</strong> <span>+7 nodes · tooling +5 · closeout +2 · PNG 617505 → 605145 bytes · 总 skill 数 54→61</span></div>
+<ul>
+<li>monorepo scan 返回 23 个 SKILL.md 候选；选取 Kakuna Suite 7 个子目录走 install-monorepo 一次 clone 批量安装，6/7 通过 portal API 直装</li>
+<li>codebase-maintainability-guardrails 的 SKILL.md description 含多个冒号，触发 portal parse_frontmatter YAML 解析边界 bug，降级为 curl raw URL 直拉 + mkdir 手动写入，portal get 验证识别正常</li>
+<li>Kakuna 进阶路线：Foundation（antislop + guardrails）→ Productization（productionize-app）→ Safety（security-hardening）→ Operability（observability + release-readiness）→ Quality（test-strategy）</li>
+<li>域分配：5 个 tooling（工程基础能力）+ 2 个 closeout（发布质量门控）；skills-graph +7 节点（AC / CMG / PAWS / SH / OH2 / RRH / TSH）</li>
+<li>INDEX.md 追加 7 行；skills-graph.mmd +7 节点后重渲染 PNG；portal refresh 确认 skill_count=64；data-mirror 三文件同步</li>
+</ul>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">

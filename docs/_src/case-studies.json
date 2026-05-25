@@ -321,6 +321,32 @@
         "Highlights: roast (毒舌) digest variant, cross-run user profile accumulation, history.json deduplication tracking — ideal for daily/weekly WeChat group recap workflows.",
         "wx-cli fully connected: after sudo wx init, located account wxid from ~/.wx-cli/config.json, wrote EXTEND.md, successfully generated 7-day digest for 240526数据指标体系方法论群1 into ~/wechat-digests/; also produced a Desktop SOP guide 微信群聊摘要 SOP.md for self-serve onboarding"
       ]
+    },
+    {
+      "id": 12,
+      "title_zh": "State 12：安装 Kakuna Codebase Hardening Suite（swyxio/skills，7 个 skill）",
+      "title_en": "State 12: install Kakuna Codebase Hardening Suite (swyxio/skills, 7 skills)",
+      "desc_zh": "从 swyxio/skills monorepo 批量安装 Kakuna 代码库加固套件全部 7 个核心 skill，覆盖从基础结构清理到生产发布的完整工程质量闭环。monorepo scan 发现 23 个 SKILL.md 候选；用户选择 Kakuna Suite 的 7 个子目录批量安装。其中 codebase-maintainability-guardrails 因 description 含多个冒号触发 YAML 解析边界问题，portal installer 报 frontmatter 校验失败；降级为 curl raw 直拉 SKILL.md 手动写入，功能完整。",
+      "desc_en": "Batch install of the full Kakuna Codebase Hardening Suite (7 skills) from swyxio/skills monorepo. Monorepo scan found 23 SKILL.md candidates; Kakuna 7-subdir subset selected for install. codebase-maintainability-guardrails failed portal validation due to a colon-rich description hitting a YAML parse edge case; fallback via curl raw + manual write succeeded cleanly.",
+      "trigger_cmd": "/skill-install https://github.com/swyxio/skills (monorepo, Kakuna subset)",
+      "skill_added": "antislop-codebase, codebase-maintainability-guardrails, productionize-app-with-services, security-hardening, observability-hardening, release-readiness-hardening, test-strategy-hardening",
+      "domain_added": "tooling(5) + closeout(2)",
+      "delta_zh": "+7 nodes · tooling +5 · closeout +2 · PNG 617505 → 605145 bytes · 总 skill 数 54→61",
+      "delta_en": "+7 nodes · tooling +5 · closeout +2 · PNG 617505 → 605145 bytes · total skills 54→61",
+      "bullets_zh": [
+        "monorepo scan 返回 23 个 SKILL.md 候选；选取 Kakuna Suite 7 个子目录走 install-monorepo 一次 clone 批量安装，6/7 通过 portal API 直装",
+        "codebase-maintainability-guardrails 的 SKILL.md description 含多个冒号，触发 portal parse_frontmatter YAML 解析边界 bug，降级为 curl raw URL 直拉 + mkdir 手动写入，portal get 验证识别正常",
+        "Kakuna 进阶路线：Foundation（antislop + guardrails）→ Productization（productionize-app）→ Safety（security-hardening）→ Operability（observability + release-readiness）→ Quality（test-strategy）",
+        "域分配：5 个 tooling（工程基础能力）+ 2 个 closeout（发布质量门控）；skills-graph +7 节点（AC / CMG / PAWS / SH / OH2 / RRH / TSH）",
+        "INDEX.md 追加 7 行；skills-graph.mmd +7 节点后重渲染 PNG；portal refresh 确认 skill_count=64；data-mirror 三文件同步"
+      ],
+      "bullets_en": [
+        "Monorepo scan returned 23 SKILL.md candidates; 7 Kakuna subdirs selected and installed via install-monorepo (one clone, batch copy), 6/7 succeeded through portal API.",
+        "codebase-maintainability-guardrails description contains multiple colons, hitting a YAML parse edge case in portal parse_frontmatter; fallback to curl raw + manual mkdir/write, portal get confirmed clean recognition.",
+        "Kakuna progression: Foundation (antislop + guardrails) → Productization (productionize-app) → Safety (security-hardening) → Operability (observability + release-readiness) → Quality (test-strategy).",
+        "Domain split: 5 tooling (engineering fundamentals) + 2 closeout (release quality gates); skills-graph +7 nodes (AC / CMG / PAWS / SH / OH2 / RRH / TSH).",
+        "INDEX.md appended 7 rows; skills-graph.mmd +7 nodes re-rendered; portal refresh confirmed skill_count=64; data-mirror 3-file sync complete."
+      ]
     }
   ]
 }

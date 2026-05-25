@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. Graph Case Studies</h2>
-<p>10 graph states walking through how the graph mutates as new skills are added.</p>
+<p>13 graph states walking through how the graph mutates as new skills are added.</p>
 <h3 id="state-0">5.1 State 0: initial 6 skills</h3>
 <p>The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.</p>
 <ul>
@@ -637,6 +637,37 @@ flowchart LR
 <li>Critical finding: open-design itself git-clones for 5+ min even with --filter=blob:none. Combination of huge pack + IP throttle. Conclusion: massive product repos are NOT suitable for portal install.</li>
 </ul>
 <a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 9" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<h3 id="state-10">5.11 State 10: install complexity-optimizer — algorithmic complexity analysis &amp; optimization skill</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/Kappaemme-git/codex-complexity-optimizer</code></p>
+<p>complexity-optimizer comes from the complexity-optimizer/ subdir of Kappaemme-git/codex-complexity-optimizer. A single skill in the tooling domain. It enables Codex to automatically scan codebases for algorithmic complexity hotspots (O(n²), N+1 queries, nested loops, repeated scans) and propose safe optimizations (O(n²)→O(n log n)/O(n)) while preserving tests, APIs, and output behavior.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+1 node · tooling +1 · skills-graph.png re-rendered · total skills 52→53</span></div>
+<ul>
+<li>Scan phase correctly identified single SKILL.md under complexity-optimizer/ subdir; GitHub API rate-limited so fallback to local git clone detection worked fine.</li>
+<li>Domain inference returned uncategorized; manually set to tooling — algorithmic analysis/performance optimization clearly belongs to engineering tooling.</li>
+<li>Core capability: detects O(n²) loops, N+1 DB queries, nested iteration, cacheable recomputation, then produces reproducible optimization PRs while guaranteeing behavioral consistency via the existing test suite.</li>
+</ul>
+<h3 id="state-11">5.12 State 11: install baoyu-wechat-summary — WeChat group chat digest skill</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-wechat-summary</code></p>
+<p>baoyu-wechat-summary from JimLiu/baoyu-skills skills/baoyu-wechat-summary/. Single skill, tooling domain. Uses local wx-cli binary to read WeChat group chats and produce structured digests — normal and roast (毒舌) variants. Maintains per-run history.json and per-user profiles with privacy guardrails. Portal install timed out due to repo size; fallback to local clone + manual copy worked cleanly.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+1 node · tooling +1 · PNG 622002 → 617505 bytes · total skills 53→54</span></div>
+<ul>
+<li>Monorepo with 23 SKILL.md files; user specified skills/baoyu-wechat-summary only — single-skill install, no batch.</li>
+<li>portal install timed out (&gt;120s) due to repo size; fallback: reuse existing git clone --depth=1 cache, cp to ~/.config/opencode/skills/, portal get confirmed recognition.</li>
+<li>Requires external wx-cli binary (wx command); SKILL.md declares anyBins: [wx]; needs dangerouslyDisableSandbox: true for wx invocations.</li>
+<li>Highlights: roast (毒舌) digest variant, cross-run user profile accumulation, history.json deduplication tracking — ideal for daily/weekly WeChat group recap workflows.</li>
+<li>wx-cli fully connected: after sudo wx init, located account wxid from ~/.wx-cli/config.json, wrote EXTEND.md, successfully generated 7-day digest for 240526数据指标体系方法论群1 into ~/wechat-digests/; also produced a Desktop SOP guide 微信群聊摘要 SOP.md for self-serve onboarding</li>
+</ul>
+<h3 id="state-12">5.13 State 12: install Kakuna Codebase Hardening Suite (swyxio/skills, 7 skills)</h3>
+<p><span>Triggered by:</span> <code>/skill-install https://github.com/swyxio/skills (monorepo, Kakuna subset)</code></p>
+<p>Batch install of the full Kakuna Codebase Hardening Suite (7 skills) from swyxio/skills monorepo. Monorepo scan found 23 SKILL.md candidates; Kakuna 7-subdir subset selected for install. codebase-maintainability-guardrails failed portal validation due to a colon-rich description hitting a YAML parse edge case; fallback via curl raw + manual write succeeded cleanly.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+7 nodes · tooling +5 · closeout +2 · PNG 617505 → 605145 bytes · total skills 54→61</span></div>
+<ul>
+<li>Monorepo scan returned 23 SKILL.md candidates; 7 Kakuna subdirs selected and installed via install-monorepo (one clone, batch copy), 6/7 succeeded through portal API.</li>
+<li>codebase-maintainability-guardrails description contains multiple colons, hitting a YAML parse edge case in portal parse_frontmatter; fallback to curl raw + manual mkdir/write, portal get confirmed clean recognition.</li>
+<li>Kakuna progression: Foundation (antislop + guardrails) → Productization (productionize-app) → Safety (security-hardening) → Operability (observability + release-readiness) → Quality (test-strategy).</li>
+<li>Domain split: 5 tooling (engineering fundamentals) + 2 closeout (release quality gates); skills-graph +7 nodes (AC / CMG / PAWS / SH / OH2 / RRH / TSH).</li>
+<li>INDEX.md appended 7 rows; skills-graph.mmd +7 nodes re-rendered; portal refresh confirmed skill_count=64; data-mirror 3-file sync complete.</li>
+</ul>
 </section>
 <!-- §6 CROSSREF -->
 <section id="crossref">
