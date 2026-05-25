@@ -41,6 +41,8 @@ flowchart LR
     UGW[using-git-worktrees]:::closeoutDomain
     VBC[verification-before-completion]:::closeoutDomain
     LAD[land-and-deploy]:::closeoutDomain
+    RRH[release-readiness-hardening]:::closeoutDomain
+    TSH[test-strategy-hardening]:::closeoutDomain
 
     %% Domain 3 - Desktop
     NF[native-feel-cross-platform-desktop]:::desktopDomain
@@ -132,6 +134,26 @@ flowchart LR
 
     BWS[baoyu-wechat-summary]:::toolingDomain
 
+    %% Tooling domain
+
+    AC[antislop-codebase]:::toolingDomain
+
+    %% Tooling domain
+
+    CMG[codebase-maintainability-guardrails]:::toolingDomain
+
+    %% Tooling domain
+
+    PAWS[productionize-app-with-services]:::toolingDomain
+
+    %% Tooling domain
+
+    SH[security-hardening]:::toolingDomain
+
+    %% Tooling domain
+
+    OH2[observability-hardening]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -186,6 +208,13 @@ flowchart LR
     HCC -. "同域" .-> GPS
     CO -. "同域" .-> GPS
     BWS -. "同域" .-> GPS
+    AC -. "同域" .-> GPS
+    CMG -. "同域" .-> GPS
+    PAWS -. "同域" .-> GPS
+    SH -. "同域" .-> GPS
+    OH2 -. "同域" .-> GPS
+    RRH -. "同域" .-> CR
+    TSH -. "同域" .-> CR
 
     %% --- Lifecycle flows ---
 
