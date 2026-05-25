@@ -9,9 +9,29 @@ Install a new skill (or **whole monorepo of skills**) into `~/.config/opencode/s
 
 **Arguments**: `$ARGUMENTS` — expected to contain the GitHub URL, optionally followed by `--subdir <X>` to force a specific subpath.
 
+## Integrity guard (run BEFORE every step, fail-fast)
+
+```bash
+# 每次执行前确保在项目根目录
+cd /Users/lute/project/Agent/Agent_skills
+
+# 记录 AGENTS.md hash（防止写操作意外污染）
+AGENTS_HASH_BEFORE=$(shasum -a 256 AGENTS.md | awk '{print $1}')
+```
+
+After **every** step that writes files, verify:
+```bash
+AGENTS_HASH_AFTER=$(shasum -a 256 AGENTS.md | awk '{print $1}')
+if [ "$AGENTS_HASH_BEFORE" != "$AGENTS_HASH_AFTER" ]; then
+  echo "❌ AGENTS.md was corrupted! Restoring from git..."
+  git checkout HEAD -- AGENTS.md
+  exit 1
+fi
+```
+
 ## Execute these 12 steps in order
 
-Use `portal/backend/.venv/bin/python` (NOT system python). All commands run from the repository root.
+Use `portal/backend/.venv/bin/python` (NOT system python). **All commands MUST run from the repository root** (`cd /Users/lute/project/Agent/Agent_skills` before every bash block).
 
 ### Step 0 — Detect monorepo (skip if user gave explicit --subdir)
 
@@ -111,9 +131,16 @@ bin/sync-data
 
 #### 9-A: Collect auto-fillable facts
 
+**CRITICAL**: Always use absolute path. Never use relative `open("docs/...")`.
+
 ```python
-# Read current last state id
-data = json.load(open("docs/_src/case-studies.json"))
+import json, pathlib
+
+# 绝对路径 — 防止 cwd 漂移写坏无关文件
+PROJECT_ROOT = pathlib.Path("/Users/lute/project/Agent/Agent_skills")
+CASE_STUDIES = PROJECT_ROOT / "docs" / "_src" / "case-studies.json"
+
+data = json.loads(CASE_STUDIES.read_text(encoding="utf-8"))
 next_id = data["states"][-1]["id"] + 1
 
 # From portal get <skill_name> (already fetched in Step 3):
@@ -151,7 +178,11 @@ For **monorepo suite**: **ask 0 questions** — auto-generate bullets from (a) s
 
 ```python
 # Append new_state to data["states"]
-# Write back with json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+# Write back with absolute path — NEVER use open("docs/...") with relative path
+CASE_STUDIES.write_text(
+    json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+    encoding="utf-8"
+)
 ```
 
 Append to `docs/_src/case-studies.json` (Python read → append → write back).
@@ -161,6 +192,20 @@ Append to `docs/_src/case-studies.json` (Python read → append → write back).
 ### Step 10 — Commit
 
 ```bash
+cd /Users/lute/project/Agent/Agent_skills
+
+# 1. 最终哨兵：确认 AGENTS.md 未被污染
+AGENTS_HASH_FINAL=$(shasum -a 256 AGENTS.md | awk '{print $1}')
+if [ "$AGENTS_HASH_BEFORE" != "$AGENTS_HASH_FINAL" ]; then
+  echo "❌ AGENTS.md corrupted before commit! Restoring..."
+  git checkout HEAD -- AGENTS.md
+  exit 1
+fi
+
+# 2. 清理临时备份文件，不污染 git status
+rm -f AGENTS.md.corrupted.bak
+
+# 3. 只暂存预期文件，NEVER use git add .
 git add data-mirror/ docs/_src/case-studies.json
 git status --short
 git commit -m "feat(skills): add <name> (<single skill or 'suite of N'>)
