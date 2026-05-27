@@ -176,6 +176,10 @@ flowchart LR
 
     WAS[write-a-skill]:::toolingDomain
 
+    %% Tooling domain
+
+    A2[anysearch]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -253,6 +257,7 @@ flowchart LR
     GM -. "同域" .-> ADK
     H -. "同域" .-> ADK
     WAS -. "同域" .-> GPS
+    A2 -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 

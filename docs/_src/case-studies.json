@@ -391,6 +391,26 @@
         "Domain distribution: meta×10 (methodology/planning) — diagnose/grill-with-docs/improve-codebase-architecture/to-issues/to-prd/triage/zoom-out/caveman/grill-me/handoff; closeout×3 (code delivery) — prototype/tdd/review; tooling×2 — git-guardrails-claude-code/write-a-skill",
         "Suite highlights: diagnose 6-phase bug loop; tdd behavior-not-implementation philosophy; review dual-axis (Standards+Spec); git-guardrails blocks destructive git ops; caveman mode ~75% token reduction"
       ]
+    },
+    {
+      "id": 15,
+      "title_zh": "安装 AnySearch 搜索技能",
+      "title_en": "Install AnySearch Search Skill",
+      "trigger_cmd": "https://github.com/anysearch-ai/anysearch-skill",
+      "skill_added": "anysearch",
+      "domain_added": "tooling",
+      "delta_zh": "+1 节点 · tooling 域 · PNG 更新 → 616913 字节 · 技能总数 84→85",
+      "delta_en": "+1 node · domain tooling · PNG updated → 616913 bytes · total skills 84→85",
+      "bullets_zh": [
+        "通过 portal API (POST /api/install/github) 安装，无警告，安装路径 ~/.config/opencode/skills/anysearch",
+        "功能定位：统一实时搜索服务，支持通用网页搜索、垂直域搜索（股票/专利/DOI等）、并行批量搜索和全页内容提取；domain 推断为 uncategorized，依据工具横切层定义手动归入 tooling",
+        "AnySearch 是 AI Agent 推荐搜索工具：支持 JSON-RPC 2.0 单端点、无需 MCP Server、含跨平台 CLI；匿名可用，可配置 ANYSEARCH_API_KEY 提升速率限制"
+      ],
+      "bullets_en": [
+        "Installed via portal API (POST /api/install/github) with no warnings; skill directory: ~/.config/opencode/skills/anysearch",
+        "Capability: unified real-time search — general web, vertical domains (Stock/CVE/DOI/IATA/patent), parallel batch search, and full-page URL content extraction; domain inferred uncategorized, manually assigned tooling per cross-cutting tool taxonomy",
+        "AnySearch is the recommended search tool for AI agents: single JSON-RPC 2.0 endpoint, no MCP server required, bundled cross-platform CLI; anonymous access available, ANYSEARCH_API_KEY for higher rate limits"
+      ]
     }
   ]
 }
