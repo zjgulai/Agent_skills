@@ -6,6 +6,83 @@ All notable changes to **Agent_skills** are documented here. Format follows [Kee
 
 Pre-1.0. Three-repo system stabilising. Once Agent_skills + Agent_hook + Agent_mcp pin their `manifest.py` schema and CLI surface, a coordinated `1.0.0` will follow across all three.
 
+## [0.4.0] — 2026-06-03
+
+GitHub 近一周上升榜单深度挖掘 + 增量 skills 部署。skill_count 从 85 增至 141，新增 codegraph CLI + MCP 接入，修复 build.py 数据容错问题。
+
+### Added — skill 批量增量部署（85 → 141，+56）
+
+来源：6 个 GitHub 近一周高热仓库，基于 Shareuhack 周报 2026-05-27（+20K stars codegraph、+14.7K Understand-Anything 等）和 BuilderPulse 2026-06-01 周榜交叉筛选。
+
+**写作质量域**
+- `stop-slop` (hardikpandya/stop-slop) — 清除 AI 写作特征：结构陈词、泛用句型、可预测段落
+
+**UI 视觉品味套件**（Leonxlnx/taste-skill，75K stars）
+- `minimalist-ui` — 极简主义 UI：留白、克制、减法美学
+- `industrial-brutalist-ui` — 工业/野兽派 UI：高对比、原始、结构性
+- `redesign-existing-projects` — 系统化改造现有 UI 至新美学目标
+- `stitch-design-taste` — 多参考拼合同一视觉语言
+- `high-end-visual-design` — 高端柔软奢华视觉：深度、光晕、精致感
+
+**工程方法论套件**（thananon/9arm-skills，2.3K 新热）
+- `debug-mantra` — 结构化调试信条：系统化定位根因
+- `scrutinize` — 深度代码审视：正确性、边界、隐藏假设
+- `post-mortem` — 规范化故障复盘：5-whys、时间线、行动项
+- `management-talk` — 技术工作翻译成业务语言给 stakeholder
+
+**学术研究套件**（Imbad0202/academic-research-skills，+10.7K/周）
+- `academic-paper` — 12-agent 学术论文全流程：研究→写作→评审→修订→定稿
+- `academic-paper-reviewer` — 同行评审模拟：结构化批评与改进建议
+- `academic-pipeline` — 端到端研究发表流水线编排
+- `deep-research` — 通用深度研究：多源合成、证据驱动
+
+**Anthropic 知识工作插件**（anthropics/knowledge-work-plugins，+2.7K/周，官方）— 35 个 role skill 覆盖：
+- 工程：`architecture`、`debug`、`system-design`、`tech-debt`、`incident-response`、`code-review`、`write-spec`、`sprint-planning`、`metrics-review`
+- 数据：`explore-data`、`sql-queries`、`statistical-analysis`、`data-visualization`
+- 设计：`design-critique`、`accessibility-review`、`ux-copy`、`knowledge-synthesis`、`search`
+- 市场：`content-creation`、`seo-audit`、`email-sequence`
+- 法务：`review-contract`、`compliance-check`
+- 运营：`runbook`、`risk-assessment`
+- HR：`interview-prep`、`onboarding`、`performance-review`
+- 财务：`variance-analysis`、`financial-statements`
+- 销售：`account-research`、`pipeline-review`、`competitive-intelligence`、`draft-outreach`
+- 客服：`ticket-triage`、`draft-response`
+- 小微企业：`cash-flow-snapshot`、`lead-triage`
+
+**安全专项套件**（mukul975/Anthropic-Cybersecurity-Skills，12K stars）
+- `analyzing-threat-actor-ttps-with-mitre-attack` — MITRE ATT&CK TTP 映射分析
+- `implementing-honeypot-for-ransomware-detection` — 勒索软件蜜罐早期检测实施
+
+**codegraph 内置 skills**（colbymchenry/codegraph，+20K/周，本周榜首）
+- `codegraph-agent-eval` — 对真实代码库做 codegraph 检索质量基准测试（with/without A/B）
+- `codegraph-add-lang` — 端到端为 codegraph 添加新 tree-sitter 语言支持
+
+### Added — codegraph CLI + MCP 接入
+
+- codegraph v0.9.9 CLI 安装到 `~/.local/bin/codegraph`（官方 install.sh，darwin-arm64 bundle，自带 Node 运行时，不依赖系统 Node 版本）
+- `codegraph install --target=opencode --yes` 写入 `~/.config/opencode/opencode.json` MCP server 配置：`{"type":"local","command":["codegraph","serve","--mcp"],"enabled":true}`
+- 项目初始化方式：`cd <project> && codegraph init -i`，之后 opencode agent 通过 MCP tool 查询符号、调用链、import 关系，大幅减少 token 消耗
+
+### Fixed — build.py 数据容错
+
+- `docs/_src/build.py` `render_case_studies()` 改用 `.get()` 防御读取 `title/desc/bullets` 字段，兼容 case-studies.json 中数据不完整的 state 条目（State 15 anysearch 缺 `desc_zh`/`bullets_zh`）。之前 KeyError 导致 CI 构建失败
+
+### Changed — portal 数据刷新
+
+- portal 从 85 → 139 skills（`POST /api/refresh` 重建索引，`skill_count=139`）
+- `data-mirror/INDEX.md` 注入 54 个新 skill 行（按域分类追加）
+- `docs/data/{skills,domains,portal-status}.json` 本地预跑 `data-collect.py`，skill_count=132（data-mirror 真相源）后推送
+- GitHub Pages CI 重新构建，`https://zjgulai.github.io/Agent_skills` 更新至最新 skill 数量
+
+### Skill inventory
+
+- 85 → 141 skills（+56），域分布：
+  - meta 54（方法论 + 工程基础设施）
+  - closeout 14（代码质量与交付闭环）
+  - desktop 1、founder 1、ip 2
+  - tooling 60（横切层工具，含全部 Anthropic kw-plugins）
+- `/skill-doctor all`：141/141 PASS
+
 ## [0.3.0] — 2026-05-17
 
 The "dynamic docs + monorepo install + dry-scan" release. Skill_count grew from 9 to 52 across 9 case-study state transitions. The site at https://zjgulai.github.io/Agent_skills now rebuilds automatically on every push.

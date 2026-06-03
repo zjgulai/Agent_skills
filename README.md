@@ -31,7 +31,7 @@
 - `/skill-graph-sync` —— 自动对齐 INDEX 与图谱
 - ……另外 7 条命令覆盖更新、卸载、归类、portal 控制
 
-它不替代 OpenCode 本身，**只在它之上加一层"管理"**。skill 仓库本体仍住在 `~/.config/opencode/skills/`，不动它的目录结构。
+它不替代 OpenCode 本身，**只在它之上加一层"管理"**。skill 仓库本体仍住在 `~/.config/opencode/skills/`，不动它的目录结构。当前已管理 **141 个 skills**，覆盖工程、设计、法务、HR、财务、销售等全链路知识工作域。
 
 ---
 
@@ -63,6 +63,8 @@ cd ~/project/Agent/Agent_skills
 /skill-doctor                                                 # 健康检查
 /skill-recommend "我要做一份瑞士风 PPT"                          # 选型推荐
 ```
+
+> **codegraph（可选）**：为 agent 提供预索引代码知识图谱，减少 token 消耗。安装：`curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh | sh && codegraph install --target=opencode --yes`，然后在项目里 `codegraph init -i` 建图。
 
 ## 11 个命令
 

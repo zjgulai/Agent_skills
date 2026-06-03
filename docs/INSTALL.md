@@ -217,7 +217,31 @@ ln -s ~/project/Agent/Agent_skills/portal ~/.config/opencode/skills-portal
 
 ---
 
-## 八、验证整个安装
+## 八、（可选）codegraph — 代码知识图谱 MCP
+
+codegraph 为 AI agent 预索引整个代码库，生成语义知识图谱（函数、类、import、调用链），通过 MCP server 暴露给 OpenCode。装了之后 agent 不需要反复 grep/read 就能精准定位代码，**大幅减少 token 消耗和 tool call 次数**。
+
+不装也完全能用本系统，但如果你在大型项目里频繁让 agent 读代码，建议装。
+
+```bash
+# 安装 codegraph CLI（自带 Node runtime，不依赖系统 Node 版本）
+curl -fsSL https://raw.githubusercontent.com/colbymchenry/codegraph/main/install.sh | sh
+
+# 配置 OpenCode MCP（一次即可）
+codegraph install --target=opencode --yes
+
+# 在每个需要的项目里建图（约 30s，生成 .codegraph/ 目录）
+cd ~/your-project
+codegraph init -i
+```
+
+验证：`codegraph --version` 应输出 `0.9.9`（或更新版本）。
+
+> **PATH 注意**：install.sh 把二进制装到 `~/.local/bin/codegraph`。若 `codegraph` 命令找不到，在 `~/.zshrc` 加 `export PATH="$HOME/.local/bin:$PATH"` 再 `source ~/.zshrc`。
+
+---
+
+## 九、验证整个安装
 
 ```bash
 cd ~/project/Agent/Agent_skills
@@ -242,7 +266,7 @@ open http://localhost:5173    # 或 https://skills-portal.localhost
 
 ---
 
-## 九、常见问题
+## 十、常见问题
 
 ### Q: ports 5173/5174 被占
 
@@ -273,7 +297,7 @@ lsof -ti:5173,5174 | xargs kill -9
 
 ---
 
-## 十、卸载
+## 十一、卸载
 
 ```bash
 # 1. 停 portal
