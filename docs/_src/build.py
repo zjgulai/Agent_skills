@@ -189,9 +189,9 @@ def render_case_studies(states: list[dict], lang: str) -> str:
              f'  <p>{lead}</p>']
 
     for s in states:
-        title = s[f"title_{lang}"]
-        desc = s[f"desc_{lang}"]
-        bullets = s[f"bullets_{lang}"]
+        title = s.get(f"title_{lang}", s.get("title_en", f"State {s.get('id', '?')}"))
+        desc = s.get(f"desc_{lang}", s.get("desc_en", ""))
+        bullets = s.get(f"bullets_{lang}", s.get("bullets_en", []))
         png = s.get("png", "")
         cmd = s.get("trigger_cmd")
         delta = s.get(f"delta_{lang}")

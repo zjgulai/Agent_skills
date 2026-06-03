@@ -520,7 +520,7 @@ flowchart LR
 <!-- §5 CASE STUDIES -->
 <section id="case-studies">
 <h2>§5. Graph Case Studies</h2>
-<p>13 graph states walking through how the graph mutates as new skills are added.</p>
+<p>16 graph states walking through how the graph mutates as new skills are added.</p>
 <h3 id="state-0">5.1 State 0: initial 6 skills</h3>
 <p>The very first state: 6 user skills + 5 builtins. One main lifecycle chain founder → meta → desktop → closeout → ip.</p>
 <ul>
@@ -667,6 +667,33 @@ flowchart LR
 <li>Kakuna progression: Foundation (antislop + guardrails) → Productization (productionize-app) → Safety (security-hardening) → Operability (observability + release-readiness) → Quality (test-strategy).</li>
 <li>Domain split: 5 tooling (engineering fundamentals) + 2 closeout (release quality gates); skills-graph +7 nodes (AC / CMG / PAWS / SH / OH2 / RRH / TSH).</li>
 <li>INDEX.md appended 7 rows; skills-graph.mmd +7 nodes re-rendered; portal refresh confirmed skill_count=64; data-mirror 3-file sync complete.</li>
+</ul>
+<h3 id="state-13">5.14 karpathy-guidelines — LLM Coding Behavioral Guidelines (closeout domain)</h3>
+<p><span>Triggered by:</span> <code>https://github.com/multica-ai/andrej-karpathy-skills</code></p>
+<p>Install Andrej Karpathy's LLM coding behavioral guidelines skill, guarding against overcomplication, non-surgical changes, and coding before thinking.</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+1 node · domain closeout · PNG 609300 bytes · total skills 68→69</span></div>
+<ul>
+<li>Installed via portal API from GitHub (subdir: skills/karpathy-guidelines), zero warnings</li>
+<li>Domain inferred as closeout (evidence: keyword "review"), fitting its focus on code review and commit quality</li>
+<li>Skill summary: Behavioral guidelines to reduce LLM coding mistakes — think before coding, simplicity first, surgical changes, goal-driven execution</li>
+</ul>
+<h3 id="state-14">5.15 mattpocock/skills — Matt Pocock Engineering + Productivity Skill Suite (15 skills)</h3>
+<p><span>Triggered by:</span> <code>https://github.com/mattpocock/skills</code></p>
+<p>Batch-installed 15 core skills from mattpocock/skills covering engineering workflows (diagnose, TDD, architecture, review, triage, to-issues, to-prd, prototype, zoom-out, grill-with-docs) and productivity tools (handoff, caveman, grill-me, write-a-skill, git-guardrails).</p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+15 nodes · meta+10 / closeout+3 / tooling+2 · PNG 609300→627587 bytes · total skills 69→84</span></div>
+<ul>
+<li>Batch installed via portal API install-monorepo: 15/15 succeeded, 0 failed, 0 warnings (~30s)</li>
+<li>Domain distribution: meta×10 (methodology/planning) — diagnose/grill-with-docs/improve-codebase-architecture/to-issues/to-prd/triage/zoom-out/caveman/grill-me/handoff; closeout×3 (code delivery) — prototype/tdd/review; tooling×2 — git-guardrails-claude-code/write-a-skill</li>
+<li>Suite highlights: diagnose 6-phase bug loop; tdd behavior-not-implementation philosophy; review dual-axis (Standards+Spec); git-guardrails blocks destructive git ops; caveman mode ~75% token reduction</li>
+</ul>
+<h3 id="state-15">5.16 Install AnySearch Search Skill</h3>
+<p><span>Triggered by:</span> <code>https://github.com/anysearch-ai/anysearch-skill</code></p>
+<p></p>
+<div class="delta-callout"><strong>Δ vs previous state:</strong> <span>+1 node · domain tooling · PNG updated → 616913 bytes · total skills 84→85</span></div>
+<ul>
+<li>Installed via portal API (POST /api/install/github) with no warnings; skill directory: ~/.config/opencode/skills/anysearch</li>
+<li>Capability: unified real-time search — general web, vertical domains (Stock/CVE/DOI/IATA/patent), parallel batch search, and full-page URL content extraction; domain inferred uncategorized, manually assigned tooling per cross-cutting tool taxonomy</li>
+<li>AnySearch is the recommended search tool for AI agents: single JSON-RPC 2.0 endpoint, no MCP server required, bundled cross-platform CLI; anonymous access available, ANYSEARCH_API_KEY for higher rate limits</li>
 </ul>
 </section>
 <!-- §6 CROSSREF -->
