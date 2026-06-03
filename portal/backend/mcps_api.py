@@ -13,7 +13,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 
-_DEFAULT_MCP_REPO = Path(__file__).resolve().parents[4] / "Agent_mcp"
+_DEFAULT_MCP_REPO = Path(__file__).resolve().parents[3] / "Agent_mcp"
 AGENT_MCP_REPO = Path(os.environ.get("AGENT_MCP_REPO", str(_DEFAULT_MCP_REPO)))
 
 _manifest = None
@@ -35,6 +35,9 @@ def _try_load_manifest_module() -> bool:
     else:
         try:
             spec = importlib.util.spec_from_file_location(mod_name, manifest_path)
+            if spec is None or spec.loader is None:
+                sys.stderr.write(f"[mcps_api] cannot load spec from {manifest_path}\n")
+                return False
             m = importlib.util.module_from_spec(spec)
             sys.modules[mod_name] = m
             spec.loader.exec_module(m)
@@ -59,11 +62,11 @@ def _require_companion() -> None:
         )
 
 
-def _env_status(env_names) -> dict:
+def _env_status(env_names: list[str]) -> dict:
     return {name: bool(os.environ.get(name)) for name in env_names}
 
 
-def _binary_status(binaries) -> dict:
+def _binary_status(binaries: list[str]) -> dict:
     return {b: bool(shutil.which(b)) for b in binaries}
 
 

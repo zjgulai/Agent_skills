@@ -105,7 +105,11 @@ def parse_index_md(index_md: pathlib.Path) -> dict[str, dict[str, Any]]:
 
 def collect_resources(skill_dir: pathlib.Path) -> list[dict[str, str]]:
     out = []
-    for entry in sorted(skill_dir.iterdir()):
+    try:
+        entries = sorted(skill_dir.iterdir())
+    except OSError:
+        return out
+    for entry in entries:
         if entry.name == "SKILL.md" or entry.name.startswith("."):
             continue
         kind = "dir" if entry.is_dir() else "file"
@@ -136,7 +140,9 @@ def collect_skill(skill_dir: pathlib.Path, idx_map: dict) -> Optional[dict[str, 
         "skill_md_path": str(skill_md),
         "skill_dir": str(skill_dir),
         "resources": collect_resources(skill_dir),
-        "installed_at": dt.datetime.fromtimestamp(skill_dir.stat().st_mtime).isoformat(),
+        "installed_at": dt.datetime.fromtimestamp(
+            skill_dir.stat().st_mtime, tz=dt.timezone.utc
+        ).isoformat(),
         "warnings": warnings,
     }
 
@@ -158,7 +164,11 @@ def build() -> dict[str, Any]:
     idx_map = parse_index_md(SKILLS_ROOT / "INDEX.md")
 
     skills: list[dict[str, Any]] = []
-    for entry in sorted(SKILLS_ROOT.iterdir()):
+    try:
+        entries = sorted(SKILLS_ROOT.iterdir())
+    except OSError:
+        entries = []
+    for entry in entries:
         if not entry.is_dir():
             continue
         info = collect_skill(entry, idx_map)

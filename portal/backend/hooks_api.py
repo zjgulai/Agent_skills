@@ -14,7 +14,7 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import PlainTextResponse
 
-_DEFAULT_HOOK_REPO = Path(__file__).resolve().parents[4] / "Agent_hook"
+_DEFAULT_HOOK_REPO = Path(__file__).resolve().parents[3] / "Agent_hook"
 AGENT_HOOK_REPO = Path(os.environ.get("AGENT_HOOK_REPO", str(_DEFAULT_HOOK_REPO)))
 
 # Lazy-loaded module — None means companion repo is not configured/available.
@@ -37,12 +37,14 @@ def _try_load_manifest_module() -> bool:
     else:
         try:
             spec = importlib.util.spec_from_file_location(mod_name, manifest_path)
+            if spec is None or spec.loader is None:
+                sys.stderr.write(f"[hooks_api] cannot load spec from {manifest_path}\n")
+                return False
             m = importlib.util.module_from_spec(spec)
             sys.modules[mod_name] = m
             spec.loader.exec_module(m)
             _manifest = m
         except Exception as e:
-            # Don't crash app startup — log and degrade gracefully
             sys.stderr.write(f"[hooks_api] failed to load manifest module: {e}\n")
             return False
     iter_registry = _manifest.iter_registry

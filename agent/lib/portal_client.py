@@ -321,11 +321,21 @@ def stop() -> bool:
         return False
     for pid in pids:
         try:
-            os.kill(pid, 9)
+            os.kill(pid, 15)  # SIGTERM — graceful shutdown
         except ProcessLookupError:
             pass
-    time.sleep(1)
+    time.sleep(2)
+    remaining = _pids_on_ports([5173, 5174])
+    for pid in remaining:
+        try:
+            os.kill(pid, 9)  # SIGKILL — force if still alive after SIGTERM
+        except ProcessLookupError:
+            pass
+    time.sleep(0.5)
     return True
+
+
+_STATUS_TIMEOUT = httpx.Timeout(connect=2.0, read=5.0, write=5.0, pool=5.0)
 
 
 def status() -> dict:
@@ -340,12 +350,13 @@ def status() -> dict:
         "generated_at": None,
     }
     try:
-        h = health()
-        info["api_up"] = bool(h.get("ok"))
-        if info["api_up"]:
-            data = list_skills()
-            info["skill_count"] = data.get("skill_count")
-            info["generated_at"] = data.get("generated_at")
+        with httpx.Client(base_url=PORTAL_BASE, timeout=_STATUS_TIMEOUT, trust_env=False) as c:
+            h = c.get("/api/health").json()
+            info["api_up"] = bool(h.get("ok"))
+            if info["api_up"]:
+                data = c.get("/api/skills").json()
+                info["skill_count"] = data.get("skill_count")
+                info["generated_at"] = data.get("generated_at")
     except Exception as e:
         info["error"] = str(e)
     return info

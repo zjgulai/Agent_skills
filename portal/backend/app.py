@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 from typing import Optional
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -22,7 +23,8 @@ from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 
 from build_index import DATA_FILE, SKILLS_ROOT, build, parse_frontmatter
-from installer import install_from_github, install_from_upload, install_monorepo_from_github, uninstall
+from installer import (SKILL_NAME_RE, install_from_github, install_from_upload,
+                       install_monorepo_from_github, uninstall)
 from hooks_api import router as hooks_router
 from mcps_api import router as mcps_router
 
@@ -56,6 +58,14 @@ def _refresh() -> dict:
     return build()
 
 
+def _validate_skill_name(name: str) -> None:
+    if not SKILL_NAME_RE.fullmatch(name):
+        raise HTTPException(status_code=400, detail=f"invalid skill name: {name!r}")
+    resolved = (SKILLS_ROOT / name).resolve()
+    if not resolved.is_relative_to(SKILLS_ROOT.resolve()):
+        raise HTTPException(status_code=400, detail=f"invalid skill name: {name!r}")
+
+
 @app.get("/api/health")
 def health() -> dict:
     return {"ok": True, "skills_root": str(SKILLS_ROOT), "skills_root_exists": SKILLS_ROOT.exists()}
@@ -68,6 +78,7 @@ def list_skills() -> dict:
 
 @app.get("/api/skills/{name}/markdown", response_class=PlainTextResponse)
 def get_skill_markdown(name: str) -> str:
+    _validate_skill_name(name)
     skill_md = SKILLS_ROOT / name / "SKILL.md"
     if not skill_md.exists():
         raise HTTPException(status_code=404, detail=f"skill not found: {name}")
@@ -76,6 +87,7 @@ def get_skill_markdown(name: str) -> str:
 
 @app.get("/api/skills/{name}")
 def get_skill_info(name: str) -> dict:
+    _validate_skill_name(name)
     skill_md = SKILLS_ROOT / name / "SKILL.md"
     if not skill_md.exists():
         raise HTTPException(status_code=404, detail=f"skill not found: {name}")
@@ -97,7 +109,10 @@ class GithubMonorepoInstallRequest(BaseModel):
 
 @app.post("/api/install/github")
 def post_install_github(req: GithubInstallRequest) -> dict:
-    res = install_from_github(req.url, req.subdir)
+    try:
+        res = install_from_github(req.url, req.subdir)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"install error: {e}") from e
     if res.ok:
         _refresh()
     return {
@@ -111,7 +126,10 @@ def post_install_github(req: GithubInstallRequest) -> dict:
 
 @app.post("/api/install/github/monorepo")
 def post_install_github_monorepo(req: GithubMonorepoInstallRequest) -> dict:
-    res = install_monorepo_from_github(req.url, req.subdirs)
+    try:
+        res = install_monorepo_from_github(req.url, req.subdirs)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"monorepo install error: {e}") from e
     if res.get("succeeded", 0) > 0:
         _refresh()
     return res
@@ -125,7 +143,10 @@ async def post_install_upload(file: UploadFile = File(...)) -> dict:
     content = await file.read()
     if len(content) > _UPLOAD_MAX_BYTES:
         raise HTTPException(status_code=413, detail=f"file too large (max {_UPLOAD_MAX_BYTES // 1024 // 1024} MB)")
-    res = install_from_upload(file.filename or "upload.md", content)
+    try:
+        res = install_from_upload(file.filename or "upload.md", content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"upload install error: {e}") from e
     if res.ok:
         _refresh()
     return {
@@ -139,7 +160,11 @@ async def post_install_upload(file: UploadFile = File(...)) -> dict:
 
 @app.delete("/api/skills/{name}")
 def delete_skill(name: str) -> dict:
-    res = uninstall(name)
+    _validate_skill_name(name)
+    try:
+        res = uninstall(name)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"uninstall error: {e}") from e
     if res.ok:
         _refresh()
     return {"ok": res.ok, "message": res.message, "skill_name": res.skill_name}
@@ -147,7 +172,10 @@ def delete_skill(name: str) -> dict:
 
 @app.post("/api/refresh")
 def refresh_data() -> dict:
-    payload = _refresh()
+    try:
+        payload = _refresh()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"index rebuild error: {e}") from e
     return {
         "ok": True,
         "skill_count": payload["skill_count"],

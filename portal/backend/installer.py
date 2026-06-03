@@ -88,16 +88,20 @@ def _copy_skill_content(src_dir: pathlib.Path, dest_dir: pathlib.Path) -> None:
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
     dest_dir.mkdir(parents=True)
-    for entry in src_dir.iterdir():
-        if entry.name in SKIP_TOP_LEVEL:
-            continue
-        if entry.name.startswith("."):
-            continue
-        target = dest_dir / entry.name
-        if entry.is_dir():
-            shutil.copytree(entry, target)
-        else:
-            shutil.copy2(entry, target)
+    try:
+        for entry in src_dir.iterdir():
+            if entry.name in SKIP_TOP_LEVEL:
+                continue
+            if entry.name.startswith("."):
+                continue
+            target = dest_dir / entry.name
+            if entry.is_dir():
+                shutil.copytree(entry, target)
+            else:
+                shutil.copy2(entry, target)
+    except Exception:
+        shutil.rmtree(dest_dir, ignore_errors=True)
+        raise
 
 
 def _strip_fence(text: str) -> str:
@@ -281,8 +285,6 @@ def install_from_upload(filename: str, content: bytes) -> InstallResult:
         warnings = []
         if dest.exists():
             warnings.append(f"overwriting existing skill at {dest}")
-
-        if dest.exists():
             shutil.rmtree(dest)
         dest.mkdir(parents=True)
         shutil.copy2(tmp_md, dest / "SKILL.md")
@@ -304,5 +306,8 @@ def uninstall(name: str) -> InstallResult:
     target = SKILLS_ROOT / name
     if not target.exists() or not (target / "SKILL.md").exists():
         return InstallResult(False, f"skill not found: {name}")
-    shutil.rmtree(target)
+    try:
+        shutil.rmtree(target)
+    except OSError as e:
+        return InstallResult(False, f"failed to remove skill directory: {e}")
     return InstallResult(ok=True, message=f"uninstalled '{name}'", skill_name=name)
