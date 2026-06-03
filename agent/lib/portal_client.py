@@ -153,12 +153,21 @@ def scan_monorepo(url: str) -> list[str]:
         owner_repo = url.split("github.com/", 1)[1]
     owner_repo = owner_repo.rstrip("/").removesuffix(".git")
 
-    api = f"https://api.github.com/repos/{owner_repo}/git/trees/main?recursive=1"
+    api_base = f"https://api.github.com/repos/{owner_repo}"
     with httpx.Client(timeout=httpx.Timeout(30.0)) as c:
+        api = f"{api_base}/git/trees/main?recursive=1"
         r = c.get(api)
         if r.status_code == 404:
-            api = api.replace("/main?", "/master?")
+            api = f"{api_base}/git/trees/master?recursive=1"
             r = c.get(api)
+        if r.status_code == 404:
+            repo_info = c.get(api_base)
+            if repo_info.status_code == 200:
+                default_branch = repo_info.json().get("default_branch", "main")
+                api = f"{api_base}/git/trees/{default_branch}?recursive=1"
+                r = c.get(api)
+            else:
+                raise PortalError(f"repo not found or inaccessible: {owner_repo}")
         r.raise_for_status()
         data = r.json()
 
@@ -250,7 +259,8 @@ def _pids_on_ports(ports: list[int]) -> list[int]:
             capture_output=True, text=True, timeout=5,
         ).stdout.strip()
         return [int(p) for p in out.split() if p.isdigit()]
-    except Exception:
+    except Exception as e:
+        sys.stderr.write(f"[portal_client] lsof failed: {e}\n")
         return []
 
 
@@ -279,31 +289,29 @@ def ensure_running(timeout: float = 20.0) -> bool:
         )
 
     log_path = pathlib.Path("/tmp/portal-uvicorn.log")
-    log = log_path.open("ab")
-    proc = subprocess.Popen(
-        [str(PORTAL_START_SCRIPT)],
-        stdout=log,
-        stderr=subprocess.STDOUT,
-        start_new_session=True,
-        cwd=str(PROJECT_ROOT),
-    )
+    with log_path.open("ab") as log:
+        proc = subprocess.Popen(
+            [str(PORTAL_START_SCRIPT)],
+            stdout=log,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+            cwd=str(PROJECT_ROOT),
+        )
 
-    deadline = time.time() + timeout
-    while time.time() < deadline:
-        time.sleep(0.5)
-        try:
-            if health().get("ok"):
-                return True
-        except (httpx.RequestError, PortalError):
-            continue
-        if proc.poll() is not None:
-            log.close()
-            tail = log_path.read_text(errors="replace").splitlines()[-20:]
-            raise PortalError(
-                "bin/start exited before /api/health came up:\n  " + "\n  ".join(tail)
-            )
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            time.sleep(0.5)
+            try:
+                if health().get("ok"):
+                    return True
+            except (httpx.RequestError, PortalError):
+                continue
+            if proc.poll() is not None:
+                tail = log_path.read_text(errors="replace").splitlines()[-20:]
+                raise PortalError(
+                    "bin/start exited before /api/health came up:\n  " + "\n  ".join(tail)
+                )
 
-    log.close()
     raise PortalError(f"portal did not become healthy within {timeout}s; see {log_path}")
 
 
@@ -338,8 +346,8 @@ def status() -> dict:
             data = list_skills()
             info["skill_count"] = data.get("skill_count")
             info["generated_at"] = data.get("generated_at")
-    except Exception:
-        pass
+    except Exception as e:
+        info["error"] = str(e)
     return info
 
 def _print(obj) -> None:

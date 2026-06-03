@@ -80,7 +80,17 @@ def _backup() -> pathlib.Path:
     ts = dt.datetime.now().strftime("%Y%m%dT%H%M%S%f")
     dst = GRAPH_MMD.with_suffix(f".mmd.bak.{ts}")
     shutil.copy2(GRAPH_MMD, dst)
+    _prune_backups(keep=5)
     return dst
+
+
+def _prune_backups(keep: int = 5) -> None:
+    backups = sorted(SKILLS_ROOT.glob("skills-graph.mmd.bak.*"))
+    for old in backups[:-keep]:
+        try:
+            old.unlink()
+        except OSError:
+            pass
 
 
 def _atomic_write(path: pathlib.Path, content: str) -> None:

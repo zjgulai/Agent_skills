@@ -10,6 +10,7 @@ import json
 import os
 import pathlib
 import re
+import tempfile
 from typing import Any, Optional
 
 import yaml
@@ -180,7 +181,7 @@ def build() -> dict[str, Any]:
         })
 
     payload = {
-        "generated_at": dt.datetime.now().isoformat(),
+        "generated_at": dt.datetime.now(tz=dt.timezone.utc).isoformat(),
         "skills_root": str(SKILLS_ROOT),
         "skill_count": len(skills),
         "domains": domains_payload,
@@ -192,7 +193,17 @@ def build() -> dict[str, Any]:
     }
 
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    DATA_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp_fd, tmp_path = tempfile.mkstemp(dir=DATA_FILE.parent, suffix=".tmp")
+    try:
+        with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+            f.write(json.dumps(payload, ensure_ascii=False, indent=2))
+        os.replace(tmp_path, DATA_FILE)
+    except Exception:
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+        raise
     return payload
 
 

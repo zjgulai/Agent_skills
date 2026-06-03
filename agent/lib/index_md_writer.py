@@ -81,7 +81,17 @@ def _backup() -> pathlib.Path:
     ts = dt.datetime.now().strftime("%Y%m%dT%H%M%S%f")
     dst = INDEX_MD.with_suffix(f".md.bak.{ts}")
     shutil.copy2(INDEX_MD, dst)
+    _prune_backups(keep=5)
     return dst
+
+
+def _prune_backups(keep: int = 5) -> None:
+    backups = sorted(SKILLS_ROOT.glob("INDEX.md.bak.*"))
+    for old in backups[:-keep]:
+        try:
+            old.unlink()
+        except OSError:
+            pass
 
 
 def _atomic_write(path: pathlib.Path, content: str) -> None:

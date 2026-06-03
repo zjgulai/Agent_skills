@@ -17,6 +17,7 @@ import pathlib
 from typing import Optional
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 
@@ -31,6 +32,14 @@ app = FastAPI(
     docs_url="/api/docs",
     redoc_url="/api/redoc",
     openapi_url="/api/openapi.json",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173",
+                   "https://skills-portal.localhost"],
+    allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
 )
 
 app.include_router(hooks_router)
@@ -108,9 +117,14 @@ def post_install_github_monorepo(req: GithubMonorepoInstallRequest) -> dict:
     return res
 
 
+_UPLOAD_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — SKILL.md files are never this large
+
+
 @app.post("/api/install/upload")
 async def post_install_upload(file: UploadFile = File(...)) -> dict:
     content = await file.read()
+    if len(content) > _UPLOAD_MAX_BYTES:
+        raise HTTPException(status_code=413, detail=f"file too large (max {_UPLOAD_MAX_BYTES // 1024 // 1024} MB)")
     res = install_from_upload(file.filename or "upload.md", content)
     if res.ok:
         _refresh()

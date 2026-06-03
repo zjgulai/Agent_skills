@@ -6,6 +6,7 @@ Discovery contract (depth ≤ 2):
 """
 from __future__ import annotations
 
+import os
 import pathlib
 import re
 import shutil
@@ -115,7 +116,7 @@ def _clone_repo(url: str, dest: pathlib.Path) -> Optional[str]:
     blobs as needed. Combined with --depth 1, this dramatically cuts clone time for huge
     monorepos (open-design: 1011 commits, multi-MB binary assets) without affecting correctness.
     """
-    env = {"GIT_TERMINAL_PROMPT": "0", "GIT_PAGER": "cat", "PATH": "/usr/bin:/usr/local/bin:/opt/homebrew/bin"}
+    env = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GIT_PAGER": "cat", "GCM_INTERACTIVE": "never"}
     res = subprocess.run(
         ["git", "clone", "--depth", "1", "--filter=blob:none", url, str(dest)],
         capture_output=True, text=True, timeout=300, env=env,
@@ -150,7 +151,8 @@ def _install_one_from_clone(tmp_repo: pathlib.Path, url: str, subdir: Optional[s
     fm, errors = _validate_frontmatter(skill_md)
     if errors:
         return InstallResult(False, f"frontmatter validation failed: {'; '.join(errors)}")
-    assert fm is not None
+    if fm is None:
+        return InstallResult(False, "frontmatter parse returned None unexpectedly")
     name = fm["name"]
     dest = SKILLS_ROOT / name
 
@@ -271,7 +273,8 @@ def install_from_upload(filename: str, content: bytes) -> InstallResult:
         fm, errors = _validate_frontmatter(tmp_md)
         if errors:
             return InstallResult(False, f"frontmatter validation failed: {'; '.join(errors)}")
-        assert fm is not None
+        if fm is None:
+            return InstallResult(False, "frontmatter parse returned None unexpectedly")
         name = fm["name"]
         dest = SKILLS_ROOT / name
 
