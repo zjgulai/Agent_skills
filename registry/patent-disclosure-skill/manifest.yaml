@@ -2,7 +2,7 @@ kind: skill
 name: patent-disclosure-skill
 version: 0.1.0
 description: Patent mining, disclosure drafting, prior-art search, and consistency self-check covering full Chinese patent disclosure pipeline — scan project docs to mine patentable points, fuse via discussion, generate disclosure based on a desensitized template, run online prior-art check, self-validate logic closure and formula parameter consistency.
-domain: research
+domain: ip
 priority: P2
 
 compatibility:

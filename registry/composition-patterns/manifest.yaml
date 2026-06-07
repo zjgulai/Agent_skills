@@ -2,7 +2,7 @@ kind: skill
 name: composition-patterns
 version: 0.1.0
 description: Enforce well-designed React component composition — compound components, explicit variants, decoupled context, maintainable state models — instead of boolean-prop explosion or render-prop abuse. Use for design systems, component libraries, complex forms, Modal/Dropdown/Select/Tabs-style composable components.
-domain: frontend
+domain: tooling
 priority: P1
 
 compatibility:

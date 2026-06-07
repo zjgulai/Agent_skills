@@ -2,7 +2,7 @@ kind: skill
 name: frontend-design
 version: 0.1.0
 description: Generate frontend UI with strong visual direction (font/color/layout/animation/material) instead of falling into the statistical mean of purple-gradient SaaS templates. Use for landing pages, marketing sites, product showcase, dashboards, and anywhere AI-generated UI tends to look generic.
-domain: frontend
+domain: tooling
 priority: P0
 
 compatibility:

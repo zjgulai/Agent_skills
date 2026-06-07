@@ -70,15 +70,16 @@ Settings → Pages → Source 改为 **GitHub Actions**（不是 "Deploy from a 
 /skill-install https://github.com/<org>/<repo>
 ```
 
-agent 会自动跑完 12 步：
+agent 会自动跑完 11 步：
 0. **scan** 仓库结构 → 自动识别单 skill / monorepo / catalog stub
 1. portal ensure
 2. **一次 clone 批量装**（monorepo 时 17× 提速）
 3-7. 读 frontmatter → 域推断 → INDEX.md → graph + render → portal refresh
 8. `bin/sync-data` 镜像元数据到 `data-mirror/`
 9. 问你最少的问题补 case-study（monorepo 合为 1 个 state；预填可用时不问）
-10-11. git commit + push
-12. 报告 GitHub Actions CI 链接
+10. 运行状态审计并报告 `git status`
+
+> commit/push 必须由用户另行明确要求；`/skill-install` 不自动提交、不自动推送。
 
 ### dry-scan 预览（推荐先扫再装）
 
@@ -101,10 +102,9 @@ portal/backend/.venv/bin/python -m agent.lib.portal_client install-monorepo <URL
 # 2. 同步元数据
 bin/sync-data
 # 3. 编辑 docs/_src/case-studies.json 追加 State N+1
-# 4. 提交
-git add data-mirror/ docs/_src/case-studies.json
-git commit -m "feat(skills): add <skill-name>"
-git push
+# 4. 查看待提交变更；是否 commit/push 由用户另行决定
+portal/backend/.venv/bin/python -m agent.lib.state_audit --json
+git status --short
 ```
 
 ## 边界 / 已知限制

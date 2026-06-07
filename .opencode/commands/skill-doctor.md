@@ -13,6 +13,9 @@ Run 5 health-check rules over an installed skill (or all):
 - **R4** — present in skills-graph.mmd with matching domain
 - **R5** — declared external dependencies are available
 
+For `all`, the JSON output also includes `state_audit`: installed parseable count,
+INDEX count, graph count, mirror sync, docs count, and any global drift.
+
 **Arguments**: `$ARGUMENTS` — skill name, or `all` (default if empty).
 
 ## Execute

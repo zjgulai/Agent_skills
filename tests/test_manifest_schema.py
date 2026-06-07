@@ -20,7 +20,7 @@ VALID_SKILL = {
     "name": "frontend-design",
     "version": "0.1.0",
     "description": "Generate beautiful UI with strong visual direction. Trigger on landing/marketing pages.",
-    "domain": "frontend",
+    "domain": "tooling",
     "priority": "P0",
     "compatibility": {"opencode": "native", "codex": "native", "cursor": "native", "kimi": "native"},
     "source": {"type": "external", "path": "~/.config/opencode/skills/frontend-design"},
@@ -33,7 +33,7 @@ VALID_HOOK = {
     "name": "protect-sensitive-files",
     "version": "0.1.0",
     "description": "Block writes to .env, secrets, migrations on PreToolUse(Write|Edit) events.",
-    "domain": "code-quality",
+    "domain": "closeout",
     "priority": "P0",
     "compatibility": {"opencode": "native", "codex": "unsupported", "cursor": "adapter", "kimi": "adapter"},
     "source": {"type": "local", "path": "registry/protect-sensitive-files/source/"},
@@ -47,7 +47,7 @@ VALID_MCP = {
     "name": "github",
     "version": "0.1.0",
     "description": "GitHub MCP server for repo/issue/PR/CI access. Use when working with github.com workflows.",
-    "domain": "ops",
+    "domain": "tooling",
     "priority": "P0",
     "compatibility": {"opencode": "native", "codex": "native", "cursor": "native", "kimi": "native"},
     "source": {"type": "npm", "package": "@modelcontextprotocol/server-github"},
@@ -200,3 +200,11 @@ def test_hook_events_constant_covers_claude_code_spec():
     expected = {"PreToolUse", "PostToolUse", "UserPromptSubmit", "SessionStart",
                 "Stop", "SubagentStop", "Notification", "PreCompact"}
     assert HOOK_EVENTS == expected
+
+
+def test_skill_registry_uses_portal_six_domains():
+    portal_domains = {"meta", "closeout", "desktop", "founder", "ip", "tooling"}
+    manifests = list(iter_registry(REPO_ROOT, expected_kind="skill"))
+
+    assert manifests
+    assert {m.domain for m in manifests} <= portal_domains

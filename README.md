@@ -70,7 +70,7 @@ cd ~/project/Agent/Agent_skills
 
 | 命令 | 用途 |
 |---|---|
-| `/skill-install <url> [--subdir X] [--dry-scan]` | GitHub URL 一句话到部署：自动检测单 skill / monorepo / catalog stub → 装 → INDEX → graph → sync → commit → push → CI。`--dry-scan` 只读分析不装 |
+| `/skill-install <url> [--subdir X] [--dry-scan]` | GitHub URL 一句话到本地集成：自动检测单 skill / monorepo / catalog stub → 装 → INDEX → graph → sync → git status。`--dry-scan` 只读分析不装；commit/push 必须另行明确要求 |
 | `/skill-uninstall <name>` | 卸载 + 反向清理元数据 |
 | `/skill-update <name\|all>` | git pull + 刷新索引 |
 | `/skill-list` | 按域分组打印所有已装 skill |

@@ -256,6 +256,38 @@
     "local_path": "~/.config/opencode/skills/handoff/SKILL.md"
   },
   {
+    "name": "debug-mantra",
+    "domain": "meta",
+    "role": "🆕 Structured debugging mantra — systematic approach to root cause, from 9arm-skills",
+    "extra": "debug mantra, debugging discipline, root cause",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/debug-mantra/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/debug-mantra/SKILL.md"
+  },
+  {
+    "name": "scrutinize",
+    "domain": "meta",
+    "role": "🆕 Deep code scrutiny for correctness, edge cases, and hidden assumptions",
+    "extra": "scrutinize code, code correctness, edge case analysis",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/scrutinize/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/scrutinize/SKILL.md"
+  },
+  {
+    "name": "post-mortem",
+    "domain": "meta",
+    "role": "🆕 Structured post-mortem: 5-whys, timeline, action items, from 9arm-skills",
+    "extra": "post-mortem, incident review, 5-whys, retrospective",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/post-mortem/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/post-mortem/SKILL.md"
+  },
+  {
+    "name": "management-talk",
+    "domain": "meta",
+    "role": "🆕 Translate technical work into business language for stakeholders",
+    "extra": "management communication, stakeholder update, progress report",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/management-talk/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/management-talk/SKILL.md"
+  },
+  {
     "name": "academic-paper",
     "domain": "meta",
     "role": "🆕 12-agent academic paper pipeline: research → write → review → revise → finalize",
@@ -280,12 +312,20 @@
     "local_path": "~/.config/opencode/skills/academic-pipeline/SKILL.md"
   },
   {
-    "name": "analyzing-threat-actor-ttps-with-mitre-attack",
+    "name": "deep-research",
     "domain": "meta",
-    "role": "🆕 MITRE ATT&CK TTP analysis — maps adversary behavior to framework",
-    "extra": "threat analysis, MITRE ATT&CK, TTP, threat intel",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/analyzing-threat-actor-ttps-with-mitre-attack/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/analyzing-threat-actor-ttps-with-mitre-attack/SKILL.md"
+    "role": "🆕 Universal deep research: multi-source synthesis, evidence grounding",
+    "extra": "deep research, multi-source, evidence-based research",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/deep-research/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/deep-research/SKILL.md"
+  },
+  {
+    "name": "stop-slop",
+    "domain": "meta",
+    "role": "🆕 Remove AI writing tells, structural clichés, overused phrases",
+    "extra": "stop slop, AI writing cleanup, prose quality, anti-generic",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/stop-slop/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/stop-slop/SKILL.md"
   },
   {
     "name": "architecture",
@@ -296,116 +336,12 @@
     "local_path": "~/.config/opencode/skills/architecture/SKILL.md"
   },
   {
-    "name": "code-review",
-    "domain": "meta",
-    "role": "🆕 Anthropic kw-plugins: structured code review for engineering teams",
-    "extra": "code review workflow, PR review, engineering review",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/code-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/code-review/SKILL.md"
-  },
-  {
     "name": "debug",
     "domain": "meta",
     "role": "🆕 Anthropic kw-plugins: structured debugging workflow",
     "extra": "debug workflow, structured debugging, bug investigation",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/debug/manifest.yaml",
     "local_path": "~/.config/opencode/skills/debug/SKILL.md"
-  },
-  {
-    "name": "debug-mantra",
-    "domain": "meta",
-    "role": "🆕 Structured debugging mantra — systematic approach to root cause, from 9arm-skills",
-    "extra": "debug mantra, debugging discipline, root cause",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/debug-mantra/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/debug-mantra/SKILL.md"
-  },
-  {
-    "name": "deep-research",
-    "domain": "meta",
-    "role": "🆕 Universal deep research: multi-source synthesis, evidence grounding",
-    "extra": "deep research, multi-source, evidence-based research",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/deep-research/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/deep-research/SKILL.md"
-  },
-  {
-    "name": "implementing-honeypot-for-ransomware-detection",
-    "domain": "meta",
-    "role": "🆕 Honeypot implementation for ransomware early detection",
-    "extra": "honeypot, ransomware detection, deception security",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/implementing-honeypot-for-ransomware-detection/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/implementing-honeypot-for-ransomware-detection/SKILL.md"
-  },
-  {
-    "name": "incident-response",
-    "domain": "meta",
-    "role": "🆕 Anthropic kw-plugins: incident response and coordination",
-    "extra": "incident response, outage, production issue, on-call",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/incident-response/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/incident-response/SKILL.md"
-  },
-  {
-    "name": "knowledge-synthesis",
-    "domain": "meta",
-    "role": "🆕 Anthropic kw-plugins: synthesize info from multiple sources",
-    "extra": "knowledge synthesis, research synthesis, multi-source",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/knowledge-synthesis/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/knowledge-synthesis/SKILL.md"
-  },
-  {
-    "name": "management-talk",
-    "domain": "meta",
-    "role": "🆕 Translate technical work into business language for stakeholders",
-    "extra": "management communication, stakeholder update, progress report",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/management-talk/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/management-talk/SKILL.md"
-  },
-  {
-    "name": "metrics-review",
-    "domain": "meta",
-    "role": "🆕 Anthropic kw-plugins: product metrics review and OKR analysis",
-    "extra": "metrics review, KPI, product metrics, OKR",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/metrics-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/metrics-review/SKILL.md"
-  },
-  {
-    "name": "post-mortem",
-    "domain": "meta",
-    "role": "🆕 Structured post-mortem: 5-whys, timeline, action items, from 9arm-skills",
-    "extra": "post-mortem, incident review, 5-whys, retrospective",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/post-mortem/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/post-mortem/SKILL.md"
-  },
-  {
-    "name": "scrutinize",
-    "domain": "meta",
-    "role": "🆕 Deep code scrutiny for correctness, edge cases, and hidden assumptions",
-    "extra": "scrutinize code, code correctness, edge case analysis",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/scrutinize/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/scrutinize/SKILL.md"
-  },
-  {
-    "name": "search",
-    "domain": "meta",
-    "role": "🆕 Anthropic kw-plugins: enterprise search strategy",
-    "extra": "enterprise search, knowledge base search, search strategy",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/search/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/search/SKILL.md"
-  },
-  {
-    "name": "sprint-planning",
-    "domain": "meta",
-    "role": "🆕 Anthropic kw-plugins: sprint planning and story estimation",
-    "extra": "sprint planning, story points, backlog grooming",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/sprint-planning/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/sprint-planning/SKILL.md"
-  },
-  {
-    "name": "stop-slop",
-    "domain": "meta",
-    "role": "🆕 Remove AI writing tells, structural clichés, overused phrases",
-    "extra": "stop slop, AI writing cleanup, prose quality, anti-generic",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/stop-slop/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/stop-slop/SKILL.md"
   },
   {
     "name": "system-design",
@@ -424,12 +360,100 @@
     "local_path": "~/.config/opencode/skills/tech-debt/SKILL.md"
   },
   {
+    "name": "incident-response",
+    "domain": "meta",
+    "role": "🆕 Anthropic kw-plugins: incident response and coordination",
+    "extra": "incident response, outage, production issue, on-call",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/incident-response/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/incident-response/SKILL.md"
+  },
+  {
     "name": "write-spec",
     "domain": "meta",
     "role": "🆕 Anthropic kw-plugins: engineering specs and technical requirements",
     "extra": "write spec, technical spec, RFC, requirements",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/write-spec/manifest.yaml",
     "local_path": "~/.config/opencode/skills/write-spec/SKILL.md"
+  },
+  {
+    "name": "sprint-planning",
+    "domain": "meta",
+    "role": "🆕 Anthropic kw-plugins: sprint planning and story estimation",
+    "extra": "sprint planning, story points, backlog grooming",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/sprint-planning/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/sprint-planning/SKILL.md"
+  },
+  {
+    "name": "metrics-review",
+    "domain": "meta",
+    "role": "🆕 Anthropic kw-plugins: product metrics review and OKR analysis",
+    "extra": "metrics review, KPI, product metrics, OKR",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/metrics-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/metrics-review/SKILL.md"
+  },
+  {
+    "name": "knowledge-synthesis",
+    "domain": "meta",
+    "role": "🆕 Anthropic kw-plugins: synthesize info from multiple sources",
+    "extra": "knowledge synthesis, research synthesis, multi-source",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/knowledge-synthesis/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/knowledge-synthesis/SKILL.md"
+  },
+  {
+    "name": "search",
+    "domain": "meta",
+    "role": "🆕 Anthropic kw-plugins: enterprise search strategy",
+    "extra": "enterprise search, knowledge base search, search strategy",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/search/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/search/SKILL.md"
+  },
+  {
+    "name": "code-review",
+    "domain": "meta",
+    "role": "🆕 Anthropic kw-plugins: structured code review for engineering teams",
+    "extra": "code review workflow, PR review, engineering review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/code-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/code-review/SKILL.md"
+  },
+  {
+    "name": "analyzing-threat-actor-ttps-with-mitre-attack",
+    "domain": "meta",
+    "role": "🆕 MITRE ATT&CK TTP analysis — maps adversary behavior to framework",
+    "extra": "threat analysis, MITRE ATT&CK, TTP, threat intel",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/analyzing-threat-actor-ttps-with-mitre-attack/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/analyzing-threat-actor-ttps-with-mitre-attack/SKILL.md"
+  },
+  {
+    "name": "implementing-honeypot-for-ransomware-detection",
+    "domain": "meta",
+    "role": "🆕 Honeypot implementation for ransomware early detection",
+    "extra": "honeypot, ransomware detection, deception security",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/implementing-honeypot-for-ransomware-detection/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/implementing-honeypot-for-ransomware-detection/SKILL.md"
+  },
+  {
+    "name": "codegraph-add-lang",
+    "domain": "meta",
+    "role": "CodeGraph language support implementation SOP",
+    "extra": "/add-lang, tree-sitter, codegraph",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codegraph-add-lang/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/codegraph-add-lang/SKILL.md"
+  },
+  {
+    "name": "codegraph-agent-eval",
+    "domain": "meta",
+    "role": "CodeGraph retrieval benchmark SOP",
+    "extra": "/agent-eval, benchmark, codegraph",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codegraph-agent-eval/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/codegraph-agent-eval/SKILL.md"
+  },
+  {
+    "name": "paper-skills-gap-analysis",
+    "domain": "meta",
+    "role": "Skills graph coverage gap analysis SOP",
+    "extra": "skills graph 缺口, 推荐新选题方向, Sprint 选题",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper-skills-gap-analysis/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/paper-skills-gap-analysis/SKILL.md"
   },
   {
     "name": "codex-review",
@@ -558,6 +582,62 @@
     "extra": "pressure-test startup idea, validate problem, ICP, first 10 customers, MVP, 2-week launch plan, founder-market fit, strong/weak/pivot verdict",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/startup-pressure-test/manifest.yaml",
     "local_path": "~/.config/opencode/skills/startup-pressure-test/SKILL.md"
+  },
+  {
+    "name": "brand-knowledge-base-builder",
+    "domain": "founder",
+    "role": "Brand knowledge-base extraction SOP",
+    "extra": "品牌知识库, 品牌 AI 化, L1-L11",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/brand-knowledge-base-builder/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/brand-knowledge-base-builder/SKILL.md"
+  },
+  {
+    "name": "dtc-brand-recon",
+    "domain": "founder",
+    "role": "DTC brand asset reconnaissance before SKU work",
+    "extra": "品牌侦查, SOP-B 开始, 官网调研",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-brand-recon/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dtc-brand-recon/SKILL.md"
+  },
+  {
+    "name": "dtc-commercial-image-gen",
+    "domain": "founder",
+    "role": "DTC commercial image generation SOP",
+    "extra": "生图, 产品主图, Hero Shot",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-commercial-image-gen/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dtc-commercial-image-gen/SKILL.md"
+  },
+  {
+    "name": "dtc-compliance-3track",
+    "domain": "founder",
+    "role": "DTC compliance three-track verification SOP",
+    "extra": "合规检查, ToV 审查, 法规审查",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-compliance-3track/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dtc-compliance-3track/SKILL.md"
+  },
+  {
+    "name": "dtc-site-forensic-audit",
+    "domain": "founder",
+    "role": "DTC site performance and CRO forensic audit",
+    "extra": "诊断网站, DTC 站审计, CRO 分析",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-site-forensic-audit/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dtc-site-forensic-audit/SKILL.md"
+  },
+  {
+    "name": "dtc-sop-a-selection",
+    "domain": "founder",
+    "role": "DTC product selection scan SOP",
+    "extra": "SOP-A, 选品扫描, 品类分析",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-sop-a-selection/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dtc-sop-a-selection/SKILL.md"
+  },
+  {
+    "name": "dtc-voc-3layer-analysis",
+    "domain": "founder",
+    "role": "Three-layer DTC VOC insight analysis",
+    "extra": "VOC 分析, 痛点挖掘, 差评分析",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-voc-3layer-analysis/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dtc-voc-3layer-analysis/SKILL.md"
   },
   {
     "name": "patent-disclosure-skill",
@@ -800,116 +880,12 @@
     "local_path": "~/.config/opencode/skills/anysearch/SKILL.md"
   },
   {
-    "name": "accessibility-review",
+    "name": "minimalist-ui",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: accessibility review against WCAG standards",
-    "extra": "accessibility review, WCAG, a11y, screen reader, inclusive design",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/accessibility-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/accessibility-review/SKILL.md"
-  },
-  {
-    "name": "account-research",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: B2B account research for sales",
-    "extra": "account research, company research, ICP qualification",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/account-research/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/account-research/SKILL.md"
-  },
-  {
-    "name": "cash-flow-snapshot",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: quick cash flow health check",
-    "extra": "cash flow, financial health, burn rate, runway",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/cash-flow-snapshot/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/cash-flow-snapshot/SKILL.md"
-  },
-  {
-    "name": "competitive-intelligence",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: competitive intelligence gathering",
-    "extra": "competitive intel, competitor analysis, market research",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/competitive-intelligence/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/competitive-intelligence/SKILL.md"
-  },
-  {
-    "name": "compliance-check",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: compliance check against regulations",
-    "extra": "compliance check, regulatory compliance, legal compliance",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/compliance-check/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/compliance-check/SKILL.md"
-  },
-  {
-    "name": "content-creation",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: marketing content creation",
-    "extra": "content creation, marketing content, blog post, article",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/content-creation/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/content-creation/SKILL.md"
-  },
-  {
-    "name": "data-visualization",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: data visualization best practices",
-    "extra": "data viz, charts, dashboards, visualization design",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/data-visualization/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/data-visualization/SKILL.md"
-  },
-  {
-    "name": "design-critique",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: structured design critique and feedback",
-    "extra": "design critique, design feedback, visual assessment",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-critique/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/design-critique/SKILL.md"
-  },
-  {
-    "name": "draft-outreach",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: draft sales outreach messages",
-    "extra": "draft outreach, cold email, sales email, prospect message",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/draft-outreach/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/draft-outreach/SKILL.md"
-  },
-  {
-    "name": "draft-response",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: draft professional responses to customer inquiries",
-    "extra": "draft response, customer reply, support email",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/draft-response/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/draft-response/SKILL.md"
-  },
-  {
-    "name": "email-sequence",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: email sequence and nurture campaigns",
-    "extra": "email sequence, drip campaign, email nurture, onboarding email",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/email-sequence/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/email-sequence/SKILL.md"
-  },
-  {
-    "name": "explore-data",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: exploratory data analysis",
-    "extra": "data exploration, EDA, data profiling, statistical summary",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/explore-data/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/explore-data/SKILL.md"
-  },
-  {
-    "name": "financial-statements",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: financial statement analysis and commentary",
-    "extra": "financial statements, P&L, balance sheet, cash flow",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/financial-statements/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/financial-statements/SKILL.md"
-  },
-  {
-    "name": "high-end-visual-design",
-    "domain": "tooling",
-    "role": "🆕 Taste-skill: premium soft/luxury visual design — depth, glow, refinement",
-    "extra": "high-end design, luxury UI, soft design, premium visual",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/high-end-visual-design/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/high-end-visual-design/SKILL.md"
+    "role": "🆕 Taste-skill: minimalist UI aesthetic — whitespace, reduction, restraint",
+    "extra": "minimalist design, minimal UI, whitespace, reduction",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/minimalist-ui/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/minimalist-ui/SKILL.md"
   },
   {
     "name": "industrial-brutalist-ui",
@@ -920,54 +896,6 @@
     "local_path": "~/.config/opencode/skills/industrial-brutalist-ui/SKILL.md"
   },
   {
-    "name": "interview-prep",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: interview preparation for hiring",
-    "extra": "interview prep, hiring, interview questions, candidate",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/interview-prep/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/interview-prep/SKILL.md"
-  },
-  {
-    "name": "lead-triage",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: lead qualification and triage",
-    "extra": "lead triage, lead qualification, inbound leads",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/lead-triage/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/lead-triage/SKILL.md"
-  },
-  {
-    "name": "minimalist-ui",
-    "domain": "tooling",
-    "role": "🆕 Taste-skill: minimalist UI aesthetic — whitespace, reduction, restraint",
-    "extra": "minimalist design, minimal UI, whitespace, reduction",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/minimalist-ui/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/minimalist-ui/SKILL.md"
-  },
-  {
-    "name": "onboarding",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: employee onboarding planning",
-    "extra": "onboarding, new hire, orientation, employee setup",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/onboarding/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/onboarding/SKILL.md"
-  },
-  {
-    "name": "performance-review",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: employee performance review writing",
-    "extra": "performance review, employee evaluation, feedback writing",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/performance-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/performance-review/SKILL.md"
-  },
-  {
-    "name": "pipeline-review",
-    "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: sales pipeline review and health check",
-    "extra": "pipeline review, sales forecast, deal review",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/pipeline-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/pipeline-review/SKILL.md"
-  },
-  {
     "name": "redesign-existing-projects",
     "domain": "tooling",
     "role": "🆕 Taste-skill: systematic redesign of existing UI to a new aesthetic",
@@ -976,36 +904,68 @@
     "local_path": "~/.config/opencode/skills/redesign-existing-projects/SKILL.md"
   },
   {
-    "name": "review-contract",
+    "name": "stitch-design-taste",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: contract review and legal risk identification",
-    "extra": "contract review, legal review, NDA review, agreement review",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/review-contract/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/review-contract/SKILL.md"
+    "role": "🆕 Taste-skill: stitch together multiple design references into cohesive style",
+    "extra": "design synthesis, style stitching, visual coherence",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/stitch-design-taste/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/stitch-design-taste/SKILL.md"
   },
   {
-    "name": "risk-assessment",
+    "name": "high-end-visual-design",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: risk assessment and mitigation planning",
-    "extra": "risk assessment, risk analysis, mitigation plan",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/risk-assessment/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/risk-assessment/SKILL.md"
+    "role": "🆕 Taste-skill: premium soft/luxury visual design — depth, glow, refinement",
+    "extra": "high-end design, luxury UI, soft design, premium visual",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/high-end-visual-design/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/high-end-visual-design/SKILL.md"
   },
   {
-    "name": "runbook",
+    "name": "design-critique",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: create operational runbooks",
-    "extra": "runbook, SOP, operational procedure, ops guide",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/runbook/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/runbook/SKILL.md"
+    "role": "🆕 Anthropic kw-plugins: structured design critique and feedback",
+    "extra": "design critique, design feedback, visual assessment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-critique/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/design-critique/SKILL.md"
   },
   {
-    "name": "seo-audit",
+    "name": "accessibility-review",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: SEO audit and optimization",
-    "extra": "SEO audit, search optimization, on-page SEO, meta tags",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/seo-audit/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/seo-audit/SKILL.md"
+    "role": "🆕 Anthropic kw-plugins: accessibility review against WCAG standards",
+    "extra": "accessibility review, WCAG, a11y, screen reader, inclusive design",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/accessibility-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/accessibility-review/SKILL.md"
+  },
+  {
+    "name": "ux-copy",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: UX copywriting for UI elements",
+    "extra": "ux copy, microcopy, button labels, UI text, UX writing",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ux-copy/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/ux-copy/SKILL.md"
+  },
+  {
+    "name": "ticket-triage",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: customer support ticket triage",
+    "extra": "ticket triage, support prioritization, customer tickets",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ticket-triage/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/ticket-triage/SKILL.md"
+  },
+  {
+    "name": "draft-response",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: draft professional responses to customer inquiries",
+    "extra": "draft response, customer reply, support email",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/draft-response/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/draft-response/SKILL.md"
+  },
+  {
+    "name": "explore-data",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: exploratory data analysis",
+    "extra": "data exploration, EDA, data profiling, statistical summary",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/explore-data/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/explore-data/SKILL.md"
   },
   {
     "name": "sql-queries",
@@ -1024,28 +984,92 @@
     "local_path": "~/.config/opencode/skills/statistical-analysis/SKILL.md"
   },
   {
-    "name": "stitch-design-taste",
+    "name": "data-visualization",
     "domain": "tooling",
-    "role": "🆕 Taste-skill: stitch together multiple design references into cohesive style",
-    "extra": "design synthesis, style stitching, visual coherence",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/stitch-design-taste/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/stitch-design-taste/SKILL.md"
+    "role": "🆕 Anthropic kw-plugins: data visualization best practices",
+    "extra": "data viz, charts, dashboards, visualization design",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/data-visualization/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/data-visualization/SKILL.md"
   },
   {
-    "name": "ticket-triage",
+    "name": "content-creation",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: customer support ticket triage",
-    "extra": "ticket triage, support prioritization, customer tickets",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ticket-triage/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/ticket-triage/SKILL.md"
+    "role": "🆕 Anthropic kw-plugins: marketing content creation",
+    "extra": "content creation, marketing content, blog post, article",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/content-creation/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/content-creation/SKILL.md"
   },
   {
-    "name": "ux-copy",
+    "name": "seo-audit",
     "domain": "tooling",
-    "role": "🆕 Anthropic kw-plugins: UX copywriting for UI elements",
-    "extra": "ux copy, microcopy, button labels, UI text, UX writing",
-    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ux-copy/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/ux-copy/SKILL.md"
+    "role": "🆕 Anthropic kw-plugins: SEO audit and optimization",
+    "extra": "SEO audit, search optimization, on-page SEO, meta tags",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/seo-audit/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/seo-audit/SKILL.md"
+  },
+  {
+    "name": "email-sequence",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: email sequence and nurture campaigns",
+    "extra": "email sequence, drip campaign, email nurture, onboarding email",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/email-sequence/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/email-sequence/SKILL.md"
+  },
+  {
+    "name": "review-contract",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: contract review and legal risk identification",
+    "extra": "contract review, legal review, NDA review, agreement review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/review-contract/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/review-contract/SKILL.md"
+  },
+  {
+    "name": "compliance-check",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: compliance check against regulations",
+    "extra": "compliance check, regulatory compliance, legal compliance",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/compliance-check/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/compliance-check/SKILL.md"
+  },
+  {
+    "name": "runbook",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: create operational runbooks",
+    "extra": "runbook, SOP, operational procedure, ops guide",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/runbook/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/runbook/SKILL.md"
+  },
+  {
+    "name": "risk-assessment",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: risk assessment and mitigation planning",
+    "extra": "risk assessment, risk analysis, mitigation plan",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/risk-assessment/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/risk-assessment/SKILL.md"
+  },
+  {
+    "name": "performance-review",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: employee performance review writing",
+    "extra": "performance review, employee evaluation, feedback writing",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/performance-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/performance-review/SKILL.md"
+  },
+  {
+    "name": "interview-prep",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: interview preparation for hiring",
+    "extra": "interview prep, hiring, interview questions, candidate",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/interview-prep/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/interview-prep/SKILL.md"
+  },
+  {
+    "name": "onboarding",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: employee onboarding planning",
+    "extra": "onboarding, new hire, orientation, employee setup",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/onboarding/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/onboarding/SKILL.md"
   },
   {
     "name": "variance-analysis",
@@ -1054,5 +1078,69 @@
     "extra": "variance analysis, budget vs actual, financial variance",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/variance-analysis/manifest.yaml",
     "local_path": "~/.config/opencode/skills/variance-analysis/SKILL.md"
+  },
+  {
+    "name": "financial-statements",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: financial statement analysis and commentary",
+    "extra": "financial statements, P&L, balance sheet, cash flow",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/financial-statements/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/financial-statements/SKILL.md"
+  },
+  {
+    "name": "account-research",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: B2B account research for sales",
+    "extra": "account research, company research, ICP qualification",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/account-research/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/account-research/SKILL.md"
+  },
+  {
+    "name": "pipeline-review",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: sales pipeline review and health check",
+    "extra": "pipeline review, sales forecast, deal review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/pipeline-review/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/pipeline-review/SKILL.md"
+  },
+  {
+    "name": "competitive-intelligence",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: competitive intelligence gathering",
+    "extra": "competitive intel, competitor analysis, market research",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/competitive-intelligence/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/competitive-intelligence/SKILL.md"
+  },
+  {
+    "name": "draft-outreach",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: draft sales outreach messages",
+    "extra": "draft outreach, cold email, sales email, prospect message",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/draft-outreach/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/draft-outreach/SKILL.md"
+  },
+  {
+    "name": "cash-flow-snapshot",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: quick cash flow health check",
+    "extra": "cash flow, financial health, burn rate, runway",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/cash-flow-snapshot/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/cash-flow-snapshot/SKILL.md"
+  },
+  {
+    "name": "lead-triage",
+    "domain": "tooling",
+    "role": "🆕 Anthropic kw-plugins: lead qualification and triage",
+    "extra": "lead triage, lead qualification, inbound leads",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/lead-triage/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/lead-triage/SKILL.md"
+  },
+  {
+    "name": "bi-prompt-engineering",
+    "domain": "tooling",
+    "role": "BI prompt accuracy and field-mapping SOP",
+    "extra": "提示词准确率低, AI 算错数, BI 报告",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/bi-prompt-engineering/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/bi-prompt-engineering/SKILL.md"
   }
 ]

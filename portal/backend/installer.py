@@ -21,6 +21,7 @@ from build_index import SKILLS_ROOT, parse_frontmatter
 SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 MAX_NAME_LEN = 64
 MAX_DESC_LEN = 1024
+GITHUB_URL_PREFIXES = ("https://github.com/", "git@github.com:")
 SKIP_TOP_LEVEL = {".git", "LICENSE", "README.md", ".gitignore", "package.json"}
 SKIP_DIRS = {".git", ".github", ".idea", ".vscode", ".cache", ".pytest_cache",
              "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
@@ -130,7 +131,23 @@ def _clone_repo(url: str, dest: pathlib.Path) -> Optional[str]:
     return None
 
 
-def _install_one_from_clone(tmp_repo: pathlib.Path, url: str, subdir: Optional[str]) -> InstallResult:
+def _validate_github_url(url: str) -> Optional[str]:
+    if url.startswith(GITHUB_URL_PREFIXES):
+        return None
+    return (
+        "only secure GitHub URLs supported "
+        "(https://github.com/ or git@github.com:), got: "
+        f"{url}"
+    )
+
+
+def _install_one_from_clone(
+    tmp_repo: pathlib.Path,
+    url: str,
+    subdir: Optional[str],
+    *,
+    overwrite: bool = False,
+) -> InstallResult:
     """Install one skill from an already-cloned repo. Pure local FS work, no network."""
     if subdir:
         search_root = tmp_repo / subdir
@@ -162,7 +179,14 @@ def _install_one_from_clone(tmp_repo: pathlib.Path, url: str, subdir: Optional[s
 
     warnings = []
     if dest.exists():
-        warnings.append(f"overwriting existing skill at {dest}")
+        if not overwrite:
+            return InstallResult(
+                False,
+                f"skill '{name}' already exists at {dest}; retry with overwrite=true to replace it",
+                skill_name=name,
+                skill_dir=str(dest),
+            )
+        warnings.append(f"overwrote existing skill at {dest}")
 
     _copy_skill_content(skill_src_dir, dest)
 
@@ -175,9 +199,15 @@ def _install_one_from_clone(tmp_repo: pathlib.Path, url: str, subdir: Optional[s
     )
 
 
-def install_from_github(url: str, subdir: Optional[str] = None) -> InstallResult:
-    if not url.startswith(("https://github.com/", "git@github.com:", "http://github.com/")):
-        return InstallResult(False, f"only GitHub URLs supported, got: {url}")
+def install_from_github(
+    url: str,
+    subdir: Optional[str] = None,
+    *,
+    overwrite: bool = False,
+) -> InstallResult:
+    invalid = _validate_github_url(url)
+    if invalid:
+        return InstallResult(False, invalid)
 
     tmp_parent = pathlib.Path(tempfile.gettempdir()) / "skills-portal-clone"
     tmp_parent.mkdir(exist_ok=True)
@@ -187,12 +217,17 @@ def install_from_github(url: str, subdir: Optional[str] = None) -> InstallResult
         err = _clone_repo(url, tmp_repo)
         if err:
             return InstallResult(False, err)
-        return _install_one_from_clone(tmp_repo, url, subdir)
+        return _install_one_from_clone(tmp_repo, url, subdir, overwrite=overwrite)
     finally:
         shutil.rmtree(tmp_repo, ignore_errors=True)
 
 
-def install_monorepo_from_github(url: str, subdirs: Optional[list[str]] = None) -> dict:
+def install_monorepo_from_github(
+    url: str,
+    subdirs: Optional[list[str]] = None,
+    *,
+    overwrite: bool = False,
+) -> dict:
     """Clone once, install many subdirs.
 
     If subdirs is None: auto-discover every directory containing a SKILL.md
@@ -201,8 +236,9 @@ def install_monorepo_from_github(url: str, subdirs: Optional[list[str]] = None) 
     Returns {ok, message, total, succeeded, failed, results: [InstallResult-as-dict, ...]}.
     Failure of one subdir does NOT abort the rest.
     """
-    if not url.startswith(("https://github.com/", "git@github.com:", "http://github.com/")):
-        return {"ok": False, "message": f"only GitHub URLs supported, got: {url}",
+    invalid = _validate_github_url(url)
+    if invalid:
+        return {"ok": False, "message": invalid,
                 "total": 0, "succeeded": 0, "failed": 0, "results": []}
 
     tmp_parent = pathlib.Path(tempfile.gettempdir()) / "skills-portal-clone"
@@ -233,7 +269,7 @@ def install_monorepo_from_github(url: str, subdirs: Optional[list[str]] = None) 
         failed = 0
         for sub in subdirs:
             sub_arg = sub if sub else None
-            r = _install_one_from_clone(tmp_repo, url, sub_arg)
+            r = _install_one_from_clone(tmp_repo, url, sub_arg, overwrite=overwrite)
             entry = {
                 "subdir": sub or "(root)",
                 "ok": r.ok,
@@ -263,7 +299,7 @@ def install_monorepo_from_github(url: str, subdirs: Optional[list[str]] = None) 
 
 
 
-def install_from_upload(filename: str, content: bytes) -> InstallResult:
+def install_from_upload(filename: str, content: bytes, *, overwrite: bool = False) -> InstallResult:
     if not filename.lower().endswith(".md"):
         return InstallResult(False, f"upload must be a .md file, got: {filename}")
 
@@ -284,7 +320,14 @@ def install_from_upload(filename: str, content: bytes) -> InstallResult:
 
         warnings = []
         if dest.exists():
-            warnings.append(f"overwriting existing skill at {dest}")
+            if not overwrite:
+                return InstallResult(
+                    False,
+                    f"skill '{name}' already exists at {dest}; retry with overwrite=true to replace it",
+                    skill_name=name,
+                    skill_dir=str(dest),
+                )
+            warnings.append(f"overwrote existing skill at {dest}")
             shutil.rmtree(dest)
         dest.mkdir(parents=True)
         shutil.copy2(tmp_md, dest / "SKILL.md")

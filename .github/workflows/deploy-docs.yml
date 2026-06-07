@@ -47,6 +47,18 @@ jobs:
       - name: Build docs/<lang>/*.html from originals
         run: python docs/_src/build.py
 
+      - name: Verify mirrored metadata consistency
+        run: |
+          python -m agent.lib.state_audit \
+            --metadata-only \
+            --skills-root data-mirror \
+            --index-md data-mirror/INDEX.md \
+            --graph-mmd data-mirror/skills-graph.mmd \
+            --graph-png data-mirror/skills-graph.png \
+            --mirror-dir data-mirror \
+            --docs-status-json docs/data/portal-status.json \
+            --check
+
       - name: Mirror skills-graph.png into docs/assets
         run: |
           mkdir -p docs/assets

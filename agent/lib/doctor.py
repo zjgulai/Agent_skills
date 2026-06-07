@@ -25,6 +25,8 @@ from typing import Optional
 
 import yaml
 
+from agent.lib.state_audit import audit_state
+
 SKILLS_ROOT = pathlib.Path(os.path.expanduser("~/.config/opencode/skills"))
 
 DEPENDENCY_HINTS = {
@@ -64,6 +66,43 @@ def _python_module_available(modname: str) -> bool:
 def _has_local_mmdc(skill_name: str) -> bool:
     candidate = SKILLS_ROOT / skill_name / "tools" / "node_modules" / ".bin" / "mmdc"
     return candidate.exists()
+
+
+def _as_str_list(value) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, (list, tuple, set)):
+        return [str(v) for v in value if str(v).strip()]
+    return []
+
+
+def _declared_dependency_hints(fm: dict) -> list[tuple[str, object]]:
+    """Build dependency checks from optional frontmatter declarations.
+
+    Supported shapes:
+      requires:
+        binaries: [node, npm]
+        env: [OPENAI_API_KEY]
+        python_modules: [yaml]
+
+    Also accepts `commands` as an alias for `binaries`.
+    """
+    requires = fm.get("requires") or fm.get("dependencies") or {}
+    if isinstance(requires, list):
+        requires = {"binaries": requires}
+    if not isinstance(requires, dict):
+        return []
+
+    checks: list[tuple[str, object]] = []
+    for binary in _as_str_list(requires.get("binaries")) + _as_str_list(requires.get("commands")):
+        checks.append((f"binary:{binary}", lambda binary=binary: bool(shutil.which(binary))))
+    for env_name in _as_str_list(requires.get("env")):
+        checks.append((f"env:{env_name}", lambda env_name=env_name: bool(os.environ.get(env_name))))
+    for module in _as_str_list(requires.get("python_modules")):
+        checks.append((f"python:{module}", lambda module=module: _python_module_available(module)))
+    return checks
 
 
 @dataclass
@@ -140,7 +179,7 @@ def check(name: str) -> CheckReport:
         else:
             rep.passed.append(f"R4: in skills-graph.mmd as {sid} ({info['domain']})")
 
-    deps = DEPENDENCY_HINTS.get(name, [])
+    deps = DEPENDENCY_HINTS.get(name, []) + _declared_dependency_hints(fm)
     if not deps:
         rep.passed.append("R5: no known external dependencies")
     else:
@@ -169,12 +208,39 @@ def check_all() -> dict[str, CheckReport]:
     return out
 
 
+def _state_audit_payload() -> dict:
+    report = audit_state()
+    return {
+        "has_drift": report.has_drift,
+        "installed_parseable_count": report.installed_parseable_count,
+        "index_count": report.index_count,
+        "graph_count": report.graph_count,
+        "invalid_frontmatter": report.invalid_frontmatter,
+        "parseable_not_indexed": report.parseable_not_indexed,
+        "indexed_missing_or_invalid": report.indexed_missing_or_invalid,
+        "index_missing_graph": report.index_missing_graph,
+        "graph_extra": report.graph_extra,
+        "graph_domain_mismatch": report.graph_domain_mismatch,
+        "mirror_index_in_sync": report.mirror_index_in_sync,
+        "mirror_graph_in_sync": report.mirror_graph_in_sync,
+        "mirror_png_in_sync": report.mirror_png_in_sync,
+        "docs_status_matches_parseable": report.docs_status_matches_parseable,
+    }
+
+
+def build_all_payload(*, include_state_audit: bool = True) -> dict:
+    results = check_all()
+    payload = {"skills": {n: r.to_dict() for n, r in results.items()}}
+    if include_state_audit:
+        payload["state_audit"] = _state_audit_payload()
+    return payload
+
+
 def _main(argv: list[str]) -> int:
     import json
     target = argv[0] if argv else "all"
     if target == "all":
-        results = check_all()
-        payload = {n: r.to_dict() for n, r in results.items()}
+        payload = build_all_payload(include_state_audit=True)
     else:
         payload = check(target).to_dict()
     print(json.dumps(payload, ensure_ascii=False, indent=2))

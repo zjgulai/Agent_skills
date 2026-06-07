@@ -41,6 +41,31 @@ flowchart LR
     C2[caveman]:::metaDomain
     GM[grill-me]:::metaDomain
     H[handoff]:::metaDomain
+    CAL[codegraph-add-lang]:::metaDomain
+    CAE[codegraph-agent-eval]:::metaDomain
+    PSGA[paper-skills-gap-analysis]:::metaDomain
+    AP[academic-paper]:::metaDomain
+    APR[academic-paper-reviewer]:::metaDomain
+    AP2[academic-pipeline]:::metaDomain
+    ATATWMA[analyzing-threat-actor-ttps-with-mitre-attack]:::metaDomain
+    A3[architecture]:::metaDomain
+    CR3[code-review]:::metaDomain
+    D2[debug]:::metaDomain
+    DM[debug-mantra]:::metaDomain
+    DR2[deep-research]:::metaDomain
+    IHFRD[implementing-honeypot-for-ransomware-detection]:::metaDomain
+    IR[incident-response]:::metaDomain
+    KS[knowledge-synthesis]:::metaDomain
+    MT[management-talk]:::metaDomain
+    MR[metrics-review]:::metaDomain
+    PM[post-mortem]:::metaDomain
+    S[scrutinize]:::metaDomain
+    S2[search]:::metaDomain
+    SP[sprint-planning]:::metaDomain
+    SS[stop-slop]:::metaDomain
+    SD2[system-design]:::metaDomain
+    TD[tech-debt]:::metaDomain
+    WS2[write-spec]:::metaDomain
 
     %% Domain 2 - Closeout
     CR[codex-review]:::closeoutDomain
@@ -63,6 +88,13 @@ flowchart LR
 
     %% Domain 4 - Founder
     SPT[startup-pressure-test]:::founderDomain
+    BKBB[brand-knowledge-base-builder]:::founderDomain
+    DBR[dtc-brand-recon]:::founderDomain
+    DCIG[dtc-commercial-image-gen]:::founderDomain
+    DC3[dtc-compliance-3track]:::founderDomain
+    DSFA[dtc-site-forensic-audit]:::founderDomain
+    DSAS[dtc-sop-a-selection]:::founderDomain
+    DV3A[dtc-voc-3layer-analysis]:::founderDomain
 
     %% Domain 5 - IP
     PAT[patent-disclosure-skill]:::ipDomain
@@ -180,6 +212,138 @@ flowchart LR
 
     A2[anysearch]:::toolingDomain
 
+    %% Tooling domain
+
+    BPE[bi-prompt-engineering]:::toolingDomain
+
+    %% Tooling domain
+
+    AR2[accessibility-review]:::toolingDomain
+
+    %% Tooling domain
+
+    AR3[account-research]:::toolingDomain
+
+    %% Tooling domain
+
+    CFS[cash-flow-snapshot]:::toolingDomain
+
+    %% Tooling domain
+
+    CI[competitive-intelligence]:::toolingDomain
+
+    %% Tooling domain
+
+    CC[compliance-check]:::toolingDomain
+
+    %% Tooling domain
+
+    CC2[content-creation]:::toolingDomain
+
+    %% Tooling domain
+
+    DV[data-visualization]:::toolingDomain
+
+    %% Tooling domain
+
+    DC2[design-critique]:::toolingDomain
+
+    %% Tooling domain
+
+    DO[draft-outreach]:::toolingDomain
+
+    %% Tooling domain
+
+    DR3[draft-response]:::toolingDomain
+
+    %% Tooling domain
+
+    ES[email-sequence]:::toolingDomain
+
+    %% Tooling domain
+
+    ED[explore-data]:::toolingDomain
+
+    %% Tooling domain
+
+    FS[financial-statements]:::toolingDomain
+
+    %% Tooling domain
+
+    HEVD[high-end-visual-design]:::toolingDomain
+
+    %% Tooling domain
+
+    IBU[industrial-brutalist-ui]:::toolingDomain
+
+    %% Tooling domain
+
+    IP[interview-prep]:::toolingDomain
+
+    %% Tooling domain
+
+    LT[lead-triage]:::toolingDomain
+
+    %% Tooling domain
+
+    MU[minimalist-ui]:::toolingDomain
+
+    %% Tooling domain
+
+    O[onboarding]:::toolingDomain
+
+    %% Tooling domain
+
+    PR[performance-review]:::toolingDomain
+
+    %% Tooling domain
+
+    PR2[pipeline-review]:::toolingDomain
+
+    %% Tooling domain
+
+    REP[redesign-existing-projects]:::toolingDomain
+
+    %% Tooling domain
+
+    RC[review-contract]:::toolingDomain
+
+    %% Tooling domain
+
+    RA[risk-assessment]:::toolingDomain
+
+    %% Tooling domain
+
+    R2[runbook]:::toolingDomain
+
+    %% Tooling domain
+
+    SA[seo-audit]:::toolingDomain
+
+    %% Tooling domain
+
+    SQ[sql-queries]:::toolingDomain
+
+    %% Tooling domain
+
+    SA2[statistical-analysis]:::toolingDomain
+
+    %% Tooling domain
+
+    SDT[stitch-design-taste]:::toolingDomain
+
+    %% Tooling domain
+
+    TT[ticket-triage]:::toolingDomain
+
+    %% Tooling domain
+
+    UC[ux-copy]:::toolingDomain
+
+    %% Tooling domain
+
+    VA[variance-analysis]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -258,6 +422,71 @@ flowchart LR
     H -. "同域" .-> ADK
     WAS -. "同域" .-> GPS
     A2 -. "同域" .-> GPS
+    BPE -. "同域" .-> GPS
+    BKBB -. "同域" .-> SPT
+    CAL -. "同域" .-> ADK
+    CAE -. "同域" .-> ADK
+    DBR -. "同域" .-> SPT
+    DCIG -. "同域" .-> SPT
+    DC3 -. "同域" .-> SPT
+    DSFA -. "同域" .-> SPT
+    DSAS -. "同域" .-> SPT
+    DV3A -. "同域" .-> SPT
+    PSGA -. "同域" .-> ADK
+    AP -. "同域" .-> ADK
+    APR -. "同域" .-> ADK
+    AP2 -. "同域" .-> ADK
+    AR2 -. "同域" .-> GPS
+    AR3 -. "同域" .-> GPS
+    ATATWMA -. "同域" .-> ADK
+    A3 -. "同域" .-> ADK
+    CFS -. "同域" .-> GPS
+    CR3 -. "同域" .-> ADK
+    CI -. "同域" .-> GPS
+    CC -. "同域" .-> GPS
+    CC2 -. "同域" .-> GPS
+    DV -. "同域" .-> GPS
+    D2 -. "同域" .-> ADK
+    DM -. "同域" .-> ADK
+    DR2 -. "同域" .-> ADK
+    DC2 -. "同域" .-> GPS
+    DO -. "同域" .-> GPS
+    DR3 -. "同域" .-> GPS
+    ES -. "同域" .-> GPS
+    ED -. "同域" .-> GPS
+    FS -. "同域" .-> GPS
+    HEVD -. "同域" .-> GPS
+    IHFRD -. "同域" .-> ADK
+    IR -. "同域" .-> ADK
+    IBU -. "同域" .-> GPS
+    IP -. "同域" .-> GPS
+    KS -. "同域" .-> ADK
+    LT -. "同域" .-> GPS
+    MT -. "同域" .-> ADK
+    MR -. "同域" .-> ADK
+    MU -. "同域" .-> GPS
+    O -. "同域" .-> GPS
+    PR -. "同域" .-> GPS
+    PR2 -. "同域" .-> GPS
+    PM -. "同域" .-> ADK
+    REP -. "同域" .-> GPS
+    RC -. "同域" .-> GPS
+    RA -. "同域" .-> GPS
+    R2 -. "同域" .-> GPS
+    S -. "同域" .-> ADK
+    S2 -. "同域" .-> ADK
+    SA -. "同域" .-> GPS
+    SP -. "同域" .-> ADK
+    SQ -. "同域" .-> GPS
+    SA2 -. "同域" .-> GPS
+    SDT -. "同域" .-> GPS
+    SS -. "同域" .-> ADK
+    SD2 -. "同域" .-> ADK
+    TD -. "同域" .-> ADK
+    TT -. "同域" .-> GPS
+    UC -. "同域" .-> GPS
+    VA -. "同域" .-> GPS
+    WS2 -. "同域" .-> ADK
 
     %% --- Lifecycle flows ---
 

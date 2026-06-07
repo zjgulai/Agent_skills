@@ -15,12 +15,15 @@ from __future__ import annotations
 import json
 import pathlib
 import re
+import shutil
+import datetime as dt
 from typing import Optional
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
+import yaml
 
 from build_index import DATA_FILE, SKILLS_ROOT, build, parse_frontmatter
 from installer import (SKILL_NAME_RE, install_from_github, install_from_upload,
@@ -40,7 +43,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173",
                    "https://skills-portal.localhost"],
-    allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -100,17 +103,23 @@ def get_skill_info(name: str) -> dict:
 class GithubInstallRequest(BaseModel):
     url: str
     subdir: Optional[str] = None
+    overwrite: bool = False
 
 
 class GithubMonorepoInstallRequest(BaseModel):
     url: str
     subdirs: Optional[list[str]] = None
+    overwrite: bool = False
+
+
+class FrontmatterPatchRequest(BaseModel):
+    description: str
 
 
 @app.post("/api/install/github")
 def post_install_github(req: GithubInstallRequest) -> dict:
     try:
-        res = install_from_github(req.url, req.subdir)
+        res = install_from_github(req.url, req.subdir, overwrite=req.overwrite)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"install error: {e}") from e
     if res.ok:
@@ -127,7 +136,7 @@ def post_install_github(req: GithubInstallRequest) -> dict:
 @app.post("/api/install/github/monorepo")
 def post_install_github_monorepo(req: GithubMonorepoInstallRequest) -> dict:
     try:
-        res = install_monorepo_from_github(req.url, req.subdirs)
+        res = install_monorepo_from_github(req.url, req.subdirs, overwrite=req.overwrite)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"monorepo install error: {e}") from e
     if res.get("succeeded", 0) > 0:
@@ -139,12 +148,12 @@ _UPLOAD_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — SKILL.md files are never this 
 
 
 @app.post("/api/install/upload")
-async def post_install_upload(file: UploadFile = File(...)) -> dict:
+async def post_install_upload(file: UploadFile = File(...), overwrite: bool = False) -> dict:
     content = await file.read()
     if len(content) > _UPLOAD_MAX_BYTES:
         raise HTTPException(status_code=413, detail=f"file too large (max {_UPLOAD_MAX_BYTES // 1024 // 1024} MB)")
     try:
-        res = install_from_upload(file.filename or "upload.md", content)
+        res = install_from_upload(file.filename or "upload.md", content, overwrite=overwrite)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"upload install error: {e}") from e
     if res.ok:
@@ -155,6 +164,59 @@ async def post_install_upload(file: UploadFile = File(...)) -> dict:
         "skill_name": res.skill_name,
         "skill_dir": res.skill_dir,
         "warnings": res.warnings,
+    }
+
+
+def _rewrite_frontmatter(skill_md: pathlib.Path, name: str, description: str) -> pathlib.Path:
+    text = skill_md.read_text(encoding="utf-8")
+    match = re.match(r"^---\n(.*?)\n---\n", text, re.DOTALL)
+    if not match:
+        raise HTTPException(status_code=400, detail=f"SKILL.md missing YAML frontmatter: {name}")
+
+    body = text[match.end():]
+    current = parse_frontmatter(skill_md) or {}
+    current["name"] = name
+    current["description"] = description.strip()
+    if not current["description"]:
+        raise HTTPException(status_code=400, detail="description must not be empty")
+
+    new_frontmatter = yaml.safe_dump(
+        current,
+        allow_unicode=True,
+        sort_keys=False,
+        width=1000,
+    ).strip()
+    new_text = f"---\n{new_frontmatter}\n---\n{body}"
+
+    backup = skill_md.with_name(
+        f"SKILL.md.bak.{dt.datetime.now().strftime('%Y%m%dT%H%M%S%f')}"
+    )
+    shutil.copy2(skill_md, backup)
+    tmp = skill_md.with_suffix(".md.tmp")
+    tmp.write_text(new_text, encoding="utf-8")
+    tmp.replace(skill_md)
+
+    verify = parse_frontmatter(skill_md)
+    if not verify or verify.get("name") != name or not verify.get("description"):
+        shutil.copy2(backup, skill_md)
+        raise HTTPException(status_code=500, detail=f"frontmatter repair failed; reverted from {backup}")
+    return backup
+
+
+@app.patch("/api/skills/{name}/frontmatter")
+def patch_skill_frontmatter(name: str, req: FrontmatterPatchRequest) -> dict:
+    _validate_skill_name(name)
+    skill_md = SKILLS_ROOT / name / "SKILL.md"
+    if not skill_md.exists():
+        raise HTTPException(status_code=404, detail=f"skill not found: {name}")
+    backup = _rewrite_frontmatter(skill_md, name, req.description)
+    _refresh()
+    return {
+        "ok": True,
+        "message": f"updated frontmatter for '{name}'",
+        "skill_name": name,
+        "skill_md_path": str(skill_md),
+        "backup_path": str(backup),
     }
 
 

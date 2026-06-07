@@ -32,19 +32,19 @@ export async function fetchSkillMarkdown(name: string): Promise<string> {
   return res.text()
 }
 
-export async function installFromGithub(url: string, subdir?: string): Promise<InstallResponse> {
+export async function installFromGithub(url: string, subdir?: string, overwrite = false): Promise<InstallResponse> {
   const res = await fetch(`${BASE}/install/github`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url, subdir: subdir || null }),
+    body: JSON.stringify({ url, subdir: subdir || null, overwrite }),
   })
   return res.json()
 }
 
-export async function installFromUpload(file: File): Promise<InstallResponse> {
+export async function installFromUpload(file: File, overwrite = false): Promise<InstallResponse> {
   const fd = new FormData()
   fd.append('file', file)
-  const res = await fetch(`${BASE}/install/upload`, { method: 'POST', body: fd })
+  const res = await fetch(`${BASE}/install/upload?overwrite=${overwrite ? 'true' : 'false'}`, { method: 'POST', body: fd })
   return res.json()
 }
 

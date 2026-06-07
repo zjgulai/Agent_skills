@@ -59,28 +59,31 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [caveman](file:///Users/lute/.config/opencode/skills/caveman/SKILL.md) | Ultra-compressed ~75% token-saving mode — full technical accuracy, zero filler | caveman mode, less tokens, be brief, talk like caveman |
 | [grill-me](file:///Users/lute/.config/opencode/skills/grill-me/SKILL.md) | Relentless interview on a plan/design until shared understanding, resolving decision-tree branches | grill me, stress-test my plan, interview me on design |
 | [handoff](file:///Users/lute/.config/opencode/skills/handoff/SKILL.md) | Compact current conversation into a handoff doc for a fresh agent to continue work | handoff, create handoff doc, pass to next agent |
+| [debug-mantra](file:///Users/lute/.config/opencode/skills/debug-mantra/SKILL.md) | 🆕 Structured debugging mantra — systematic approach to root cause, from 9arm-skills | debug mantra, debugging discipline, root cause |
+| [scrutinize](file:///Users/lute/.config/opencode/skills/scrutinize/SKILL.md) | 🆕 Deep code scrutiny for correctness, edge cases, and hidden assumptions | scrutinize code, code correctness, edge case analysis |
+| [post-mortem](file:///Users/lute/.config/opencode/skills/post-mortem/SKILL.md) | 🆕 Structured post-mortem: 5-whys, timeline, action items, from 9arm-skills | post-mortem, incident review, 5-whys, retrospective |
+| [management-talk](file:///Users/lute/.config/opencode/skills/management-talk/SKILL.md) | 🆕 Translate technical work into business language for stakeholders | management communication, stakeholder update, progress report |
 | [academic-paper](file:///Users/lute/.config/opencode/skills/academic-paper/SKILL.md) | 🆕 12-agent academic paper pipeline: research → write → review → revise → finalize | academic paper, research writing, literature review |
 | [academic-paper-reviewer](file:///Users/lute/.config/opencode/skills/academic-paper-reviewer/SKILL.md) | 🆕 Peer review simulation for academic papers | academic paper review, peer review, paper critique |
 | [academic-pipeline](file:///Users/lute/.config/opencode/skills/academic-pipeline/SKILL.md) | 🆕 End-to-end research publication pipeline orchestration | academic pipeline, research workflow, publication |
-| [analyzing-threat-actor-ttps-with-mitre-attack](file:///Users/lute/.config/opencode/skills/analyzing-threat-actor-ttps-with-mitre-attack/SKILL.md) | 🆕 MITRE ATT&CK TTP analysis — maps adversary behavior to framework | threat analysis, MITRE ATT&CK, TTP, threat intel |
-| [architecture](file:///Users/lute/.config/opencode/skills/architecture/SKILL.md) | 🆕 Anthropic kw-plugins: architecture review and design decisions | architecture review, system architecture, tech decisions |
-| [code-review](file:///Users/lute/.config/opencode/skills/code-review/SKILL.md) | 🆕 Anthropic kw-plugins: structured code review for engineering teams | code review workflow, PR review, engineering review |
-| [debug](file:///Users/lute/.config/opencode/skills/debug/SKILL.md) | 🆕 Anthropic kw-plugins: structured debugging workflow | debug workflow, structured debugging, bug investigation |
-| [debug-mantra](file:///Users/lute/.config/opencode/skills/debug-mantra/SKILL.md) | 🆕 Structured debugging mantra — systematic approach to root cause, from 9arm-skills | debug mantra, debugging discipline, root cause |
 | [deep-research](file:///Users/lute/.config/opencode/skills/deep-research/SKILL.md) | 🆕 Universal deep research: multi-source synthesis, evidence grounding | deep research, multi-source, evidence-based research |
-| [implementing-honeypot-for-ransomware-detection](file:///Users/lute/.config/opencode/skills/implementing-honeypot-for-ransomware-detection/SKILL.md) | 🆕 Honeypot implementation for ransomware early detection | honeypot, ransomware detection, deception security |
-| [incident-response](file:///Users/lute/.config/opencode/skills/incident-response/SKILL.md) | 🆕 Anthropic kw-plugins: incident response and coordination | incident response, outage, production issue, on-call |
-| [knowledge-synthesis](file:///Users/lute/.config/opencode/skills/knowledge-synthesis/SKILL.md) | 🆕 Anthropic kw-plugins: synthesize info from multiple sources | knowledge synthesis, research synthesis, multi-source |
-| [management-talk](file:///Users/lute/.config/opencode/skills/management-talk/SKILL.md) | 🆕 Translate technical work into business language for stakeholders | management communication, stakeholder update, progress report |
-| [metrics-review](file:///Users/lute/.config/opencode/skills/metrics-review/SKILL.md) | 🆕 Anthropic kw-plugins: product metrics review and OKR analysis | metrics review, KPI, product metrics, OKR |
-| [post-mortem](file:///Users/lute/.config/opencode/skills/post-mortem/SKILL.md) | 🆕 Structured post-mortem: 5-whys, timeline, action items, from 9arm-skills | post-mortem, incident review, 5-whys, retrospective |
-| [scrutinize](file:///Users/lute/.config/opencode/skills/scrutinize/SKILL.md) | 🆕 Deep code scrutiny for correctness, edge cases, and hidden assumptions | scrutinize code, code correctness, edge case analysis |
-| [search](file:///Users/lute/.config/opencode/skills/search/SKILL.md) | 🆕 Anthropic kw-plugins: enterprise search strategy | enterprise search, knowledge base search, search strategy |
-| [sprint-planning](file:///Users/lute/.config/opencode/skills/sprint-planning/SKILL.md) | 🆕 Anthropic kw-plugins: sprint planning and story estimation | sprint planning, story points, backlog grooming |
 | [stop-slop](file:///Users/lute/.config/opencode/skills/stop-slop/SKILL.md) | 🆕 Remove AI writing tells, structural clichés, overused phrases | stop slop, AI writing cleanup, prose quality, anti-generic |
+| [architecture](file:///Users/lute/.config/opencode/skills/architecture/SKILL.md) | 🆕 Anthropic kw-plugins: architecture review and design decisions | architecture review, system architecture, tech decisions |
+| [debug](file:///Users/lute/.config/opencode/skills/debug/SKILL.md) | 🆕 Anthropic kw-plugins: structured debugging workflow | debug workflow, structured debugging, bug investigation |
 | [system-design](file:///Users/lute/.config/opencode/skills/system-design/SKILL.md) | 🆕 Anthropic kw-plugins: system design documentation | system design, scalability, design doc, distributed systems |
 | [tech-debt](file:///Users/lute/.config/opencode/skills/tech-debt/SKILL.md) | 🆕 Anthropic kw-plugins: tech debt identification and prioritization | tech debt, refactoring priority, code quality |
+| [incident-response](file:///Users/lute/.config/opencode/skills/incident-response/SKILL.md) | 🆕 Anthropic kw-plugins: incident response and coordination | incident response, outage, production issue, on-call |
 | [write-spec](file:///Users/lute/.config/opencode/skills/write-spec/SKILL.md) | 🆕 Anthropic kw-plugins: engineering specs and technical requirements | write spec, technical spec, RFC, requirements |
+| [sprint-planning](file:///Users/lute/.config/opencode/skills/sprint-planning/SKILL.md) | 🆕 Anthropic kw-plugins: sprint planning and story estimation | sprint planning, story points, backlog grooming |
+| [metrics-review](file:///Users/lute/.config/opencode/skills/metrics-review/SKILL.md) | 🆕 Anthropic kw-plugins: product metrics review and OKR analysis | metrics review, KPI, product metrics, OKR |
+| [knowledge-synthesis](file:///Users/lute/.config/opencode/skills/knowledge-synthesis/SKILL.md) | 🆕 Anthropic kw-plugins: synthesize info from multiple sources | knowledge synthesis, research synthesis, multi-source |
+| [search](file:///Users/lute/.config/opencode/skills/search/SKILL.md) | 🆕 Anthropic kw-plugins: enterprise search strategy | enterprise search, knowledge base search, search strategy |
+| [code-review](file:///Users/lute/.config/opencode/skills/code-review/SKILL.md) | 🆕 Anthropic kw-plugins: structured code review for engineering teams | code review workflow, PR review, engineering review |
+| [analyzing-threat-actor-ttps-with-mitre-attack](file:///Users/lute/.config/opencode/skills/analyzing-threat-actor-ttps-with-mitre-attack/SKILL.md) | 🆕 MITRE ATT&CK TTP analysis — maps adversary behavior to framework | threat analysis, MITRE ATT&CK, TTP, threat intel |
+| [implementing-honeypot-for-ransomware-detection](file:///Users/lute/.config/opencode/skills/implementing-honeypot-for-ransomware-detection/SKILL.md) | 🆕 Honeypot implementation for ransomware early detection | honeypot, ransomware detection, deception security |
+| [codegraph-add-lang](file:///Users/lute/.config/opencode/skills/codegraph-add-lang/SKILL.md) | CodeGraph language support implementation SOP | /add-lang, tree-sitter, codegraph |
+| [codegraph-agent-eval](file:///Users/lute/.config/opencode/skills/codegraph-agent-eval/SKILL.md) | CodeGraph retrieval benchmark SOP | /agent-eval, benchmark, codegraph |
+| [paper-skills-gap-analysis](file:///Users/lute/.config/opencode/skills/paper-skills-gap-analysis/SKILL.md) | Skills graph coverage gap analysis SOP | skills graph 缺口, 推荐新选题方向, Sprint 选题 |
 
 > 这一域目前只有 1 个 skill，但它是**所有其他 skill 的"元结构"** —— 决定了你今后写 skill 时的目录约定、前置守卫、团队分发方式。新增任何"AI 工作流治理类" skill 时，先和它对照。
 
@@ -147,6 +150,13 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | Skill | 定位 | 主要触发词 |
 |---|---|---|
 | [startup-pressure-test](file:///Users/lute/.config/opencode/skills/startup-pressure-test/SKILL.md) | 用 Paul Graham 早期创业框架对点子做"残酷压力测试"：问题真不真、ICP、首批 10 个客户、MVP、2 周 launch 计划、founder-market fit、强/弱/转向的直接判决 | pressure-test startup idea, validate problem, ICP, first 10 customers, MVP, 2-week launch plan, founder-market fit, strong/weak/pivot verdict |
+| [brand-knowledge-base-builder](file:///Users/lute/.config/opencode/skills/brand-knowledge-base-builder/SKILL.md) | Brand knowledge-base extraction SOP | 品牌知识库, 品牌 AI 化, L1-L11 |
+| [dtc-brand-recon](file:///Users/lute/.config/opencode/skills/dtc-brand-recon/SKILL.md) | DTC brand asset reconnaissance before SKU work | 品牌侦查, SOP-B 开始, 官网调研 |
+| [dtc-commercial-image-gen](file:///Users/lute/.config/opencode/skills/dtc-commercial-image-gen/SKILL.md) | DTC commercial image generation SOP | 生图, 产品主图, Hero Shot |
+| [dtc-compliance-3track](file:///Users/lute/.config/opencode/skills/dtc-compliance-3track/SKILL.md) | DTC compliance three-track verification SOP | 合规检查, ToV 审查, 法规审查 |
+| [dtc-site-forensic-audit](file:///Users/lute/.config/opencode/skills/dtc-site-forensic-audit/SKILL.md) | DTC site performance and CRO forensic audit | 诊断网站, DTC 站审计, CRO 分析 |
+| [dtc-sop-a-selection](file:///Users/lute/.config/opencode/skills/dtc-sop-a-selection/SKILL.md) | DTC product selection scan SOP | SOP-A, 选品扫描, 品类分析 |
+| [dtc-voc-3layer-analysis](file:///Users/lute/.config/opencode/skills/dtc-voc-3layer-analysis/SKILL.md) | Three-layer DTC VOC insight analysis | VOC 分析, 痛点挖掘, 差评分析 |
 
 **资源**：[`references/playbooks.md`](file:///Users/lute/.config/opencode/skills/startup-pressure-test/references/playbooks.md)
 
@@ -217,38 +227,39 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [git-guardrails-claude-code](file:///Users/lute/.config/opencode/skills/git-guardrails-claude-code/SKILL.md) | PreToolUse hook blocking dangerous git commands: push, reset --hard, clean, branch -D | prevent destructive git ops, add git safety hooks, block git push |
 | [write-a-skill](file:///Users/lute/.config/opencode/skills/write-a-skill/SKILL.md) | Create new agent skills with proper structure, progressive disclosure, and bundled resources | create a skill, write a new skill, build a skill |
 | [anysearch](file:///Users/lute/.config/opencode/skills/anysearch/SKILL.md) | Real-time unified search: web, vertical domain, batch, URL extract | search,web search,information retrieval |
-| [accessibility-review](file:///Users/lute/.config/opencode/skills/accessibility-review/SKILL.md) | 🆕 Anthropic kw-plugins: accessibility review against WCAG standards | accessibility review, WCAG, a11y, screen reader, inclusive design |
-| [account-research](file:///Users/lute/.config/opencode/skills/account-research/SKILL.md) | 🆕 Anthropic kw-plugins: B2B account research for sales | account research, company research, ICP qualification |
-| [cash-flow-snapshot](file:///Users/lute/.config/opencode/skills/cash-flow-snapshot/SKILL.md) | 🆕 Anthropic kw-plugins: quick cash flow health check | cash flow, financial health, burn rate, runway |
-| [competitive-intelligence](file:///Users/lute/.config/opencode/skills/competitive-intelligence/SKILL.md) | 🆕 Anthropic kw-plugins: competitive intelligence gathering | competitive intel, competitor analysis, market research |
-| [compliance-check](file:///Users/lute/.config/opencode/skills/compliance-check/SKILL.md) | 🆕 Anthropic kw-plugins: compliance check against regulations | compliance check, regulatory compliance, legal compliance |
-| [content-creation](file:///Users/lute/.config/opencode/skills/content-creation/SKILL.md) | 🆕 Anthropic kw-plugins: marketing content creation | content creation, marketing content, blog post, article |
-| [data-visualization](file:///Users/lute/.config/opencode/skills/data-visualization/SKILL.md) | 🆕 Anthropic kw-plugins: data visualization best practices | data viz, charts, dashboards, visualization design |
-| [design-critique](file:///Users/lute/.config/opencode/skills/design-critique/SKILL.md) | 🆕 Anthropic kw-plugins: structured design critique and feedback | design critique, design feedback, visual assessment |
-| [draft-outreach](file:///Users/lute/.config/opencode/skills/draft-outreach/SKILL.md) | 🆕 Anthropic kw-plugins: draft sales outreach messages | draft outreach, cold email, sales email, prospect message |
-| [draft-response](file:///Users/lute/.config/opencode/skills/draft-response/SKILL.md) | 🆕 Anthropic kw-plugins: draft professional responses to customer inquiries | draft response, customer reply, support email |
-| [email-sequence](file:///Users/lute/.config/opencode/skills/email-sequence/SKILL.md) | 🆕 Anthropic kw-plugins: email sequence and nurture campaigns | email sequence, drip campaign, email nurture, onboarding email |
-| [explore-data](file:///Users/lute/.config/opencode/skills/explore-data/SKILL.md) | 🆕 Anthropic kw-plugins: exploratory data analysis | data exploration, EDA, data profiling, statistical summary |
-| [financial-statements](file:///Users/lute/.config/opencode/skills/financial-statements/SKILL.md) | 🆕 Anthropic kw-plugins: financial statement analysis and commentary | financial statements, P&L, balance sheet, cash flow |
-| [high-end-visual-design](file:///Users/lute/.config/opencode/skills/high-end-visual-design/SKILL.md) | 🆕 Taste-skill: premium soft/luxury visual design — depth, glow, refinement | high-end design, luxury UI, soft design, premium visual |
-| [industrial-brutalist-ui](file:///Users/lute/.config/opencode/skills/industrial-brutalist-ui/SKILL.md) | 🆕 Taste-skill: brutalist/industrial UI — raw, high contrast, structural | brutalist design, industrial UI, raw aesthetic |
-| [interview-prep](file:///Users/lute/.config/opencode/skills/interview-prep/SKILL.md) | 🆕 Anthropic kw-plugins: interview preparation for hiring | interview prep, hiring, interview questions, candidate |
-| [lead-triage](file:///Users/lute/.config/opencode/skills/lead-triage/SKILL.md) | 🆕 Anthropic kw-plugins: lead qualification and triage | lead triage, lead qualification, inbound leads |
 | [minimalist-ui](file:///Users/lute/.config/opencode/skills/minimalist-ui/SKILL.md) | 🆕 Taste-skill: minimalist UI aesthetic — whitespace, reduction, restraint | minimalist design, minimal UI, whitespace, reduction |
-| [onboarding](file:///Users/lute/.config/opencode/skills/onboarding/SKILL.md) | 🆕 Anthropic kw-plugins: employee onboarding planning | onboarding, new hire, orientation, employee setup |
-| [performance-review](file:///Users/lute/.config/opencode/skills/performance-review/SKILL.md) | 🆕 Anthropic kw-plugins: employee performance review writing | performance review, employee evaluation, feedback writing |
-| [pipeline-review](file:///Users/lute/.config/opencode/skills/pipeline-review/SKILL.md) | 🆕 Anthropic kw-plugins: sales pipeline review and health check | pipeline review, sales forecast, deal review |
+| [industrial-brutalist-ui](file:///Users/lute/.config/opencode/skills/industrial-brutalist-ui/SKILL.md) | 🆕 Taste-skill: brutalist/industrial UI — raw, high contrast, structural | brutalist design, industrial UI, raw aesthetic |
 | [redesign-existing-projects](file:///Users/lute/.config/opencode/skills/redesign-existing-projects/SKILL.md) | 🆕 Taste-skill: systematic redesign of existing UI to a new aesthetic | redesign, UI refresh, aesthetic overhaul |
-| [review-contract](file:///Users/lute/.config/opencode/skills/review-contract/SKILL.md) | 🆕 Anthropic kw-plugins: contract review and legal risk identification | contract review, legal review, NDA review, agreement review |
-| [risk-assessment](file:///Users/lute/.config/opencode/skills/risk-assessment/SKILL.md) | 🆕 Anthropic kw-plugins: risk assessment and mitigation planning | risk assessment, risk analysis, mitigation plan |
-| [runbook](file:///Users/lute/.config/opencode/skills/runbook/SKILL.md) | 🆕 Anthropic kw-plugins: create operational runbooks | runbook, SOP, operational procedure, ops guide |
-| [seo-audit](file:///Users/lute/.config/opencode/skills/seo-audit/SKILL.md) | 🆕 Anthropic kw-plugins: SEO audit and optimization | SEO audit, search optimization, on-page SEO, meta tags |
+| [stitch-design-taste](file:///Users/lute/.config/opencode/skills/stitch-design-taste/SKILL.md) | 🆕 Taste-skill: stitch together multiple design references into cohesive style | design synthesis, style stitching, visual coherence |
+| [high-end-visual-design](file:///Users/lute/.config/opencode/skills/high-end-visual-design/SKILL.md) | 🆕 Taste-skill: premium soft/luxury visual design — depth, glow, refinement | high-end design, luxury UI, soft design, premium visual |
+| [design-critique](file:///Users/lute/.config/opencode/skills/design-critique/SKILL.md) | 🆕 Anthropic kw-plugins: structured design critique and feedback | design critique, design feedback, visual assessment |
+| [accessibility-review](file:///Users/lute/.config/opencode/skills/accessibility-review/SKILL.md) | 🆕 Anthropic kw-plugins: accessibility review against WCAG standards | accessibility review, WCAG, a11y, screen reader, inclusive design |
+| [ux-copy](file:///Users/lute/.config/opencode/skills/ux-copy/SKILL.md) | 🆕 Anthropic kw-plugins: UX copywriting for UI elements | ux copy, microcopy, button labels, UI text, UX writing |
+| [ticket-triage](file:///Users/lute/.config/opencode/skills/ticket-triage/SKILL.md) | 🆕 Anthropic kw-plugins: customer support ticket triage | ticket triage, support prioritization, customer tickets |
+| [draft-response](file:///Users/lute/.config/opencode/skills/draft-response/SKILL.md) | 🆕 Anthropic kw-plugins: draft professional responses to customer inquiries | draft response, customer reply, support email |
+| [explore-data](file:///Users/lute/.config/opencode/skills/explore-data/SKILL.md) | 🆕 Anthropic kw-plugins: exploratory data analysis | data exploration, EDA, data profiling, statistical summary |
 | [sql-queries](file:///Users/lute/.config/opencode/skills/sql-queries/SKILL.md) | 🆕 Anthropic kw-plugins: write and optimize SQL queries | SQL query, database query, data extraction, SQL optimization |
 | [statistical-analysis](file:///Users/lute/.config/opencode/skills/statistical-analysis/SKILL.md) | 🆕 Anthropic kw-plugins: statistical analysis and hypothesis testing | statistical analysis, hypothesis test, p-value, correlation |
-| [stitch-design-taste](file:///Users/lute/.config/opencode/skills/stitch-design-taste/SKILL.md) | 🆕 Taste-skill: stitch together multiple design references into cohesive style | design synthesis, style stitching, visual coherence |
-| [ticket-triage](file:///Users/lute/.config/opencode/skills/ticket-triage/SKILL.md) | 🆕 Anthropic kw-plugins: customer support ticket triage | ticket triage, support prioritization, customer tickets |
-| [ux-copy](file:///Users/lute/.config/opencode/skills/ux-copy/SKILL.md) | 🆕 Anthropic kw-plugins: UX copywriting for UI elements | ux copy, microcopy, button labels, UI text, UX writing |
+| [data-visualization](file:///Users/lute/.config/opencode/skills/data-visualization/SKILL.md) | 🆕 Anthropic kw-plugins: data visualization best practices | data viz, charts, dashboards, visualization design |
+| [content-creation](file:///Users/lute/.config/opencode/skills/content-creation/SKILL.md) | 🆕 Anthropic kw-plugins: marketing content creation | content creation, marketing content, blog post, article |
+| [seo-audit](file:///Users/lute/.config/opencode/skills/seo-audit/SKILL.md) | 🆕 Anthropic kw-plugins: SEO audit and optimization | SEO audit, search optimization, on-page SEO, meta tags |
+| [email-sequence](file:///Users/lute/.config/opencode/skills/email-sequence/SKILL.md) | 🆕 Anthropic kw-plugins: email sequence and nurture campaigns | email sequence, drip campaign, email nurture, onboarding email |
+| [review-contract](file:///Users/lute/.config/opencode/skills/review-contract/SKILL.md) | 🆕 Anthropic kw-plugins: contract review and legal risk identification | contract review, legal review, NDA review, agreement review |
+| [compliance-check](file:///Users/lute/.config/opencode/skills/compliance-check/SKILL.md) | 🆕 Anthropic kw-plugins: compliance check against regulations | compliance check, regulatory compliance, legal compliance |
+| [runbook](file:///Users/lute/.config/opencode/skills/runbook/SKILL.md) | 🆕 Anthropic kw-plugins: create operational runbooks | runbook, SOP, operational procedure, ops guide |
+| [risk-assessment](file:///Users/lute/.config/opencode/skills/risk-assessment/SKILL.md) | 🆕 Anthropic kw-plugins: risk assessment and mitigation planning | risk assessment, risk analysis, mitigation plan |
+| [performance-review](file:///Users/lute/.config/opencode/skills/performance-review/SKILL.md) | 🆕 Anthropic kw-plugins: employee performance review writing | performance review, employee evaluation, feedback writing |
+| [interview-prep](file:///Users/lute/.config/opencode/skills/interview-prep/SKILL.md) | 🆕 Anthropic kw-plugins: interview preparation for hiring | interview prep, hiring, interview questions, candidate |
+| [onboarding](file:///Users/lute/.config/opencode/skills/onboarding/SKILL.md) | 🆕 Anthropic kw-plugins: employee onboarding planning | onboarding, new hire, orientation, employee setup |
 | [variance-analysis](file:///Users/lute/.config/opencode/skills/variance-analysis/SKILL.md) | 🆕 Anthropic kw-plugins: financial variance analysis | variance analysis, budget vs actual, financial variance |
+| [financial-statements](file:///Users/lute/.config/opencode/skills/financial-statements/SKILL.md) | 🆕 Anthropic kw-plugins: financial statement analysis and commentary | financial statements, P&L, balance sheet, cash flow |
+| [account-research](file:///Users/lute/.config/opencode/skills/account-research/SKILL.md) | 🆕 Anthropic kw-plugins: B2B account research for sales | account research, company research, ICP qualification |
+| [pipeline-review](file:///Users/lute/.config/opencode/skills/pipeline-review/SKILL.md) | 🆕 Anthropic kw-plugins: sales pipeline review and health check | pipeline review, sales forecast, deal review |
+| [competitive-intelligence](file:///Users/lute/.config/opencode/skills/competitive-intelligence/SKILL.md) | 🆕 Anthropic kw-plugins: competitive intelligence gathering | competitive intel, competitor analysis, market research |
+| [draft-outreach](file:///Users/lute/.config/opencode/skills/draft-outreach/SKILL.md) | 🆕 Anthropic kw-plugins: draft sales outreach messages | draft outreach, cold email, sales email, prospect message |
+| [cash-flow-snapshot](file:///Users/lute/.config/opencode/skills/cash-flow-snapshot/SKILL.md) | 🆕 Anthropic kw-plugins: quick cash flow health check | cash flow, financial health, burn rate, runway |
+| [lead-triage](file:///Users/lute/.config/opencode/skills/lead-triage/SKILL.md) | 🆕 Anthropic kw-plugins: lead qualification and triage | lead triage, lead qualification, inbound leads |
+| [bi-prompt-engineering](file:///Users/lute/.config/opencode/skills/bi-prompt-engineering/SKILL.md) | BI prompt accuracy and field-mapping SOP | 提示词准确率低, AI 算错数, BI 报告 |
 
 ---
 
@@ -367,5 +378,6 @@ flowchart LR
 |---|---|---|
 | 2026-05-14 | 初版建立。包含 6 个 skill：`agent-dev-kit-architecture-designer`, `codex-review`, `native-feel-cross-platform-desktop`, `patent-disclosure-skill`, `software-copyright-materials`, `startup-pressure-test` | 初始化 |
 | 2026-05-14 | 新增渲染脚本 [`render-mermaid.py`](file:///Users/lute/.config/opencode/skills/render-mermaid.py) 和 [`skills-graph.png`](file:///Users/lute/.config/opencode/skills/skills-graph.png)（4792×1058 PNG）。mmdc 在 Chrome 147 下不工作，改用 playwright + jsdelivr CDN 方案 | 渲染管线落地 |
+| 2026-06-02 | GitHub 近一周上升榜单深度挖掘。新增 54 个 skills（85→139），来源：hardikpandya/stop-slop, Leonxlnx/taste-skill (6变体), 9arm-skills (4), Imbad0202/academic-research-skills (4), anthropics/knowledge-work-plugins (32), mukul975/Anthropic-Cybersecurity-Skills (2)。portal 从 85 升至 139 skills。 | Sisyphus 自动化增量部署 |
 
 > **新增/更新规则**：每装一个 skill 必须 (1) 选定所属域 (2) 在分类清单里追加一行 (3) 在 mermaid graph 里加节点 + 至少一条与已有 skill 的关联边 (4) 在变更日志加一行。

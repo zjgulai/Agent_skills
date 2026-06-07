@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 import { fetchSkillMarkdown, uninstallSkill } from '../api'
 import type { Skill } from '../types'
 
@@ -20,7 +21,8 @@ onMounted(async () => {
   try {
     const md = await fetchSkillMarkdown(props.skill.name)
     const stripped = md.replace(/^---\n[\s\S]*?\n---\n+/, '')
-    renderedHtml.value = await marked.parse(stripped, { gfm: true, breaks: false })
+    const rawHtml = await marked.parse(stripped, { gfm: true, breaks: false })
+    renderedHtml.value = DOMPurify.sanitize(rawHtml)
   } catch (e: any) {
     errorMsg.value = String(e?.message || e)
   } finally {

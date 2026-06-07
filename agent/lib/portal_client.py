@@ -90,8 +90,8 @@ def get_markdown(name: str) -> str:
         return r.text
 
 
-def install_github(url: str, subdir: Optional[str] = None) -> dict:
-    payload = {"url": url}
+def install_github(url: str, subdir: Optional[str] = None, *, overwrite: bool = False) -> dict:
+    payload = {"url": url, "overwrite": overwrite}
     if subdir:
         payload["subdir"] = subdir
     with _client() as c:
@@ -103,13 +103,13 @@ def install_github(url: str, subdir: Optional[str] = None) -> dict:
         return r.json()
 
 
-def install_upload(md_path: str | pathlib.Path) -> dict:
+def install_upload(md_path: str | pathlib.Path, *, overwrite: bool = False) -> dict:
     p = pathlib.Path(md_path)
     if not p.is_file():
         raise PortalError(f"not a file: {p}")
     with _client() as c, p.open("rb") as f:
         files = {"file": (p.name, f, "text/markdown")}
-        r = c.post("/api/install/upload", files=files)
+        r = c.post("/api/install/upload", files=files, params={"overwrite": str(overwrite).lower()})
         r.raise_for_status()
         data = r.json()
         if not data.get("ok"):
@@ -136,6 +136,7 @@ def refresh() -> dict:
 
 SCAN_SKIP_DIRS = {".git", ".github", ".idea", ".vscode", ".cache", ".pytest_cache",
                   "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
+GITHUB_URL_PREFIXES = ("https://github.com/", "git@github.com:")
 
 
 def scan_monorepo(url: str) -> list[str]:
@@ -145,8 +146,11 @@ def scan_monorepo(url: str) -> list[str]:
     ['skills/brainstorming', 'skills/test-driven-development', ...].
     Excludes the repo root itself (which is handled by plain install).
     """
-    if not url.startswith(("https://github.com/", "git@github.com:", "http://github.com/")):
-        raise PortalError(f"only GitHub URLs supported, got: {url}")
+    if not url.startswith(GITHUB_URL_PREFIXES):
+        raise PortalError(
+            "only secure GitHub URLs supported "
+            f"(https://github.com/ or git@github.com:), got: {url}"
+        )
     if url.startswith("git@github.com:"):
         owner_repo = url[len("git@github.com:"):]
     else:
@@ -188,7 +192,12 @@ def scan_monorepo(url: str) -> list[str]:
     return sorted(subdirs)
 
 
-def install_monorepo(url: str, subdirs: Optional[list[str]] = None) -> dict:
+def install_monorepo(
+    url: str,
+    subdirs: Optional[list[str]] = None,
+    *,
+    overwrite: bool = False,
+) -> dict:
     """Install multiple skills from a monorepo (one clone, many installs).
 
     Calls portal API /api/install/github/monorepo which clones once and
@@ -199,7 +208,7 @@ def install_monorepo(url: str, subdirs: Optional[list[str]] = None) -> dict:
     Returns dict {ok, message, total, succeeded, failed, results: [...]}.
     Falls back to per-subdir loop if portal returns 404 (older portal version).
     """
-    payload: dict = {"url": url}
+    payload: dict = {"url": url, "overwrite": overwrite}
     if subdirs is not None:
         payload["subdirs"] = subdirs
     with _client() as c:

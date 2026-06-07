@@ -15,6 +15,7 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const submitting = ref(false)
 const lastError = ref('')
 const warnings = ref<string[]>([])
+const overwrite = ref(false)
 
 async function submitGithub() {
   if (!url.value.trim()) {
@@ -25,7 +26,7 @@ async function submitGithub() {
   lastError.value = ''
   warnings.value = []
   try {
-    const r = await installFromGithub(url.value.trim(), subdir.value.trim() || undefined)
+    const r = await installFromGithub(url.value.trim(), subdir.value.trim() || undefined, overwrite.value)
     if (r.ok) {
       warnings.value = r.warnings || []
       emit('installed', `${r.message}`)
@@ -49,7 +50,7 @@ async function submitUpload() {
   lastError.value = ''
   warnings.value = []
   try {
-    const r = await installFromUpload(f)
+    const r = await installFromUpload(f, overwrite.value)
     if (r.ok) {
       warnings.value = r.warnings || []
       emit('installed', `${r.message}`)
@@ -101,6 +102,10 @@ async function submitUpload() {
             />
             <div class="hint">仓库根直接有 SKILL.md 时留空。多个 SKILL.md 候选会报错，需要用 subdir 指定。</div>
           </div>
+          <label class="check-row">
+            <input v-model="overwrite" type="checkbox" :disabled="submitting" />
+            <span>覆盖同名已安装 skill</span>
+          </label>
           <button class="btn btn-primary" :disabled="submitting" @click="submitGithub">
             {{ submitting ? '安装中...' : '开始安装' }}
           </button>
@@ -114,6 +119,10 @@ async function submitUpload() {
               单文件上传只装 SKILL.md 本身（自动剥除 markdown 代码栅栏包裹）。带资源的 skill 请用 GitHub URL。
             </div>
           </div>
+          <label class="check-row">
+            <input v-model="overwrite" type="checkbox" :disabled="submitting" />
+            <span>覆盖同名已安装 skill</span>
+          </label>
           <button class="btn btn-primary" :disabled="submitting" @click="submitUpload">
             {{ submitting ? '安装中...' : '上传并安装' }}
           </button>

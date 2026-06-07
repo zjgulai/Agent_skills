@@ -1,13 +1,13 @@
 """Idempotency tests for agent/lib/index_md_writer.py.
 
 Critical contract: append(name, domain) -> remove(name) MUST yield byte-identical INDEX.md.
-This test runs on the LIVE INDEX.md but always restores from a snapshot at module teardown.
+These tests use an isolated fixture INDEX.md so test runs never mutate the live
+~/.config/opencode/skills/INDEX.md truth source.
 """
 from __future__ import annotations
 
 import shutil
 import sys
-import tempfile
 from pathlib import Path
 
 import pytest
@@ -17,18 +17,56 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from agent.lib import index_md_writer  # noqa: E402
 
-INDEX_MD = index_md_writer.INDEX_MD
+SAMPLE_INDEX = f"""# Skills Index
+
+### 域 1 · AI 工程基础设施
+
+| Skill | 定位 | 主要触发词 |
+|---|---|---|
+| [agent-dev-kit-architecture-designer](file:///tmp/skills/agent-dev-kit-architecture-designer/SKILL.md) | agent architecture | agent |
+
+### 域 2 · 代码质量与交付闭环
+
+| Skill | 定位 | 主要触发词 |
+|---|---|---|
+| [codex-review](file:///tmp/skills/codex-review/SKILL.md) | review | review |
+
+### 域 3 · 桌面应用工程
+
+{index_md_writer.EMPTY_PLACEHOLDER_GENERIC}
+
+### 域 4 · 创业与产品验证
+
+{index_md_writer.EMPTY_PLACEHOLDER_GENERIC}
+
+### 域 5 · 知识产权交付
+
+| Skill | 定位 | 主要触发词 |
+|---|---|---|
+| [patent-disclosure-skill](file:///tmp/skills/patent-disclosure-skill/SKILL.md) | patent | patent |
+| [software-copyright-materials](file:///tmp/skills/software-copyright-materials/SKILL.md) | copyright | copyright |
+
+### 域 6 · 工具增强
+
+{index_md_writer.EMPTY_PLACEHOLDER_TOOLING}
+"""
 
 
-@pytest.fixture(scope="module")
-def baseline_snapshot():
-    if not INDEX_MD.exists():
-        pytest.skip(f"INDEX.md missing: {INDEX_MD}")
-    snapshot = Path(tempfile.mkdtemp()) / "INDEX-baseline.md"
-    shutil.copy2(INDEX_MD, snapshot)
-    yield snapshot
-    shutil.copy2(snapshot, INDEX_MD)
-    for p in INDEX_MD.parent.glob("INDEX.md.bak.*"):
+@pytest.fixture()
+def isolated_index(tmp_path, monkeypatch):
+    skills_root = tmp_path / "skills"
+    skills_root.mkdir()
+    index_md = skills_root / "INDEX.md"
+    index_md.write_text(SAMPLE_INDEX, encoding="utf-8")
+    snapshot = tmp_path / "INDEX-baseline.md"
+    shutil.copy2(index_md, snapshot)
+
+    monkeypatch.setattr(index_md_writer, "SKILLS_ROOT", skills_root)
+    monkeypatch.setattr(index_md_writer, "INDEX_MD", index_md)
+
+    yield snapshot, index_md
+
+    for p in skills_root.glob("INDEX.md.bak.*"):
         p.unlink()
 
 
@@ -37,15 +75,16 @@ def _hash(path: Path) -> bytes:
     return hashlib.md5(path.read_bytes()).digest()
 
 
-def _restore(snapshot: Path):
-    tmp = INDEX_MD.with_suffix(".md.tmp")
+def _restore(snapshot: Path, index_md: Path):
+    tmp = index_md.with_suffix(".md.tmp")
     shutil.copy2(snapshot, tmp)
-    tmp.replace(INDEX_MD)
+    tmp.replace(index_md)
 
 
-def test_append_then_remove_byte_identical_for_empty_domain(baseline_snapshot):
-    _restore(baseline_snapshot)
-    before = _hash(INDEX_MD)
+def test_append_then_remove_byte_identical_for_empty_domain(isolated_index):
+    baseline_snapshot, index_md = isolated_index
+    _restore(baseline_snapshot, index_md)
+    before = _hash(index_md)
 
     r = index_md_writer.append("test-skill-tooling-xyz", "tooling",
                                 "test role", "test, trigger, list")
@@ -54,15 +93,16 @@ def test_append_then_remove_byte_identical_for_empty_domain(baseline_snapshot):
     r2 = index_md_writer.remove("test-skill-tooling-xyz")
     assert r2.ok, r2.message
 
-    after = _hash(INDEX_MD)
+    after = _hash(index_md)
     assert before == after, (
         f"INDEX.md not byte-identical after append+remove on empty domain"
     )
 
 
-def test_append_then_remove_byte_identical_for_non_empty_domain(baseline_snapshot):
-    _restore(baseline_snapshot)
-    before = _hash(INDEX_MD)
+def test_append_then_remove_byte_identical_for_non_empty_domain(isolated_index):
+    baseline_snapshot, index_md = isolated_index
+    _restore(baseline_snapshot, index_md)
+    before = _hash(index_md)
 
     r = index_md_writer.append("test-skill-meta-xyz", "meta",
                                 "test role", "test, trigger")
@@ -71,13 +111,14 @@ def test_append_then_remove_byte_identical_for_non_empty_domain(baseline_snapsho
     r2 = index_md_writer.remove("test-skill-meta-xyz")
     assert r2.ok, r2.message
 
-    after = _hash(INDEX_MD)
+    after = _hash(index_md)
     assert before == after
 
 
-def test_move_then_back_byte_identical(baseline_snapshot):
-    _restore(baseline_snapshot)
-    before = _hash(INDEX_MD)
+def test_move_then_back_byte_identical(isolated_index):
+    baseline_snapshot, index_md = isolated_index
+    _restore(baseline_snapshot, index_md)
+    before = _hash(index_md)
 
     index_md_writer.append("mover-test-x", "tooling", "test role", "kw1, kw2")
     r1 = index_md_writer.move("mover-test-x", "meta")
@@ -87,12 +128,13 @@ def test_move_then_back_byte_identical(baseline_snapshot):
     r3 = index_md_writer.remove("mover-test-x")
     assert r3.ok, r3.message
 
-    after = _hash(INDEX_MD)
+    after = _hash(index_md)
     assert before == after
 
 
-def test_read_returns_known_baseline_skills(baseline_snapshot):
-    _restore(baseline_snapshot)
+def test_read_returns_known_baseline_skills(isolated_index):
+    baseline_snapshot, index_md = isolated_index
+    _restore(baseline_snapshot, index_md)
     by_domain = index_md_writer.read_skills_by_domain()
     assert "agent-dev-kit-architecture-designer" in by_domain.get("meta", [])
     assert "codex-review" in by_domain.get("closeout", [])
@@ -100,14 +142,16 @@ def test_read_returns_known_baseline_skills(baseline_snapshot):
     assert "software-copyright-materials" in by_domain.get("ip", [])
 
 
-def test_append_rejects_unknown_domain(baseline_snapshot):
-    _restore(baseline_snapshot)
+def test_append_rejects_unknown_domain(isolated_index):
+    baseline_snapshot, index_md = isolated_index
+    _restore(baseline_snapshot, index_md)
     r = index_md_writer.append("test-skill", "nonsense-domain", "x", "y")
     assert not r.ok
     assert "unknown domain" in r.message
 
 
-def test_remove_rejects_unknown_skill(baseline_snapshot):
-    _restore(baseline_snapshot)
+def test_remove_rejects_unknown_skill(isolated_index):
+    baseline_snapshot, index_md = isolated_index
+    _restore(baseline_snapshot, index_md)
     r = index_md_writer.remove("nonexistent-skill-xyzzy")
     assert not r.ok

@@ -2,7 +2,7 @@ kind: skill
 name: document-skills
 version: 0.1.0
 description: Handle non-code deliverables — PDF, DOCX, XLSX, PPTX. Use whenever the project needs proposals, reports, contracts, RFPs, slide decks, spreadsheets, or any printable formal document, not just source code. Particularly valuable for consulting/outsourcing/presale/delivery teams.
-domain: ops
+domain: tooling
 priority: P1
 
 compatibility:

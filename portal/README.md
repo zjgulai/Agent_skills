@@ -13,6 +13,14 @@
 
 ## 启动
 
+首次准备 backend venv：
+
+```bash
+cd portal/backend
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+
 ```bash
 ~/.config/opencode/skills-portal/bin/start
 ```
@@ -106,8 +114,9 @@ frontend (Vue 3)
 | `GET` | `/api/skills` | 完整 skills-data.json | — |
 | `GET` | `/api/skills/{name}` | 单个 skill 的 frontmatter | — |
 | `GET` | `/api/skills/{name}/markdown` | SKILL.md 原文 | — |
-| `POST` | `/api/install/github` | 从 GitHub 安装 | `{url, subdir?}` |
-| `POST` | `/api/install/upload` | 上传 SKILL.md | multipart `file` |
+| `POST` | `/api/install/github` | 从 GitHub 安装 | `{url, subdir?, overwrite?}` |
+| `POST` | `/api/install/upload` | 上传 SKILL.md | multipart `file` + `overwrite?` query |
+| `PATCH` | `/api/skills/{name}/frontmatter` | 受控修复 SKILL.md frontmatter | `{description}` |
 | `DELETE` | `/api/skills/{name}` | 卸载 | — |
 | `POST` | `/api/refresh` | 重跑 build_index | — |
 
@@ -158,7 +167,7 @@ v1 没做。建议方向：
 - **没有 SSE/WebSocket**：安装大仓库时前端等待，无进度条
 - **触发词抽取较弱**：只抓 description 里的反引号、双引号、中文角括号；其他描述呈现为长段落（v2 可加 NLP 提取）
 - **多 skill 仓库批量安装**：需要先用 `subdir` 一个一个装；v2 可加"列出仓库内所有 SKILL.md → 多选安装"
-- **覆盖确认**：当前是直接覆盖（仅在 warnings 里提示）。v2 应改成"探测到已存在 → 前端二次确认"
+- **大仓库进度反馈**：没有 SSE/WebSocket，安装大仓库时仍是等待式反馈
 
 ## 维护
 
@@ -192,5 +201,5 @@ lsof -ti:5173,5174 | xargs kill -9
 | 层 | 包 | 用途 |
 |---|---|---|
 | Backend | fastapi, uvicorn[standard], pyyaml, python-multipart, httpx | HTTP API + frontmatter 解析 + 文件上传 |
-| Frontend | vue@3.5, vue-router@4, marked@15, mermaid@11, @picocss/pico@2 | UI + markdown 渲染 + graph 渲染 + 极简 CSS |
+| Frontend | vue@3.5, vue-router@4, marked@15, dompurify, mermaid@11 | UI + 安全 markdown 渲染 + graph 渲染 |
 | 系统 | git CLI | 一键安装时 clone GitHub 仓库 |

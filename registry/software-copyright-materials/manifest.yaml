@@ -2,7 +2,7 @@ kind: skill
 name: software-copyright-materials
 version: 0.1.0
 description: Generate guided Chinese software copyright application materials from a real project. Workflow analyzes the imported project, extracts real source code, creates Markdown drafts for user confirmation, then uses bundled DOCX tooling to produce final Word documents and TXT.
-domain: ops
+domain: ip
 priority: P2
 
 compatibility:

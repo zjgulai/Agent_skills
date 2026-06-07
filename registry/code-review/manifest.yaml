@@ -2,7 +2,7 @@ kind: skill
 name: code-review
 version: 0.1.0
 description: Switch to reviewer mindset after non-trivial code generation — examine structure clarity, naming, missing tests, edge cases, performance traps, security issues, and (for frontend) accessibility, state ownership, interaction consistency. Use as the default "second pass" after every meaningful code change, not just before merge.
-domain: code-quality
+domain: closeout
 priority: P0
 
 compatibility:

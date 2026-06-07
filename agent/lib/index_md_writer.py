@@ -27,6 +27,8 @@ import sys
 from dataclasses import dataclass
 from typing import Optional
 
+import mistune
+
 SKILLS_ROOT = pathlib.Path(os.path.expanduser("~/.config/opencode/skills"))
 INDEX_MD = SKILLS_ROOT / "INDEX.md"
 
@@ -52,6 +54,7 @@ TABLE_DATA_ROW_RE = re.compile(r"^\|.*\|.*\|.*\|\s*$")
 TABLE_HEADER_RE = re.compile(r"^\|\s*Skill\s*\|")
 TABLE_SEP_RE = re.compile(r"^\|[\s|:-]+\|\s*$")
 EMPTY_PLACEHOLDER_RE = re.compile(r"^>\s*暂为空")
+MARKDOWN_AST = mistune.create_markdown(renderer="ast")
 
 
 @dataclass
@@ -105,19 +108,72 @@ def _atomic_write(path: pathlib.Path, content: str) -> None:
     os.replace(tmp, path)
 
 
-def read_skills_by_domain() -> dict[str, list[str]]:
-    text = INDEX_MD.read_text(encoding="utf-8")
-    sections = re.split(r"^### ", text, flags=re.MULTILINE)
-    out: dict[str, list[str]] = {d: [] for d in DOMAIN_LABEL_TO_ID.values()}
-    for sec in sections:
-        first_line = sec.split("\n", 1)[0]
-        m = re.match(r"域\s*\d+\s*[·•]\s*([^（(]+)", first_line)
-        if not m:
+def _ast_text(node: dict) -> str:
+    if "raw" in node:
+        return str(node["raw"])
+    return "".join(_ast_text(child) for child in node.get("children", []))
+
+
+def _domain_id_from_heading(text: str) -> Optional[str]:
+    m = re.match(r"域\s*\d+\s*[·•]\s*([^（(]+)", text)
+    if not m:
+        return None
+    label = m.group(1).strip()
+    return next((v for k, v in DOMAIN_LABEL_TO_ID.items() if k in label), None)
+
+
+def _domain_heading_line_indexes(text: str) -> list[tuple[int, str]]:
+    """Return line indexes for H3 domain headings found through Markdown AST."""
+    headings: list[str] = []
+    for node in MARKDOWN_AST(text):
+        if node.get("type") != "heading" or node.get("attrs", {}).get("level") != 3:
             continue
-        label = m.group(1).strip()
-        domain_id = next((v for k, v in DOMAIN_LABEL_TO_ID.items() if k in label), None)
+        heading_text = _ast_text(node).strip()
+        if _domain_id_from_heading(heading_text):
+            headings.append(heading_text)
+
+    if not headings:
+        return []
+
+    out: list[tuple[int, str]] = []
+    remaining = list(headings)
+    for idx, line in enumerate(text.split("\n")):
+        stripped = line.strip()
+        if not stripped.startswith("### "):
+            continue
+        heading_text = stripped[4:].strip()
+        if remaining and heading_text == remaining[0]:
+            out.append((idx, heading_text))
+            remaining.pop(0)
+        if not remaining:
+            break
+    return out
+
+
+def _domain_sections(text: str) -> list[tuple[str, str]]:
+    lines = text.split("\n")
+    headings = _domain_heading_line_indexes(text)
+    out: list[tuple[str, str]] = []
+    for pos, (start, heading_text) in enumerate(headings):
+        domain_id = _domain_id_from_heading(heading_text)
         if not domain_id:
             continue
+        end = len(lines)
+        if pos + 1 < len(headings):
+            end = headings[pos + 1][0]
+        else:
+            for idx in range(start + 1, len(lines)):
+                if lines[idx].startswith("## "):
+                    end = idx
+                    break
+        out.append((domain_id, "\n".join(lines[start:end])))
+    return out
+
+
+def read_skills_by_domain() -> dict[str, list[str]]:
+    text = INDEX_MD.read_text(encoding="utf-8")
+    out: dict[str, list[str]] = {d: [] for d in DOMAIN_LABEL_TO_ID.values()}
+    for domain_id, sec in _domain_sections(text):
         for sn in SKILL_LINK_RE.findall(sec):
             if sn not in out[domain_id]:
                 out[domain_id].append(sn)
@@ -130,21 +186,25 @@ def _find_domain_section_range(lines: list[str], domain_id: str) -> Optional[tup
     end_line is exclusive: it's the index of the next '### '/'## ' line, or len(lines).
     Returns None if domain heading not found.
     """
-    label = DOMAIN_ID_TO_LABEL[domain_id]
+    text = "\n".join(lines)
+    headings = _domain_heading_line_indexes(text)
     start = None
-    for i, line in enumerate(lines):
-        if line.startswith("### "):
-            m = re.match(r"###\s*域\s*\d+\s*[·•]\s*(.+?)\s*$", line)
-            if m and label in m.group(1):
-                start = i
-                break
+    heading_pos = None
+    for pos, (line_idx, heading_text) in enumerate(headings):
+        if _domain_id_from_heading(heading_text) == domain_id:
+            start = line_idx
+            heading_pos = pos
+            break
     if start is None:
         return None
-    end = len(lines)
-    for j in range(start + 1, len(lines)):
-        if lines[j].startswith("### ") or lines[j].startswith("## "):
-            end = j
-            break
+    if heading_pos is not None and heading_pos + 1 < len(headings):
+        end = headings[heading_pos + 1][0]
+    else:
+        end = len(lines)
+        for j in range(start + 1, len(lines)):
+            if lines[j].startswith("## "):
+                end = j
+                break
     return (start, end)
 
 

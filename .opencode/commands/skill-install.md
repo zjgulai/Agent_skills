@@ -1,11 +1,13 @@
 ---
-description: Install a skill from a GitHub URL. Auto-detects monorepo (multiple SKILL.md) and offers batch install. Integrates metadata, syncs to docs, commits and pushes (one-shot end-to-end deployment).
+description: Install a skill from a GitHub URL. Auto-detects monorepo (multiple SKILL.md) and offers batch install. Integrates metadata, syncs docs mirror, and reports pending git changes.
 agent: build
 ---
 
 # /skill-install
 
-Install a new skill (or **whole monorepo of skills**) into `~/.config/opencode/skills/<name>/`, integrate into meta-data layer (`INDEX.md`, `skills-graph.mmd`, `skills-graph.png`), **sync to `data-mirror/`**, **append a case-study entry**, **commit and push** so the docs site auto-rebuilds.
+Install a new skill (or **whole monorepo of skills**) into `~/.config/opencode/skills/<name>/`, integrate into meta-data layer (`INDEX.md`, `skills-graph.mmd`, `skills-graph.png`), **sync to `data-mirror/`**, **append a case-study entry**, and report the pending git changes.
+
+**Do not commit or push.** Project rules require explicit user instruction before any git commit/push.
 
 **Arguments**: `$ARGUMENTS` — expected to contain the GitHub URL, optionally followed by `--subdir <X>` to force a specific subpath.
 
@@ -29,7 +31,7 @@ if [ "$AGENTS_HASH_BEFORE" != "$AGENTS_HASH_AFTER" ]; then
 fi
 ```
 
-## Execute these 12 steps in order
+## Execute these 11 steps in order
 
 Use `portal/backend/.venv/bin/python` (NOT system python). **All commands MUST run from the repository root** (`cd /Users/lute/project/Agent/Agent_skills` before every bash block).
 
@@ -189,7 +191,7 @@ Append to `docs/_src/case-studies.json` (Python read → append → write back).
 
 > **Rule**: Step 9 is NEVER skipped. If user gives no answer within the same turn, auto-fill with 0 questions and proceed. The only acceptable outcome is a written State entry.
 
-### Step 10 — Commit
+### Step 10 — Final verification and handoff
 
 ```bash
 cd /Users/lute/project/Agent/Agent_skills
@@ -197,7 +199,7 @@ cd /Users/lute/project/Agent/Agent_skills
 # 1. 最终哨兵：确认 AGENTS.md 未被污染
 AGENTS_HASH_FINAL=$(shasum -a 256 AGENTS.md | awk '{print $1}')
 if [ "$AGENTS_HASH_BEFORE" != "$AGENTS_HASH_FINAL" ]; then
-  echo "❌ AGENTS.md corrupted before commit! Restoring..."
+  echo "❌ AGENTS.md corrupted during install! Restoring..."
   git checkout HEAD -- AGENTS.md
   exit 1
 fi
@@ -205,30 +207,9 @@ fi
 # 2. 清理临时备份文件，不污染 git status
 rm -f AGENTS.md.corrupted.bak
 
-# 3. 只暂存预期文件，NEVER use git add .
-git add data-mirror/ docs/_src/case-studies.json
+# 3. 只读检查：不要 git add，不要 commit，不要 push
+portal/backend/.venv/bin/python -m agent.lib.state_audit --json
 git status --short
-git commit -m "feat(skills): add <name> (<single skill or 'suite of N'>)
-
-<one-line user-provided desc>
-
-- domain: <domain or 'meta + closeout' for mixed>
-- INDEX.md: appended <N> rows
-- skills-graph: +<N> nodes
-- case-studies.json: State <id> appended
-"
-```
-
-### Step 11 — Push
-
-```bash
-git push origin main
-```
-
-### Step 12 — Report CI URL
-
-```bash
-sleep 5 && gh run list --limit 1 --json databaseId,status,name 2>/dev/null
 ```
 
 ### Final report
@@ -247,8 +228,8 @@ Single skill mode:
 ✅ portal refreshed: skill_count=<N>
 ✅ data-mirror/ synced
 ✅ case-studies.json: State <id>
-✅ git push complete
-🚀 CI: https://github.com/zjgulai/Agent_skills/actions/runs/<id>
+✅ git status reviewed
+⏸ not committed or pushed (requires explicit user request)
 
 Monorepo mode:
 ✅ scanned: <total> SKILL.md candidates
@@ -257,13 +238,12 @@ Monorepo mode:
 ✅ domains: meta+<N>, closeout+<M>, ...
 ✅ skills-graph: +<N> nodes, PNG <old>→<new> bytes
 ✅ case-studies.json: State <id> ("suite of N skills")
-🚀 CI: <url>
-
-📡 Site updates in ~1 minute: https://zjgulai.github.io/Agent_skills/zh/handbook.html#state-<id>
+✅ git status reviewed
+⏸ not committed or pushed (requires explicit user request)
 ```
 
 ## Failure handling
 
-- Stop on first **infrastructure** failure (Steps 1, 2 for single, 5-7, 10-11).
+- Stop on first **infrastructure** failure (Steps 1, 2 for single, 5-7, 10).
 - For **monorepo Step 2**: continue on per-subdir failures, report final tally.
-- Steps 9-11 (case-study + commit + push): if these fail, **do NOT undo** Steps 1-8 — the skill is correctly installed locally. Report partial completion and manual finish path.
+- Steps 9-10 (case-study + final verification): if these fail, **do NOT undo** Steps 1-8 — the skill is correctly installed locally. Report partial completion and manual finish path.

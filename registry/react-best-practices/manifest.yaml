@@ -2,7 +2,7 @@ kind: skill
 name: react-best-practices
 version: 0.1.0
 description: Write React/Next.js code like a senior engineer — eliminate request waterfalls, oversized bundles, server-vs-client confusion, redundant renders, premature memo, bad data-fetching patterns. Use whenever generating React or Next.js components, especially for performance-sensitive or production code.
-domain: frontend
+domain: tooling
 priority: P1
 
 compatibility:

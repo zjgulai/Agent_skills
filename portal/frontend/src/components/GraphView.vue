@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import mermaid from 'mermaid'
 
 const props = defineProps<{ mermaidSource: string }>()
 const container = ref<HTMLDivElement | null>(null)
@@ -29,6 +28,7 @@ function fitToWidth() {
 async function render() {
   if (!props.mermaidSource || !container.value) return
   try {
+    const { default: mermaid } = await import('mermaid')
     mermaid.initialize({
       startOnLoad: false,
       theme: 'default',

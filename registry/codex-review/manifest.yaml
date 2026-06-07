@@ -2,7 +2,7 @@ kind: skill
 name: codex-review
 version: 0.1.0
 description: Run codex review for pre-commit / pre-PR closeout — covers uncommitted local changes, PR branch vs main, parallel tests. Use when about to ship, commit, or open a PR after non-trivial code changes.
-domain: code-quality
+domain: closeout
 priority: P1
 
 compatibility:
