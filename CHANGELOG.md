@@ -28,6 +28,10 @@ Pre-1.0. Three-repo system stabilising. Once Agent_skills + Agent_hook + Agent_m
   - `paper2skills-workflow`
 - Full state audit now converges on 164 installed/INDEX/graph/docs skills after sync.
 
+### Changed — GitHub Pages CI
+
+- Upgraded Pages workflow actions for Node 24 compatibility: `actions/checkout@v6`, `actions/setup-python@v6`, `actions/upload-pages-artifact@v5`, and `actions/deploy-pages@v5`.
+
 ## [0.4.0] — 2026-06-03
 
 GitHub 近一周上升榜单深度挖掘 + 增量 skills 部署。skill_count 从 85 增至 141，新增 codegraph CLI + MCP 接入，修复 build.py 数据容错问题。
