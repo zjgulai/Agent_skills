@@ -84,6 +84,11 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [codegraph-add-lang](file:///Users/lute/.config/opencode/skills/codegraph-add-lang/SKILL.md) | CodeGraph language support implementation SOP | /add-lang, tree-sitter, codegraph |
 | [codegraph-agent-eval](file:///Users/lute/.config/opencode/skills/codegraph-agent-eval/SKILL.md) | CodeGraph retrieval benchmark SOP | /agent-eval, benchmark, codegraph |
 | [paper-skills-gap-analysis](file:///Users/lute/.config/opencode/skills/paper-skills-gap-analysis/SKILL.md) | Skills graph coverage gap analysis SOP | skills graph 缺口, 推荐新选题方向, Sprint 选题 |
+| [paper2skills-workflow](file:///Users/lute/.config/opencode/skills/paper2skills-workflow/SKILL.md) | paper2skills 端到端生产工作流 | 选题, 萃取论文, 新增 Skill, 完整流程 |
+| [context-engineering](file:///Users/lute/.config/opencode/skills/context-engineering/SKILL.md) | Agent 上下文工程 | CLAUDE.md, context, rules files |
+| [source-driven-development](file:///Users/lute/.config/opencode/skills/source-driven-development/SKILL.md) | 官方文档驱动实现 | official docs, source-cited, framework correctness |
+| [spec-driven-development](file:///Users/lute/.config/opencode/skills/spec-driven-development/SKILL.md) | 先规格后实现 | spec, requirements, plan, tasks |
+| [api-and-interface-design](file:///Users/lute/.config/opencode/skills/api-and-interface-design/SKILL.md) | API/模块接口设计 | REST, GraphQL, type contracts, boundaries |
 
 > 这一域目前只有 1 个 skill，但它是**所有其他 skill 的"元结构"** —— 决定了你今后写 skill 时的目录约定、前置守卫、团队分发方式。新增任何"AI 工作流治理类" skill 时，先和它对照。
 
@@ -109,6 +114,9 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [prototype](file:///Users/lute/.config/opencode/skills/prototype/SKILL.md) | Throwaway prototype to answer a design question — terminal app for logic, multi-variation UI for design options | prototype this, sanity-check data model, try a few designs |
 | [tdd](file:///Users/lute/.config/opencode/skills/tdd/SKILL.md) | Red-green-refactor TDD loop — behavior through public interfaces, not implementation details | TDD, red-green-refactor, test-first development, integration tests |
 | [review](file:///Users/lute/.config/opencode/skills/review/SKILL.md) | Two-axis PR/branch review: Standards (coding conventions) + Spec (matches originating issue/PRD) | review this branch, review PR, review since X, review changes |
+| [paper2skills-deploy](file:///Users/lute/.config/opencode/skills/paper2skills-deploy/SKILL.md) | paper2skills 发布 SOP | 部署, build 并上线, deploy playbook, 更新生产环境 |
+| [deploy-to-vercel](file:///Users/lute/.config/opencode/skills/deploy-to-vercel/SKILL.md) | Vercel 预览部署 SOP | deploy to Vercel, preview deployment, push live |
+| [shipping-and-launch](file:///Users/lute/.config/opencode/skills/shipping-and-launch/SKILL.md) | 上线发布门禁 | production launch, rollout, rollback |
 
 **运行时依赖**：
 
@@ -260,6 +268,19 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [cash-flow-snapshot](file:///Users/lute/.config/opencode/skills/cash-flow-snapshot/SKILL.md) | 🆕 Anthropic kw-plugins: quick cash flow health check | cash flow, financial health, burn rate, runway |
 | [lead-triage](file:///Users/lute/.config/opencode/skills/lead-triage/SKILL.md) | 🆕 Anthropic kw-plugins: lead qualification and triage | lead triage, lead qualification, inbound leads |
 | [bi-prompt-engineering](file:///Users/lute/.config/opencode/skills/bi-prompt-engineering/SKILL.md) | BI prompt accuracy and field-mapping SOP | 提示词准确率低, AI 算错数, BI 报告 |
+| [paper2skills-ps-override](file:///Users/lute/.config/opencode/skills/paper2skills-ps-override/SKILL.md) | problem_solved 业务描述补写 SOP | ps_override, problem_solved, WARN dup_ps |
+| [paper2skills-ui-audit](file:///Users/lute/.config/opencode/skills/paper2skills-ui-audit/SKILL.md) | paper2skills UI 审计 SOP | UI 审计, Playwright 验证, 卡片高度 |
+| [ast-grep](file:///Users/lute/.config/opencode/skills/ast-grep/SKILL.md) | AST 结构化代码搜索 | ast-grep, structural search, code pattern |
+| [supabase](file:///Users/lute/.config/opencode/skills/supabase/SKILL.md) | Supabase 全栈与安全/RLS 指南 | Supabase, Auth, RLS, Edge Functions, Storage |
+| [supabase-postgres-best-practices](file:///Users/lute/.config/opencode/skills/supabase-postgres-best-practices/SKILL.md) | Postgres 性能与 RLS 最佳实践 | Postgres, query, index, RLS, Supabase |
+| [vercel-optimize](file:///Users/lute/.config/opencode/skills/vercel-optimize/SKILL.md) | Vercel 成本/性能优化审计 | Vercel metrics, Core Web Vitals, cost, caching |
+| [vercel-react-best-practices](file:///Users/lute/.config/opencode/skills/vercel-react-best-practices/SKILL.md) | React/Next.js 性能规则 | React, Next.js, bundle, waterfalls |
+| [web-design-guidelines](file:///Users/lute/.config/opencode/skills/web-design-guidelines/SKILL.md) | Web UI 设计/可访问性审查 | UI review, accessibility, UX audit |
+| [performance-optimization](file:///Users/lute/.config/opencode/skills/performance-optimization/SKILL.md) | 证据驱动性能优化 | Core Web Vitals, profiling, bottleneck |
+| [observability-and-instrumentation](file:///Users/lute/.config/opencode/skills/observability-and-instrumentation/SKILL.md) | 生产可观测性设计 | logging, metrics, tracing, alerting |
+| [security-and-hardening](file:///Users/lute/.config/opencode/skills/security-and-hardening/SKILL.md) | 安全威胁建模与加固 | security, auth, input, STRIDE, OWASP |
+| [obsidian-markdown](file:///Users/lute/.config/opencode/skills/obsidian-markdown/SKILL.md) | Obsidian Markdown 写作 | Obsidian, wikilinks, callouts, frontmatter |
+| [json-canvas](file:///Users/lute/.config/opencode/skills/json-canvas/SKILL.md) | JSON Canvas 编辑 | canvas, mind map, visual canvas, .canvas |
 
 ---
 

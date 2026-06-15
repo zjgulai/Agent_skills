@@ -6,6 +6,28 @@ All notable changes to **Agent_skills** are documented here. Format follows [Kee
 
 Pre-1.0. Three-repo system stabilising. Once Agent_skills + Agent_hook + Agent_mcp pin their `manifest.py` schema and CLI surface, a coordinated `1.0.0` will follow across all three.
 
+### Added — 2026-06-14 weekly hot skills refresh
+
+- Installed 17 curated skills from recently active GitHub repositories:
+  - `ast-grep`
+  - `supabase`, `supabase-postgres-best-practices`
+  - `deploy-to-vercel`, `vercel-optimize`, `vercel-react-best-practices`, `web-design-guidelines`
+  - `context-engineering`, `source-driven-development`, `spec-driven-development`, `api-and-interface-design`
+  - `performance-optimization`, `observability-and-instrumentation`, `shipping-and-launch`, `security-and-hardening`
+  - `obsidian-markdown`, `json-canvas`
+- Added `docs/_src/weekly-hot-skills.json` and generated `docs/data/weekly-hot-skills.json`.
+- Added a bilingual homepage "Hot Skills Radar This Week" section showing installed curated groups plus watchlisted aggregator repos.
+- Added `bin/deploy-docs`: one command for `sync-data` → docs data build → bilingual HTML build → metadata-only publish audit; `--push` commits and pushes Pages-triggering files.
+
+### Fixed — local metadata drift
+
+- Registered 4 already-installed `paper2skills-*` skills in `INDEX.md` and `skills-graph.mmd`:
+  - `paper2skills-deploy`
+  - `paper2skills-ps-override`
+  - `paper2skills-ui-audit`
+  - `paper2skills-workflow`
+- Full state audit now converges on 164 installed/INDEX/graph/docs skills after sync.
+
 ## [0.4.0] — 2026-06-03
 
 GitHub 近一周上升榜单深度挖掘 + 增量 skills 部署。skill_count 从 85 增至 141，新增 codegraph CLI + MCP 接入，修复 build.py 数据容错问题。

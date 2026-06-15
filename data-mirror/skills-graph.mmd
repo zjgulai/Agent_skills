@@ -66,6 +66,11 @@ flowchart LR
     SD2[system-design]:::metaDomain
     TD[tech-debt]:::metaDomain
     WS2[write-spec]:::metaDomain
+    PW[paper2skills-workflow]:::metaDomain
+    CE2[context-engineering]:::metaDomain
+    SDD2[source-driven-development]:::metaDomain
+    SDD3[spec-driven-development]:::metaDomain
+    AAID[api-and-interface-design]:::metaDomain
 
     %% Domain 2 - Closeout
     CR[codex-review]:::closeoutDomain
@@ -82,6 +87,9 @@ flowchart LR
     P[prototype]:::closeoutDomain
     T[tdd]:::closeoutDomain
     R[review]:::closeoutDomain
+    PD[paper2skills-deploy]:::closeoutDomain
+    DTV[deploy-to-vercel]:::closeoutDomain
+    SAL[shipping-and-launch]:::closeoutDomain
 
     %% Domain 3 - Desktop
     NF[native-feel-cross-platform-desktop]:::desktopDomain
@@ -344,6 +352,58 @@ flowchart LR
 
     VA[variance-analysis]:::toolingDomain
 
+    %% Tooling domain
+
+    PPO[paper2skills-ps-override]:::toolingDomain
+
+    %% Tooling domain
+
+    PUA[paper2skills-ui-audit]:::toolingDomain
+
+    %% Tooling domain
+
+    AG[ast-grep]:::toolingDomain
+
+    %% Tooling domain
+
+    S3[supabase]:::toolingDomain
+
+    %% Tooling domain
+
+    SPBP[supabase-postgres-best-practices]:::toolingDomain
+
+    %% Tooling domain
+
+    VO[vercel-optimize]:::toolingDomain
+
+    %% Tooling domain
+
+    VRBP[vercel-react-best-practices]:::toolingDomain
+
+    %% Tooling domain
+
+    WDG[web-design-guidelines]:::toolingDomain
+
+    %% Tooling domain
+
+    PO[performance-optimization]:::toolingDomain
+
+    %% Tooling domain
+
+    OAI[observability-and-instrumentation]:::toolingDomain
+
+    %% Tooling domain
+
+    SAH[security-and-hardening]:::toolingDomain
+
+    %% Tooling domain
+
+    OM[obsidian-markdown]:::toolingDomain
+
+    %% Tooling domain
+
+    JC[json-canvas]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -487,6 +547,27 @@ flowchart LR
     UC -. "同域" .-> GPS
     VA -. "同域" .-> GPS
     WS2 -. "同域" .-> ADK
+    PD -. "同域" .-> CR
+    PPO -. "同域" .-> GPS
+    PUA -. "同域" .-> GPS
+    PW -. "同域" .-> ADK
+    AG -. "同域" .-> GPS
+    S3 -. "同域" .-> GPS
+    SPBP -. "同域" .-> GPS
+    DTV -. "同域" .-> CR
+    VO -. "同域" .-> GPS
+    VRBP -. "同域" .-> GPS
+    WDG -. "同域" .-> GPS
+    CE2 -. "同域" .-> ADK
+    SDD2 -. "同域" .-> ADK
+    SDD3 -. "同域" .-> ADK
+    AAID -. "同域" .-> ADK
+    PO -. "同域" .-> GPS
+    OAI -. "同域" .-> GPS
+    SAL -. "同域" .-> CR
+    SAH -. "同域" .-> GPS
+    OM -. "同域" .-> GPS
+    JC -. "同域" .-> GPS
 
     %% --- Lifecycle flows ---
 

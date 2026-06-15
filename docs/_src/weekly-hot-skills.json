@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-06-14T19:55:00-07:00",
+  "window": {
+    "start": "2026-06-07",
+    "end": "2026-06-14",
+    "timezone": "America/Los_Angeles"
+  },
+  "selection_policy_zh": "只安装最近一周仍活跃、仓库星标/可信来源较强、包含真实 SKILL.md、且和现有库互补的子 skill；聚合目录只进入观察雷达。",
+  "selection_policy_en": "Install only recently active, reputable repositories with real SKILL.md files and complementary coverage; keep aggregators on the watchlist.",
+  "groups": [
+    {
+      "repo": "ast-grep/agent-skill",
+      "url": "https://github.com/ast-grep/agent-skill",
+      "stars": 728,
+      "updated_at": "2026-06-14T22:09:10Z",
+      "why_zh": "补齐 AST 结构化搜索能力，用于查找 grep 很难表达的代码模式。",
+      "why_en": "Adds AST-aware structural search for code patterns that plain grep cannot express well.",
+      "skills": [
+        "ast-grep"
+      ]
+    },
+    {
+      "repo": "supabase/agent-skills",
+      "url": "https://github.com/supabase/agent-skills",
+      "stars": 2246,
+      "updated_at": "2026-06-14T19:52:55Z",
+      "why_zh": "官方 Supabase 任务指南，覆盖 Auth/RLS/Edge Functions 与 Postgres 性能安全坑。",
+      "why_en": "Official Supabase task guidance covering Auth, RLS, Edge Functions, and Postgres performance/security traps.",
+      "skills": [
+        "supabase",
+        "supabase-postgres-best-practices"
+      ]
+    },
+    {
+      "repo": "vercel-labs/agent-skills",
+      "url": "https://github.com/vercel-labs/agent-skills",
+      "stars": 27922,
+      "updated_at": "2026-06-15T02:30:50Z",
+      "why_zh": "补齐部署、Vercel 优化、React/Next 性能与 Web UI 审查的官方工程实践。",
+      "why_en": "Adds official deployment, Vercel optimization, React/Next performance, and web UI review practices.",
+      "skills": [
+        "deploy-to-vercel",
+        "vercel-optimize",
+        "vercel-react-best-practices",
+        "web-design-guidelines"
+      ]
+    },
+    {
+      "repo": "addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "stars": 59580,
+      "updated_at": "2026-06-15T02:48:00Z",
+      "why_zh": "精选工程方法论子集，补强 context/spec/source-driven、API 边界、性能、可观测性、安全和发布门禁。",
+      "why_en": "Curated engineering-methodology subset for context/spec/source-driven work, API boundaries, performance, observability, security, and launch gates.",
+      "skills": [
+        "context-engineering",
+        "source-driven-development",
+        "spec-driven-development",
+        "api-and-interface-design",
+        "performance-optimization",
+        "observability-and-instrumentation",
+        "shipping-and-launch",
+        "security-and-hardening"
+      ]
+    },
+    {
+      "repo": "kepano/obsidian-skills",
+      "url": "https://github.com/kepano/obsidian-skills",
+      "stars": 35629,
+      "updated_at": "2026-06-15T02:27:04Z",
+      "why_zh": "补齐 Obsidian Markdown 与 JSON Canvas 这类知识库/画布文件格式能力。",
+      "why_en": "Adds Obsidian Markdown and JSON Canvas file-format support for knowledge-base and canvas work.",
+      "skills": [
+        "obsidian-markdown",
+        "json-canvas"
+      ]
+    }
+  ],
+  "radar": [
+    {
+      "repo": "VoltAgent/awesome-agent-skills",
+      "url": "https://github.com/VoltAgent/awesome-agent-skills",
+      "stars": 25332,
+      "updated_at": "2026-06-15T02:41:56Z",
+      "decision_zh": "1000+ agent skills 聚合目录，适合发现趋势；不整包安装。",
+      "decision_en": "A 1000+ skill aggregator for discovery; not bulk-installed."
+    },
+    {
+      "repo": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "stars": 150722,
+      "updated_at": "2026-06-15T02:47:04Z",
+      "decision_zh": "官方基础包已部分覆盖，后续按缺口选择性补装。",
+      "decision_en": "Official base pack is partially covered already; install selectively by gap."
+    },
+    {
+      "repo": "ykdojo/claude-code-tips",
+      "url": "https://github.com/ykdojo/claude-code-tips",
+      "stars": 8725,
+      "updated_at": "2026-06-15T02:23:46Z",
+      "decision_zh": "包含 reddit-fetch / review-claudemd 等实用点状 skill，暂作后续补齐候选。",
+      "decision_en": "Contains focused utilities such as reddit-fetch and review-claudemd; kept as a later candidate."
+    },
+    {
+      "repo": "sickn33/antigravity-awesome-skills",
+      "url": "https://github.com/sickn33/antigravity-awesome-skills",
+      "stars": 40734,
+      "updated_at": "2026-06-15T02:48:43Z",
+      "decision_zh": "大型 installable library，需 dry-scan 后按主题分批筛选。",
+      "decision_en": "Large installable library; requires dry-scan and topic-based curation."
+    }
+  ]
+}

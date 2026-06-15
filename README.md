@@ -31,7 +31,7 @@
 - `/skill-graph-sync` —— 自动对齐 INDEX 与图谱
 - ……另外 7 条命令覆盖更新、卸载、归类、portal 控制
 
-它不替代 OpenCode 本身，**只在它之上加一层"管理"**。skill 仓库本体仍住在 `~/.config/opencode/skills/`，不动它的目录结构。当前已管理 **141 个 skills**，覆盖工程、设计、法务、HR、财务、销售等全链路知识工作域。
+它不替代 OpenCode 本身，**只在它之上加一层"管理"**。skill 仓库本体仍住在 `~/.config/opencode/skills/`，不动它的目录结构。当前已管理 **164 个 skills**，覆盖工程、设计、法务、HR、财务、销售等全链路知识工作域。
 
 ---
 
@@ -89,6 +89,7 @@ cd ~/project/Agent/Agent_skills
 | `install-monorepo <url> [<subdir>...]` | 一次 clone 批量装（实测 17× 加速） |
 | `bin/sync-data` | 把 `~/.config/opencode/skills/` 元数据镜像到 `data-mirror/` |
 | `bin/sync-data --diff-skills` | 机读输出 INDEX.md 新增的 skill 名 |
+| `bin/deploy-docs [--push]` | 一键 sync → docs build → metadata audit；加 `--push` 时提交并触发 GitHub Pages |
 
 完整参考：[手册 §3 11 个方法](https://zjgulai.github.io/Agent_skills/handbook.html#methods)
 

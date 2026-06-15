@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# Build and optionally push the GitHub Pages docs bundle.
+#
+# Usage:
+#   bin/deploy-docs
+#   bin/deploy-docs --push
+#   bin/deploy-docs --push --message "docs: update weekly hot skills"
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PY="$REPO_ROOT/portal/backend/.venv/bin/python"
+PUSH=0
+MESSAGE="docs: update weekly hot skills"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --push)
+      PUSH=1
+      shift
+      ;;
+    --message|-m)
+      MESSAGE="${2:?missing commit message after $1}"
+      shift 2
+      ;;
+    --help|-h)
+      cat <<'USAGE'
+Build and optionally push the GitHub Pages docs bundle.
+
+Usage:
+  bin/deploy-docs
+  bin/deploy-docs --push
+  bin/deploy-docs --push --message "docs: update weekly hot skills"
+USAGE
+      exit 0
+      ;;
+    *)
+      echo "unknown argument: $1" >&2
+      exit 2
+      ;;
+  esac
+done
+
+cd "$REPO_ROOT"
+
+if [[ ! -x "$PY" ]]; then
+  echo "portal venv python not found: $PY" >&2
+  exit 1
+fi
+
+echo "== sync live skill metadata =="
+"$REPO_ROOT/bin/sync-data"
+
+echo
+echo "== build docs data =="
+"$PY" "$REPO_ROOT/docs/_src/data-collect.py"
+
+echo
+echo "== build bilingual static site =="
+"$PY" "$REPO_ROOT/docs/_src/build.py"
+
+echo
+echo "== verify metadata-only publish state =="
+"$PY" -m agent.lib.state_audit \
+  --metadata-only \
+  --skills-root "$REPO_ROOT/data-mirror" \
+  --index-md "$REPO_ROOT/data-mirror/INDEX.md" \
+  --graph-mmd "$REPO_ROOT/data-mirror/skills-graph.mmd" \
+  --graph-png "$REPO_ROOT/data-mirror/skills-graph.png" \
+  --mirror-dir "$REPO_ROOT/data-mirror" \
+  --docs-status-json "$REPO_ROOT/docs/data/portal-status.json" \
+  --check
+
+echo
+echo "== whitespace check =="
+git diff --check -- data-mirror docs bin/deploy-docs README.md CHANGELOG.md
+
+if [[ "$PUSH" -eq 0 ]]; then
+  echo
+  echo "Local docs build complete. Re-run with --push to commit and push the Pages-triggering files."
+  exit 0
+fi
+
+echo
+echo "== commit and push =="
+git add data-mirror docs bin/deploy-docs README.md CHANGELOG.md
+if git diff --cached --quiet; then
+  echo "No staged changes; skipping commit."
+else
+  git commit -m "$MESSAGE"
+fi
+
+BRANCH="$(git branch --show-current)"
+git push origin "$BRANCH"
+
+echo
+echo "== latest Pages workflow =="
+gh run list --workflow deploy-docs.yml --branch "$BRANCH" --limit 1 || true

@@ -15,6 +15,7 @@ docs/
 │   ├── originals/                   # 原 HTML 备份（构建期 read-only）
 │   ├── i18n/zh.json                 # 中文字典（285 条）
 │   ├── data-collect.py              # 解析 INDEX.md → JSON
+│   ├── weekly-hot-skills.json       # 最近一周热门 skill 筛选与首页 Radar 数据
 │   ├── i18n-extract.py              # 一次性脚本：原 HTML → zh.json
 │   └── build.py                     # 主构建器（DOM 替换 + 双语渲染）
 ├── data/                            # data-collect.py 输出
@@ -32,6 +33,13 @@ docs/
 bin/sync-data                              # 1. 同步 ~/.config/opencode/skills/ → data-mirror/
 portal/backend/.venv/bin/python docs/_src/data-collect.py   # 2. 生成 JSON
 portal/backend/.venv/bin/python docs/_src/build.py          # 3. 构建 HTML
+```
+
+一键入口：
+
+```bash
+bin/deploy-docs          # sync + build + metadata-only audit
+bin/deploy-docs --push   # 追加 commit + push，触发 GitHub Pages workflow
 ```
 
 构建后浏览器打开：

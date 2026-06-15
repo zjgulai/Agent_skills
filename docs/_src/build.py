@@ -29,6 +29,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
+from html import escape
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -40,6 +41,7 @@ ORIGINALS = SRC / "originals"
 DATA = DOCS / "data"
 I18N = SRC / "i18n"
 CASE_STUDIES = SRC / "case-studies.json"
+WEEKLY_HOT_SKILLS = SRC / "weekly-hot-skills.json"
 
 PAGES_TO_BUILD = [
     "index.html",
@@ -232,7 +234,125 @@ def replace_case_studies_section(soup: BeautifulSoup, states: list[dict], lang: 
     return True
 
 
+def load_weekly_hot_skills() -> dict:
+    if not WEEKLY_HOT_SKILLS.exists():
+        return {}
+    return json.loads(WEEKLY_HOT_SKILLS.read_text(encoding="utf-8"))
+
+
+def publish_weekly_hot_skills(payload: dict) -> None:
+    if not payload:
+        return
+    DATA.mkdir(parents=True, exist_ok=True)
+    (DATA / "weekly-hot-skills.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _pick(d: dict, key: str, lang: str, default: str = "") -> str:
+    return str(d.get(f"{key}_{lang}") or d.get(f"{key}_en") or d.get(key) or default)
+
+
+def render_weekly_hot_skills(payload: dict, lang: str) -> str:
+    window = payload.get("window", {})
+    groups = payload.get("groups", [])
+    radar = payload.get("radar", [])
+    title = "本周热门 Skills Radar" if lang == "zh" else "Hot Skills Radar This Week"
+    lead = (
+        f"{window.get('start', '')} → {window.get('end', '')}：按 GitHub 活跃度、真实 SKILL.md 结构、与现有库互补性筛选。"
+        if lang == "zh"
+        else f"{window.get('start', '')} → {window.get('end', '')}: filtered by GitHub activity, real SKILL.md structure, and fit with the current library."
+    )
+    installed_label = "本次已安装" if lang == "zh" else "Installed now"
+    source_label = "来源" if lang == "zh" else "Source"
+    radar_title = "只观察，不整包导入" if lang == "zh" else "Watchlist, not bulk-installed"
+    radar_lead = (
+        "聚合目录和大包用于发现趋势；本地仓库只纳入经过筛选的子 skill。"
+        if lang == "zh"
+        else "Aggregators and large packs are used for discovery; the local library only accepts curated sub-skills."
+    )
+
+    parts = [
+        '<section id="weekly-hot-skills" class="border-t border-zinc-900 bg-zinc-950">',
+        '  <div class="max-w-6xl mx-auto px-6 py-20">',
+        '    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">',
+        '      <div>',
+        '        <p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">2026-06-14</p>',
+        f'        <h2 class="text-3xl font-bold text-zinc-100">{escape(title)}</h2>',
+        f'        <p class="text-zinc-400 mt-3 max-w-3xl leading-relaxed">{escape(lead)}</p>',
+        '      </div>',
+        f'      <a href="../data/weekly-hot-skills.json" class="text-emerald-400 hover:text-emerald-300 text-sm font-medium">{escape("查看 JSON 数据" if lang == "zh" else "View JSON data")} →</a>',
+        '    </div>',
+        '    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">',
+    ]
+
+    for group in groups:
+        skills = group.get("skills", [])
+        skill_tags = "\n".join(
+            f'          <span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">{escape(s)}</span>'
+            for s in skills
+        )
+        stars = group.get("stars")
+        stars_text = f"{stars:,} stars" if isinstance(stars, int) else ""
+        updated = str(group.get("updated_at", ""))[:10]
+        parts.extend([
+            '      <article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">',
+            '        <div class="flex items-start justify-between gap-4">',
+            '          <div>',
+            f'            <p class="text-xs uppercase tracking-wider text-zinc-500">{escape(source_label)}</p>',
+            f'            <h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="{escape(group.get("url", ""))}" target="_blank" rel="noopener">{escape(group.get("repo", ""))}</a></h3>',
+            '          </div>',
+            f'          <span class="text-xs text-zinc-500 whitespace-nowrap">{escape(updated)}</span>',
+            '        </div>',
+            f'        <p class="text-zinc-400 text-sm leading-relaxed mt-4">{escape(_pick(group, "why", lang))}</p>',
+            f'        <p class="text-emerald-400 text-xs font-medium mt-4">{escape(installed_label)} · {len(skills)} {escape("个" if lang == "zh" else "skills")}</p>',
+            '        <div class="flex flex-wrap gap-2 mt-3">',
+            skill_tags,
+            '        </div>',
+            f'        <p class="text-zinc-600 text-xs mt-4">{escape(stars_text)}</p>',
+            '      </article>',
+        ])
+
+    parts.extend([
+        '    </div>',
+        '    <div class="mt-10 p-5 border border-zinc-800 rounded-lg bg-black/20">',
+        f'      <h3 class="text-xl font-semibold text-zinc-100 mb-2">{escape(radar_title)}</h3>',
+        f'      <p class="text-zinc-400 text-sm mb-5">{escape(radar_lead)}</p>',
+        '      <div class="grid md:grid-cols-2 gap-3">',
+    ])
+
+    for item in radar:
+        parts.extend([
+            '        <a class="block p-4 rounded-md border border-zinc-800 hover:border-emerald-500/40 transition-colors" '
+            f'href="{escape(item.get("url", ""))}" target="_blank" rel="noopener">',
+            f'          <span class="text-zinc-100 font-medium">{escape(item.get("repo", ""))}</span>',
+            f'          <span class="text-zinc-500 text-xs ml-2">{escape(str(item.get("stars", "")))} stars</span>',
+            f'          <p class="text-zinc-400 text-sm mt-2">{escape(_pick(item, "decision", lang))}</p>',
+            '        </a>',
+        ])
+
+    parts.extend([
+        '      </div>',
+        '    </div>',
+        '  </div>',
+        '</section>',
+    ])
+    return "\n".join(parts)
+
+
+def replace_weekly_hot_skills_section(soup: BeautifulSoup, payload: dict, lang: str) -> bool:
+    section = soup.find("section", id="weekly-hot-skills")
+    if not section or not payload:
+        return False
+    new_html = render_weekly_hot_skills(payload, lang)
+    new_section = BeautifulSoup(new_html, "lxml").find("section")
+    section.replace_with(new_section)
+    return True
+
+
 def build_one(page_filename: str, lang: str, zh: dict[str, dict[str, str]],
+              weekly_hot: dict,
               skill_count: int, out_root: Path) -> dict:
     src_path = ORIGINALS / page_filename
     text = src_path.read_text(encoding="utf-8")
@@ -262,6 +382,9 @@ def build_one(page_filename: str, lang: str, zh: dict[str, dict[str, str]],
     if page_filename == "index.html":
         sc_replaced = update_skill_count_in_text(soup, skill_count)
         img_replaced = replace_stale_screenshot(soup, skill_count, lang)
+        weekly_replaced = replace_weekly_hot_skills_section(soup, weekly_hot, lang)
+    else:
+        weekly_replaced = False
 
     case_studies_replaced = False
     if page_filename == "handbook.html":
@@ -279,6 +402,7 @@ def build_one(page_filename: str, lang: str, zh: dict[str, dict[str, str]],
         "translations_applied": replaced,
         "skill_count_patches": sc_replaced,
         "case_studies": case_studies_replaced,
+        "weekly_hot_skills": weekly_replaced,
         "out": str(out_path.relative_to(REPO_ROOT)),
     }
 
@@ -310,11 +434,13 @@ def main() -> None:
     status = json.loads((DATA / "portal-status.json").read_text(encoding="utf-8"))
     skill_count = status["skill_count"]
     zh = load_zh_dict()
+    weekly_hot = load_weekly_hot_skills()
+    publish_weekly_hot_skills(weekly_hot)
 
     results: list[dict] = []
     for page in PAGES_TO_BUILD:
         for lang in ("zh", "en"):
-            results.append(build_one(page, lang, zh, skill_count, DOCS))
+            results.append(build_one(page, lang, zh, weekly_hot, skill_count, DOCS))
 
     for page in PASSTHROUGH_PAGES:
         for lang in ("zh", "en"):
@@ -332,8 +458,9 @@ def main() -> None:
     print(f"\n📦 Build complete  ·  skill_count={skill_count}")
     for r in results:
         cs = "cs✅" if r["case_studies"] else ""
+        weekly = "weekly✅" if r["weekly_hot_skills"] else ""
         print(f"   · {r['lang']}/{r['page']:30}  i18n={r['translations_applied']:>3}  "
-              f"sc_patch={r['skill_count_patches']}  {cs}")
+              f"sc_patch={r['skill_count_patches']}  {cs} {weekly}")
 
 
 if __name__ == "__main__":

@@ -456,6 +456,46 @@
     "local_path": "~/.config/opencode/skills/paper-skills-gap-analysis/SKILL.md"
   },
   {
+    "name": "paper2skills-workflow",
+    "domain": "meta",
+    "role": "paper2skills 端到端生产工作流",
+    "extra": "选题, 萃取论文, 新增 Skill, 完整流程",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-workflow/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/paper2skills-workflow/SKILL.md"
+  },
+  {
+    "name": "context-engineering",
+    "domain": "meta",
+    "role": "Agent 上下文工程",
+    "extra": "CLAUDE.md, context, rules files",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/context-engineering/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/context-engineering/SKILL.md"
+  },
+  {
+    "name": "source-driven-development",
+    "domain": "meta",
+    "role": "官方文档驱动实现",
+    "extra": "official docs, source-cited, framework correctness",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/source-driven-development/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/source-driven-development/SKILL.md"
+  },
+  {
+    "name": "spec-driven-development",
+    "domain": "meta",
+    "role": "先规格后实现",
+    "extra": "spec, requirements, plan, tasks",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/spec-driven-development/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/spec-driven-development/SKILL.md"
+  },
+  {
+    "name": "api-and-interface-design",
+    "domain": "meta",
+    "role": "API/模块接口设计",
+    "extra": "REST, GraphQL, type contracts, boundaries",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/api-and-interface-design/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/api-and-interface-design/SKILL.md"
+  },
+  {
     "name": "codex-review",
     "domain": "closeout",
     "role": "用 `codex review` 做提交前的二次审查（uncommitted / PR vs main / 并行测试）",
@@ -566,6 +606,30 @@
     "extra": "review this branch, review PR, review since X, review changes",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/review/manifest.yaml",
     "local_path": "~/.config/opencode/skills/review/SKILL.md"
+  },
+  {
+    "name": "paper2skills-deploy",
+    "domain": "closeout",
+    "role": "paper2skills 发布 SOP",
+    "extra": "部署, build 并上线, deploy playbook, 更新生产环境",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-deploy/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/paper2skills-deploy/SKILL.md"
+  },
+  {
+    "name": "deploy-to-vercel",
+    "domain": "closeout",
+    "role": "Vercel 预览部署 SOP",
+    "extra": "deploy to Vercel, preview deployment, push live",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/deploy-to-vercel/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/deploy-to-vercel/SKILL.md"
+  },
+  {
+    "name": "shipping-and-launch",
+    "domain": "closeout",
+    "role": "上线发布门禁",
+    "extra": "production launch, rollout, rollback",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/shipping-and-launch/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/shipping-and-launch/SKILL.md"
   },
   {
     "name": "native-feel-cross-platform-desktop",
@@ -1142,5 +1206,109 @@
     "extra": "提示词准确率低, AI 算错数, BI 报告",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/bi-prompt-engineering/manifest.yaml",
     "local_path": "~/.config/opencode/skills/bi-prompt-engineering/SKILL.md"
+  },
+  {
+    "name": "paper2skills-ps-override",
+    "domain": "tooling",
+    "role": "problem_solved 业务描述补写 SOP",
+    "extra": "ps_override, problem_solved, WARN dup_ps",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-ps-override/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/paper2skills-ps-override/SKILL.md"
+  },
+  {
+    "name": "paper2skills-ui-audit",
+    "domain": "tooling",
+    "role": "paper2skills UI 审计 SOP",
+    "extra": "UI 审计, Playwright 验证, 卡片高度",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-ui-audit/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/paper2skills-ui-audit/SKILL.md"
+  },
+  {
+    "name": "ast-grep",
+    "domain": "tooling",
+    "role": "AST 结构化代码搜索",
+    "extra": "ast-grep, structural search, code pattern",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ast-grep/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/ast-grep/SKILL.md"
+  },
+  {
+    "name": "supabase",
+    "domain": "tooling",
+    "role": "Supabase 全栈与安全/RLS 指南",
+    "extra": "Supabase, Auth, RLS, Edge Functions, Storage",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/supabase/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/supabase/SKILL.md"
+  },
+  {
+    "name": "supabase-postgres-best-practices",
+    "domain": "tooling",
+    "role": "Postgres 性能与 RLS 最佳实践",
+    "extra": "Postgres, query, index, RLS, Supabase",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/supabase-postgres-best-practices/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/supabase-postgres-best-practices/SKILL.md"
+  },
+  {
+    "name": "vercel-optimize",
+    "domain": "tooling",
+    "role": "Vercel 成本/性能优化审计",
+    "extra": "Vercel metrics, Core Web Vitals, cost, caching",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/vercel-optimize/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/vercel-optimize/SKILL.md"
+  },
+  {
+    "name": "vercel-react-best-practices",
+    "domain": "tooling",
+    "role": "React/Next.js 性能规则",
+    "extra": "React, Next.js, bundle, waterfalls",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/vercel-react-best-practices/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/vercel-react-best-practices/SKILL.md"
+  },
+  {
+    "name": "web-design-guidelines",
+    "domain": "tooling",
+    "role": "Web UI 设计/可访问性审查",
+    "extra": "UI review, accessibility, UX audit",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/web-design-guidelines/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/web-design-guidelines/SKILL.md"
+  },
+  {
+    "name": "performance-optimization",
+    "domain": "tooling",
+    "role": "证据驱动性能优化",
+    "extra": "Core Web Vitals, profiling, bottleneck",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/performance-optimization/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/performance-optimization/SKILL.md"
+  },
+  {
+    "name": "observability-and-instrumentation",
+    "domain": "tooling",
+    "role": "生产可观测性设计",
+    "extra": "logging, metrics, tracing, alerting",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/observability-and-instrumentation/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/observability-and-instrumentation/SKILL.md"
+  },
+  {
+    "name": "security-and-hardening",
+    "domain": "tooling",
+    "role": "安全威胁建模与加固",
+    "extra": "security, auth, input, STRIDE, OWASP",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/security-and-hardening/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/security-and-hardening/SKILL.md"
+  },
+  {
+    "name": "obsidian-markdown",
+    "domain": "tooling",
+    "role": "Obsidian Markdown 写作",
+    "extra": "Obsidian, wikilinks, callouts, frontmatter",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/obsidian-markdown/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/obsidian-markdown/SKILL.md"
+  },
+  {
+    "name": "json-canvas",
+    "domain": "tooling",
+    "role": "JSON Canvas 编辑",
+    "extra": "canvas, mind map, visual canvas, .canvas",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/json-canvas/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/json-canvas/SKILL.md"
   }
 ]

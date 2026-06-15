@@ -34,6 +34,7 @@
     window.I18N_ZH = window.I18N_ZH || {};
     window.I18N_ZH['index'] = {
       'nav.getting-started':       '快速开始',
+      'nav.hot':                   '本周热门',
       'nav.handbook':              '手册',
       'nav.architecture':          '架构',
       'nav.github':                'GitHub →',
@@ -90,6 +91,7 @@
     </a>
     <div class="hidden md:flex items-center gap-6">
       <a href="./getting-started.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.getting-started">Getting Started</a>
+      <a href="#weekly-hot-skills" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.hot">Hot Skills</a>
       <a href="./handbook.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.handbook">Handbook</a>
       <a href="./architecture.html" class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" data-i18n="nav.architecture">Architecture</a>
       <a href="https://github.com/zjgulai/Agent_skills" target="_blank" rel="noopener" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" data-i18n="nav.github">GitHub →</a>
@@ -165,6 +167,14 @@
 ✅ portal refreshed: skill_count = 6 → 7</code></pre>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- WEEKLY HOT SKILLS -->
+<section id="weekly-hot-skills" class="border-t border-zinc-900 bg-zinc-950">
+  <div class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-zinc-100">Hot Skills Radar This Week</h2>
+    <p class="text-zinc-400 mt-3">Generated from docs/_src/weekly-hot-skills.json.</p>
   </div>
 </section>
 
