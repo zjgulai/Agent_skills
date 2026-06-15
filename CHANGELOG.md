@@ -31,6 +31,8 @@ Pre-1.0. Three-repo system stabilising. Once Agent_skills + Agent_hook + Agent_m
 ### Changed — GitHub Pages CI
 
 - Upgraded Pages workflow actions for Node 24 compatibility: `actions/checkout@v6`, `actions/setup-python@v6`, `actions/upload-pages-artifact@v5`, and `actions/deploy-pages@v5`.
+- Added CI regression tests for the weekly hot skills homepage contract and the one-click docs deployment path.
+- Extended `bin/deploy-docs --push` to stage `.github/workflows/deploy-docs.yml`, so workflow updates are included in the one-click deployment batch.
 
 ## [0.4.0] — 2026-06-03
 

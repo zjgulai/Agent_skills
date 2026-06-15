@@ -73,7 +73,7 @@ echo "== verify metadata-only publish state =="
 
 echo
 echo "== whitespace check =="
-git diff --check -- data-mirror docs bin/deploy-docs README.md CHANGELOG.md
+git diff --check -- data-mirror docs bin/deploy-docs README.md CHANGELOG.md .github/workflows/deploy-docs.yml
 
 if [[ "$PUSH" -eq 0 ]]; then
   echo
@@ -83,7 +83,7 @@ fi
 
 echo
 echo "== commit and push =="
-git add data-mirror docs bin/deploy-docs README.md CHANGELOG.md
+git add data-mirror docs bin/deploy-docs README.md CHANGELOG.md .github/workflows/deploy-docs.yml
 if git diff --cached --quiet; then
   echo "No staged changes; skipping commit."
 else

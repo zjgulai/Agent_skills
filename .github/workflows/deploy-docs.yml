@@ -37,6 +37,7 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest tests/test_domain_inference.py tests/test_index_md_idempotent.py tests/test_manifest_schema.py -v --tb=short
+          python -m pytest tests/test_docs_hot_skills.py tests/test_docs_deploy_contract.py -v --tb=short
         env:
           AGENT_HOOK_REPO: ""
           AGENT_MCP_REPO: ""
