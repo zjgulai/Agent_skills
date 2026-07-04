@@ -15,12 +15,14 @@ docs/
 │   ├── originals/                   # 原 HTML 备份（构建期 read-only）
 │   ├── i18n/zh.json                 # 中文字典（285 条）
 │   ├── data-collect.py              # 解析 INDEX.md → JSON
+│   ├── problem-workflows.json       # 问题解决导向的 14 阶段 workflow taxonomy
 │   ├── weekly-hot-skills.json       # 最近一周热门 skill 筛选与首页 Radar 数据
 │   ├── i18n-extract.py              # 一次性脚本：原 HTML → zh.json
 │   └── build.py                     # 主构建器（DOM 替换 + 双语渲染）
 ├── data/                            # data-collect.py 输出
 │   ├── skills.json
 │   ├── domains.json
+│   ├── problem-workflows.json
 │   └── portal-status.json
 ├── zh/, en/                         # build.py 输出（双语版）
 ├── assets/                          # 静态资源（截图等）
@@ -46,6 +48,17 @@ bin/deploy-docs --push   # 追加 commit + push，触发 GitHub Pages workflow
 - `docs/index.html` 自动跳转到对应语言版
 - `docs/zh/index.html` 中文版
 - `docs/en/index.html` 英文版
+
+## 腾讯云轻量服务器发布
+
+公开网站是纯静态产物。发布时只上传 `docs/`，不要把本地 `portal/` 的 FastAPI/Vite 服务暴露到公网：
+
+```bash
+bin/deploy-docs
+rsync -av --delete docs/ tencent:/var/www/skills-manager/
+```
+
+部署说明见 [`docs/tencent-light-server-deploy.md`](../tencent-light-server-deploy.md)。
 
 ## CI 自动构建
 

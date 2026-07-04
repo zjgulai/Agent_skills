@@ -5,12 +5,20 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Architecture · Skills Manager AI Agent</title>
 <meta content="Two-layer architecture: portal (REST + UI) underneath, agent (orchestration) on top." name="description"/>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="https://zjgulai.github.io/Agent_skills/architecture.html" hreflang="en" rel="alternate"/>
 <link href="https://zjgulai.github.io/Agent_skills/architecture.html" hreflang="x-default" rel="alternate"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>
+    window.__skillsConsoleWarn = console.warn;
+    console.warn = (...args) => String(args[0] || '').includes('cdn.tailwindcss.com should not be used')
+      ? undefined
+      : window.__skillsConsoleWarn.apply(console, args);
+  </script>
+<script src="../assets/vendor/tailwindcss-cdn.js"></script>
+<script>console.warn = window.__skillsConsoleWarn; delete window.__skillsConsoleWarn;</script>
+<script src="../assets/vendor/mermaid.min.js"></script>
+<link href="../assets/vendor/highlight-atom-one-dark.css" rel="stylesheet"/>
+<script src="../assets/vendor/highlight.min.js"></script>
 
 <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
@@ -32,14 +40,14 @@
 <body>
 <nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
 <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-<a class="flex items-center gap-2 group" href="../index.html">
+<a class="flex items-center gap-2 group" href="./index.html">
 <span class="text-xl">🧠</span>
 <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
 </a>
 <div class="hidden md:flex items-center gap-6">
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../getting-started.html">快速开始</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../handbook.html">手册</a>
-<a class="text-emerald-400 text-sm" href="../architecture.html">架构</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./getting-started.html">快速开始</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./handbook.html">手册</a>
+<a class="text-emerald-400 text-sm" href="./architecture.html">架构</a>
 <a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub →</a>
 
 <a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../en/index.html">EN</a></div>
@@ -103,7 +111,7 @@ flowchart TD
 <li>180s read timeout — git clone over slow networks can take a minute</li>
 </ul>
 <h3>domain_inference.py</h3>
-<p>Keyword scoring against a per-domain dictionary. Mirrors <a href="../domains.html">agent/docs/domain-taxonomy.md</a>. Returns <code>uncategorized</code> when no domain scores ≥ 1; agent then prompts user.</p>
+<p>Keyword scoring against a per-domain dictionary. Mirrors <a href="./domains.html">agent/docs/domain-taxonomy.md</a>. Returns <code>uncategorized</code> when no domain scores ≥ 1; agent then prompts user.</p>
 <h3>index_md_writer.py</h3>
 <p>The highest-risk module. Six-layer defense:</p>
 <ul>

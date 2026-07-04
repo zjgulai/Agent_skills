@@ -5,6 +5,7 @@ data-collect.py — 从 data-mirror/INDEX.md 解析出 skills 结构化数据
 输出:
   docs/data/skills.json     — 完整 skill 列表（含 domain, role, triggers, refs）
   docs/data/domains.json    — 6 个 domain 的定义 + 各域 skill 计数
+  docs/data/problem-workflows.json — 问题解决 workflow 节点 + skill 映射
   docs/data/portal-status.json — 总数 + 生成时间戳
 
 模式选择:
@@ -23,6 +24,7 @@ from __future__ import annotations
 
 import json
 import re
+from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -30,6 +32,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MIRROR = REPO_ROOT / "data-mirror"
 DATA_OUT = REPO_ROOT / "docs" / "data"
+PROBLEM_WORKFLOWS_SRC = REPO_ROOT / "docs" / "_src" / "problem-workflows.json"
 
 # 6 个域的元信息（与 INDEX.md / skills-graph 配色对齐）
 DOMAIN_META = {
@@ -174,6 +177,95 @@ def build_domains_summary(skills: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return summary
 
 
+REQUIRED_STAGE_FIELDS = {"id", "label_zh", "label_en", "automation_principle", "nodes"}
+REQUIRED_NODE_FIELDS = {
+    "id",
+    "problem_zh",
+    "problem_en",
+    "task_intents",
+    "primary_skills",
+    "supporting_skills",
+    "inputs",
+    "outputs",
+    "acceptance",
+}
+
+
+def load_problem_workflows() -> dict[str, Any]:
+    if not PROBLEM_WORKFLOWS_SRC.exists():
+        raise SystemExit(f"❌ 缺 workflow 真相源: {PROBLEM_WORKFLOWS_SRC}")
+    return json.loads(PROBLEM_WORKFLOWS_SRC.read_text(encoding="utf-8"))
+
+
+def build_problem_workflow_indexes(
+    payload: dict[str, Any],
+    skills: list[dict[str, Any]],
+) -> tuple[dict[str, Any], dict[str, list[str]]]:
+    """Validate workflow taxonomy and return generated payload + skill->node index."""
+    installed = {skill["name"] for skill in skills}
+    skill_to_nodes: dict[str, list[tuple[int, int, str]]] = {
+        skill["name"]: [] for skill in skills
+    }
+    generated = deepcopy(payload)
+
+    stages = generated.get("stages")
+    if not isinstance(stages, list) or not stages:
+        raise SystemExit("❌ problem-workflows.json must contain non-empty stages[]")
+
+    seen_stage_ids: set[str] = set()
+    seen_node_ids: set[str] = set()
+    for stage_index, stage in enumerate(stages):
+        missing_stage = REQUIRED_STAGE_FIELDS - set(stage)
+        if missing_stage:
+            raise SystemExit(f"❌ workflow stage missing fields: {stage.get('id')} {sorted(missing_stage)}")
+        stage_id = stage["id"]
+        if stage_id in seen_stage_ids:
+            raise SystemExit(f"❌ duplicated workflow stage id: {stage_id}")
+        seen_stage_ids.add(stage_id)
+
+        nodes = stage.get("nodes")
+        if not isinstance(nodes, list) or not nodes:
+            raise SystemExit(f"❌ workflow stage has no nodes: {stage_id}")
+
+        for node_index, node in enumerate(nodes):
+            missing_node = REQUIRED_NODE_FIELDS - set(node)
+            if missing_node:
+                raise SystemExit(f"❌ workflow node missing fields: {node.get('id')} {sorted(missing_node)}")
+            node_id = node["id"]
+            if node_id in seen_node_ids:
+                raise SystemExit(f"❌ duplicated workflow node id: {node_id}")
+            seen_node_ids.add(node_id)
+
+            primary = node.get("primary_skills", [])
+            supporting = node.get("supporting_skills", [])
+            references = list(dict.fromkeys(primary + supporting))
+            missing_refs = [name for name in references if name not in installed]
+            if missing_refs:
+                raise SystemExit(
+                    f"❌ workflow node {node_id} references unknown skills: {', '.join(missing_refs)}"
+                )
+
+            node["skills"] = references
+            node["skill_count"] = len(references)
+            for skill_name in references:
+                skill_to_nodes[skill_name].append((stage_index, node_index, node_id))
+
+    ordered_skill_nodes = {
+        skill_name: [node_id for _, _, node_id in sorted(items)]
+        for skill_name, items in skill_to_nodes.items()
+    }
+    return generated, ordered_skill_nodes
+
+
+def annotate_skills_with_problem_nodes(
+    skills: list[dict[str, Any]],
+    skill_to_nodes: dict[str, list[str]],
+) -> list[dict[str, Any]]:
+    for skill in skills:
+        skill["problem_nodes"] = skill_to_nodes.get(skill["name"], [])
+    return skills
+
+
 def build_portal_status(skills: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "skill_count": len(skills),
@@ -191,6 +283,9 @@ def main() -> None:
 
     text = index_md_path.read_text(encoding="utf-8")
     skills = parse_index_md(text)
+    workflow_payload = load_problem_workflows()
+    workflows, skill_to_nodes = build_problem_workflow_indexes(workflow_payload, skills)
+    skills = annotate_skills_with_problem_nodes(skills, skill_to_nodes)
     domains = build_domains_summary(skills)
     status = build_portal_status(skills)
 
@@ -202,12 +297,17 @@ def main() -> None:
     (DATA_OUT / "domains.json").write_text(
         json.dumps(domains, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+    (DATA_OUT / "problem-workflows.json").write_text(
+        json.dumps(workflows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     (DATA_OUT / "portal-status.json").write_text(
         json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
     print(f"✅ docs/data/skills.json       — {len(skills)} skills")
     print(f"✅ docs/data/domains.json      — {len(domains)} domains")
+    node_count = sum(len(stage["nodes"]) for stage in workflows["stages"])
+    print(f"✅ docs/data/problem-workflows.json — {len(workflows['stages'])} stages, {node_count} nodes")
     print(f"✅ docs/data/portal-status.json — count={status['skill_count']}, generated_at={status['generated_at']}")
     for d in domains:
         marker = "(empty)" if d["count"] == 0 else ", ".join(d["skill_names"])

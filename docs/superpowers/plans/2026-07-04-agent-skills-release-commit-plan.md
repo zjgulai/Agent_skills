@@ -178,6 +178,10 @@ git commit -m "feat: redesign skills operating console"
 - Stage: `docs/getting-started.html`
 - Stage: `docs/handbook.html`
 - Stage: `docs/tencent-light-server-deploy.md`
+- Stage: `docs/superpowers/plans/2026-06-16-problem-workflow-taxonomy.md`
+- Stage: `docs/superpowers/plans/2026-06-17-tencent-static-site-rebuild.md`
+- Stage: `docs/superpowers/plans/2026-06-17-wechat-addy-agent-skills-ingestion.md`
+- Stage: `docs/superpowers/plans/2026-07-04-alchaincyf-skills-ingestion.md`
 - Stage: `docs/zh/architecture.html`
 - Stage: `docs/zh/getting-started.html`
 - Stage: `docs/zh/handbook.html`
@@ -188,7 +192,7 @@ git commit -m "feat: redesign skills operating console"
 - Stage: `tests/test_state_audit.py`
 - Stage: `tests/test_tencent_static_publish.py`
 
-- [ ] **Step 1: Stage deploy/docs hardening files**
+- [x] **Step 1: Stage deploy/docs hardening files**
 
 Run:
 
@@ -198,12 +202,13 @@ git add .gitignore agent/lib/doctor.py agent/lib/state_audit.py bin/deploy-tence
   docs/_src/originals/architecture.html docs/_src/originals/getting-started.html docs/_src/originals/handbook.html docs/_src/weekly-hot-skills.json \
   docs/assets/favicon.svg docs/assets/vendor docs/architecture.html docs/case-study.html docs/commands.html docs/data/weekly-hot-skills.json docs/domains.html \
   docs/en/architecture.html docs/en/getting-started.html docs/en/handbook.html docs/getting-started.html docs/handbook.html docs/tencent-light-server-deploy.md \
+  docs/superpowers/plans/2026-06-16-problem-workflow-taxonomy.md docs/superpowers/plans/2026-06-17-tencent-static-site-rebuild.md docs/superpowers/plans/2026-06-17-wechat-addy-agent-skills-ingestion.md docs/superpowers/plans/2026-07-04-alchaincyf-skills-ingestion.md \
   docs/zh/architecture.html docs/zh/getting-started.html docs/zh/handbook.html \
   portal/README.md portal/backend/build_index.py \
   tests/test_docs_hot_skills.py tests/test_installer_security.py tests/test_state_audit.py tests/test_tencent_static_publish.py
 ```
 
-- [ ] **Step 2: Commit deploy/docs hardening files**
+- [x] **Step 2: Commit deploy/docs hardening files**
 
 Run:
 
@@ -215,7 +220,7 @@ git commit -m "test: add static publish and docs hardening contracts"
 
 **Files:** none.
 
-- [ ] **Step 1: Run final checks**
+- [x] **Step 1: Run final checks**
 
 Run:
 
@@ -230,7 +235,7 @@ PATH="/Users/lute/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/
 
 Expected: tests pass, dry-run safe, whitespace clean, audit clean, CodeGraph index up to date.
 
-- [ ] **Step 2: Push feature branch if final checks pass**
+- [x] **Step 2: Push feature branch if final checks pass**
 
 Run:
 

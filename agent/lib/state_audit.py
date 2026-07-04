@@ -88,17 +88,58 @@ def _parse_skill_frontmatter(skill_md: pathlib.Path) -> tuple[Optional[str], Opt
     match = FRONTMATTER_RE.match(text)
     if not match:
         return None, "missing YAML frontmatter"
+    raw = match.group(1)
     try:
-        data = yaml.safe_load(match.group(1))
+        data = yaml.safe_load(raw)
     except yaml.YAMLError as exc:
+        fallback = _parse_minimal_frontmatter(raw)
+        if fallback:
+            return fallback["name"], None
         return None, f"invalid YAML frontmatter: {exc.__class__.__name__}"
     if not isinstance(data, dict):
+        fallback = _parse_minimal_frontmatter(raw)
+        if fallback:
+            return fallback["name"], None
         return None, "frontmatter is not a mapping"
     name = str(data.get("name", "")).strip()
     description = str(data.get("description", "")).strip()
     if not name or not description:
         return None, "frontmatter must include name and description"
     return name, None
+
+
+def _strip_scalar_quotes(value: str) -> str:
+    value = value.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        value = value[1:-1]
+    return value.strip()
+
+
+def _extract_minimal_scalar(lines: list[str], key: str) -> Optional[str]:
+    for idx, line in enumerate(lines):
+        match = re.match(rf"^{re.escape(key)}:\s*(.*)$", line)
+        if not match:
+            continue
+        value = match.group(1).strip()
+        if value in {">", ">-", ">|", "|", "|-"}:
+            block: list[str] = []
+            for next_line in lines[idx + 1:]:
+                if re.match(r"^[A-Za-z_][A-Za-z0-9_-]*:\s*", next_line):
+                    break
+                if next_line.startswith((" ", "\t")):
+                    block.append(next_line.strip())
+            return " ".join(part for part in block if part).strip()
+        return _strip_scalar_quotes(value)
+    return None
+
+
+def _parse_minimal_frontmatter(raw: str) -> Optional[dict[str, str]]:
+    lines = raw.splitlines()
+    name = _extract_minimal_scalar(lines, "name")
+    description = _extract_minimal_scalar(lines, "description")
+    if not name or not description:
+        return None
+    return {"name": name, "description": description}
 
 
 def _read_installed(skills_root: pathlib.Path) -> tuple[dict[str, pathlib.Path], dict[str, str]]:

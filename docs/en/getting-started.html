@@ -5,11 +5,19 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Getting Started · Skills Manager AI Agent</title>
 <meta content="Install Skills Manager AI Agent on a fresh machine in ~10 minutes." name="description"/>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="https://zjgulai.github.io/Agent_skills/getting-started.html" hreflang="en" rel="alternate"/>
 <link href="https://zjgulai.github.io/Agent_skills/getting-started.html" hreflang="x-default" rel="alternate"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>
+    window.__skillsConsoleWarn = console.warn;
+    console.warn = (...args) => String(args[0] || '').includes('cdn.tailwindcss.com should not be used')
+      ? undefined
+      : window.__skillsConsoleWarn.apply(console, args);
+  </script>
+<script src="../assets/vendor/tailwindcss-cdn.js"></script>
+<script>console.warn = window.__skillsConsoleWarn; delete window.__skillsConsoleWarn;</script>
+<link href="../assets/vendor/highlight-atom-one-dark.css" rel="stylesheet"/>
+<script src="../assets/vendor/highlight.min.js"></script>
 <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
@@ -36,14 +44,14 @@
 <!-- TOP NAV -->
 <nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
 <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-<a class="flex items-center gap-2 group" href="../index.html">
+<a class="flex items-center gap-2 group" href="./index.html">
 <span class="text-xl">🧠</span>
 <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
 </a>
 <div class="hidden md:flex items-center gap-6">
-<a class="text-emerald-400 text-sm" href="../getting-started.html">Getting Started</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../handbook.html">Handbook</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">Architecture</a>
+<a class="text-emerald-400 text-sm" href="./getting-started.html">Getting Started</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./handbook.html">Handbook</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./architecture.html">Architecture</a>
 <a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub →</a>
 
 <a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../zh/index.html">中文</a></div>
@@ -153,10 +161,10 @@ opencode</code></pre>
 </div>
 <h2>What's next</h2>
 <ul>
-<li><a href="../handbook.html#methods">Full command reference</a> — what each of the 11 slash commands does</li>
-<li><a href="../architecture.html">Architecture deep-dive</a> — portal vs agent vs skills layers</li>
-<li><a href="../handbook.html#domains">Domain taxonomy</a> — how skills get classified into 6 domains</li>
-<li><a href="../handbook.html#case-studies">Case study</a> — install <code>guizang-ppt-skill</code> and <code>skill-creator</code> end-to-end</li>
+<li><a href="./handbook.html#methods">Full command reference</a> — what each of the 11 slash commands does</li>
+<li><a href="./architecture.html">Architecture deep-dive</a> — portal vs agent vs skills layers</li>
+<li><a href="./handbook.html#domains">Domain taxonomy</a> — how skills get classified into 6 domains</li>
+<li><a href="./handbook.html#case-studies">Case study</a> — install <code>guizang-ppt-skill</code> and <code>skill-creator</code> end-to-end</li>
 </ul>
 <p class="mt-8 text-zinc-500 text-sm">
       Need the full README walkthrough?

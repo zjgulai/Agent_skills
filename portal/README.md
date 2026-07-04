@@ -131,8 +131,9 @@ GitHub URL：
    - 先 `<repo>/SKILL.md`
    - 否则递归找子目录第一层的 `<repo>/<subdir>/SKILL.md`
    - 多个候选 → 报错并要求 `subdir` 参数
-3. 严格校验 frontmatter：
-   - 必须有 `name` + `description`
+3. 校验 frontmatter：
+   - 必须能读取到 `name` + `description`
+   - 优先按完整 YAML 解析；若第三方 skill 的复杂 hooks shell 字符串导致 YAML 失败，则回退读取顶层 `name` / `description`，其余扩展字段不参与索引
    - `name` 通过 `^[a-z0-9]+(-[a-z0-9]+)*$` + 长度 1..64
    - `description` 长度 1..1024
 4. 拷贝到 `~/.config/opencode/skills/<name>/`，跳过 `.git` / `LICENSE` / `README.md` / `.gitignore` / `package.json`

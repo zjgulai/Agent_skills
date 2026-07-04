@@ -5,12 +5,20 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Handbook · Skills Manager AI Agent</title>
 <meta content="The single reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph case studies." name="description"/>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="https://zjgulai.github.io/Agent_skills/handbook.html" hreflang="en" rel="alternate"/>
 <link href="https://zjgulai.github.io/Agent_skills/handbook.html" hreflang="x-default" rel="alternate"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>
+    window.__skillsConsoleWarn = console.warn;
+    console.warn = (...args) => String(args[0] || '').includes('cdn.tailwindcss.com should not be used')
+      ? undefined
+      : window.__skillsConsoleWarn.apply(console, args);
+  </script>
+<script src="../assets/vendor/tailwindcss-cdn.js"></script>
+<script>console.warn = window.__skillsConsoleWarn; delete window.__skillsConsoleWarn;</script>
+<script src="../assets/vendor/mermaid.min.js"></script>
+<link href="../assets/vendor/highlight-atom-one-dark.css" rel="stylesheet"/>
+<script src="../assets/vendor/highlight.min.js"></script>
 <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .gradient-bg {
@@ -165,6 +173,88 @@
     .domain-card.dom-ip       { border-left-color: #14b8a6; }
     .domain-card.dom-tooling  { border-left-color: #71717a; }
 
+    /* Problem workflow cards */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .workflow-stage {
+      background: rgba(24,24,27,0.42);
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .workflow-stage-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .workflow-stage-id,
+    .workflow-stage-count {
+      color: #a1a1aa;
+      font-size: 0.72rem;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    }
+    .workflow-stage h3 {
+      margin: 0 0 0.5rem;
+      color: #fafafa;
+      font-size: 1.05rem;
+    }
+    .workflow-stage > p {
+      color: #a1a1aa;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      margin: 0 0 0.9rem;
+    }
+    .workflow-node-list {
+      display: grid;
+      gap: 0.7rem;
+    }
+    .workflow-node {
+      background: rgba(9,9,11,0.55);
+      border: 1px solid #27272a;
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+    .workflow-node strong {
+      color: #34d399;
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .workflow-node p {
+      color: #d4d4d8;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      margin: 0 0 0.5rem;
+    }
+    .workflow-node div {
+      color: #a1a1aa;
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+    .workflow-node div span,
+    .workflow-node small {
+      color: #71717a;
+    }
+    .workflow-node code {
+      display: inline-block;
+      margin: 0.15rem 0.2rem 0.15rem 0;
+      padding: 0.08rem 0.35rem;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 4px;
+      color: #d4d4d8;
+      font-size: 0.72rem;
+      white-space: normal;
+      word-break: break-word;
+    }
+
     /* Case-study delta callout */
     .delta-callout {
       background: rgba(16,185,129,0.06);
@@ -194,14 +284,14 @@
 <!-- TOP NAV -->
 <nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
 <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-<a class="flex items-center gap-2 group" href="../index.html">
+<a class="flex items-center gap-2 group" href="./index.html">
 <span class="text-xl">🧠</span>
 <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
 </a>
 <div class="hidden md:flex items-center gap-6">
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../getting-started.html">快速开始</a>
-<a class="text-emerald-400 text-sm" href="../handbook.html">手册</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">架构</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./getting-started.html">快速开始</a>
+<a class="text-emerald-400 text-sm" href="./handbook.html">手册</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./architecture.html">架构</a>
 <a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub →</a>
 
 <a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../en/index.html">EN</a></div>
@@ -215,7 +305,7 @@
 <header class="mb-12">
 <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">在线参考手册</p>
 <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">技能手册</h1>
-<p class="text-lg text-zinc-400">OpenCode 技能生命周期的统一参考：6 个域、11 个方法、技能图谱与 4 个真实演化案例。</p>
+<p class="text-lg text-zinc-400">OpenCode 技能生命周期的统一参考：6 个域、问题解决工作流、11 个方法、技能图谱与真实演化案例。</p>
 <p class="text-sm text-zinc-600 mt-4">
 <span>最后更新</span>: 2026-05-16 ·
           <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" rel="noopener" target="_blank">在 GitHub 编辑</a>
@@ -224,19 +314,19 @@
 <!-- §1 OVERVIEW -->
 <section id="overview">
 <h2>§1. 概览</h2>
-<p>本页是 OpenCode 技能日常管理的核心查询页。把它当作"始终打开的速查手册"——下面 5 个章节从最基础的分类规则讲到真实 graph 演化，逐层递进。</p>
+<p>本页是 OpenCode 技能日常管理的核心查询页。把它当作"始终打开的速查手册"——下面章节从基础域分类讲到问题解决工作流、技能图谱与真实 graph 演化。</p>
 <h3>本页包含什么</h3>
 <ul>
 <li>6 个 skill 域的判定规则与关键词</li>
+<li>从 idea 到上市、推广、迭代、复盘的问题解决工作流</li>
 <li>11 个 slash 命令的精炼参考表</li>
 <li>当前 Skills Graph 的实时渲染 + 图例</li>
-<li>场景套餐表（哪种任务该装哪些 skill）</li>
-<li>4 个真实/假想的图演化案例（State 0 → State 3）</li>
+<li>真实/假想的图演化案例（State 0 → State N）</li>
 </ul>
 <h3>本页不包含</h3>
 <ul>
-<li><span>安装步骤——见 </span><a href="../getting-started.html">Getting Started</a></li>
-<li><span>两层架构详解——见 </span><a href="../architecture.html">Architecture</a></li>
+<li><span>安装步骤——见 </span><a href="./getting-started.html">Getting Started</a></li>
+<li><span>两层架构详解——见 </span><a href="./architecture.html">Architecture</a></li>
 </ul>
 <h3>面向谁</h3>
 <ul>
@@ -345,6 +435,452 @@
 <a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/lib/domain_inference.py" rel="noopener" target="_blank"><code>agent/lib/domain_inference.py</code></a>
 <span> 中的 KEYWORDS 表，最后跑 pytest 回归。</span>
 </p>
+</section><section id="problem-workflows">
+<h2>问题解决工作流</h2>
+<p>第二分类轴：从用户问题出发，把 skills 编排成从 idea 到上线、增长、运营、复盘的自动化链路。</p>
+<p><a href="../data/problem-workflows.json" rel="noopener" target="_blank">机器可读数据 →</a></p>
+<div class="workflow-grid">
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">00-agent-system</span>
+<span class="workflow-stage-count">5 问题节点</span>
+</div>
+<h3>AI 自动化底座</h3>
+<p>先让 agent 可治理、可扩展、可恢复，再让它处理业务问题。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>agent-skill-authoring</strong>
+<p>需要新增或改造一个 skill，但不想让它变成一次性提示词。</p>
+<div><span>主力 skills:</span> <code>skill-creator</code><code>writing-skills</code><code>write-a-skill</code></div>
+<small>验收门槛: frontmatter 合法 · 触发场景清晰</small>
+</div>
+<div class="workflow-node">
+<strong>agent-workflow-governance</strong>
+<p>skills 越来越多，agent 不知道何时该加载什么能力。</p>
+<div><span>主力 skills:</span> <code>agent-dev-kit-architecture-designer</code><code>context-engineering</code><code>using-agent-skills</code><code>using-superpowers</code></div>
+<small>验收门槛: 规则能被机器读取 · 新增 skill 有归位规则</small>
+</div>
+<div class="workflow-node">
+<strong>agent-session-continuity</strong>
+<p>长任务跨会话时容易丢上下文、漏验收、重复探索。</p>
+<div><span>主力 skills:</span> <code>context-save</code><code>context-restore</code><code>handoff</code></div>
+<small>验收门槛: 新 agent 能接手 · 包含未完成 TODO</small>
+</div>
+<div class="workflow-node">
+<strong>source.alchaincyf-intake</strong>
+<p>需要把外部 GitHub skill 来源转成可审计、可筛选、可安装的候选清单。</p>
+<div><span>主力 skills:</span> <code>huashu-info-search</code><code>huashu-research</code><code>huashu-data-pro</code></div>
+<small>验收门槛: 每个候选有来源 URL · 区分 install/distill-only/skip</small>
+</div>
+<div class="workflow-node">
+<strong>agentops.skill-generation-optimization</strong>
+<p>需要生成、诊断、优化或编排 skills，让 agent 能持续进化。</p>
+<div><span>主力 skills:</span> <code>huashu-nuwa</code><code>darwin-skill</code><code>huashu-agent-swarm</code></div>
+<small>验收门槛: 触发边界清楚 · 保留反例</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">01-idea-discovery</span>
+<span class="workflow-stage-count">4 问题节点</span>
+</div>
+<h3>机会与问题发现</h3>
+<p>先证明问题值得研究，再投入设计和开发。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>idea-trend-research</strong>
+<p>想找值得做的新方向，但缺少趋势、竞品和用户问题证据。</p>
+<div><span>主力 skills:</span> <code>deep-research</code><code>anysearch</code><code>competitive-intelligence</code></div>
+<small>验收门槛: 每个机会有来源 · 区分事实和推断</small>
+</div>
+<div class="workflow-node">
+<strong>idea-pain-mining</strong>
+<p>不知道用户真正痛点在哪里，需要从评论、社媒、工单或访谈里挖掘。</p>
+<div><span>主力 skills:</span> <code>dtc-voc-3layer-analysis</code><code>ticket-triage</code><code>baoyu-wechat-summary</code></div>
+<small>验收门槛: 保留原始证据 · 区分表层抱怨和深层需求</small>
+</div>
+<div class="workflow-node">
+<strong>idea-domain-recon</strong>
+<p>进入一个陌生行业或品牌，需要先建立基础认知和资产盘点。</p>
+<div><span>主力 skills:</span> <code>brand-knowledge-base-builder</code><code>dtc-brand-recon</code><code>notebooklm</code></div>
+<small>验收门槛: 关键事实可追溯 · 覆盖用户/产品/渠道</small>
+</div>
+<div class="workflow-node">
+<strong>sensemaking.research-intake</strong>
+<p>需要在选题、写作或决策前完成资料搜索、阅读理解和证据整理。</p>
+<div><span>主力 skills:</span> <code>huashu-research</code><code>huashu-info-search</code><code>huashu-material-search</code><code>huashu-weread-advisor</code></div>
+<small>验收门槛: 区分事实和推断 · 保留来源</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">02-market-validation</span>
+<span class="workflow-stage-count">4 问题节点</span>
+</div>
+<h3>市场与需求验证</h3>
+<p>用最小证据链验证 ICP、需求强度、付费意愿和反证。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>market-icp-pressure-test</strong>
+<p>有产品想法，但不知道目标客户、需求强度和是否值得做。</p>
+<div><span>主力 skills:</span> <code>startup-pressure-test</code><code>office-hours</code><code>grill-me</code></div>
+<small>验收门槛: 有反证路径 · 定义不做的条件</small>
+</div>
+<div class="workflow-node">
+<strong>market-offer-test</strong>
+<p>需要验证 offer、定价、承诺和落地页信息是否能驱动转化。</p>
+<div><span>主力 skills:</span> <code>marketing-psychology</code><code>copywriting</code><code>design-html</code></div>
+<small>验收门槛: 承诺具体 · 价格和价值匹配</small>
+</div>
+<div class="workflow-node">
+<strong>market-first-users</strong>
+<p>需要找到第一批真实用户并设计触达、访谈和跟进流程。</p>
+<div><span>主力 skills:</span> <code>draft-outreach</code><code>lead-triage</code><code>account-research</code></div>
+<small>验收门槛: 名单有筛选理由 · 消息不泛化</small>
+</div>
+<div class="workflow-node">
+<strong>strategy.persona-judgment</strong>
+<p>需要借助成熟人物的思维模型审视战略、产品、职业或市场判断。</p>
+<div><span>主力 skills:</span> <code>munger-perspective</code><code>paul-graham-perspective</code><code>naval-perspective</code><code>zhang-yiming-perspective</code></div>
+<small>验收门槛: 不把 persona 当权威答案 · 说明适用边界</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">03-product-definition</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>产品定义与路线图</h3>
+<p>把验证过的问题收敛为可交付范围、指标和垂直切片。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>product-prd-scope</strong>
+<p>需求很多，需要变成边界清晰、可执行的 PRD。</p>
+<div><span>主力 skills:</span> <code>to-prd</code><code>write-spec</code><code>spec-driven-development</code></div>
+<small>验收门槛: 每个需求有用户问题 · 非目标明确</small>
+</div>
+<div class="workflow-node">
+<strong>product-issue-slicing</strong>
+<p>PRD 太大，需要拆成可独立实现和验收的垂直切片。</p>
+<div><span>主力 skills:</span> <code>to-issues</code><code>planning-and-task-breakdown</code><code>sprint-planning</code><code>triage</code></div>
+<small>验收门槛: 每个 issue 可独立验收 · 依赖显式</small>
+</div>
+<div class="workflow-node">
+<strong>product-metrics-map</strong>
+<p>不知道产品上线后要看哪些指标，也不知道指标如何驱动迭代。</p>
+<div><span>主力 skills:</span> <code>metrics-review</code><code>data-visualization</code><code>explore-data</code></div>
+<small>验收门槛: 北极星指标明确 · 输入事件定义清楚</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">04-design-prototype</span>
+<span class="workflow-stage-count">4 问题节点</span>
+</div>
+<h3>设计、原型与体验验证</h3>
+<p>用可见、可点、可评审的原型降低实现前的不确定性。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>design-ux-flow</strong>
+<p>需要把需求变成用户能顺畅完成任务的界面流程。</p>
+<div><span>主力 skills:</span> <code>design-consultation</code><code>ux-copy</code><code>ui-ux-pro-max</code></div>
+<small>验收门槛: 主流程无断点 · 错误状态存在</small>
+</div>
+<div class="workflow-node">
+<strong>design-visual-system</strong>
+<p>界面看起来不专业，需要确定视觉方向、配色、字体和组件风格。</p>
+<div><span>主力 skills:</span> <code>design-taste-frontend</code><code>color-expert</code><code>redesign-existing-projects</code></div>
+<small>验收门槛: 符合产品领域 · 无 AI slop</small>
+</div>
+<div class="workflow-node">
+<strong>design-prototype-review</strong>
+<p>需要快速做出原型并评审是否值得进入工程实现。</p>
+<div><span>主力 skills:</span> <code>prototype</code><code>design-html</code><code>design-review</code></div>
+<small>验收门槛: 主路径可操作 · 文本不溢出</small>
+</div>
+<div class="workflow-node">
+<strong>design.html-native-production</strong>
+<p>需要把内容或方案快速生产成高保真 HTML、幻灯片、PDF 或渠道配图。</p>
+<div><span>主力 skills:</span> <code>huashu-design</code><code>huashu-slides</code><code>huashu-slide-codex</code><code>huashu-md-html</code></div>
+<small>验收门槛: 视觉服务业务目标 · 格式可交付</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">05-build-architecture</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>工程构建与架构</h3>
+<p>先立边界和合约，再写可测试、可维护、可演进的代码。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>build-system-design</strong>
+<p>需要设计系统架构、模块边界和技术决策。</p>
+<div><span>主力 skills:</span> <code>system-design</code><code>architecture</code><code>api-and-interface-design</code></div>
+<small>验收门槛: 边界清楚 · 失败模式明确</small>
+</div>
+<div class="workflow-node">
+<strong>build-tdd-implementation</strong>
+<p>需要实现功能，但要保证行为可验证、改动可控。</p>
+<div><span>主力 skills:</span> <code>test-driven-development</code><code>incremental-implementation</code><code>tdd</code><code>executing-plans</code></div>
+<small>验收门槛: 先红后绿 · 测试覆盖公共行为</small>
+</div>
+<div class="workflow-node">
+<strong>build-maintainability</strong>
+<p>代码能跑但越来越乱，需要降低复杂度和提高可维护性。</p>
+<div><span>主力 skills:</span> <code>tech-debt</code><code>code-simplification</code><code>complexity-optimizer</code><code>codebase-maintainability-guardrails</code></div>
+<small>验收门槛: 行为不变 · 复杂度有证据</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">06-quality-security</span>
+<span class="workflow-stage-count">4 问题节点</span>
+</div>
+<h3>质量、安全与可观测性</h3>
+<p>把发布前风险转成可自动检查的门禁。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>quality-review-testing</strong>
+<p>需要证明代码质量、测试策略和变更范围是可信的。</p>
+<div><span>主力 skills:</span> <code>code-review</code><code>code-review-and-quality</code><code>review</code><code>test-strategy-hardening</code></div>
+<small>验收门槛: 问题有文件行号 · 区分严重程度</small>
+</div>
+<div class="workflow-node">
+<strong>quality-appsec-hardening</strong>
+<p>需要检查认证、密钥、依赖、CORS、注入和权限风险。</p>
+<div><span>主力 skills:</span> <code>security-hardening</code><code>security-and-hardening</code><code>compliance-check</code></div>
+<small>验收门槛: 不泄漏 secrets · 高危问题优先</small>
+</div>
+<div class="workflow-node">
+<strong>quality-observability</strong>
+<p>上线后缺少日志、指标、追踪和告警，出问题很难定位。</p>
+<div><span>主力 skills:</span> <code>observability-hardening</code><code>observability-and-instrumentation</code><code>runbook</code></div>
+<small>验收门槛: 每个关键请求可追踪 · 错误有分类</small>
+</div>
+<div class="workflow-node">
+<strong>quality.anti-ai-slop-review</strong>
+<p>内容、脚本或 agent 输出看起来像 AI 套话，需要审校、打磨和诊断。</p>
+<div><span>主力 skills:</span> <code>huashu-article-edit</code><code>huashu-proofreading</code><code>huashu-script-polish</code><code>freud-skill</code></div>
+<small>验收门槛: 指出具体问题 · 保留原意</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">07-launch-deploy</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>上线、部署与发布门禁</h3>
+<p>发布必须有可重复命令、可回滚路径和上线后证据。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>launch-release-gates</strong>
+<p>准备上线但缺少发布检查、回滚和验收门禁。</p>
+<div><span>主力 skills:</span> <code>shipping-and-launch</code><code>release-readiness-hardening</code><code>ci-cd-and-automation</code><code>land-and-deploy</code></div>
+<small>验收门槛: CI 通过 · 回滚命令存在</small>
+</div>
+<div class="workflow-node">
+<strong>launch-static-site</strong>
+<p>需要把文档站、demo 或报告站稳定部署并验证线上结果。</p>
+<div><span>主力 skills:</span> <code>deploy-to-vercel</code><code>paper2skills-deploy</code><code>web-design-guidelines</code></div>
+<small>验收门槛: 构建可重复 · 关键路由 200</small>
+</div>
+<div class="workflow-node">
+<strong>launch-git-governance</strong>
+<p>多人或多 agent 协作时，Git 操作容易破坏分支和未提交工作。</p>
+<div><span>主力 skills:</span> <code>git-workflow-and-versioning</code><code>using-git-worktrees</code><code>git-guardrails-claude-code</code><code>codex-review</code></div>
+<small>验收门槛: 不覆盖用户改动 · 危险命令被阻止</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">08-growth-marketing</span>
+<span class="workflow-stage-count">5 问题节点</span>
+</div>
+<h3>增长、内容与推广</h3>
+<p>把推广从灵感驱动变成渠道、素材、转化和指标驱动。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>growth-seo-content</strong>
+<p>需要自然搜索增长，但不知道关键词、页面和内容优先级。</p>
+<div><span>主力 skills:</span> <code>seo-audit</code><code>content-creation</code><code>copywriting</code></div>
+<small>验收门槛: 关键词有意图分类 · 页面建议可执行</small>
+</div>
+<div class="workflow-node">
+<strong>growth-creative-campaign</strong>
+<p>需要广告、素材、文案和视觉方向来驱动市场活动。</p>
+<div><span>主力 skills:</span> <code>creative-director</code><code>dtc-commercial-image-gen</code><code>guizang-ppt-skill</code></div>
+<small>验收门槛: 素材对应渠道 · 主张不夸大</small>
+</div>
+<div class="workflow-node">
+<strong>growth-retention-email</strong>
+<p>需要通过邮件、onboarding 和生命周期内容提升激活与留存。</p>
+<div><span>主力 skills:</span> <code>email-sequence</code><code>onboarding</code><code>ux-copy</code></div>
+<small>验收门槛: 按生命周期分段 · 每封邮件目标清晰</small>
+</div>
+<div class="workflow-node">
+<strong>content.topic-to-platform</strong>
+<p>需要把一个主题变成适合 X、短视频、公众号或小红书的内容计划。</p>
+<div><span>主力 skills:</span> <code>huashu-topic-gen</code><code>x-mastery-mentor</code><code>huashu-video-outline</code><code>huashu-douyin-script</code></div>
+<small>验收门槛: 内容形式匹配平台 · 钩子具体</small>
+</div>
+<div class="workflow-node">
+<strong>distribution.article-bridge</strong>
+<p>内容已经写好，需要变成可发布、可分发、可保存复用的多平台资产。</p>
+<div><span>主力 skills:</span> <code>dukou</code><code>huashu-article-to-x</code><code>huashu-image-upload</code></div>
+<small>验收门槛: 平台格式正确 · 图片可用</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">09-sales-customer</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>销售、客服与客户成功</h3>
+<p>把客户沟通转成可复用、可优先级排序、可反馈产品的闭环。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>customer-ticket-response</strong>
+<p>客服工单多且杂，需要分级、草拟回复并沉淀产品反馈。</p>
+<div><span>主力 skills:</span> <code>ticket-triage</code><code>draft-response</code><code>runbook</code></div>
+<small>验收门槛: 紧急问题优先 · 回复语气一致</small>
+</div>
+<div class="workflow-node">
+<strong>sales-account-pipeline</strong>
+<p>销售线索和账号信息分散，需要研究、分级和推进管道。</p>
+<div><span>主力 skills:</span> <code>account-research</code><code>pipeline-review</code><code>lead-triage</code></div>
+<small>验收门槛: 优先级理由明确 · 下一步具体到人和时间</small>
+</div>
+<div class="workflow-node">
+<strong>customer-education-assets</strong>
+<p>需要把产品能力讲清楚，形成 demo、文档、PPT 或操作材料。</p>
+<div><span>主力 skills:</span> <code>guizang-ppt-skill</code><code>document-generate</code><code>make-pdf</code></div>
+<small>验收门槛: 受众语言匹配 · 关键流程可复现</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">10-data-feedback</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>数据、反馈与洞察</h3>
+<p>把数据和用户声音转成可决策的证据，而不是堆报表。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>data-exploration-analysis</strong>
+<p>有数据但不知道质量、分布、异常和下一步分析方向。</p>
+<div><span>主力 skills:</span> <code>explore-data</code><code>sql-queries</code><code>statistical-analysis</code></div>
+<small>验收门槛: 数据质量说明 · 结论有统计依据</small>
+</div>
+<div class="workflow-node">
+<strong>data-business-reporting</strong>
+<p>需要把业务数据转成管理层能决策的图表和报告。</p>
+<div><span>主力 skills:</span> <code>financial-statements</code><code>cash-flow-snapshot</code><code>bi-prompt-engineering</code></div>
+<small>验收门槛: 指标口径明确 · 异常有解释</small>
+</div>
+<div class="workflow-node">
+<strong>feedback-voc-loop</strong>
+<p>需要把用户反馈和行为数据闭环回产品迭代。</p>
+<div><span>主力 skills:</span> <code>dtc-voc-3layer-analysis</code><code>metrics-review</code><code>paper-skills-gap-analysis</code></div>
+<small>验收门槛: 反馈和指标能互相解释 · 优先级有证据</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">11-ops-iteration</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>运营、监控与持续迭代</h3>
+<p>上线后用运行证据驱动修复、优化和下一轮迭代。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>ops-incident-response</strong>
+<p>线上出问题，需要快速分级、止血、沟通和恢复。</p>
+<div><span>主力 skills:</span> <code>incident-response</code><code>runbook</code><code>diagnose</code></div>
+<small>验收门槛: 影响范围明确 · 优先止血</small>
+</div>
+<div class="workflow-node">
+<strong>ops-performance-iteration</strong>
+<p>系统慢、成本高或体验差，需要定位瓶颈并安全优化。</p>
+<div><span>主力 skills:</span> <code>performance-optimization</code><code>complexity-optimizer</code><code>observability-hardening</code></div>
+<small>验收门槛: 优化有基线 · 无行为回归</small>
+</div>
+<div class="workflow-node">
+<strong>ops-roadmap-refresh</strong>
+<p>运营一段时间后，需要根据证据更新 roadmap 和下一批任务。</p>
+<div><span>主力 skills:</span> <code>sprint-planning</code><code>triage</code><code>to-issues</code></div>
+<small>验收门槛: 每个优先级有证据 · 明确不做事项</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">12-ip-compliance</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>合规、法务与资产化</h3>
+<p>把产品和代码资产转成可保护、可交付、可审计的材料。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>ip-patent-disclosure</strong>
+<p>项目有技术创新，需要挖掘专利点并形成技术交底书。</p>
+<div><span>主力 skills:</span> <code>patent-disclosure-skill</code><code>deep-research</code><code>document-generate</code></div>
+<small>验收门槛: 基于真实代码 · 创新点可区分</small>
+</div>
+<div class="workflow-node">
+<strong>ip-software-copyright</strong>
+<p>需要把真实软件项目整理成软著申请材料。</p>
+<div><span>主力 skills:</span> <code>software-copyright-materials</code><code>document-generate</code><code>make-pdf</code></div>
+<small>验收门槛: 不编造代码 · 材料格式合规</small>
+</div>
+<div class="workflow-node">
+<strong>compliance-contract-risk</strong>
+<p>上线或商业合作前，需要检查合同、合规和风险暴露。</p>
+<div><span>主力 skills:</span> <code>review-contract</code><code>compliance-check</code><code>risk-assessment</code></div>
+<small>验收门槛: 风险分级 · 建议可谈判</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">13-retro-knowledge</span>
+<span class="workflow-stage-count">3 问题节点</span>
+</div>
+<h3>复盘、知识沉淀与再自动化</h3>
+<p>每次交付都要把经验沉淀回知识库、skill 和下一轮自动化。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>retro-incident-learning</strong>
+<p>事件或项目结束后，需要复盘根因、时间线和后续行动。</p>
+<div><span>主力 skills:</span> <code>post-mortem</code><code>debug-mantra</code><code>investigate</code></div>
+<small>验收门槛: 不归咎个人 · 行动项有 owner</small>
+</div>
+<div class="workflow-node">
+<strong>retro-knowledge-base</strong>
+<p>项目资料分散，需要整理成可查询、可复用的知识库。</p>
+<div><span>主力 skills:</span> <code>knowledge-synthesis</code><code>notebooklm</code><code>document-generate</code></div>
+<small>验收门槛: 引用可追溯 · 结构服务任务流</small>
+</div>
+<div class="workflow-node">
+<strong>retro-skill-system-update</strong>
+<p>复盘后发现流程可以自动化，需要更新 skill、workflow 或分类。</p>
+<div><span>主力 skills:</span> <code>skill-creator</code><code>paper-skills-gap-analysis</code><code>paper2skills-workflow</code></div>
+<small>验收门槛: 新规则机器可读 · 旧问题有回归样例</small>
+</div>
+</div>
+</article>
+</div>
 </section>
 <!-- §3 METHODS -->
 <section id="methods">
@@ -559,7 +1095,7 @@ flowchart LR
 <li>新边：AR -. "同域" .-&gt; GPS（tooling 域内 peer 已存在）</li>
 <li>桥接：~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach（symlink）</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 3" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 3" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-4">5.5 State 4：装 superpowers 全套（14 个 sub-skill）</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/obra/superpowers (× 14 sub-paths)</code></p>
 <p>obra/superpowers 是一个 monorepo 形态的 skill 集合——14 个独立 sub-skill 覆盖工程方法论：brainstorm / TDD / subagent / debug / review 全链。8 个归 meta 域（方法论与工程基础设施），6 个归 closeout 域（review/branch/verification）。一次性装入，让 agent 拥有完整的「decompose → execute → review → finish」能力。</p>
@@ -572,7 +1108,7 @@ flowchart LR
 <li>图谱体积：280641 → 508189 字节（+81%），meta/closeout 两个域块都明显变大</li>
 <li>核心价值：让 agent 在做复杂工程时有「先 brainstorm、再写 plan、然后 TDD、并行 dispatch、最后 verify-before-completion」的方法论支架</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 4" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 4" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-5">5.6 State 5：装 notebooklm 后</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/PleasePrompto/notebooklm-skill</code></p>
 <p>带 citation 的远程知识库 — 让 agent 调 Google NotebookLM 问你的个人文档库，Gemini 仅基于上传的文档回答，每条回复带出处引用。归 tooling 域，与 agent-reach（互联网读取）、guizang-ppt-skill（PPT 生成）共同构成横切层「外部信息源接入」三件套。</p>
@@ -584,7 +1120,7 @@ flowchart LR
 <li>需要 Google 账号认证（Cookie 持久化在本机）+ Python + playwright/browser-use</li>
 <li>tooling 域第 3 个成员：与 agent-reach（互联网公共信息）、guizang-ppt-skill（PPT 输出）形成「读外部 / 写内部」工具集</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 5" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 5" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-6">5.7 State 6：装 bb-browser 后</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/epiral/bb-browser --subdir skills/bb-browser</code></p>
 <p>带登录态的浏览器自动化 — 让 agent 用你的浏览器 session 访问公域 + 私域信息。36 平台 103 命令开箱即用，支持表单填写、网络请求拦截/mock、操作录制。归 tooling 域，与 agent-reach（API 接入）、notebooklm（NotebookLM 知识库）形成「读外部信息」三件套：bb-browser 主打登录态后的私域、agent-reach 主打公开 API、notebooklm 主打个人文档库。</p>
@@ -596,7 +1132,7 @@ flowchart LR
 <li>高阶能力：带登录态 fetch、网络请求拦截与 mock、操作录制 — 不是单纯爬虫而是浏览器自动化平台</li>
 <li>tooling 域第 4 个成员：与 agent-reach（公共 API）、notebooklm（私有文档库）、guizang-ppt-skill（PPT 输出）共同构成「读外部 / 写内部」工具集</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 6" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 6" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-7">5.8 State 7：装 gstack 精选 18 件套</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/garrytan/gstack (× 18 sub-paths, 手选模式)</code></p>
 <p>garrytan/gstack 是 YC 风格的全栈工程方法论 monorepo（51 个 SKILL.md），从中精选 18 个补全「规划→评审→QA→发布→上下文管理」全链路。13 个归 meta（方法论+评审+上下文），1 个归 closeout（land-and-deploy），4 个归 tooling（design 三件 + 文档输出两件）。跳过 OpenClaw 专版（不适用）和浏览器组（与 bb-browser 重叠）。</p>
@@ -609,7 +1145,7 @@ flowchart LR
 <li>明确跳过：OpenClaw 4 个专版（用户不用 OpenClaw）、浏览器组 7 个（与已装的 bb-browser 重叠）、gbrain 设施类（不在当前优先级）</li>
 <li>总规模：43 skill 跨 6 域，meta 域已成绝对主体（22 个，从「方法论真空」到「YC 全栈方法论库」）</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 7" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 7" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-8">5.9 State 8：装 ui-ux-pro-max（dry-run 后精挑 1 个）</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --dry-run (then install --subdir .claude/skills/ui-ux-pro-max)</code></p>
 <p>UI/UX 设计智能库 — 50+ 风格、161 配色、57 字体配对、161 产品类型、99 UX 指南、25 图表类型，跨 10 个技术栈（React/Next/Vue/Svelte/SwiftUI/RN/Flutter/Tailwind/shadcn/HTML）。这是 dry-run 流程首次实战的成果：原 monorepo 7 个 SKILL.md 中 6 个因为 name 含 `ckm:` 冒号违反命名规则、且都在 `.claude/` 路径下被 installer 过滤；只有 ui-ux-pro-max 这 1 个合法且零重叠，最终只装它。归 tooling 域。</p>
@@ -622,7 +1158,7 @@ flowchart LR
 <li>ui-ux-pro-max 真实价值：UI/UX 知识库（50 风格 / 161 配色 / 57 字体 / 99 UX 指南），不是「执行型」而是「参考型」 — agent 在你说「设计一个 SaaS dashboard」时能查询匹配风格 + 配色 + 字体</li>
 <li>tooling 域第 10 个成员，与 design-* / make-pdf / guizang-ppt-skill 形成「输出工具链 + 设计参考库」格局</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 8" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 8" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-9">5.10 State 9：dry-scan open-design → 装 5 个上游正牌仓库（8 个 skill）</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/nexu-io/open-design --dry-scan → 5 upstream repos installed</code></p>
 <p>dry-scan nexu-io/open-design 揭示一个重要工程教训：该仓库不是 skill 集，是 Claude Design / Figma 的开源替代品产品（43k stars），它的 skills/ 是 131 个「目录卡片」（catalogue entries），每张卡只是个广告说「真 skill 在某个上游仓库」。我们没装这些卡片，而是顺着卡片找到 5 个上游正牌仓库，装了 8 个真实 skill，全归 tooling 域。</p>
@@ -636,7 +1172,7 @@ flowchart LR
 <li>性能：marketingskills 2 个 → 4.7s（一次 clone）；apple-hig 3 个 → 17.9s；普通仓库 5-6s 内搞定</li>
 <li>重要工程发现：open-design 仓库本身 git clone 超时 5+ 分钟，installer 加 --filter=blob:none 也没用 — 这是它的 pack 文件巨大 + 我们 IP throttling 双重问题。结论：超大产品级仓库不适合走 portal install 路径</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 9" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="图谱状态 9" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-10">5.11 State 10：安装 complexity-optimizer — 算法复杂度分析与优化 skill</h3>
 <p><span>触发命令：</span> <code>/skill-install https://github.com/Kappaemme-git/codex-complexity-optimizer</code></p>
 <p>complexity-optimizer 来自 Kappaemme-git/codex-complexity-optimizer 仓库的 complexity-optimizer/ 子目录。单 skill，tooling 域。定位：让 Codex 自动扫描代码库的算法复杂度热点（O(n²)、N+1 查询、嵌套循环、重复扫描），并提出安全优化方案（O(n²)→O(n log n)/O(n)），同时保证测试、API、输出行为不变。</p>
@@ -701,8 +1237,8 @@ flowchart LR
 <h2>§6. 相关索引</h2>
 <p>本手册是入口；以下文档进一步深入：</p>
 <ul>
-<li><a href="../getting-started.html">Getting Started</a><span> — 在新机器上 10 分钟搞定安装</span></li>
-<li><a href="../architecture.html">Architecture</a><span> — 两层设计、5 个 Python lib 模块、安装时序图</span></li>
+<li><a href="./getting-started.html">Getting Started</a><span> — 在新机器上 10 分钟搞定安装</span></li>
+<li><a href="./architecture.html">Architecture</a><span> — 两层设计、5 个 Python lib 模块、安装时序图</span></li>
 <li><a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" rel="noopener" target="_blank"><code>agent/docs/domain-taxonomy.md</code></a><span> — 6 域规则的真相源</span></li>
 </ul>
 <h3>源码索引</h3>
@@ -720,6 +1256,7 @@ flowchart LR
 <nav>
 <a class="toc-link" href="#overview">概览</a>
 <a class="toc-link" href="#domains">域分类</a>
+<a class="toc-link" href="#problem-workflows">问题工作流</a>
 <a class="toc-link" href="#methods">11 个方法</a>
 <a class="toc-link" href="#graph">技能图谱</a>
 <a class="toc-link" href="#case-studies">图谱演化案例</a>

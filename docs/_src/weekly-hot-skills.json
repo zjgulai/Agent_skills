@@ -1,113 +1,133 @@
 {
-  "generated_at": "2026-06-14T19:55:00-07:00",
+  "generated_at": "2026-06-16T04:02:26-07:00",
   "window": {
-    "start": "2026-06-07",
-    "end": "2026-06-14",
+    "start": "2026-06-09",
+    "end": "2026-06-16",
     "timezone": "America/Los_Angeles"
   },
-  "selection_policy_zh": "只安装最近一周仍活跃、仓库星标/可信来源较强、包含真实 SKILL.md、且和现有库互补的子 skill；聚合目录只进入观察雷达。",
-  "selection_policy_en": "Install only recently active, reputable repositories with real SKILL.md files and complementary coverage; keep aggregators on the watchlist.",
+  "selection_policy_zh": "只安装最近一周仍活跃、仓库星标/可信来源较强、包含真实 SKILL.md、和现有库互补、且能通过 portal API 与元数据审计闭环的子 skill；聚合目录、强外部引擎依赖、敏感安全/攻击场景或明显重叠能力进入观察雷达。",
+  "selection_policy_en": "Install only recently active, reputable repositories with real SKILL.md files, complementary coverage, and a clean portal/API plus metadata audit path; keep aggregators, external-engine-dependent tools, sensitive security/offensive packs, and overlapping capabilities on the watchlist.",
   "groups": [
     {
-      "repo": "ast-grep/agent-skill",
-      "url": "https://github.com/ast-grep/agent-skill",
-      "stars": 728,
-      "updated_at": "2026-06-14T22:09:10Z",
-      "why_zh": "补齐 AST 结构化搜索能力，用于查找 grep 很难表达的代码模式。",
-      "why_en": "Adds AST-aware structural search for code patterns that plain grep cannot express well.",
+      "repo": "mvanhorn/last30days-skill",
+      "url": "https://github.com/mvanhorn/last30days-skill",
+      "stars": 43181,
+      "updated_at": "2026-06-16T10:54:28Z",
+      "why_zh": "补齐最近 30 天多源用户声音与趋势研究，可直接服务 idea 验证、竞品观察和内容选题。",
+      "why_en": "Adds last-30-days multi-source voice-of-customer and trend research for idea validation, competitor monitoring, and content planning.",
       "skills": [
-        "ast-grep"
+        "last30days"
       ]
     },
     {
-      "repo": "supabase/agent-skills",
-      "url": "https://github.com/supabase/agent-skills",
-      "stars": 2246,
-      "updated_at": "2026-06-14T19:52:55Z",
-      "why_zh": "官方 Supabase 任务指南，覆盖 Auth/RLS/Edge Functions 与 Postgres 性能安全坑。",
-      "why_en": "Official Supabase task guidance covering Auth, RLS, Edge Functions, and Postgres performance/security traps.",
+      "repo": "OthmanAdi/planning-with-files",
+      "url": "https://github.com/OthmanAdi/planning-with-files",
+      "stars": 23414,
+      "updated_at": "2026-06-16T10:52:01Z",
+      "why_zh": "补齐长任务文件化计划、发现记录与进度恢复能力，降低上下文压缩或 /clear 后的交接损耗。",
+      "why_en": "Adds file-backed task planning, findings, and progress recovery for long-running agent work across context loss or /clear.",
       "skills": [
-        "supabase",
-        "supabase-postgres-best-practices"
+        "planning-with-files"
       ]
     },
     {
-      "repo": "vercel-labs/agent-skills",
-      "url": "https://github.com/vercel-labs/agent-skills",
-      "stars": 27922,
-      "updated_at": "2026-06-15T02:30:50Z",
-      "why_zh": "补齐部署、Vercel 优化、React/Next 性能与 Web UI 审查的官方工程实践。",
-      "why_en": "Adds official deployment, Vercel optimization, React/Next performance, and web UI review practices.",
+      "repo": "geekjourneyx/md2wechat-skill",
+      "url": "https://github.com/geekjourneyx/md2wechat-skill",
+      "stars": 2856,
+      "updated_at": "2026-06-16T10:03:51Z",
+      "why_zh": "补齐 Markdown 到微信公众号 HTML、预览、草稿与图文分发能力，覆盖中文内容增长链路。",
+      "why_en": "Adds Markdown-to-WeChat HTML, preview, draft, and image-post distribution for Chinese content growth workflows.",
       "skills": [
-        "deploy-to-vercel",
-        "vercel-optimize",
-        "vercel-react-best-practices",
-        "web-design-guidelines"
+        "md2wechat"
       ]
     },
     {
-      "repo": "addyosmani/agent-skills",
-      "url": "https://github.com/addyosmani/agent-skills",
-      "stars": 59580,
-      "updated_at": "2026-06-15T02:48:00Z",
-      "why_zh": "精选工程方法论子集，补强 context/spec/source-driven、API 边界、性能、可观测性、安全和发布门禁。",
-      "why_en": "Curated engineering-methodology subset for context/spec/source-driven work, API boundaries, performance, observability, security, and launch gates.",
+      "repo": "agent-sh/agnix",
+      "url": "https://github.com/agent-sh/agnix",
+      "stars": 288,
+      "updated_at": "2026-06-15T19:20:57Z",
+      "why_zh": "补齐 AGENTS.md、SKILL.md、hooks、MCP 等 agent 配置 lint 能力，适合本项目后续治理。",
+      "why_en": "Adds linting for AGENTS.md, SKILL.md, hooks, MCP, and related agent configuration files.",
       "skills": [
-        "context-engineering",
-        "source-driven-development",
-        "spec-driven-development",
-        "api-and-interface-design",
-        "performance-optimization",
-        "observability-and-instrumentation",
-        "shipping-and-launch",
-        "security-and-hardening"
+        "agnix"
       ]
     },
     {
-      "repo": "kepano/obsidian-skills",
-      "url": "https://github.com/kepano/obsidian-skills",
-      "stars": 35629,
-      "updated_at": "2026-06-15T02:27:04Z",
-      "why_zh": "补齐 Obsidian Markdown 与 JSON Canvas 这类知识库/画布文件格式能力。",
-      "why_en": "Adds Obsidian Markdown and JSON Canvas file-format support for knowledge-base and canvas work.",
+      "repo": "uxKero/anydesign",
+      "url": "https://github.com/uxKero/anydesign",
+      "stars": 110,
+      "updated_at": "2026-06-16T03:40:57Z",
+      "why_zh": "补齐网站、截图、Figma 与视觉参考的设计系统提取能力，可服务网站优化和竞品设计复盘。",
+      "why_en": "Adds design-system extraction from websites, screenshots, Figma, and visual references for website optimization and design reviews.",
       "skills": [
-        "obsidian-markdown",
-        "json-canvas"
+        "anydesign"
       ]
     }
   ],
   "radar": [
     {
-      "repo": "VoltAgent/awesome-agent-skills",
-      "url": "https://github.com/VoltAgent/awesome-agent-skills",
-      "stars": 25332,
-      "updated_at": "2026-06-15T02:41:56Z",
-      "decision_zh": "1000+ agent skills 聚合目录，适合发现趋势；不整包安装。",
-      "decision_en": "A 1000+ skill aggregator for discovery; not bulk-installed."
-    },
-    {
       "repo": "anthropics/skills",
       "url": "https://github.com/anthropics/skills",
-      "stars": 150722,
-      "updated_at": "2026-06-15T02:47:04Z",
-      "decision_zh": "官方基础包已部分覆盖，后续按缺口选择性补装。",
-      "decision_en": "Official base pack is partially covered already; install selectively by gap."
-    },
-    {
-      "repo": "ykdojo/claude-code-tips",
-      "url": "https://github.com/ykdojo/claude-code-tips",
-      "stars": 8725,
-      "updated_at": "2026-06-15T02:23:46Z",
-      "decision_zh": "包含 reddit-fetch / review-claudemd 等实用点状 skill，暂作后续补齐候选。",
-      "decision_en": "Contains focused utilities such as reddit-fetch and review-claudemd; kept as a later candidate."
+      "stars": 151402,
+      "updated_at": "2026-06-16T10:59:47Z",
+      "decision_zh": "官方基础包仍是高优先观察源；当前本地库已覆盖部分基础能力，后续按缺口选择性补装。",
+      "decision_en": "Official base pack remains a high-priority source; the local library already covers part of it, so install selectively by gap."
     },
     {
       "repo": "sickn33/antigravity-awesome-skills",
       "url": "https://github.com/sickn33/antigravity-awesome-skills",
-      "stars": 40734,
-      "updated_at": "2026-06-15T02:48:43Z",
-      "decision_zh": "大型 installable library，需 dry-scan 后按主题分批筛选。",
-      "decision_en": "Large installable library; requires dry-scan and topic-based curation."
+      "stars": 40857,
+      "updated_at": "2026-06-16T10:54:34Z",
+      "decision_zh": "1500+ installable skills 大型聚合库，适合发现趋势；必须按主题 dry-scan 后分批纳入。",
+      "decision_en": "A 1500+ installable-skill library for discovery; requires topic-based dry-scan before batch adoption."
+    },
+    {
+      "repo": "K-Dense-AI/scientific-agent-skills",
+      "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+      "stars": 28351,
+      "updated_at": "2026-06-16T11:00:30Z",
+      "decision_zh": "科学研究垂直领域包，价值高但超出当前通用工作流主线；后续按科研/医药/数据任务补齐。",
+      "decision_en": "High-value scientific domain pack, but outside the current general workflow lane; install later by research, biomedical, or data need."
+    },
+    {
+      "repo": "googleworkspace/cli",
+      "url": "https://github.com/googleworkspace/cli",
+      "stars": 27093,
+      "updated_at": "2026-06-16T10:57:15Z",
+      "decision_zh": "含 Google Workspace agent skills，适合 Drive/Gmail/Sheets/Docs 自动化；需先验证本地 CLI 与账号授权边界。",
+      "decision_en": "Includes Google Workspace agent skills for Drive, Gmail, Sheets, and Docs automation; validate local CLI and auth boundaries first."
+    },
+    {
+      "repo": "microsoft/SkillOpt",
+      "url": "https://github.com/microsoft/SkillOpt",
+      "stars": 7507,
+      "updated_at": "2026-06-16T11:00:41Z",
+      "decision_zh": "SkillOpt-Sleep 与本项目自优化方向匹配，但依赖完整外部引擎路径，先作为实验项保留。",
+      "decision_en": "SkillOpt-Sleep aligns with self-optimization, but depends on the full external engine path, so keep it as an experiment."
+    },
+    {
+      "repo": "gadievron/raptor",
+      "url": "https://github.com/gadievron/raptor",
+      "stars": 2990,
+      "updated_at": "2026-06-16T09:43:45Z",
+      "decision_zh": "安全攻防 skill 集合价值高但场景敏感，需先拆分防守/审计子集并建立使用边界。",
+      "decision_en": "Security/offensive skill pack with value but sensitive scope; split defensive/audit subsets and define guardrails first."
+    },
+    {
+      "repo": "FrancyJGLisboa/agent-skill-creator",
+      "url": "https://github.com/FrancyJGLisboa/agent-skill-creator",
+      "stars": 1507,
+      "updated_at": "2026-06-16T10:17:32Z",
+      "decision_zh": "跨平台 skill factory 能力活跃，但和本地 skill-creator/write-a-skill 重叠，后续做差异评估。",
+      "decision_en": "Active cross-platform skill factory, but overlaps with local skill-creator/write-a-skill; evaluate the delta later."
+    },
+    {
+      "repo": "mxyhi/ok-skills",
+      "url": "https://github.com/mxyhi/ok-skills",
+      "stars": 427,
+      "updated_at": "2026-06-15T22:02:35Z",
+      "decision_zh": "Codex/Claude/Cursor/OpenClaw 兼容技能与 AGENTS.md playbooks 集合，可作为后续批量筛选源。",
+      "decision_en": "Curated Codex/Claude/Cursor/OpenClaw-compatible skills and AGENTS.md playbooks; keep as a future batch-curation source."
     }
   ]
 }
