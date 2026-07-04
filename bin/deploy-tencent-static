@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+# Build and publish the static docs bundle to a Tencent Light Server target.
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+TARGET=""
+DRY_RUN=1
+EXTRA_RSYNC_ARGS=()
+
+usage() {
+  cat <<'USAGE'
+Build and publish docs/ to a Tencent Light Server static directory.
+
+Usage:
+  bin/deploy-tencent-static --target user@host:/var/www/skills-manager/
+  bin/deploy-tencent-static --target tencent:/var/www/skills-manager/ --dry-run
+  bin/deploy-tencent-static --target tencent:/var/www/skills-manager/ --apply
+
+Options:
+  --target <ssh:path>   Required rsync destination, e.g. tencent:/var/www/skills-manager/
+  --dry-run             Preview rsync changes only. This is the default.
+  --apply               Run the real rsync publish.
+  --rsync-arg <arg>     Pass one extra argument to rsync, repeatable.
+  -h, --help            Show this help.
+USAGE
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --target)
+      TARGET="${2:?missing value after --target}"
+      shift 2
+      ;;
+    --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --apply)
+      DRY_RUN=0
+      shift
+      ;;
+    --rsync-arg)
+      EXTRA_RSYNC_ARGS+=("${2:?missing value after --rsync-arg}")
+      shift 2
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "unknown argument: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [[ -z "$TARGET" ]]; then
+  echo "missing required --target" >&2
+  usage >&2
+  exit 2
+fi
+
+if ! command -v rsync >/dev/null 2>&1; then
+  echo "rsync is required" >&2
+  exit 1
+fi
+
+cd "$REPO_ROOT"
+
+echo "== build static docs =="
+"$REPO_ROOT/bin/deploy-docs"
+
+RSYNC_FLAGS=(
+  -avz
+  --delete
+  --exclude=_src/
+  --exclude=superpowers/
+  --exclude=**/__pycache__/
+  --exclude=*.pyc
+)
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  RSYNC_FLAGS+=(--dry-run)
+fi
+
+echo
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "== dry-run Tencent static sync =="
+else
+  echo "== apply Tencent static sync =="
+fi
+
+RSYNC_CMD=(rsync "${RSYNC_FLAGS[@]}")
+if [[ "${#EXTRA_RSYNC_ARGS[@]}" -gt 0 ]]; then
+  RSYNC_CMD+=("${EXTRA_RSYNC_ARGS[@]}")
+fi
+RSYNC_CMD+=("$REPO_ROOT/docs/" "$TARGET")
+"${RSYNC_CMD[@]}"
+
+echo
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "Dry run complete. Re-run with --apply to publish."
+else
+  echo "Publish complete. Run the smoke commands in docs/tencent-light-server-deploy.md."
+fi

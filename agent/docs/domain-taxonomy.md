@@ -20,6 +20,7 @@ description: 6 个 skill 域的判定规则。给 `agent/lib/domain_inference.py
 - 名词：`agent`, `subagent`, `hook`, `plugin`, `MCP server`, `prompt template`
 - 文件 / 配置：`AGENTS.md`, `CLAUDE.md`, `.opencode/`, `~/.config/opencode/`, `opencode.json`
 - 行为：`agent directory structure`, `agent guardrails`, `team-wide agent distribution`, `agent self-improvement`
+- Skill 生成 / 治理：`skill optimizer`, `autonomous skill optimizer`, `造skill`, `人物skill`, `蒸馏`, `多Agent`, `agent swarm`, `认知调优`
 
 > 注意：`skill` 单字不进 meta 关键词表 —— 太宽泛（几乎所有 SKILL.md 的描述都会出现 "skill"，会污染分类）。`subagent` / `agent` / 文件配置项才是 meta 的强信号。
 
@@ -61,6 +62,7 @@ description: 6 个 skill 域的判定规则。给 `agent/lib/domain_inference.py
 - 框架 / 概念：`MVP`, `ICP`, `pressure-test`, `validate problem`, `market fit`, `founder-market fit`, `PMF`
 - 行动：`first 10 customers`, `pivot`, `launch plan`, `landing page test`, `cold outreach`
 - 阶段：`pre-seed`, `idea stage`, `pre-revenue`, `2-week launch`
+- 判断 / 认知：`决策`, `决策框架`, `商业判断`, `创业`, `产品`, `增长`, `职业规划`, `认知操作系统`, `能力圈`, `激励结构`
 
 **反信号**：已上线产品的运营优化（那是 growth / ops，不是 founder validation）。
 
@@ -88,6 +90,7 @@ description: 6 个 skill 域的判定规则。给 `agent/lib/domain_inference.py
 - 媒体 / 图像：`image prompt`, `image generation`, `screenshot`, `cover art`, `editorial layout`
 - 文件格式：`docx`, `pdf`, `markdown`, `xlsx`, `pptx`, `html`
 - 通用工具：`git workflow`, `i18n`, `markdown lint`, `font management`
+- 内容发布 / 分发：`发布`, `分发`, `排版`, `稿件`, `公众号`, `B站专栏`, `X Articles`, `配图`, `视频脚本`
 
 **反信号**：业务逻辑、平台特定（那应该是某个具体域）。
 
@@ -131,5 +134,10 @@ description: 6 个 skill 域的判定规则。给 `agent/lib/domain_inference.py
 | `patent-disclosure-skill` | `专利挖掘, 交底书, 国知局查新` | ip | 专利 / 交底书 / 国知局 |
 | `software-copyright-materials` | `软件著作权, 软著申请资料, 操作手册` | ip | 软件著作权 / 软著 |
 | `guizang-ppt-skill` | `polished HTML slide decks, image prompts, social covers` | tooling | slide deck / image prompts / cover |
+| `huashu-nuwa` | `蒸馏, 人物Skill, 造skill` | meta | 蒸馏 / 人物skill |
+| `darwin-skill` | `autonomous skill optimizer` | meta | skill optimizer |
+| `huashu-slides` | `PPT, slides, 配图` | tooling | PPT / 配图 |
+| `dukou` | `发布, 分发, 排版, X Articles, B站专栏` | tooling | 发布 / 分发 / 排版 |
+| `munger-perspective` | `认知操作系统, 决策框架, 商业判断` | founder | 认知操作系统 / 决策框架 |
 
-> 准确率指标：≥ 6/7 = 85.7% （回归集合）。
+> 准确率指标：≥ 11/12 = 91.7% （回归集合）。

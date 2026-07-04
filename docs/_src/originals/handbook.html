@@ -5,13 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Handbook · Skills Manager AI Agent</title>
   <meta name="description" content="The single reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph case studies.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_skills/handbook.html">
   <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_skills/handbook.html">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script>
+    window.__skillsConsoleWarn = console.warn;
+    console.warn = (...args) => String(args[0] || '').includes('cdn.tailwindcss.com should not be used')
+      ? undefined
+      : window.__skillsConsoleWarn.apply(console, args);
+  </script>
+  <script src="./assets/vendor/tailwindcss-cdn.js"></script>
+  <script>console.warn = window.__skillsConsoleWarn; delete window.__skillsConsoleWarn;</script>
+  <script src="./assets/vendor/mermaid.min.js"></script>
+  <link rel="stylesheet" href="./assets/vendor/highlight-atom-one-dark.css">
+  <script src="./assets/vendor/highlight.min.js"></script>
 
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
@@ -167,6 +175,88 @@
     .domain-card.dom-ip       { border-left-color: #14b8a6; }
     .domain-card.dom-tooling  { border-left-color: #71717a; }
 
+    /* Problem workflow cards */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .workflow-stage {
+      background: rgba(24,24,27,0.42);
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .workflow-stage-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .workflow-stage-id,
+    .workflow-stage-count {
+      color: #a1a1aa;
+      font-size: 0.72rem;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    }
+    .workflow-stage h3 {
+      margin: 0 0 0.5rem;
+      color: #fafafa;
+      font-size: 1.05rem;
+    }
+    .workflow-stage > p {
+      color: #a1a1aa;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      margin: 0 0 0.9rem;
+    }
+    .workflow-node-list {
+      display: grid;
+      gap: 0.7rem;
+    }
+    .workflow-node {
+      background: rgba(9,9,11,0.55);
+      border: 1px solid #27272a;
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+    .workflow-node strong {
+      color: #34d399;
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .workflow-node p {
+      color: #d4d4d8;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      margin: 0 0 0.5rem;
+    }
+    .workflow-node div {
+      color: #a1a1aa;
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+    .workflow-node div span,
+    .workflow-node small {
+      color: #71717a;
+    }
+    .workflow-node code {
+      display: inline-block;
+      margin: 0.15rem 0.2rem 0.15rem 0;
+      padding: 0.08rem 0.35rem;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 4px;
+      color: #d4d4d8;
+      font-size: 0.72rem;
+      white-space: normal;
+      word-break: break-word;
+    }
+
     /* Case-study delta callout */
     .delta-callout {
       background: rgba(16,185,129,0.06);
@@ -202,25 +292,26 @@
       // Header
       'header.eyebrow':        '在线参考手册',
       'header.title':          '技能手册',
-      'header.subtitle':       'OpenCode 技能生命周期的统一参考：6 个域、11 个方法、技能图谱与 4 个真实演化案例。',
+      'header.subtitle':       'OpenCode 技能生命周期的统一参考：6 个域、问题解决工作流、11 个方法、技能图谱与真实演化案例。',
       'header.lastupdate':     '最后更新',
       // TOC
       'toc.heading':           '本页目录',
       'toc.overview':          '概览',
       'toc.domains':           '域分类',
+      'toc.problem-workflows':  '问题工作流',
       'toc.methods':           '11 个方法',
       'toc.graph':             '技能图谱',
       'toc.case-studies':      '图谱演化案例',
       'toc.crossref':          '相关索引',
       // §1 Overview
       's1.title':              '§1. 概览',
-      's1.lead':               '本页是 OpenCode 技能日常管理的核心查询页。把它当作"始终打开的速查手册"——下面 5 个章节从最基础的分类规则讲到真实 graph 演化，逐层递进。',
+      's1.lead':               '本页是 OpenCode 技能日常管理的核心查询页。把它当作"始终打开的速查手册"——下面章节从基础域分类讲到问题解决工作流、技能图谱与真实 graph 演化。',
       's1.what-is-here':       '本页包含什么',
       's1.what-is-here-li1':   '6 个 skill 域的判定规则与关键词',
-      's1.what-is-here-li2':   '11 个 slash 命令的精炼参考表',
-      's1.what-is-here-li3':   '当前 Skills Graph 的实时渲染 + 图例',
-      's1.what-is-here-li4':   '场景套餐表（哪种任务该装哪些 skill）',
-      's1.what-is-here-li5':   '4 个真实/假想的图演化案例（State 0 → State 3）',
+      's1.what-is-here-li2':   '从 idea 到上市、推广、迭代、复盘的问题解决工作流',
+      's1.what-is-here-li3':   '11 个 slash 命令的精炼参考表',
+      's1.what-is-here-li4':   '当前 Skills Graph 的实时渲染 + 图例',
+      's1.what-is-here-li5':   '真实/假想的图演化案例（State 0 → State N）',
       's1.what-is-not-here':   '本页不包含',
       's1.what-is-not-here-li1':'安装步骤——见 ',
       's1.what-is-not-here-li2':'两层架构详解——见 ',
@@ -442,7 +533,7 @@
       <header class="mb-12">
         <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2" data-i18n="header.eyebrow">REFERENCE HANDBOOK</p>
         <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4" data-i18n="header.title">The Handbook</h1>
-        <p class="text-lg text-zinc-400" data-i18n="header.subtitle">A unified reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph evolution case studies.</p>
+        <p class="text-lg text-zinc-400" data-i18n="header.subtitle">A unified reference for the OpenCode skills lifecycle: 6 domains, problem-solving workflows, 11 methods, the Skills Graph, and real graph evolution case studies.</p>
         <p class="text-sm text-zinc-600 mt-4">
           <span data-i18n="header.lastupdate">Last updated</span>: 2026-05-16 ·
           <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" target="_blank" rel="noopener" data-i18n="header.editlink">edit on GitHub</a>
@@ -452,15 +543,15 @@
       <!-- §1 OVERVIEW -->
       <section id="overview">
         <h2 data-i18n="s1.title">§1. Overview</h2>
-        <p data-i18n="s1.lead">This page is the single reference for day-to-day OpenCode skills management. Treat it as the always-open cheat sheet — the five sections below build from raw classification rules up to real graph evolution, layer by layer.</p>
+        <p data-i18n="s1.lead">This page is the single reference for day-to-day OpenCode skills management. Treat it as the always-open cheat sheet: domain taxonomy, problem-solving workflows, the Skills Graph, and real graph evolution.</p>
 
         <h3 data-i18n="s1.what-is-here">What's on this page</h3>
         <ul>
           <li data-i18n="s1.what-is-here-li1">The decision rules and keywords for all 6 skill domains</li>
-          <li data-i18n="s1.what-is-here-li2">A condensed reference for all 11 slash commands</li>
-          <li data-i18n="s1.what-is-here-li3">A live render of the current Skills Graph + a legend</li>
-          <li data-i18n="s1.what-is-here-li4">The scenario bundles table (which skills to load for which task)</li>
-          <li data-i18n="s1.what-is-here-li5">Four real and hypothetical graph evolution cases (State 0 → State 3)</li>
+          <li data-i18n="s1.what-is-here-li2">The problem-solving workflow from idea to launch, growth, iteration, and retrospective learning</li>
+          <li data-i18n="s1.what-is-here-li3">A condensed reference for all 11 slash commands</li>
+          <li data-i18n="s1.what-is-here-li4">A live render of the current Skills Graph + a legend</li>
+          <li data-i18n="s1.what-is-here-li5">Real and hypothetical graph evolution cases (State 0 → State N)</li>
         </ul>
 
         <h3 data-i18n="s1.what-is-not-here">What's not on this page</h3>
@@ -885,6 +976,7 @@ flowchart LR
         <nav>
           <a href="#overview"     class="toc-link" data-i18n="toc.overview">§1. Overview</a>
           <a href="#domains"      class="toc-link" data-i18n="toc.domains">§2. Domain Taxonomy</a>
+          <a href="#problem-workflows" class="toc-link" data-i18n="toc.problem-workflows">Problem Workflow</a>
           <a href="#methods"      class="toc-link" data-i18n="toc.methods">§3. The 11 Methods</a>
           <a href="#graph"        class="toc-link" data-i18n="toc.graph">§4. Skills Graph</a>
           <a href="#case-studies" class="toc-link" data-i18n="toc.case-studies">§5. Graph Case Studies</a>

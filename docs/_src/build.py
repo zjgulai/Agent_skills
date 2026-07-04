@@ -42,6 +42,8 @@ DATA = DOCS / "data"
 I18N = SRC / "i18n"
 CASE_STUDIES = SRC / "case-studies.json"
 WEEKLY_HOT_SKILLS = SRC / "weekly-hot-skills.json"
+PROBLEM_WORKFLOWS_DATA = DATA / "problem-workflows.json"
+ALCHAINCYF_MANIFEST = SRC / "alchaincyf-skill-manifest.json"
 
 PAGES_TO_BUILD = [
     "index.html",
@@ -133,14 +135,19 @@ def fix_lang_attr(soup: BeautifulSoup, lang: str) -> None:
 
 
 def fix_relative_paths(soup: BeautifulSoup) -> None:
-    """因为输出移到 docs/<lang>/ 子目录，资源相对路径需要 ../ 前缀。"""
+    """Rewrite only shared asset/data paths for docs/<lang>/ output.
+
+    Same-language page links such as ./handbook.html must stay local to
+    docs/<lang>/handbook.html. Rewriting them to ../handbook.html makes the
+    public site fall back to stale root-level legacy pages.
+    """
     for el in soup.find_all(attrs={"href": True}):
         href = el["href"]
-        if href.startswith("./"):
+        if href.startswith(("./assets/", "./data/")):
             el["href"] = "../" + href[2:]
     for el in soup.find_all(attrs={"src": True}):
         src = el["src"]
-        if src.startswith("./"):
+        if src.startswith(("./assets/", "./data/")):
             el["src"] = "../" + src[2:]
 
 
@@ -215,9 +222,14 @@ def render_case_studies(states: list[dict], lang: str) -> str:
             alt_zh = f"图谱状态 {s['id']}"
             alt_en = f"Skills graph state {s['id']}"
             alt = alt_zh if lang == "zh" else alt_en
+            asset_path = (
+                f"../assets/{png}"
+                if png == "skills-graph.png"
+                else f"../assets/screenshots/{png}"
+            )
             parts.append(
-                f'  <a href="../assets/screenshots/{png}" target="_blank" rel="noopener">'
-                f'<img src="../assets/screenshots/{png}" alt="{alt}" class="graph-img"></a>'
+                f'  <a href="{asset_path}" target="_blank" rel="noopener">'
+                f'<img src="{asset_path}" alt="{alt}" class="graph-img"></a>'
             )
 
     parts.append('</section>')
@@ -250,6 +262,22 @@ def publish_weekly_hot_skills(payload: dict) -> None:
     )
 
 
+def load_alchaincyf_manifest() -> dict:
+    if not ALCHAINCYF_MANIFEST.exists():
+        return {}
+    return json.loads(ALCHAINCYF_MANIFEST.read_text(encoding="utf-8"))
+
+
+def publish_alchaincyf_manifest(payload: dict) -> None:
+    if not payload:
+        return
+    DATA.mkdir(parents=True, exist_ok=True)
+    (DATA / "alchaincyf-skill-manifest.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
 def _pick(d: dict, key: str, lang: str, default: str = "") -> str:
     return str(d.get(f"{key}_{lang}") or d.get(f"{key}_en") or d.get(key) or default)
 
@@ -274,68 +302,65 @@ def render_weekly_hot_skills(payload: dict, lang: str) -> str:
     )
 
     parts = [
-        '<section id="weekly-hot-skills" class="border-t border-zinc-900 bg-zinc-950">',
-        '  <div class="max-w-6xl mx-auto px-6 py-20">',
-        '    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">',
-        '      <div>',
-        '        <p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">2026-06-14</p>',
-        f'        <h2 class="text-3xl font-bold text-zinc-100">{escape(title)}</h2>',
-        f'        <p class="text-zinc-400 mt-3 max-w-3xl leading-relaxed">{escape(lead)}</p>',
-        '      </div>',
-        f'      <a href="../data/weekly-hot-skills.json" class="text-emerald-400 hover:text-emerald-300 text-sm font-medium">{escape("查看 JSON 数据" if lang == "zh" else "View JSON data")} →</a>',
+        '<section id="weekly-hot-skills" class="site-section section-panel">',
+        '  <div class="section-head">',
+        '    <div>',
+        '      <p class="eyebrow">2026-06-14</p>',
+        f'      <h2>{escape(title)}</h2>',
+        f'      <p>{escape(lead)}</p>',
         '    </div>',
-        '    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">',
+        f'    <a class="text-link" href="../data/weekly-hot-skills.json">{escape("查看 JSON 数据" if lang == "zh" else "View JSON data")} →</a>',
+        '  </div>',
+        '  <div class="hot-grid">',
     ]
 
     for group in groups:
         skills = group.get("skills", [])
         skill_tags = "\n".join(
-            f'          <span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">{escape(s)}</span>'
+            f'        <span class="tag">{escape(s)}</span>'
             for s in skills
         )
         stars = group.get("stars")
         stars_text = f"{stars:,} stars" if isinstance(stars, int) else ""
         updated = str(group.get("updated_at", ""))[:10]
         parts.extend([
-            '      <article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">',
-            '        <div class="flex items-start justify-between gap-4">',
-            '          <div>',
-            f'            <p class="text-xs uppercase tracking-wider text-zinc-500">{escape(source_label)}</p>',
-            f'            <h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="{escape(group.get("url", ""))}" target="_blank" rel="noopener">{escape(group.get("repo", ""))}</a></h3>',
-            '          </div>',
-            f'          <span class="text-xs text-zinc-500 whitespace-nowrap">{escape(updated)}</span>',
+            '    <article class="data-card">',
+            '      <div class="card-head">',
+            '        <div>',
+            f'          <p class="mini-label">{escape(source_label)}</p>',
+            f'          <h3><a href="{escape(group.get("url", ""))}" target="_blank" rel="noopener">{escape(group.get("repo", ""))}</a></h3>',
             '        </div>',
-            f'        <p class="text-zinc-400 text-sm leading-relaxed mt-4">{escape(_pick(group, "why", lang))}</p>',
-            f'        <p class="text-emerald-400 text-xs font-medium mt-4">{escape(installed_label)} · {len(skills)} {escape("个" if lang == "zh" else "skills")}</p>',
-            '        <div class="flex flex-wrap gap-2 mt-3">',
+            f'        <span>{escape(updated)}</span>',
+            '      </div>',
+            f'      <p>{escape(_pick(group, "why", lang))}</p>',
+            f'      <p class="card-accent">{escape(installed_label)} · {len(skills)} {escape("个" if lang == "zh" else "skills")}</p>',
+            '      <div class="tag-row">',
             skill_tags,
-            '        </div>',
-            f'        <p class="text-zinc-600 text-xs mt-4">{escape(stars_text)}</p>',
-            '      </article>',
+            '      </div>',
+            f'      <p class="muted-small">{escape(stars_text)}</p>',
+            '    </article>',
         ])
 
     parts.extend([
-        '    </div>',
-        '    <div class="mt-10 p-5 border border-zinc-800 rounded-lg bg-black/20">',
-        f'      <h3 class="text-xl font-semibold text-zinc-100 mb-2">{escape(radar_title)}</h3>',
-        f'      <p class="text-zinc-400 text-sm mb-5">{escape(radar_lead)}</p>',
-        '      <div class="grid md:grid-cols-2 gap-3">',
+        '  </div>',
+        '  <div class="watchlist-panel">',
+        f'    <h3>{escape(radar_title)}</h3>',
+        f'    <p>{escape(radar_lead)}</p>',
+        '    <div class="watchlist-grid">',
     ])
 
     for item in radar:
         parts.extend([
-            '        <a class="block p-4 rounded-md border border-zinc-800 hover:border-emerald-500/40 transition-colors" '
-            f'href="{escape(item.get("url", ""))}" target="_blank" rel="noopener">',
-            f'          <span class="text-zinc-100 font-medium">{escape(item.get("repo", ""))}</span>',
-            f'          <span class="text-zinc-500 text-xs ml-2">{escape(str(item.get("stars", "")))} stars</span>',
-            f'          <p class="text-zinc-400 text-sm mt-2">{escape(_pick(item, "decision", lang))}</p>',
-            '        </a>',
+            f'      <a class="watchlist-item" href="{escape(item.get("url", ""))}" target="_blank" rel="noopener">',
+            f'        <strong>{escape(item.get("repo", ""))}</strong>',
+            f'        <span>{escape(str(item.get("stars", "")))} stars</span>',
+            f'        <p>{escape(_pick(item, "decision", lang))}</p>',
+            '      </a>',
         ])
 
     parts.extend([
-        '      </div>',
-        '    </div>',
         '  </div>',
+        '</div>',
         '</section>',
     ])
     return "\n".join(parts)
@@ -351,8 +376,225 @@ def replace_weekly_hot_skills_section(soup: BeautifulSoup, payload: dict, lang: 
     return True
 
 
+def render_alchaincyf_source_collection(payload: dict, lang: str) -> str:
+    summary = payload.get("ingestion_summary", {})
+    skills = payload.get("skills", [])
+    install_items = [item for item in skills if item.get("action") == "install"]
+    distill_items = [item for item in skills if item.get("action") == "distill-only"]
+    skip_items = [item for item in skills if item.get("action") == "skip"]
+    problem_counts: dict[str, int] = {}
+    for item in install_items:
+        node = str(item.get("problem_node", ""))
+        if node:
+            problem_counts[node] = problem_counts.get(node, 0) + 1
+    top_nodes = sorted(problem_counts.items(), key=lambda kv: (-kv[1], kv[0]))[:8]
+
+    if lang == "zh":
+        title = "Alchaincyf source collection 已入库"
+        lead = (
+            f"{payload.get('snapshot_date', '')} 快照：不是整包复制，而是按 root / subdir / monorepo / distill-only "
+            "四种模式拆解，映射到问题节点后再进入网站。"
+        )
+        source_label = "来源"
+        installed_label = "运行时安装"
+        modes_label = "安装模式"
+        backlog_label = "蒸馏与跳过"
+        node_label = "问题节点覆盖"
+        json_label = "查看 manifest JSON"
+        cards = [
+            (source_label, payload.get("source_owner", "alchaincyf"), f"{payload.get('repo_count', 0)} repos · {payload.get('non_fork_count', 0)} non-forks · {payload.get('fork_count', 0)} forks"),
+            (installed_label, str(summary.get("runtime_install_count", len(install_items))), f"{summary.get('direct_root_install_count', 0)} root · {summary.get('subdir_install_count', 0)} subdir · {summary.get('monorepo_install_count', 0)} monorepo"),
+            (modes_label, "root / subdir / monorepo / none", "所有 runtime 写入都通过 portal API，distill-only 不安装。"),
+            (backlog_label, f"{len(distill_items)} distill-only · {len(skip_items)} skipped", "橙皮书和产品仓库先作为来源材料，不盲目安装。"),
+        ]
+    else:
+        title = "Alchaincyf Source Collection Ingested"
+        lead = (
+            f"{payload.get('snapshot_date', '')} snapshot: split by root, subdir, monorepo, and distill-only modes, "
+            "then mapped into problem nodes before publishing."
+        )
+        source_label = "Source"
+        installed_label = "Runtime installs"
+        modes_label = "Install modes"
+        backlog_label = "Distill and skip"
+        node_label = "Problem-node coverage"
+        json_label = "View manifest JSON"
+        cards = [
+            (source_label, payload.get("source_owner", "alchaincyf"), f"{payload.get('repo_count', 0)} repos · {payload.get('non_fork_count', 0)} non-forks · {payload.get('fork_count', 0)} forks"),
+            (installed_label, str(summary.get("runtime_install_count", len(install_items))), f"{summary.get('direct_root_install_count', 0)} root · {summary.get('subdir_install_count', 0)} subdir · {summary.get('monorepo_install_count', 0)} monorepo"),
+            (modes_label, "root / subdir / monorepo / none", "Runtime writes go through the portal API; distill-only records are not installed."),
+            (backlog_label, f"{len(distill_items)} distill-only · {len(skip_items)} skipped", "Books and product repos stay as source material until distilled."),
+        ]
+
+    parts = [
+        '<section class="site-section section-panel" id="alchaincyf-source-collection">',
+        '  <div class="section-head">',
+        '    <div>',
+        '      <p class="eyebrow">GitHub source intake</p>',
+        f'      <h2>{escape(title)}</h2>',
+        f'      <p>{escape(lead)}</p>',
+        '    </div>',
+        f'    <a class="text-link" href="../data/alchaincyf-skill-manifest.json">{escape(json_label)} →</a>',
+        '  </div>',
+        '  <div class="hot-grid">',
+    ]
+
+    for label, value, text in cards:
+        parts.extend([
+            '    <article class="data-card">',
+            f'      <p class="mini-label">{escape(label)}</p>',
+            f'      <h3>{escape(value)}</h3>',
+            f'      <p>{escape(text)}</p>',
+            '    </article>',
+        ])
+
+    chips = "\n".join(
+        f'      <span class="tag">{escape(node)} · {count}</span>'
+        for node, count in top_nodes
+    )
+    parts.extend([
+        '  </div>',
+        '  <div class="watchlist-panel">',
+        f'    <h3>{escape(node_label)}</h3>',
+        '    <div class="tag-row">',
+        chips,
+        '    </div>',
+        '  </div>',
+        '</section>',
+    ])
+    return "\n".join(parts)
+
+
+def replace_alchaincyf_source_collection(soup: BeautifulSoup, payload: dict, lang: str) -> bool:
+    section = soup.find("section", id="alchaincyf-source-collection")
+    if not section or not payload:
+        return False
+    new_html = render_alchaincyf_source_collection(payload, lang)
+    new_section = BeautifulSoup(new_html, "lxml").find("section")
+    section.replace_with(new_section)
+    return True
+
+
+def hydrate_homepage_console_stats(
+    soup: BeautifulSoup,
+    skill_count: int,
+    problem_workflows: dict,
+    alchaincyf_manifest: dict,
+    lang: str,
+) -> int:
+    node_count = sum(len(stage.get("nodes", [])) for stage in problem_workflows.get("stages", []))
+    source_runtime = (
+        alchaincyf_manifest.get("ingestion_summary", {}).get("runtime_install_count")
+        or len([item for item in alchaincyf_manifest.get("skills", []) if item.get("action") == "install"])
+    )
+    values = {
+        "skills": skill_count,
+        "nodes": node_count,
+        "source-runtime": source_runtime,
+        "publish-state": "Ready" if lang == "en" else "Ready",
+    }
+    replaced = 0
+    for key, value in values.items():
+        el = soup.find(attrs={"data-stat": key})
+        if el:
+            el.string = str(value)
+            replaced += 1
+    return replaced
+
+
+def load_problem_workflows() -> dict:
+    if not PROBLEM_WORKFLOWS_DATA.exists():
+        return {}
+    return json.loads(PROBLEM_WORKFLOWS_DATA.read_text(encoding="utf-8"))
+
+
+def render_problem_workflows(payload: dict, lang: str) -> str:
+    stages = payload.get("stages", [])
+    title = "问题解决工作流" if lang == "zh" else "AI Automation Problem Workflow"
+    lead = (
+        "第二分类轴：从用户问题出发，把 skills 编排成从 idea 到上线、增长、运营、复盘的自动化链路。"
+        if lang == "zh"
+        else "A second classification axis: route user problems into automation chains from idea to launch, growth, operations, and learning."
+    )
+    data_label = "机器可读数据" if lang == "zh" else "Machine-readable data"
+    node_label = "问题节点" if lang == "zh" else "Problem nodes"
+    primary_label = "主力 skills" if lang == "zh" else "Primary skills"
+    acceptance_label = "验收门槛" if lang == "zh" else "Acceptance gates"
+
+    parts = [
+        '<section id="problem-workflows">',
+        f'  <h2>{escape(title)}</h2>',
+        f'  <p>{escape(lead)}</p>',
+        f'  <p><a href="../data/problem-workflows.json" target="_blank" rel="noopener">{escape(data_label)} →</a></p>',
+        '  <div class="workflow-grid">',
+    ]
+
+    for stage in stages:
+        stage_label = stage.get(f"label_{lang}") or stage.get("label_en") or stage.get("id", "")
+        principle = stage.get("automation_principle", "")
+        nodes = stage.get("nodes", [])
+        parts.extend([
+            '    <article class="workflow-stage">',
+            '      <div class="workflow-stage-head">',
+            f'        <span class="workflow-stage-id">{escape(stage.get("id", ""))}</span>',
+            f'        <span class="workflow-stage-count">{len(nodes)} {escape(node_label)}</span>',
+            '      </div>',
+            f'      <h3>{escape(stage_label)}</h3>',
+            f'      <p>{escape(principle)}</p>',
+            '      <div class="workflow-node-list">',
+        ])
+
+        for node in nodes:
+            problem = node.get(f"problem_{lang}") or node.get("problem_en") or ""
+            primary = node.get("primary_skills", [])
+            acceptance = node.get("acceptance", [])
+            primary_chips = "".join(
+                f'<code>{escape(skill)}</code>' for skill in primary[:4]
+            )
+            acceptance_text = " · ".join(str(item) for item in acceptance[:2])
+            parts.extend([
+                '        <div class="workflow-node">',
+                f'          <strong>{escape(node.get("id", ""))}</strong>',
+                f'          <p>{escape(problem)}</p>',
+                f'          <div><span>{escape(primary_label)}:</span> {primary_chips}</div>',
+                f'          <small>{escape(acceptance_label)}: {escape(acceptance_text)}</small>',
+                '        </div>',
+            ])
+
+        parts.extend([
+            '      </div>',
+            '    </article>',
+        ])
+
+    parts.extend([
+        '  </div>',
+        '</section>',
+    ])
+    return "\n".join(parts)
+
+
+def replace_problem_workflows_section(soup: BeautifulSoup, payload: dict, lang: str) -> bool:
+    if not payload:
+        return False
+    new_html = render_problem_workflows(payload, lang)
+    new_section = BeautifulSoup(new_html, "lxml").find("section")
+    if not new_section:
+        return False
+    existing = soup.find("section", id="problem-workflows")
+    if existing:
+        existing.replace_with(new_section)
+        return True
+    domains = soup.find("section", id="domains")
+    if not domains:
+        return False
+    domains.insert_after(new_section)
+    return True
+
+
 def build_one(page_filename: str, lang: str, zh: dict[str, dict[str, str]],
               weekly_hot: dict,
+              problem_workflows: dict,
+              alchaincyf_manifest: dict,
               skill_count: int, out_root: Path) -> dict:
     src_path = ORIGINALS / page_filename
     text = src_path.read_text(encoding="utf-8")
@@ -383,13 +625,26 @@ def build_one(page_filename: str, lang: str, zh: dict[str, dict[str, str]],
         sc_replaced = update_skill_count_in_text(soup, skill_count)
         img_replaced = replace_stale_screenshot(soup, skill_count, lang)
         weekly_replaced = replace_weekly_hot_skills_section(soup, weekly_hot, lang)
+        alchaincyf_replaced = replace_alchaincyf_source_collection(soup, alchaincyf_manifest, lang)
+        console_stats = hydrate_homepage_console_stats(
+            soup,
+            skill_count,
+            problem_workflows,
+            alchaincyf_manifest,
+            lang,
+        )
     else:
         weekly_replaced = False
+        alchaincyf_replaced = False
+        console_stats = 0
 
     case_studies_replaced = False
     if page_filename == "handbook.html":
         states = json.loads(CASE_STUDIES.read_text(encoding="utf-8"))["states"]
         case_studies_replaced = replace_case_studies_section(soup, states, lang)
+        problem_workflows_replaced = replace_problem_workflows_section(soup, problem_workflows, lang)
+    else:
+        problem_workflows_replaced = False
 
     out_dir = out_root / lang
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -403,6 +658,9 @@ def build_one(page_filename: str, lang: str, zh: dict[str, dict[str, str]],
         "skill_count_patches": sc_replaced,
         "case_studies": case_studies_replaced,
         "weekly_hot_skills": weekly_replaced,
+        "alchaincyf_source": alchaincyf_replaced,
+        "console_stats": console_stats,
+        "problem_workflows": problem_workflows_replaced,
         "out": str(out_path.relative_to(REPO_ROOT)),
     }
 
@@ -430,17 +688,53 @@ def build_root_redirect() -> None:
     (DOCS / "index.html").write_text(redirect_html, encoding="utf-8")
 
 
+def build_legacy_page_redirects() -> None:
+    """Replace root-level legacy pages with language-aware redirects.
+
+    The source-of-truth pages now live under docs/zh/ and docs/en/. Keeping
+    stale root pages makes old links look like the website was not updated.
+    """
+    for page in [*PAGES_TO_BUILD, *PASSTHROUGH_PAGES]:
+        if page == "index.html":
+            continue
+        redirect_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skills Manager AI Agent</title>
+  <meta http-equiv="refresh" content="0; url=./en/{page}">
+  <script>
+    var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    var target = lang.indexOf('zh') === 0 ? './zh/{page}' : './en/{page}';
+    window.location.replace(target);
+  </script>
+</head>
+<body style="background:#0f172a;color:#cbd5e1;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:2rem;">
+  <p>Skills Manager AI Agent is redirecting to the latest localized page:
+    <a href="./en/{page}" style="color:#0f766e;">English</a>
+    ·
+    <a href="./zh/{page}" style="color:#0f766e;">中文</a>
+  </p>
+</body>
+</html>
+"""
+        (DOCS / page).write_text(redirect_html, encoding="utf-8")
+
+
 def main() -> None:
     status = json.loads((DATA / "portal-status.json").read_text(encoding="utf-8"))
     skill_count = status["skill_count"]
     zh = load_zh_dict()
     weekly_hot = load_weekly_hot_skills()
+    alchaincyf_manifest = load_alchaincyf_manifest()
+    problem_workflows = load_problem_workflows()
     publish_weekly_hot_skills(weekly_hot)
+    publish_alchaincyf_manifest(alchaincyf_manifest)
 
     results: list[dict] = []
     for page in PAGES_TO_BUILD:
         for lang in ("zh", "en"):
-            results.append(build_one(page, lang, zh, weekly_hot, skill_count, DOCS))
+            results.append(build_one(page, lang, zh, weekly_hot, problem_workflows, alchaincyf_manifest, skill_count, DOCS))
 
     for page in PASSTHROUGH_PAGES:
         for lang in ("zh", "en"):
@@ -454,13 +748,17 @@ def main() -> None:
         shutil.copy(mirror, target)
 
     build_root_redirect()
+    build_legacy_page_redirects()
 
     print(f"\n📦 Build complete  ·  skill_count={skill_count}")
     for r in results:
         cs = "cs✅" if r["case_studies"] else ""
         weekly = "weekly✅" if r["weekly_hot_skills"] else ""
+        alchaincyf = "alchaincyf✅" if r["alchaincyf_source"] else ""
+        workflows = "workflow✅" if r["problem_workflows"] else ""
         print(f"   · {r['lang']}/{r['page']:30}  i18n={r['translations_applied']:>3}  "
-              f"sc_patch={r['skill_count_patches']}  {cs} {weekly}")
+              f"sc_patch={r['skill_count_patches']}  console={r['console_stats']}  "
+              f"{cs} {weekly} {alchaincyf} {workflows}")
 
 
 if __name__ == "__main__":

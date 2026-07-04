@@ -71,6 +71,18 @@ flowchart LR
     SDD2[source-driven-development]:::metaDomain
     SDD3[spec-driven-development]:::metaDomain
     AAID[api-and-interface-design]:::metaDomain
+    PWF[planning-with-files]:::metaDomain
+    A4[agnix]:::metaDomain
+    IM[interview-me]:::metaDomain
+    IR2[idea-refine]:::metaDomain
+    PATB[planning-and-task-breakdown]:::metaDomain
+    II[incremental-implementation]:::metaDomain
+    DDD[doubt-driven-development]:::metaDomain
+    UAS[using-agent-skills]:::metaDomain
+    HN[huashu-nuwa]:::metaDomain
+    DS[darwin-skill]:::metaDomain
+    FS2[freud-skill]:::metaDomain
+    HAS[huashu-agent-swarm]:::metaDomain
 
     %% Domain 2 - Closeout
     CR[codex-review]:::closeoutDomain
@@ -90,6 +102,19 @@ flowchart LR
     PD[paper2skills-deploy]:::closeoutDomain
     DTV[deploy-to-vercel]:::closeoutDomain
     SAL[shipping-and-launch]:::closeoutDomain
+    BTWD[browser-testing-with-devtools]:::closeoutDomain
+    CCAA[ci-cd-and-automation]:::closeoutDomain
+    CRAQ[code-review-and-quality]:::closeoutDomain
+    CS2[code-simplification]:::closeoutDomain
+    DAER[debugging-and-error-recovery]:::closeoutDomain
+    DAM[deprecation-and-migration]:::closeoutDomain
+    DAA[documentation-and-adrs]:::closeoutDomain
+    GWAV[git-workflow-and-versioning]:::closeoutDomain
+    HAE[huashu-article-edit]:::closeoutDomain
+    HP2[huashu-proofreading]:::closeoutDomain
+    HSP[huashu-script-polish]:::closeoutDomain
+    HSC2[huashu-speech-coach]:::closeoutDomain
+    HVC[huashu-video-check]:::closeoutDomain
 
     %% Domain 3 - Desktop
     NF[native-feel-cross-platform-desktop]:::desktopDomain
@@ -103,6 +128,22 @@ flowchart LR
     DSFA[dtc-site-forensic-audit]:::founderDomain
     DSAS[dtc-sop-a-selection]:::founderDomain
     DV3A[dtc-voc-3layer-analysis]:::founderDomain
+    L[last30days]:::founderDomain
+    XMM[x-mastery-mentor]:::founderDomain
+    ZP[zhangxuefeng-perspective]:::founderDomain
+    ZYP[zhang-yiming-perspective]:::founderDomain
+    TP2[trump-perspective]:::founderDomain
+    TP3[taleb-perspective]:::founderDomain
+    SYP[sun-yuchen-perspective]:::founderDomain
+    PGP[paul-graham-perspective]:::founderDomain
+    NP[naval-perspective]:::founderDomain
+    MP3[munger-perspective]:::founderDomain
+    MP4[mrbeast-perspective]:::founderDomain
+    ISP[ilya-sutskever-perspective]:::founderDomain
+    FP[feynman-perspective]:::founderDomain
+    EMP[elon-musk-perspective]:::founderDomain
+    AKP[andrej-karpathy-perspective]:::founderDomain
+    SJP[steve-jobs-perspective]:::founderDomain
 
     %% Domain 5 - IP
     PAT[patent-disclosure-skill]:::ipDomain
@@ -404,6 +445,34 @@ flowchart LR
 
     JC[json-canvas]:::toolingDomain
 
+    %% Tooling domain
+
+    M[md2wechat]:::toolingDomain
+
+    %% Tooling domain
+
+    A5[anydesign]:::toolingDomain
+    FUE[frontend-ui-engineering]:::toolingDomain
+    HD[huashu-design]:::toolingDomain
+    HMH[huashu-md-html]:::toolingDomain
+    HSC[huashu-slide-codex]:::toolingDomain
+    HWA[huashu-weread-advisor]:::toolingDomain
+    D3[dukou]:::toolingDomain
+    HATX[huashu-article-to-x]:::toolingDomain
+    HDP[huashu-data-pro]:::toolingDomain
+    HDS[huashu-douyin-script]:::toolingDomain
+    HIU[huashu-image-upload]:::toolingDomain
+    HIS[huashu-info-search]:::toolingDomain
+    HMS[huashu-material-search]:::toolingDomain
+    HMTP[huashu-md-to-pdf]:::toolingDomain
+    HPS[huashu-prompt-save]:::toolingDomain
+    HR[huashu-research]:::toolingDomain
+    HS[huashu-slides]:::toolingDomain
+    HTG[huashu-topic-gen]:::toolingDomain
+    HVO[huashu-video-outline]:::toolingDomain
+    HWI[huashu-wechat-image]:::toolingDomain
+    HXI[huashu-xhs-image]:::toolingDomain
+
     %% Domain 6 - Builtin (referenced for context)
     GM(git-master · builtin):::builtin
     RW(review-work · builtin):::builtin
@@ -568,6 +637,69 @@ flowchart LR
     SAH -. "同域" .-> GPS
     OM -. "同域" .-> GPS
     JC -. "同域" .-> GPS
+    L -. "同域" .-> SPT
+    PWF -. "同域" .-> ADK
+    A4 -. "同域" .-> ADK
+    M -. "同域" .-> GPS
+    A5 -. "同域" .-> GPS
+    IM -. "同域" .-> ADK
+    IR2 -. "同域" .-> ADK
+    PATB -. "同域" .-> ADK
+    II -. "同域" .-> ADK
+    DDD -. "同域" .-> ADK
+    UAS -. "同域" .-> ADK
+    BTWD -. "同域" .-> CR
+    CCAA -. "同域" .-> CR
+    CRAQ -. "同域" .-> CR
+    CS2 -. "同域" .-> CR
+    DAER -. "同域" .-> CR
+    DAM -. "同域" .-> CR
+    DAA -. "同域" .-> CR
+    GWAV -. "同域" .-> CR
+    FUE -. "同域" .-> GPS
+    HD -. "同域" .-> GPS
+    HN -. "同域" .-> ADK
+    DS -. "同域" .-> ADK
+    HMH -. "同域" .-> GPS
+    HSC -. "同域" .-> GPS
+    HWA -. "同域" .-> GPS
+    XMM -. "同域" .-> SPT
+    FS2 -. "同域" .-> ADK
+    D3 -. "同域" .-> GPS
+    HAS -. "同域" .-> ADK
+    HAE -. "同域" .-> CR
+    HATX -. "同域" .-> GPS
+    HDP -. "同域" .-> GPS
+    HDS -. "同域" .-> GPS
+    HIU -. "同域" .-> GPS
+    HIS -. "同域" .-> GPS
+    HMS -. "同域" .-> GPS
+    HMTP -. "同域" .-> GPS
+    HPS -. "同域" .-> GPS
+    HP2 -. "同域" .-> CR
+    HR -. "同域" .-> GPS
+    HSP -. "同域" .-> CR
+    HS -. "同域" .-> GPS
+    HSC2 -. "同域" .-> CR
+    HTG -. "同域" .-> GPS
+    HVC -. "同域" .-> CR
+    HVO -. "同域" .-> GPS
+    HWI -. "同域" .-> GPS
+    HXI -. "同域" .-> GPS
+    ZP -. "同域" .-> SPT
+    ZYP -. "同域" .-> SPT
+    TP2 -. "同域" .-> SPT
+    TP3 -. "同域" .-> SPT
+    SYP -. "同域" .-> SPT
+    PGP -. "同域" .-> SPT
+    NP -. "同域" .-> SPT
+    MP3 -. "同域" .-> SPT
+    MP4 -. "同域" .-> SPT
+    ISP -. "同域" .-> SPT
+    FP -. "同域" .-> SPT
+    EMP -. "同域" .-> SPT
+    AKP -. "同域" .-> SPT
+    SJP -. "同域" .-> SPT
 
     %% --- Lifecycle flows ---
 

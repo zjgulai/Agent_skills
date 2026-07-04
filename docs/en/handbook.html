@@ -5,12 +5,20 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Handbook · Skills Manager AI Agent</title>
 <meta content="The single reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph case studies." name="description"/>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="https://zjgulai.github.io/Agent_skills/handbook.html" hreflang="en" rel="alternate"/>
 <link href="https://zjgulai.github.io/Agent_skills/handbook.html" hreflang="x-default" rel="alternate"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>
+    window.__skillsConsoleWarn = console.warn;
+    console.warn = (...args) => String(args[0] || '').includes('cdn.tailwindcss.com should not be used')
+      ? undefined
+      : window.__skillsConsoleWarn.apply(console, args);
+  </script>
+<script src="../assets/vendor/tailwindcss-cdn.js"></script>
+<script>console.warn = window.__skillsConsoleWarn; delete window.__skillsConsoleWarn;</script>
+<script src="../assets/vendor/mermaid.min.js"></script>
+<link href="../assets/vendor/highlight-atom-one-dark.css" rel="stylesheet"/>
+<script src="../assets/vendor/highlight.min.js"></script>
 <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .gradient-bg {
@@ -165,6 +173,88 @@
     .domain-card.dom-ip       { border-left-color: #14b8a6; }
     .domain-card.dom-tooling  { border-left-color: #71717a; }
 
+    /* Problem workflow cards */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .workflow-stage {
+      background: rgba(24,24,27,0.42);
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .workflow-stage-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .workflow-stage-id,
+    .workflow-stage-count {
+      color: #a1a1aa;
+      font-size: 0.72rem;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    }
+    .workflow-stage h3 {
+      margin: 0 0 0.5rem;
+      color: #fafafa;
+      font-size: 1.05rem;
+    }
+    .workflow-stage > p {
+      color: #a1a1aa;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      margin: 0 0 0.9rem;
+    }
+    .workflow-node-list {
+      display: grid;
+      gap: 0.7rem;
+    }
+    .workflow-node {
+      background: rgba(9,9,11,0.55);
+      border: 1px solid #27272a;
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+    .workflow-node strong {
+      color: #34d399;
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .workflow-node p {
+      color: #d4d4d8;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      margin: 0 0 0.5rem;
+    }
+    .workflow-node div {
+      color: #a1a1aa;
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+    .workflow-node div span,
+    .workflow-node small {
+      color: #71717a;
+    }
+    .workflow-node code {
+      display: inline-block;
+      margin: 0.15rem 0.2rem 0.15rem 0;
+      padding: 0.08rem 0.35rem;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 4px;
+      color: #d4d4d8;
+      font-size: 0.72rem;
+      white-space: normal;
+      word-break: break-word;
+    }
+
     /* Case-study delta callout */
     .delta-callout {
       background: rgba(16,185,129,0.06);
@@ -194,14 +284,14 @@
 <!-- TOP NAV -->
 <nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
 <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-<a class="flex items-center gap-2 group" href="../index.html">
+<a class="flex items-center gap-2 group" href="./index.html">
 <span class="text-xl">🧠</span>
 <span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
 </a>
 <div class="hidden md:flex items-center gap-6">
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../getting-started.html">Getting Started</a>
-<a class="text-emerald-400 text-sm" href="../handbook.html">Handbook</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">Architecture</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./getting-started.html">Getting Started</a>
+<a class="text-emerald-400 text-sm" href="./handbook.html">Handbook</a>
+<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="./architecture.html">Architecture</a>
 <a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub →</a>
 
 <a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../zh/index.html">中文</a></div>
@@ -215,7 +305,7 @@
 <header class="mb-12">
 <p class="text-emerald-400 text-sm font-medium tracking-wider mb-2">REFERENCE HANDBOOK</p>
 <h1 class="text-4xl md:text-5xl font-bold text-zinc-100 mb-4">The Handbook</h1>
-<p class="text-lg text-zinc-400">A unified reference for the OpenCode skills lifecycle: 6 domains, 11 methods, the Skills Graph, and four real graph evolution case studies.</p>
+<p class="text-lg text-zinc-400">A unified reference for the OpenCode skills lifecycle: 6 domains, problem-solving workflows, 11 methods, the Skills Graph, and real graph evolution case studies.</p>
 <p class="text-sm text-zinc-600 mt-4">
 <span>Last updated</span>: 2026-05-16 ·
           <a href="https://github.com/zjgulai/Agent_skills/blob/main/docs/handbook.html" rel="noopener" target="_blank">edit on GitHub</a>
@@ -224,19 +314,19 @@
 <!-- §1 OVERVIEW -->
 <section id="overview">
 <h2>§1. Overview</h2>
-<p>This page is the single reference for day-to-day OpenCode skills management. Treat it as the always-open cheat sheet — the five sections below build from raw classification rules up to real graph evolution, layer by layer.</p>
+<p>This page is the single reference for day-to-day OpenCode skills management. Treat it as the always-open cheat sheet: domain taxonomy, problem-solving workflows, the Skills Graph, and real graph evolution.</p>
 <h3>What's on this page</h3>
 <ul>
 <li>The decision rules and keywords for all 6 skill domains</li>
+<li>The problem-solving workflow from idea to launch, growth, iteration, and retrospective learning</li>
 <li>A condensed reference for all 11 slash commands</li>
 <li>A live render of the current Skills Graph + a legend</li>
-<li>The scenario bundles table (which skills to load for which task)</li>
-<li>Four real and hypothetical graph evolution cases (State 0 → State 3)</li>
+<li>Real and hypothetical graph evolution cases (State 0 → State N)</li>
 </ul>
 <h3>What's not on this page</h3>
 <ul>
-<li><span>Install steps — see </span><a href="../getting-started.html">Getting Started</a></li>
-<li><span>Two-layer architecture deep dive — see </span><a href="../architecture.html">Architecture</a></li>
+<li><span>Install steps — see </span><a href="./getting-started.html">Getting Started</a></li>
+<li><span>Two-layer architecture deep dive — see </span><a href="./architecture.html">Architecture</a></li>
 </ul>
 <h3>Who it's for</h3>
 <ul>
@@ -345,6 +435,452 @@
 <a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/lib/domain_inference.py" rel="noopener" target="_blank"><code>agent/lib/domain_inference.py</code></a>
 <span> KEYWORDS table, finally run pytest regression.</span>
 </p>
+</section><section id="problem-workflows">
+<h2>AI Automation Problem Workflow</h2>
+<p>A second classification axis: route user problems into automation chains from idea to launch, growth, operations, and learning.</p>
+<p><a href="../data/problem-workflows.json" rel="noopener" target="_blank">Machine-readable data →</a></p>
+<div class="workflow-grid">
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">00-agent-system</span>
+<span class="workflow-stage-count">5 Problem nodes</span>
+</div>
+<h3>AI Automation System</h3>
+<p>先让 agent 可治理、可扩展、可恢复，再让它处理业务问题。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>agent-skill-authoring</strong>
+<p>Create or improve a skill without turning it into a one-off prompt.</p>
+<div><span>Primary skills:</span> <code>skill-creator</code><code>writing-skills</code><code>write-a-skill</code></div>
+<small>Acceptance gates: frontmatter 合法 · 触发场景清晰</small>
+</div>
+<div class="workflow-node">
+<strong>agent-workflow-governance</strong>
+<p>The skill library is growing and the agent needs governable routing rules.</p>
+<div><span>Primary skills:</span> <code>agent-dev-kit-architecture-designer</code><code>context-engineering</code><code>using-agent-skills</code><code>using-superpowers</code></div>
+<small>Acceptance gates: 规则能被机器读取 · 新增 skill 有归位规则</small>
+</div>
+<div class="workflow-node">
+<strong>agent-session-continuity</strong>
+<p>Long-running work loses context, verification state, or decisions across sessions.</p>
+<div><span>Primary skills:</span> <code>context-save</code><code>context-restore</code><code>handoff</code></div>
+<small>Acceptance gates: 新 agent 能接手 · 包含未完成 TODO</small>
+</div>
+<div class="workflow-node">
+<strong>source.alchaincyf-intake</strong>
+<p>Turn an external GitHub skill source into an auditable, filtered, installable candidate set.</p>
+<div><span>Primary skills:</span> <code>huashu-info-search</code><code>huashu-research</code><code>huashu-data-pro</code></div>
+<small>Acceptance gates: 每个候选有来源 URL · 区分 install/distill-only/skip</small>
+</div>
+<div class="workflow-node">
+<strong>agentops.skill-generation-optimization</strong>
+<p>Generate, diagnose, optimize, or orchestrate skills so the agent system keeps improving.</p>
+<div><span>Primary skills:</span> <code>huashu-nuwa</code><code>darwin-skill</code><code>huashu-agent-swarm</code></div>
+<small>Acceptance gates: 触发边界清楚 · 保留反例</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">01-idea-discovery</span>
+<span class="workflow-stage-count">4 Problem nodes</span>
+</div>
+<h3>Idea and Problem Discovery</h3>
+<p>先证明问题值得研究，再投入设计和开发。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>idea-trend-research</strong>
+<p>Find promising directions with trend, competitor, and user-problem evidence.</p>
+<div><span>Primary skills:</span> <code>deep-research</code><code>anysearch</code><code>competitive-intelligence</code></div>
+<small>Acceptance gates: 每个机会有来源 · 区分事实和推断</small>
+</div>
+<div class="workflow-node">
+<strong>idea-pain-mining</strong>
+<p>Mine real user pain from reviews, social posts, tickets, or interviews.</p>
+<div><span>Primary skills:</span> <code>dtc-voc-3layer-analysis</code><code>ticket-triage</code><code>baoyu-wechat-summary</code></div>
+<small>Acceptance gates: 保留原始证据 · 区分表层抱怨和深层需求</small>
+</div>
+<div class="workflow-node">
+<strong>idea-domain-recon</strong>
+<p>Build baseline knowledge and asset inventory before working in a new domain.</p>
+<div><span>Primary skills:</span> <code>brand-knowledge-base-builder</code><code>dtc-brand-recon</code><code>notebooklm</code></div>
+<small>Acceptance gates: 关键事实可追溯 · 覆盖用户/产品/渠道</small>
+</div>
+<div class="workflow-node">
+<strong>sensemaking.research-intake</strong>
+<p>Search, read, and structure evidence before topic planning, writing, or decisions.</p>
+<div><span>Primary skills:</span> <code>huashu-research</code><code>huashu-info-search</code><code>huashu-material-search</code><code>huashu-weread-advisor</code></div>
+<small>Acceptance gates: 区分事实和推断 · 保留来源</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">02-market-validation</span>
+<span class="workflow-stage-count">4 Problem nodes</span>
+</div>
+<h3>Market and Demand Validation</h3>
+<p>用最小证据链验证 ICP、需求强度、付费意愿和反证。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>market-icp-pressure-test</strong>
+<p>Pressure-test an idea for ICP, urgency, and whether it is worth building.</p>
+<div><span>Primary skills:</span> <code>startup-pressure-test</code><code>office-hours</code><code>grill-me</code></div>
+<small>Acceptance gates: 有反证路径 · 定义不做的条件</small>
+</div>
+<div class="workflow-node">
+<strong>market-offer-test</strong>
+<p>Validate offer, pricing, promise, and landing-page messaging.</p>
+<div><span>Primary skills:</span> <code>marketing-psychology</code><code>copywriting</code><code>design-html</code></div>
+<small>Acceptance gates: 承诺具体 · 价格和价值匹配</small>
+</div>
+<div class="workflow-node">
+<strong>market-first-users</strong>
+<p>Find first real users and design outreach, interview, and follow-up flows.</p>
+<div><span>Primary skills:</span> <code>draft-outreach</code><code>lead-triage</code><code>account-research</code></div>
+<small>Acceptance gates: 名单有筛选理由 · 消息不泛化</small>
+</div>
+<div class="workflow-node">
+<strong>strategy.persona-judgment</strong>
+<p>Use distilled persona reasoning to review strategy, product, career, or market decisions.</p>
+<div><span>Primary skills:</span> <code>munger-perspective</code><code>paul-graham-perspective</code><code>naval-perspective</code><code>zhang-yiming-perspective</code></div>
+<small>Acceptance gates: 不把 persona 当权威答案 · 说明适用边界</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">03-product-definition</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Product Definition and Roadmap</h3>
+<p>把验证过的问题收敛为可交付范围、指标和垂直切片。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>product-prd-scope</strong>
+<p>Turn many requirements into a bounded, executable PRD.</p>
+<div><span>Primary skills:</span> <code>to-prd</code><code>write-spec</code><code>spec-driven-development</code></div>
+<small>Acceptance gates: 每个需求有用户问题 · 非目标明确</small>
+</div>
+<div class="workflow-node">
+<strong>product-issue-slicing</strong>
+<p>Break a large PRD into independently shippable vertical slices.</p>
+<div><span>Primary skills:</span> <code>to-issues</code><code>planning-and-task-breakdown</code><code>sprint-planning</code><code>triage</code></div>
+<small>Acceptance gates: 每个 issue 可独立验收 · 依赖显式</small>
+</div>
+<div class="workflow-node">
+<strong>product-metrics-map</strong>
+<p>Define measurable product metrics that drive post-launch iteration.</p>
+<div><span>Primary skills:</span> <code>metrics-review</code><code>data-visualization</code><code>explore-data</code></div>
+<small>Acceptance gates: 北极星指标明确 · 输入事件定义清楚</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">04-design-prototype</span>
+<span class="workflow-stage-count">4 Problem nodes</span>
+</div>
+<h3>Design, Prototype, and UX Validation</h3>
+<p>用可见、可点、可评审的原型降低实现前的不确定性。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>design-ux-flow</strong>
+<p>Turn requirements into a task-focused user experience flow.</p>
+<div><span>Primary skills:</span> <code>design-consultation</code><code>ux-copy</code><code>ui-ux-pro-max</code></div>
+<small>Acceptance gates: 主流程无断点 · 错误状态存在</small>
+</div>
+<div class="workflow-node">
+<strong>design-visual-system</strong>
+<p>Establish visual direction, color, typography, and component style.</p>
+<div><span>Primary skills:</span> <code>design-taste-frontend</code><code>color-expert</code><code>redesign-existing-projects</code></div>
+<small>Acceptance gates: 符合产品领域 · 无 AI slop</small>
+</div>
+<div class="workflow-node">
+<strong>design-prototype-review</strong>
+<p>Prototype and review whether a design is ready for implementation.</p>
+<div><span>Primary skills:</span> <code>prototype</code><code>design-html</code><code>design-review</code></div>
+<small>Acceptance gates: 主路径可操作 · 文本不溢出</small>
+</div>
+<div class="workflow-node">
+<strong>design.html-native-production</strong>
+<p>Turn content or plans into high-fidelity HTML, slides, PDFs, or channel-ready visuals.</p>
+<div><span>Primary skills:</span> <code>huashu-design</code><code>huashu-slides</code><code>huashu-slide-codex</code><code>huashu-md-html</code></div>
+<small>Acceptance gates: 视觉服务业务目标 · 格式可交付</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">05-build-architecture</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Build and Architecture</h3>
+<p>先立边界和合约，再写可测试、可维护、可演进的代码。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>build-system-design</strong>
+<p>Design system architecture, module boundaries, and technical decisions.</p>
+<div><span>Primary skills:</span> <code>system-design</code><code>architecture</code><code>api-and-interface-design</code></div>
+<small>Acceptance gates: 边界清楚 · 失败模式明确</small>
+</div>
+<div class="workflow-node">
+<strong>build-tdd-implementation</strong>
+<p>Implement behavior with test-first confidence and controlled changes.</p>
+<div><span>Primary skills:</span> <code>test-driven-development</code><code>incremental-implementation</code><code>tdd</code><code>executing-plans</code></div>
+<small>Acceptance gates: 先红后绿 · 测试覆盖公共行为</small>
+</div>
+<div class="workflow-node">
+<strong>build-maintainability</strong>
+<p>Reduce complexity and improve maintainability in working code.</p>
+<div><span>Primary skills:</span> <code>tech-debt</code><code>code-simplification</code><code>complexity-optimizer</code><code>codebase-maintainability-guardrails</code></div>
+<small>Acceptance gates: 行为不变 · 复杂度有证据</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">06-quality-security</span>
+<span class="workflow-stage-count">4 Problem nodes</span>
+</div>
+<h3>Quality, Security, and Observability</h3>
+<p>把发布前风险转成可自动检查的门禁。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>quality-review-testing</strong>
+<p>Prove code quality, test strategy, and change scope before shipping.</p>
+<div><span>Primary skills:</span> <code>code-review</code><code>code-review-and-quality</code><code>review</code><code>test-strategy-hardening</code></div>
+<small>Acceptance gates: 问题有文件行号 · 区分严重程度</small>
+</div>
+<div class="workflow-node">
+<strong>quality-appsec-hardening</strong>
+<p>Check auth, secrets, dependencies, CORS, injection, and permission risks.</p>
+<div><span>Primary skills:</span> <code>security-hardening</code><code>security-and-hardening</code><code>compliance-check</code></div>
+<small>Acceptance gates: 不泄漏 secrets · 高危问题优先</small>
+</div>
+<div class="workflow-node">
+<strong>quality-observability</strong>
+<p>Add logs, metrics, traces, and alerts so production failures are diagnosable.</p>
+<div><span>Primary skills:</span> <code>observability-hardening</code><code>observability-and-instrumentation</code><code>runbook</code></div>
+<small>Acceptance gates: 每个关键请求可追踪 · 错误有分类</small>
+</div>
+<div class="workflow-node">
+<strong>quality.anti-ai-slop-review</strong>
+<p>Review, polish, and diagnose content, scripts, or agent output that feels generic or low-quality.</p>
+<div><span>Primary skills:</span> <code>huashu-article-edit</code><code>huashu-proofreading</code><code>huashu-script-polish</code><code>freud-skill</code></div>
+<small>Acceptance gates: 指出具体问题 · 保留原意</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">07-launch-deploy</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Launch, Deploy, and Release Gates</h3>
+<p>发布必须有可重复命令、可回滚路径和上线后证据。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>launch-release-gates</strong>
+<p>Prepare release gates, rollback, and acceptance checks before launch.</p>
+<div><span>Primary skills:</span> <code>shipping-and-launch</code><code>release-readiness-hardening</code><code>ci-cd-and-automation</code><code>land-and-deploy</code></div>
+<small>Acceptance gates: CI 通过 · 回滚命令存在</small>
+</div>
+<div class="workflow-node">
+<strong>launch-static-site</strong>
+<p>Deploy and verify docs, demo, or report sites reliably.</p>
+<div><span>Primary skills:</span> <code>deploy-to-vercel</code><code>paper2skills-deploy</code><code>web-design-guidelines</code></div>
+<small>Acceptance gates: 构建可重复 · 关键路由 200</small>
+</div>
+<div class="workflow-node">
+<strong>launch-git-governance</strong>
+<p>Prevent destructive Git operations during multi-agent or multi-branch work.</p>
+<div><span>Primary skills:</span> <code>git-workflow-and-versioning</code><code>using-git-worktrees</code><code>git-guardrails-claude-code</code><code>codex-review</code></div>
+<small>Acceptance gates: 不覆盖用户改动 · 危险命令被阻止</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">08-growth-marketing</span>
+<span class="workflow-stage-count">5 Problem nodes</span>
+</div>
+<h3>Growth, Content, and Marketing</h3>
+<p>把推广从灵感驱动变成渠道、素材、转化和指标驱动。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>growth-seo-content</strong>
+<p>Grow organic search with keyword, page, and content priorities.</p>
+<div><span>Primary skills:</span> <code>seo-audit</code><code>content-creation</code><code>copywriting</code></div>
+<small>Acceptance gates: 关键词有意图分类 · 页面建议可执行</small>
+</div>
+<div class="workflow-node">
+<strong>growth-creative-campaign</strong>
+<p>Create campaign copy, ad ideas, visuals, and creative directions.</p>
+<div><span>Primary skills:</span> <code>creative-director</code><code>dtc-commercial-image-gen</code><code>guizang-ppt-skill</code></div>
+<small>Acceptance gates: 素材对应渠道 · 主张不夸大</small>
+</div>
+<div class="workflow-node">
+<strong>growth-retention-email</strong>
+<p>Improve activation and retention through email, onboarding, and lifecycle messaging.</p>
+<div><span>Primary skills:</span> <code>email-sequence</code><code>onboarding</code><code>ux-copy</code></div>
+<small>Acceptance gates: 按生命周期分段 · 每封邮件目标清晰</small>
+</div>
+<div class="workflow-node">
+<strong>content.topic-to-platform</strong>
+<p>Turn one topic into a channel-ready plan for X, short video, WeChat, or Xiaohongshu.</p>
+<div><span>Primary skills:</span> <code>huashu-topic-gen</code><code>x-mastery-mentor</code><code>huashu-video-outline</code><code>huashu-douyin-script</code></div>
+<small>Acceptance gates: 内容形式匹配平台 · 钩子具体</small>
+</div>
+<div class="workflow-node">
+<strong>distribution.article-bridge</strong>
+<p>Package finished content into publishable, distributable, reusable multi-platform assets.</p>
+<div><span>Primary skills:</span> <code>dukou</code><code>huashu-article-to-x</code><code>huashu-image-upload</code></div>
+<small>Acceptance gates: 平台格式正确 · 图片可用</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">09-sales-customer</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Sales, Support, and Customer Success</h3>
+<p>把客户沟通转成可复用、可优先级排序、可反馈产品的闭环。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>customer-ticket-response</strong>
+<p>Triage support tickets, draft responses, and capture product feedback.</p>
+<div><span>Primary skills:</span> <code>ticket-triage</code><code>draft-response</code><code>runbook</code></div>
+<small>Acceptance gates: 紧急问题优先 · 回复语气一致</small>
+</div>
+<div class="workflow-node">
+<strong>sales-account-pipeline</strong>
+<p>Research accounts, prioritize leads, and manage pipeline movement.</p>
+<div><span>Primary skills:</span> <code>account-research</code><code>pipeline-review</code><code>lead-triage</code></div>
+<small>Acceptance gates: 优先级理由明确 · 下一步具体到人和时间</small>
+</div>
+<div class="workflow-node">
+<strong>customer-education-assets</strong>
+<p>Explain product value through demos, docs, decks, and enablement assets.</p>
+<div><span>Primary skills:</span> <code>guizang-ppt-skill</code><code>document-generate</code><code>make-pdf</code></div>
+<small>Acceptance gates: 受众语言匹配 · 关键流程可复现</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">10-data-feedback</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Data, Feedback, and Insights</h3>
+<p>把数据和用户声音转成可决策的证据，而不是堆报表。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>data-exploration-analysis</strong>
+<p>Explore data quality, distribution, anomalies, and next analysis steps.</p>
+<div><span>Primary skills:</span> <code>explore-data</code><code>sql-queries</code><code>statistical-analysis</code></div>
+<small>Acceptance gates: 数据质量说明 · 结论有统计依据</small>
+</div>
+<div class="workflow-node">
+<strong>data-business-reporting</strong>
+<p>Turn business data into decision-ready charts and management reports.</p>
+<div><span>Primary skills:</span> <code>financial-statements</code><code>cash-flow-snapshot</code><code>bi-prompt-engineering</code></div>
+<small>Acceptance gates: 指标口径明确 · 异常有解释</small>
+</div>
+<div class="workflow-node">
+<strong>feedback-voc-loop</strong>
+<p>Close the loop from user feedback and behavior data back to product iteration.</p>
+<div><span>Primary skills:</span> <code>dtc-voc-3layer-analysis</code><code>metrics-review</code><code>paper-skills-gap-analysis</code></div>
+<small>Acceptance gates: 反馈和指标能互相解释 · 优先级有证据</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">11-ops-iteration</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Operations, Monitoring, and Iteration</h3>
+<p>上线后用运行证据驱动修复、优化和下一轮迭代。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>ops-incident-response</strong>
+<p>Handle production incidents with triage, mitigation, communication, and recovery.</p>
+<div><span>Primary skills:</span> <code>incident-response</code><code>runbook</code><code>diagnose</code></div>
+<small>Acceptance gates: 影响范围明确 · 优先止血</small>
+</div>
+<div class="workflow-node">
+<strong>ops-performance-iteration</strong>
+<p>Find bottlenecks and safely improve speed, cost, or user experience.</p>
+<div><span>Primary skills:</span> <code>performance-optimization</code><code>complexity-optimizer</code><code>observability-hardening</code></div>
+<small>Acceptance gates: 优化有基线 · 无行为回归</small>
+</div>
+<div class="workflow-node">
+<strong>ops-roadmap-refresh</strong>
+<p>Refresh roadmap and next tasks from operating evidence.</p>
+<div><span>Primary skills:</span> <code>sprint-planning</code><code>triage</code><code>to-issues</code></div>
+<small>Acceptance gates: 每个优先级有证据 · 明确不做事项</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">12-ip-compliance</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Compliance, Legal, and Assetization</h3>
+<p>把产品和代码资产转成可保护、可交付、可审计的材料。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>ip-patent-disclosure</strong>
+<p>Extract patentable invention points and draft patent disclosure materials.</p>
+<div><span>Primary skills:</span> <code>patent-disclosure-skill</code><code>deep-research</code><code>document-generate</code></div>
+<small>Acceptance gates: 基于真实代码 · 创新点可区分</small>
+</div>
+<div class="workflow-node">
+<strong>ip-software-copyright</strong>
+<p>Prepare software copyright application materials from a real project.</p>
+<div><span>Primary skills:</span> <code>software-copyright-materials</code><code>document-generate</code><code>make-pdf</code></div>
+<small>Acceptance gates: 不编造代码 · 材料格式合规</small>
+</div>
+<div class="workflow-node">
+<strong>compliance-contract-risk</strong>
+<p>Review contracts, compliance, and risk before launch or commercial work.</p>
+<div><span>Primary skills:</span> <code>review-contract</code><code>compliance-check</code><code>risk-assessment</code></div>
+<small>Acceptance gates: 风险分级 · 建议可谈判</small>
+</div>
+</div>
+</article>
+<article class="workflow-stage">
+<div class="workflow-stage-head">
+<span class="workflow-stage-id">13-retro-knowledge</span>
+<span class="workflow-stage-count">3 Problem nodes</span>
+</div>
+<h3>Retrospective, Knowledge, and Re-automation</h3>
+<p>每次交付都要把经验沉淀回知识库、skill 和下一轮自动化。</p>
+<div class="workflow-node-list">
+<div class="workflow-node">
+<strong>retro-incident-learning</strong>
+<p>After an incident or project, capture root cause, timeline, and follow-up actions.</p>
+<div><span>Primary skills:</span> <code>post-mortem</code><code>debug-mantra</code><code>investigate</code></div>
+<small>Acceptance gates: 不归咎个人 · 行动项有 owner</small>
+</div>
+<div class="workflow-node">
+<strong>retro-knowledge-base</strong>
+<p>Turn scattered project material into a searchable and reusable knowledge base.</p>
+<div><span>Primary skills:</span> <code>knowledge-synthesis</code><code>notebooklm</code><code>document-generate</code></div>
+<small>Acceptance gates: 引用可追溯 · 结构服务任务流</small>
+</div>
+<div class="workflow-node">
+<strong>retro-skill-system-update</strong>
+<p>After learning, update skills, workflows, or taxonomy so the next run is better.</p>
+<div><span>Primary skills:</span> <code>skill-creator</code><code>paper-skills-gap-analysis</code><code>paper2skills-workflow</code></div>
+<small>Acceptance gates: 新规则机器可读 · 旧问题有回归样例</small>
+</div>
+</div>
+</article>
+</div>
 </section>
 <!-- §3 METHODS -->
 <section id="methods">
@@ -559,7 +1095,7 @@ flowchart LR
 <li>New edge: AR -. "same domain" .-&gt; GPS (tooling now has a peer)</li>
 <li>Bridge: ~/.config/opencode/skills/agent-reach → ~/.agents/skills/agent-reach (symlink)</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 3" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 3" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-4">5.5 State 4: installed superpowers suite (14 sub-skills)</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/obra/superpowers (× 14 sub-paths)</code></p>
 <p>obra/superpowers ships as a monorepo of 14 sub-skills covering engineering methodology: brainstorm / TDD / subagent / debug / review end-to-end. 8 go to meta (methodology + infra), 6 go to closeout (review/branch/verification). Installed in one shot — gives agents the full decompose → execute → review → finish loop.</p>
@@ -572,7 +1108,7 @@ flowchart LR
 <li>Graph size: 280641 → 508189 bytes (+81%), both meta and closeout domain blocks visibly grew</li>
 <li>Core value: gives agents methodology scaffolding for complex work — brainstorm first, write plan, then TDD, dispatch in parallel, verify before completion</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 4" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 4" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-5">5.6 State 5: after installing notebooklm</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/PleasePrompto/notebooklm-skill</code></p>
 <p>Citation-grounded remote knowledge base — lets agents query your personal Google NotebookLM library; Gemini answers strictly from your uploaded documents with citations attached. Goes to tooling domain, joining agent-reach (internet read) and guizang-ppt-skill (PPT generation) as the three external-information adapters.</p>
@@ -584,7 +1120,7 @@ flowchart LR
 <li>Requires Google auth (cookies persisted locally) + Python + playwright/browser-use</li>
 <li>3rd tooling member: with agent-reach (public internet) and guizang-ppt-skill (PPT output), forms the read-external / write-internal tool trio</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 5" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 5" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-6">5.7 State 6: after installing bb-browser</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/epiral/bb-browser --subdir skills/bb-browser</code></p>
 <p>Logged-in browser automation — lets agents use your real browser session to access public AND private web data. 36 platforms / 103 commands out of the box; form filling, network intercept/mock, action recording. Goes to tooling, joining agent-reach (API access) and notebooklm (private docs) as the read-external information trio: bb-browser for logged-in private web, agent-reach for public APIs, notebooklm for personal docs.</p>
@@ -596,7 +1132,7 @@ flowchart LR
 <li>Advanced: logged-in fetch, network request intercept + mock, action recording — not just a scraper, a full browser automation platform.</li>
 <li>4th tooling member: with agent-reach (public APIs), notebooklm (private docs), guizang-ppt-skill (PPT output), forms the read-external / write-internal toolkit.</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 6" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 6" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-7">5.8 State 7: installed gstack selected 18-piece kit</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/garrytan/gstack (× 18 sub-paths, 手选模式)</code></p>
 <p>garrytan/gstack is a YC-style full-stack engineering methodology monorepo (51 SKILL.md). Selected 18 to complete the plan→review→QA→deploy→context-mgmt chain. 13 → meta (methodology+review+context), 1 → closeout (land-and-deploy), 4 → tooling (design trio + doc output duo). Skipped OpenClaw-specific (N/A) and browser group (overlaps with bb-browser).</p>
@@ -609,7 +1145,7 @@ flowchart LR
 <li>Explicitly skipped: 4 OpenClaw-specific skills (user doesn't use OpenClaw), 7 browser skills (overlaps installed bb-browser), gbrain infra (not yet prioritized).</li>
 <li>Total: 43 skills across 6 domains; meta now dominant (22) — from methodology void to full YC engineering library.</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 7" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 7" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-8">5.9 State 8: ui-ux-pro-max installed (1 picked after dry-run)</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --dry-run (then install --subdir .claude/skills/ui-ux-pro-max)</code></p>
 <p>UI/UX design intelligence — 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, 25 chart types across 10 stacks (React/Next/Vue/Svelte/SwiftUI/RN/Flutter/Tailwind/shadcn/HTML). First real use of the dry-run flow: of the 7 SKILL.md in the monorepo, 6 were rejected (names contain 'ckm:' colon violating naming regex, all under .claude/ filtered by installer); only ui-ux-pro-max passed and had zero overlap. Goes to tooling.</p>
@@ -622,7 +1158,7 @@ flowchart LR
 <li>ui-ux-pro-max's real value: a UI/UX knowledge base (50 styles, 161 palettes, 57 fonts, 99 UX guides) — reference, not execution. Agent queries it when you say 'design a SaaS dashboard' to match style + palette + fonts.</li>
 <li>10th tooling member; with design-* / make-pdf / guizang-ppt-skill forms 'output toolchain + design reference library' structure.</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 8" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 8" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-9">5.10 State 9: dry-scan open-design → install 5 upstream repos (8 skills)</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/nexu-io/open-design --dry-scan → 5 upstream repos installed</code></p>
 <p>dry-scan revealed nexu-io/open-design is NOT a skill collection but a Claude Design / Figma open-source alternative (43k stars). Its skills/ contains 131 'catalogue entries' — each just a card saying 'real skill lives at upstream repo X'. Instead of installing the cards, we followed them to 5 upstream repos and installed 8 real skills, all in tooling.</p>
@@ -636,7 +1172,7 @@ flowchart LR
 <li>Performance: marketingskills 2 → 4.7s (one clone); apple-hig 3 → 17.9s; normal repos 5-6s each.</li>
 <li>Critical finding: open-design itself git-clones for 5+ min even with --filter=blob:none. Combination of huge pack + IP throttle. Conclusion: massive product repos are NOT suitable for portal install.</li>
 </ul>
-<a href="../assets/screenshots/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 9" class="graph-img" src="../assets/screenshots/skills-graph.png"/></a>
+<a href="../assets/skills-graph.png" rel="noopener" target="_blank"><img alt="Skills graph state 9" class="graph-img" src="../assets/skills-graph.png"/></a>
 <h3 id="state-10">5.11 State 10: install complexity-optimizer — algorithmic complexity analysis &amp; optimization skill</h3>
 <p><span>Triggered by:</span> <code>/skill-install https://github.com/Kappaemme-git/codex-complexity-optimizer</code></p>
 <p>complexity-optimizer comes from the complexity-optimizer/ subdir of Kappaemme-git/codex-complexity-optimizer. A single skill in the tooling domain. It enables Codex to automatically scan codebases for algorithmic complexity hotspots (O(n²), N+1 queries, nested loops, repeated scans) and propose safe optimizations (O(n²)→O(n log n)/O(n)) while preserving tests, APIs, and output behavior.</p>
@@ -701,8 +1237,8 @@ flowchart LR
 <h2>§6. Related References</h2>
 <p>This handbook is the entry point; the following docs go deeper:</p>
 <ul>
-<li><a href="../getting-started.html">Getting Started</a><span> — install on a fresh machine in 10 minutes</span></li>
-<li><a href="../architecture.html">Architecture</a><span> — the two-layer design, the 5 Python lib modules, the install sequence diagram</span></li>
+<li><a href="./getting-started.html">Getting Started</a><span> — install on a fresh machine in 10 minutes</span></li>
+<li><a href="./architecture.html">Architecture</a><span> — the two-layer design, the 5 Python lib modules, the install sequence diagram</span></li>
 <li><a href="https://github.com/zjgulai/Agent_skills/blob/main/agent/docs/domain-taxonomy.md" rel="noopener" target="_blank"><code>agent/docs/domain-taxonomy.md</code></a><span> — the source of truth for the 6-domain rules</span></li>
 </ul>
 <h3>Source code</h3>
@@ -720,6 +1256,7 @@ flowchart LR
 <nav>
 <a class="toc-link" href="#overview">§1. Overview</a>
 <a class="toc-link" href="#domains">§2. Domain Taxonomy</a>
+<a class="toc-link" href="#problem-workflows">Problem Workflow</a>
 <a class="toc-link" href="#methods">§3. The 11 Methods</a>
 <a class="toc-link" href="#graph">§4. Skills Graph</a>
 <a class="toc-link" href="#case-studies">§5. Graph Case Studies</a>

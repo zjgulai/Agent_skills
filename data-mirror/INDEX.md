@@ -89,6 +89,18 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [source-driven-development](file:///Users/lute/.config/opencode/skills/source-driven-development/SKILL.md) | 官方文档驱动实现 | official docs, source-cited, framework correctness |
 | [spec-driven-development](file:///Users/lute/.config/opencode/skills/spec-driven-development/SKILL.md) | 先规格后实现 | spec, requirements, plan, tasks |
 | [api-and-interface-design](file:///Users/lute/.config/opencode/skills/api-and-interface-design/SKILL.md) | API/模块接口设计 | REST, GraphQL, type contracts, boundaries |
+| [planning-with-files](file:///Users/lute/.config/opencode/skills/planning-with-files/SKILL.md) | 长任务持久化计划与上下文恢复 | plan out, break down, context recovery |
+| [agnix](file:///Users/lute/.config/opencode/skills/agnix/SKILL.md) | Agent/skill/hooks/MCP 配置 lint | lint agent configs, validate skills, lint MCP |
+| [interview-me](file:///Users/lute/.config/opencode/skills/interview-me/SKILL.md) | 一问一答澄清真实意图 | interview me, clarify requirements, one question at a time |
+| [idea-refine](file:///Users/lute/.config/opencode/skills/idea-refine/SKILL.md) | 把原始想法打磨成可执行概念 | refine idea, ideation, sharpen concept |
+| [planning-and-task-breakdown](file:///Users/lute/.config/opencode/skills/planning-and-task-breakdown/SKILL.md) | 把规格拆成有依赖顺序的可验收任务 | task breakdown, implementation plan, ordered tasks |
+| [incremental-implementation](file:///Users/lute/.config/opencode/skills/incremental-implementation/SKILL.md) | 用薄切片增量交付多文件改动 | incremental implementation, vertical slice, multi-file change |
+| [doubt-driven-development](file:///Users/lute/.config/opencode/skills/doubt-driven-development/SKILL.md) | 用新上下文质疑高风险决策 | doubt, adversarial review, high-stakes decision |
+| [using-agent-skills](file:///Users/lute/.config/opencode/skills/using-agent-skills/SKILL.md) | Addy agent-skills 套件路由入口 | agent skills, skill routing, use skills |
+| [huashu-nuwa](file:///Users/lute/.config/opencode/skills/huashu-nuwa/SKILL.md) | Distill people, operating models, and decision patterns into runnable skills. | 07-agent-ops / agentops.skill-generation-optimization |
+| [darwin-skill](file:///Users/lute/.config/opencode/skills/darwin-skill/SKILL.md) | Evaluate, improve, test, keep, or roll back skills through an optimization loop. | 07-agent-ops / agentops.skill-generation-optimization |
+| [freud-skill](file:///Users/lute/.config/opencode/skills/freud-skill/SKILL.md) | Diagnose and tune prompts, skills, and agents through cognitive and interpretability frames. | 05-quality-review / quality.anti-ai-slop-review |
+| [huashu-agent-swarm](file:///Users/lute/.config/opencode/skills/huashu-agent-swarm/SKILL.md) | Coordinate multiple agents for content and production workflows. | 07-agent-ops / agentops.skill-generation-optimization |
 
 > 这一域目前只有 1 个 skill，但它是**所有其他 skill 的"元结构"** —— 决定了你今后写 skill 时的目录约定、前置守卫、团队分发方式。新增任何"AI 工作流治理类" skill 时，先和它对照。
 
@@ -117,6 +129,19 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [paper2skills-deploy](file:///Users/lute/.config/opencode/skills/paper2skills-deploy/SKILL.md) | paper2skills 发布 SOP | 部署, build 并上线, deploy playbook, 更新生产环境 |
 | [deploy-to-vercel](file:///Users/lute/.config/opencode/skills/deploy-to-vercel/SKILL.md) | Vercel 预览部署 SOP | deploy to Vercel, preview deployment, push live |
 | [shipping-and-launch](file:///Users/lute/.config/opencode/skills/shipping-and-launch/SKILL.md) | 上线发布门禁 | production launch, rollout, rollback |
+| [browser-testing-with-devtools](file:///Users/lute/.config/opencode/skills/browser-testing-with-devtools/SKILL.md) | 用真实浏览器和 DevTools 验证前端行为 | browser testing, Chrome DevTools, console, network |
+| [ci-cd-and-automation](file:///Users/lute/.config/opencode/skills/ci-cd-and-automation/SKILL.md) | CI/CD 流水线、质量门禁和部署自动化 | CI, CD, quality gates, deployment pipeline |
+| [code-review-and-quality](file:///Users/lute/.config/opencode/skills/code-review-and-quality/SKILL.md) | 按安全、性能、可维护性等维度做代码评审 | code review, quality review, before merge |
+| [code-simplification](file:///Users/lute/.config/opencode/skills/code-simplification/SKILL.md) | 在保持行为不变时降低复杂度 | simplify code, refactor clarity, reduce complexity |
+| [debugging-and-error-recovery](file:///Users/lute/.config/opencode/skills/debugging-and-error-recovery/SKILL.md) | 系统化定位根因并恢复失败状态 | debugging, root cause, error recovery |
+| [deprecation-and-migration](file:///Users/lute/.config/opencode/skills/deprecation-and-migration/SKILL.md) | 退役旧系统并规划迁移路径 | deprecation, migration, remove old system |
+| [documentation-and-adrs](file:///Users/lute/.config/opencode/skills/documentation-and-adrs/SKILL.md) | 沉淀架构决策记录和工程文档 | ADR, documentation, decision record |
+| [git-workflow-and-versioning](file:///Users/lute/.config/opencode/skills/git-workflow-and-versioning/SKILL.md) | 原子提交、分支治理和版本流程 | git workflow, commits, branching, versioning |
+| [huashu-article-edit](file:///Users/lute/.config/opencode/skills/huashu-article-edit/SKILL.md) | Edit articles for structure, clarity, and final publishing quality. | 05-quality-review / quality.anti-ai-slop-review |
+| [huashu-proofreading](file:///Users/lute/.config/opencode/skills/huashu-proofreading/SKILL.md) | Proofread and polish final text before publication. | 05-quality-review / quality.anti-ai-slop-review |
+| [huashu-script-polish](file:///Users/lute/.config/opencode/skills/huashu-script-polish/SKILL.md) | Improve video or speech scripts for clarity, rhythm, and publish readiness. | 05-quality-review / quality.anti-ai-slop-review |
+| [huashu-speech-coach](file:///Users/lute/.config/opencode/skills/huashu-speech-coach/SKILL.md) | Review delivery, structure, and speaking quality before presentation. | 05-quality-review / quality.anti-ai-slop-review |
+| [huashu-video-check](file:///Users/lute/.config/opencode/skills/huashu-video-check/SKILL.md) | Check video scripts or assets against production and publishing criteria. | 05-quality-review / quality.anti-ai-slop-review |
 
 **运行时依赖**：
 
@@ -165,6 +190,22 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [dtc-site-forensic-audit](file:///Users/lute/.config/opencode/skills/dtc-site-forensic-audit/SKILL.md) | DTC site performance and CRO forensic audit | 诊断网站, DTC 站审计, CRO 分析 |
 | [dtc-sop-a-selection](file:///Users/lute/.config/opencode/skills/dtc-sop-a-selection/SKILL.md) | DTC product selection scan SOP | SOP-A, 选品扫描, 品类分析 |
 | [dtc-voc-3layer-analysis](file:///Users/lute/.config/opencode/skills/dtc-voc-3layer-analysis/SKILL.md) | Three-layer DTC VOC insight analysis | VOC 分析, 痛点挖掘, 差评分析 |
+| [last30days](file:///Users/lute/.config/opencode/skills/last30days/SKILL.md) | 最近 30 天多源市场/用户声音研究 | last30days, trend research, voice of customer |
+| [x-mastery-mentor](file:///Users/lute/.config/opencode/skills/x-mastery-mentor/SKILL.md) | Plan, write, and grow X/Twitter content with creator and algorithm heuristics. | 03-content-planning / content.topic-to-platform |
+| [zhangxuefeng-perspective](file:///Users/lute/.config/opencode/skills/zhangxuefeng-perspective/SKILL.md) | Career, school-choice, and planning judgment patterns for education decisions. | 02-strategy-judgment / strategy.persona-judgment |
+| [zhang-yiming-perspective](file:///Users/lute/.config/opencode/skills/zhang-yiming-perspective/SKILL.md) | Decision and product-growth operating model distilled from Zhang Yiming. | 02-strategy-judgment / strategy.persona-judgment |
+| [trump-perspective](file:///Users/lute/.config/opencode/skills/trump-perspective/SKILL.md) | Negotiation, attention, and power-analysis patterns for strategic judgment. | 02-strategy-judgment / strategy.persona-judgment |
+| [taleb-perspective](file:///Users/lute/.config/opencode/skills/taleb-perspective/SKILL.md) | Risk, fragility, optionality, and decision heuristics for uncertain environments. | 02-strategy-judgment / strategy.persona-judgment |
+| [sun-yuchen-perspective](file:///Users/lute/.config/opencode/skills/sun-yuchen-perspective/SKILL.md) | Attention harvesting and narrative leverage patterns for market-facing strategy. | 02-strategy-judgment / strategy.persona-judgment |
+| [paul-graham-perspective](file:///Users/lute/.config/opencode/skills/paul-graham-perspective/SKILL.md) | Startup, writing, and founder decision models distilled from Paul Graham. | 02-strategy-judgment / strategy.persona-judgment |
+| [naval-perspective](file:///Users/lute/.config/opencode/skills/naval-perspective/SKILL.md) | Wealth, leverage, judgment, and compounding patterns for strategic decisions. | 02-strategy-judgment / strategy.persona-judgment |
+| [munger-perspective](file:///Users/lute/.config/opencode/skills/munger-perspective/SKILL.md) | Mental models and inversion-based decision review for business judgment. | 02-strategy-judgment / strategy.persona-judgment |
+| [mrbeast-perspective](file:///Users/lute/.config/opencode/skills/mrbeast-perspective/SKILL.md) | Audience retention and viral content production patterns for creator growth. | 03-content-planning / content.topic-to-platform |
+| [ilya-sutskever-perspective](file:///Users/lute/.config/opencode/skills/ilya-sutskever-perspective/SKILL.md) | AI research judgment and long-range technical reasoning patterns. | 02-strategy-judgment / strategy.persona-judgment |
+| [feynman-perspective](file:///Users/lute/.config/opencode/skills/feynman-perspective/SKILL.md) | Explanation, curiosity, simplification, and first-principles reasoning patterns. | 02-strategy-judgment / strategy.persona-judgment |
+| [andrej-karpathy-perspective](file:///Users/lute/.config/opencode/skills/andrej-karpathy-perspective/SKILL.md) | AI engineering, learning, and technical explanation patterns. | 02-strategy-judgment / strategy.persona-judgment |
+| [steve-jobs-perspective](file:///Users/lute/.config/opencode/skills/steve-jobs-perspective/SKILL.md) | Taste, product simplification, launch storytelling, and experience judgment patterns. | 02-strategy-judgment / strategy.persona-judgment |
+| [elon-musk-perspective](file:///Users/lute/.config/opencode/skills/elon-musk-perspective/SKILL.md) | First-principles product, engineering, and execution judgment patterns. | 02-strategy-judgment / strategy.persona-judgment |
 
 **资源**：[`references/playbooks.md`](file:///Users/lute/.config/opencode/skills/startup-pressure-test/references/playbooks.md)
 
@@ -281,6 +322,28 @@ skills 按"什么场景下激活"分 6 个域。同一个 skill 不会同时出�
 | [security-and-hardening](file:///Users/lute/.config/opencode/skills/security-and-hardening/SKILL.md) | 安全威胁建模与加固 | security, auth, input, STRIDE, OWASP |
 | [obsidian-markdown](file:///Users/lute/.config/opencode/skills/obsidian-markdown/SKILL.md) | Obsidian Markdown 写作 | Obsidian, wikilinks, callouts, frontmatter |
 | [json-canvas](file:///Users/lute/.config/opencode/skills/json-canvas/SKILL.md) | JSON Canvas 编辑 | canvas, mind map, visual canvas, .canvas |
+| [md2wechat](file:///Users/lute/.config/opencode/skills/md2wechat/SKILL.md) | Markdown 到公众号 HTML/草稿/图文分发 | WeChat article, markdown formatting, draft upload |
+| [anydesign](file:///Users/lute/.config/opencode/skills/anydesign/SKILL.md) | 网站/图片/Figma 设计系统提取 | design.md, extract design system, replicate design |
+| [frontend-ui-engineering](file:///Users/lute/.config/opencode/skills/frontend-ui-engineering/SKILL.md) | 生产级前端 UI 工程与可访问性实现 | frontend UI, components, responsive, accessibility |
+| [huashu-design](file:///Users/lute/.config/opencode/skills/huashu-design/SKILL.md) | HTML-native high-fidelity prototypes, slides, animation, and design review. | 04-design-production / design.html-native-production |
+| [huashu-md-html](file:///Users/lute/.config/opencode/skills/huashu-md-html/SKILL.md) | Convert between markdown, HTML, and documents for visual publishing pipelines. | 04-design-production / design.html-native-production |
+| [huashu-slide-codex](file:///Users/lute/.config/opencode/skills/huashu-slide-codex/SKILL.md) | Produce Codex visual materials, slides, covers, and thumbnails with image generation. | 04-design-production / design.html-native-production |
+| [huashu-weread-advisor](file:///Users/lute/.config/opencode/skills/huashu-weread-advisor/SKILL.md) | Turn WeRead shelves and notes into reading advice, paths, alchemy, and reviews. | 01-sensemaking / sensemaking.reading-advisory |
+| [dukou](file:///Users/lute/.config/opencode/skills/dukou/SKILL.md) | Bridge article drafts to X Articles, Bilibili columns, and WeChat editor flows. | 06-distribution / distribution.article-bridge |
+| [huashu-article-to-x](file:///Users/lute/.config/opencode/skills/huashu-article-to-x/SKILL.md) | Repurpose long-form articles into X/Twitter-ready posts and threads. | 06-distribution / distribution.article-bridge |
+| [huashu-data-pro](file:///Users/lute/.config/opencode/skills/huashu-data-pro/SKILL.md) | Collect, structure, and analyze data for content and decision workflows. | 01-sensemaking / sensemaking.research-intake |
+| [huashu-douyin-script](file:///Users/lute/.config/opencode/skills/huashu-douyin-script/SKILL.md) | Turn topics into short-video scripts for Douyin-style platforms. | 03-content-planning / content.topic-to-platform |
+| [huashu-image-upload](file:///Users/lute/.config/opencode/skills/huashu-image-upload/SKILL.md) | Upload and prepare images for publishing channels. | 06-distribution / distribution.asset-upload |
+| [huashu-info-search](file:///Users/lute/.config/opencode/skills/huashu-info-search/SKILL.md) | Search and gather information before planning, writing, or production. | 01-sensemaking / sensemaking.research-intake |
+| [huashu-material-search](file:///Users/lute/.config/opencode/skills/huashu-material-search/SKILL.md) | Find reusable source material, references, examples, and evidence. | 01-sensemaking / sensemaking.research-intake |
+| [huashu-md-to-pdf](file:///Users/lute/.config/opencode/skills/huashu-md-to-pdf/SKILL.md) | Convert markdown into polished PDF output. | 04-design-production / design.html-native-production |
+| [huashu-prompt-save](file:///Users/lute/.config/opencode/skills/huashu-prompt-save/SKILL.md) | Save effective prompts as reusable workflow assets. | 08-closeout-publish / closeout.knowledge-capture |
+| [huashu-research](file:///Users/lute/.config/opencode/skills/huashu-research/SKILL.md) | Run structured research before strategy, writing, or design production. | 01-sensemaking / sensemaking.research-intake |
+| [huashu-slides](file:///Users/lute/.config/opencode/skills/huashu-slides/SKILL.md) | Create presentation outlines and slide assets for publishing or delivery. | 04-design-production / design.html-native-production |
+| [huashu-topic-gen](file:///Users/lute/.config/opencode/skills/huashu-topic-gen/SKILL.md) | Generate publishable topics from source materials and channel goals. | 03-content-planning / content.topic-to-platform |
+| [huashu-video-outline](file:///Users/lute/.config/opencode/skills/huashu-video-outline/SKILL.md) | Plan video outlines from a topic, source material, and channel angle. | 03-content-planning / content.topic-to-platform |
+| [huashu-wechat-image](file:///Users/lute/.config/opencode/skills/huashu-wechat-image/SKILL.md) | Create or prepare images for WeChat article publishing. | 04-design-production / design.visual-assets |
+| [huashu-xhs-image](file:///Users/lute/.config/opencode/skills/huashu-xhs-image/SKILL.md) | Create or prepare Xiaohongshu-style image assets for distribution. | 04-design-production / design.visual-assets |
 
 ---
 

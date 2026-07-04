@@ -56,7 +56,7 @@ def test_state_audit_reports_truth_source_drift(tmp_path):
     broken = skills_root / "broken-skill"
     broken.mkdir()
     (broken / "SKILL.md").write_text(
-        "---\nname: broken-skill\ndescription: invalid: yaml\n---\n\nBody\n",
+        "---\nname: broken-skill\nhooks:\n  PreToolUse:\n    - command: \"echo \\q\"\n---\n\nBody\n",
         encoding="utf-8",
     )
 

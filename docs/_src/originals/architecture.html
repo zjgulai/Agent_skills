@@ -5,12 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Architecture · Skills Manager AI Agent</title>
   <meta name="description" content="Two-layer architecture: portal (REST + UI) underneath, agent (orchestration) on top.">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="en" href="https://zjgulai.github.io/Agent_skills/architecture.html">
   <link rel="alternate" hreflang="x-default" href="https://zjgulai.github.io/Agent_skills/architecture.html">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script>
+    window.__skillsConsoleWarn = console.warn;
+    console.warn = (...args) => String(args[0] || '').includes('cdn.tailwindcss.com should not be used')
+      ? undefined
+      : window.__skillsConsoleWarn.apply(console, args);
+  </script>
+  <script src="./assets/vendor/tailwindcss-cdn.js"></script>
+  <script>console.warn = window.__skillsConsoleWarn; delete window.__skillsConsoleWarn;</script>
+  <script src="./assets/vendor/mermaid.min.js"></script>
+  <link rel="stylesheet" href="./assets/vendor/highlight-atom-one-dark.css">
+  <script src="./assets/vendor/highlight.min.js"></script>
 
   <script>
     window.I18N_ZH = window.I18N_ZH || {};

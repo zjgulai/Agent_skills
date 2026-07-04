@@ -39,6 +39,40 @@ DOMAIN_LABEL_TO_ID = {
 }
 
 
+def _strip_scalar_quotes(value: str) -> str:
+    value = value.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        value = value[1:-1]
+    return value.strip()
+
+
+def _extract_minimal_scalar(lines: list[str], key: str) -> Optional[str]:
+    for idx, line in enumerate(lines):
+        m = re.match(rf"^{re.escape(key)}:\s*(.*)$", line)
+        if not m:
+            continue
+        value = m.group(1).strip()
+        if value in {">", ">-", ">|", "|", "|-"}:
+            block: list[str] = []
+            for next_line in lines[idx + 1:]:
+                if re.match(r"^[A-Za-z_][A-Za-z0-9_-]*:\s*", next_line):
+                    break
+                if next_line.startswith((" ", "\t")):
+                    block.append(next_line.strip())
+            return " ".join(part for part in block if part).strip()
+        return _strip_scalar_quotes(value)
+    return None
+
+
+def _parse_minimal_frontmatter(raw: str) -> Optional[dict[str, Any]]:
+    lines = raw.splitlines()
+    name = _extract_minimal_scalar(lines, "name")
+    description = _extract_minimal_scalar(lines, "description")
+    if not name or not description:
+        return None
+    return {"name": name, "description": description}
+
+
 def parse_frontmatter(skill_md: pathlib.Path) -> Optional[dict[str, Any]]:
     try:
         text = skill_md.read_text(encoding="utf-8")
@@ -50,9 +84,9 @@ def parse_frontmatter(skill_md: pathlib.Path) -> Optional[dict[str, Any]]:
     try:
         fm = yaml.safe_load(m.group(1))
     except yaml.YAMLError:
-        return None
+        return _parse_minimal_frontmatter(m.group(1))
     if not isinstance(fm, dict) or "name" not in fm or "description" not in fm:
-        return None
+        return _parse_minimal_frontmatter(m.group(1))
     return fm
 
 

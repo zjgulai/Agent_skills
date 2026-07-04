@@ -26,6 +26,9 @@ portal/frontend/tsconfig.tsbuildinfo
 # OpenCode run-continuation state (per-session, not history)
 .sisyphus/run-continuation/
 
+# CodeGraph local semantic index
+.codegraph/
+
 # Index/graph backups produced by index_md_writer
 INDEX.md.bak.*
 skills-graph.mmd.bak.*
@@ -38,3 +41,5 @@ config/
 .idea/
 *.swp
 .playwright-mcp/
+.playwright-cli/
+output/playwright/

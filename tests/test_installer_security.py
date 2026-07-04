@@ -92,3 +92,30 @@ def test_install_one_allows_existing_skill_with_explicit_overwrite(tmp_path, mon
     assert result.ok is True
     assert any("overwrote existing skill" in warning for warning in result.warnings)
     assert "New description" in (existing / "SKILL.md").read_text(encoding="utf-8")
+
+
+def test_install_one_accepts_hook_heavy_frontmatter_when_minimal_fields_parse(tmp_path, monkeypatch):
+    skills_root = tmp_path / "skills"
+    repo = tmp_path / "repo"
+    repo.mkdir(parents=True)
+    (repo / "SKILL.md").write_text(
+        """---
+name: hook-heavy-skill
+description: Use when installing real-world skills whose hooks include shell strings.
+hooks:
+  PreToolUse:
+    - command: "echo \\q"
+---
+
+Body
+""",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(installer, "SKILLS_ROOT", skills_root)
+
+    result = installer._install_one_from_clone(repo, "https://github.com/example/skill", None)
+
+    assert result.ok is True
+    assert result.skill_name == "hook-heavy-skill"
+    assert (skills_root / "hook-heavy-skill" / "SKILL.md").exists()

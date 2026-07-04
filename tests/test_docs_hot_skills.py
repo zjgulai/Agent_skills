@@ -23,22 +23,22 @@ def test_weekly_hot_skills_data_contract():
     payload = json.loads(WEEKLY_JSON.read_text(encoding="utf-8"))
 
     assert payload["window"] == {
-        "start": "2026-06-07",
-        "end": "2026-06-14",
+        "start": "2026-06-09",
+        "end": "2026-06-16",
         "timezone": "America/Los_Angeles",
     }
     assert len(payload["groups"]) == 5
-    assert len(payload["radar"]) == 4
+    assert len(payload["radar"]) == 8
 
     installed = [skill for group in payload["groups"] for skill in group["skills"]]
-    assert len(installed) == 17
+    assert len(installed) == 5
     assert len(installed) == len(set(installed))
     assert {
-        "ast-grep",
-        "supabase",
-        "deploy-to-vercel",
-        "context-engineering",
-        "obsidian-markdown",
+        "last30days",
+        "planning-with-files",
+        "md2wechat",
+        "agnix",
+        "anydesign",
     } <= set(installed)
 
 
@@ -53,5 +53,5 @@ def test_weekly_hot_skills_renders_bilingual_homepage_section():
     assert "本周热门 Skills Radar" in zh
     assert "Hot Skills Radar This Week" in en
     assert "weekly-hot-skills.json" in zh
-    assert "ast-grep" in zh
-    assert "deploy-to-vercel" in en
+    assert "last30days" in zh
+    assert "anydesign" in en

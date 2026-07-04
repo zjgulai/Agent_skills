@@ -22,6 +22,8 @@ KEYWORDS: dict[str, list[str]] = {
         "agents.md", "claude.md", ".opencode/", "~/.config/opencode/", "opencode.json",
         "agent directory structure", "agent guardrails", "team-wide agent distribution",
         "agent self-improvement", "ai engineer",
+        "skill optimizer", "autonomous skill optimizer", "造skill", "人物skill",
+        "蒸馏", "多agent", "agent swarm", "认知调优",
     ],
     "closeout": [
         "review", "code review", "commit", "pull request", " pr ", "merge", "release",
@@ -41,6 +43,8 @@ KEYWORDS: dict[str, list[str]] = {
         "market fit", "founder-market fit", "pmf", "first 10 customers", "pivot",
         "launch plan", "landing page test", "cold outreach", "pre-seed",
         "idea stage", "pre-revenue", "2-week launch", "startup",
+        "决策", "决策框架", "商业判断", "创业", "产品", "增长", "职业规划",
+        "认知操作系统", "能力圈", "激励结构",
     ],
     "ip": [
         "专利", "软著", "软件著作权", "技术交底书", "国知局", "知识产权",
@@ -53,6 +57,8 @@ KEYWORDS: dict[str, list[str]] = {
         "image generation", "screenshot", "cover art", "editorial layout",
         "editorial magazine", "docx", "pdf", "markdown", "xlsx", "pptx", " html ",
         "git workflow", "i18n", "markdown lint", "font management",
+        "发布", "分发", "排版", "稿件", "公众号", "b站专栏", "x articles",
+        "配图", "视频脚本",
     ],
 }
 
