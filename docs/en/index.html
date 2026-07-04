@@ -1,380 +1,1764 @@
 <!DOCTYPE html>
-<html class="bg-zinc-950 text-zinc-100 antialiased" lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Skills Manager AI Agent — give OpenCode a brain</title>
-<meta content="OpenCode skills lifecycle manager: install, classify, graph, doctor — backed by a local FastAPI + Vite portal." name="description"/>
+<title>Skills Manager AI Agent · Skills Navigator</title>
+<meta content="A static, problem-oriented navigator for OpenCode skills: search every skill, browse workflow nodes, inspect domains, and verify the skills graph." name="description"/>
 <meta content="Skills Manager AI Agent" property="og:title"/>
-<meta content="Auto-install / classify / graph / health-check OpenCode skills. Backed by a local portal." property="og:description"/>
+<meta content="Problem-oriented OpenCode skills navigator with workflow, category, and graph views." property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="https://zjgulai.github.io/Agent_skills/" property="og:url"/>
-<link href="https://zjgulai.github.io/Agent_skills/index.html" hreflang="en" rel="alternate"/>
-<link href="https://zjgulai.github.io/Agent_skills/index.html" hreflang="x-default" rel="alternate"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<link href="https://zjgulai.github.io/Agent_skills/zh/index.html" hreflang="zh" rel="alternate"/>
+<link href="https://zjgulai.github.io/Agent_skills/en/index.html" hreflang="en" rel="alternate"/>
+<link href="https://zjgulai.github.io/Agent_skills/en/index.html" hreflang="x-default" rel="alternate"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f766e'/%3E%3Cpath d='M16 21h32v7H16zm0 15h21v7H16z' fill='white'/%3E%3C/svg%3E" rel="icon"/>
 <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    .gradient-bg {
-      background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.15), transparent 50%),
-        radial-gradient(ellipse 60% 50% at 80% 10%, rgba(59,130,246,0.10), transparent 50%);
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --text: #111827;
+      --muted: #64748b;
+      --line: #d8dee8;
+      --line-strong: #c7d2df;
+      --teal: #0f766e;
+      --teal-strong: #115e59;
+      --indigo: #4f46e5;
+      --amber: #b45309;
+      --rose: #be123c;
+      --code: #0f172a;
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
     }
-    .cmd-block { background: #0a0a0a; border: 1px solid #27272a; }
-    pre code.hljs { background: transparent !important; padding: 0 !important; }
-    .nav-link { color: #a1a1aa; transition: color 150ms; font-size: 14px; font-weight: 500; }
-    .nav-link:hover { color: #34d399; }
-    .nav-link.active { color: #34d399; }
-  </style>
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 180px;
+    }
+    .brand strong {
+      font-size: 15px;
+      letter-spacing: 0;
+      color: var(--text);
+    }
+    .brand span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav-links a {
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: #334155;
+      font-size: 14px;
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover { border-color: var(--line); background: var(--surface-soft); }
+    .nav-links .primary-link {
+      background: var(--text);
+      color: #fff;
+      border-color: var(--text);
+    }
+    .nav-links .primary-link:hover { background: #1f2937; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 24px;
+      align-items: stretch;
+      min-height: auto;
+    }
+    .hero-copy {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+      min-width: 0;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      max-width: 11ch;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+    .hero-copy > div > p:not(.eyebrow) {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: #475569;
+      font-size: 18px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .button {
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 10px 13px;
+      font-weight: 650;
+      cursor: pointer;
+      min-height: 40px;
+    }
+    .button:hover { border-color: #94a3b8; background: #f8fafc; }
+    .button.primary {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+    .button.primary:hover { background: var(--teal-strong); }
+    .button.small { padding: 7px 9px; min-height: 34px; font-size: 13px; }
+
+    .hero-panel {
+      background: #111827;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      min-height: 460px;
+      min-width: 0;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .metric {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.055);
+      border-radius: 8px;
+      padding: 15px;
+      min-height: 96px;
+    }
+    .metric span {
+      display: block;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .metric strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 32px;
+      line-height: 1;
+    }
+    .hero-note {
+      border: 1px solid rgba(45, 212, 191, 0.28);
+      background: rgba(15, 118, 110, 0.18);
+      border-radius: 8px;
+      padding: 16px;
+      color: #ccfbf1;
+      font-size: 14px;
+    }
+    .quick-problems {
+      display: grid;
+      gap: 8px;
+    }
+    .quick-problems button {
+      text-align: left;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.055);
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      cursor: pointer;
+    }
+    .quick-problems button:hover { border-color: rgba(45, 212, 191, 0.5); }
+
+    .console-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+    .console-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 22px;
+      min-width: 0;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, 0.04);
+    }
+    .console-panel.dark {
+      background: #111827;
+      color: #f8fafc;
+      border-color: #1f2937;
+    }
+    .console-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .console-title h1 {
+      max-width: 16ch;
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1;
+    }
+    .console-title p {
+      margin: 10px 0 0;
+      max-width: 760px;
+      color: #475569;
+      font-size: 16px;
+    }
+    .console-panel.dark .console-title p,
+    .console-panel.dark .mini-label,
+    .console-panel.dark .muted-small {
+      color: #94a3b8;
+    }
+    .console-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .console-metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 14px;
+      min-height: 92px;
+    }
+    .console-metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .console-metric strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      line-height: 1;
+    }
+    .console-panel.dark .console-metric {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.13);
+    }
+    .console-panel.dark .console-metric span { color: #94a3b8; }
+    .console-actions,
+    .console-stack {
+      display: grid;
+      gap: 10px;
+    }
+    .console-actions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 16px;
+    }
+    .console-action {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 13px;
+      cursor: pointer;
+      text-align: left;
+      min-height: 88px;
+    }
+    .console-action:hover {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+    }
+    .console-action strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    .console-action span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .source-mode-grid,
+    .readiness-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .ledger-table th,
+    .ledger-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .ledger-table th {
+      color: #64748b;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .capability-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .capability-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 15px;
+      min-height: 150px;
+    }
+    .capability-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .capability-card p {
+      color: var(--muted);
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .site-section {
+      margin-top: 26px;
+      scroll-margin-top: 86px;
+    }
+    .section-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 24px;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, 0.04);
+      min-width: 0;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(25px, 3vw, 36px);
+      letter-spacing: 0;
+    }
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+    .text-link {
+      color: var(--teal);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .audit-grid,
+    .domain-grid,
+    .hot-grid,
+    .watchlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .audit-card,
+    .domain-card,
+    .data-card,
+    .watchlist-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+      min-width: 0;
+    }
+    .audit-card strong,
+    .domain-card strong,
+    .watchlist-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .audit-card p,
+    .domain-card p,
+    .data-card p,
+    .watchlist-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) minmax(190px, 0.8fr) minmax(190px, 0.8fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+    .input,
+    .select {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      min-height: 44px;
+      padding: 9px 11px;
+      background: #fff;
+      color: var(--text);
+    }
+    .domain-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .filter-chip {
+      border: 1px solid var(--line-strong);
+      background: #fff;
+      border-radius: 999px;
+      padding: 7px 11px;
+      cursor: pointer;
+      color: #334155;
+      font-size: 13px;
+    }
+    .filter-chip.active {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+    }
+    .result-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 14px;
+    }
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .skill-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+      min-height: 248px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .skill-card h3 {
+      margin: 0;
+      font-size: 17px;
+      overflow-wrap: anywhere;
+    }
+    .skill-card p {
+      margin: 0;
+      color: #475569;
+      font-size: 14px;
+    }
+    .skill-card .problem-text {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      min-width: 0;
+    }
+    .card-head span,
+    .muted-small {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .mini-label {
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge.meta { background:#dbeafe; color:#1d4ed8; }
+    .badge.closeout { background:#dcfce7; color:#166534; }
+    .badge.desktop { background:#ffedd5; color:#9a3412; }
+    .badge.founder { background:#f3e8ff; color:#6b21a8; }
+    .badge.ip { background:#ccfbf1; color:#115e59; }
+    .badge.tooling { background:#e4e4e7; color:#3f3f46; }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: var(--surface-soft);
+      color: #475569;
+      padding: 4px 7px;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+    .copy-row {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      min-width: 0;
+    }
+    .copy-row code {
+      color: var(--code);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .workflow-layout {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 16px;
+    }
+    .stage-list {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .stage-button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 11px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .stage-button.active {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+    }
+    .stage-button strong { display: block; }
+    .stage-button span { color: var(--muted); font-size: 12px; }
+    .node-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .node-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 15px;
+      min-width: 0;
+    }
+    .node-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: var(--teal);
+      overflow-wrap: anywhere;
+    }
+    .node-card p { margin: 0 0 10px; color: #475569; font-size: 14px; }
+    .node-card small { color: var(--muted); }
+
+    .graph-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 16px;
+      align-items: start;
+    }
+    .graph-layout > * {
+      min-width: 0;
+    }
+    .graph-frame {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+      overflow: auto;
+      max-height: 640px;
+      min-width: 0;
+    }
+    .graph-frame img {
+      display: block;
+      width: 100%;
+      min-width: 860px;
+      height: auto;
+    }
+    .deploy-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #475569;
+    }
+    .deploy-list li { margin: 6px 0; }
+    .code-block {
+      margin: 12px 0 0;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      overflow: auto;
+      font-size: 13px;
+      max-width: 100%;
+      min-width: 0;
+    }
+    .card-accent { color: var(--teal) !important; font-weight: 700; }
+    .watchlist-panel {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+    }
+    .watchlist-panel h3 { margin: 0 0 6px; }
+    .watchlist-panel > p { color: var(--muted); margin: 0 0 12px; }
+    .watchlist-item span { color: #94a3b8; font-size: 12px; }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      margin-top: 34px;
+      padding: 22px 0 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+    .empty {
+      border: 1px dashed var(--line-strong);
+      border-radius: 8px;
+      padding: 22px;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .console-grid,
+      .workflow-layout,
+      .graph-layout,
+      .filters {
+        grid-template-columns: 1fr;
+      }
+      .hero { min-height: auto; }
+      .hero-copy { padding: 24px; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { justify-content: flex-start; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .graph-frame img { min-width: 720px; }
+    }
+
+    @media (max-width: 520px) {
+      .page { padding: 18px 14px 44px; }
+      h1 { font-size: 40px; }
+      .metric-grid,
+      .console-metrics,
+      .console-actions,
+      .skill-grid,
+      .node-grid,
+      .audit-grid,
+      .domain-grid,
+      .hot-grid,
+      .watchlist-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-<!-- TOP NAV -->
-<nav class="fixed top-0 inset-x-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
-<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-<a class="flex items-center gap-2 group" href="../index.html">
-<span class="text-xl">🧠</span>
-<span class="font-semibold tracking-tight text-zinc-200 group-hover:text-emerald-400 transition-colors">Skills Manager</span>
+<header class="topbar">
+<nav aria-label="Primary navigation" class="nav">
+<a class="brand" href="./index.html">
+<strong>Skills Manager</strong>
+<span data-copy="navSubtitle">Problem-oriented skill routing</span>
 </a>
-<div class="hidden md:flex items-center gap-6">
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../getting-started.html">Getting Started</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="#weekly-hot-skills">Hot Skills</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../handbook.html">Handbook</a>
-<a class="text-zinc-400 hover:text-emerald-400 text-sm transition-colors" href="../architecture.html">Architecture</a>
-<a class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-md text-sm text-zinc-200 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub →</a>
-
-<a class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-md text-sm text-zinc-300 transition-colors border border-zinc-700" href="../zh/index.html">中文</a></div>
+<div class="nav-links">
+<a data-copy="navSkills" href="#skill-explorer">Skills</a>
+<a data-copy="navWorkflow" href="#workflow-explorer">Workflows</a>
+<a data-copy="navGraph" href="#graph-overview">Graph</a>
+<a data-copy="navDeploy" href="#tencent-deploy">Deploy</a>
+<a data-copy="navGettingStarted" href="./getting-started.html">Getting Started</a>
+<a data-copy="navHandbook" href="./handbook.html">Handbook</a>
+<a class="primary-link" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub</a>
 </div>
 </nav>
-<main class="pt-16">
-<!-- HERO -->
-<section class="gradient-bg">
-<div class="max-w-6xl mx-auto px-6 py-24 md:py-32">
-<div class="max-w-3xl">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-<span>v1.0 · End-to-end verified</span>
+</header>
+<main class="page">
+<section aria-labelledby="console-title" class="site-section" id="operating-console">
+<div class="console-grid">
+<div class="console-panel">
+<div class="console-title">
+<div>
+<p class="eyebrow" data-copy="consoleEyebrow">Skills Operating Console</p>
+<h1 data-copy="consoleTitle" id="console-title">Route the problem before the agent starts.</h1>
+<p data-copy="consoleLead">A static operating console for the current skills system: source provenance, workflow coverage, skill search, graph integrity, and Tencent-ready publishing in one place.</p>
 </div>
-<h1 class="text-5xl md:text-7xl font-bold tracking-tight text-zinc-100 mb-6">
-        Give <span class="text-emerald-400">OpenCode</span><br/>
-        a brain for skills.
-      </h1>
-<p class="text-xl text-zinc-400 leading-relaxed mb-8">
-        Skills Manager AI Agent is the missing lifecycle layer for OpenCode skills:
-        <span class="text-zinc-200">install · classify · graph · doctor · recommend</span> —
-        all driven by a local FastAPI + Vue portal you can run on your laptop.
-      </p>
-<div class="flex flex-wrap gap-3">
-<a class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-md font-medium transition-colors" href="../getting-started.html">
-          Get Started →
-        </a>
-<a class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-md font-medium transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">
-          View on GitHub
-        </a>
-<a class="px-5 py-2.5 text-zinc-400 hover:text-emerald-400 rounded-md font-medium transition-colors" href="../architecture.html">
-          See Architecture →
-        </a>
 </div>
+<div class="console-metrics">
+<div class="console-metric"><span data-copy="metricSkills">Skills indexed</span><strong data-stat="skills">227</strong></div>
+<div class="console-metric"><span data-copy="metricNodes">Problem nodes</span><strong data-stat="nodes">50</strong></div>
+<div class="console-metric"><span data-copy="metricSourceRuntime">Source installs</span><strong data-stat="source-runtime">43</strong></div>
+<div class="console-metric"><span data-copy="metricPublishState">Publish state</span><strong data-stat="publish-state">Ready</strong></div>
+</div>
+<div class="console-actions" data-console-actions="">
+<button class="console-action" data-console-node="source.alchaincyf-intake" type="button"><strong data-copy="actionSourceTitle">Audit source intake</strong><span data-copy="actionSourceText">Review GitHub provenance, install modes, and distill-only backlog.</span></button>
+<button class="console-action" data-console-node="agentops.skill-generation-optimization" type="button"><strong data-copy="actionAgentOpsTitle">Generate or optimize skills</strong><span data-copy="actionAgentOpsText">Route to Nuwa, Darwin, Freud, and agent swarm capabilities.</span></button>
+<button class="console-action" data-console-node="design.html-native-production" type="button"><strong data-copy="actionDesignTitle">Produce assets</strong><span data-copy="actionDesignText">Find HTML, slides, PDF, cover, and channel visual production skills.</span></button>
+<button class="console-action" data-source-filter="alchaincyf" type="button"><strong data-copy="actionAlchaincyfTitle">Show Alchaincyf skills</strong><span data-copy="actionAlchaincyfText">Filter to the 43 runtime skills installed from the latest source batch.</span></button>
+</div>
+</div>
+<aside aria-label="Current publish readiness" class="console-panel dark">
+<div class="console-stack">
+<div>
+<p class="eyebrow" data-copy="readinessEyebrow">Publish readiness</p>
+<h2 data-copy="readinessTitle">Static artifact only. Portal stays private.</h2>
+<p class="muted-small" data-copy="readinessLead">The public site reads generated JSON and graph assets. FastAPI 5174 and Vite 5173 are management tools, not public dependencies.</p>
+</div>
+<div class="source-mode-grid">
+<div class="console-metric"><span>docs/data</span><strong>JSON</strong></div>
+<div class="console-metric"><span>graph</span><strong>PNG</strong></div>
+<div class="console-metric"><span>deploy</span><strong>dry-run</strong></div>
+<div class="console-metric"><span>target</span><strong>nginx</strong></div>
+</div>
+<a class="button primary" data-copy="consolePublishCta" href="#publish-readiness">Review gates</a>
+</div>
+</aside>
+</div>
+</section>
+<section class="site-section section-panel" id="capability-map">
+<div class="section-head">
+<div>
+<p class="eyebrow" data-copy="capabilityEyebrow">Capability map</p>
+<h2 data-copy="capabilityTitle">From product idea to launch, growth, operations, and learning.</h2>
+<p data-copy="capabilityLead">The site now leads with the work users are trying to complete, then routes to workflow nodes and concrete skills.</p>
+</div>
+</div>
+<div class="capability-board" data-capability-map=""></div>
+</section>
+<section class="site-section section-panel" id="source-ledger">
+<div class="section-head">
+<div>
+<p class="eyebrow" data-copy="ledgerEyebrow">Source ledger</p>
+<h2 data-copy="ledgerTitle">Alchaincyf source batch is traceable from repo to workflow node.</h2>
+<p data-copy="ledgerLead">Every sourced item has an action, install mode, domain, workflow stage, and problem node before it appears in the public catalog.</p>
+</div>
+<a class="text-link" data-copy="ledgerJson" href="../data/alchaincyf-skill-manifest.json">View source manifest -&gt;</a>
+</div>
+<div data-source-ledger="">
+<p class="muted-small">root / subdir / monorepo · distill-only · source.alchaincyf-intake · agentops.skill-generation-optimization · design.html-native-production</p>
+</div>
+</section>
+<section class="site-section section-panel" id="publish-readiness">
+<div class="section-head">
+<div>
+<p class="eyebrow" data-copy="publishEyebrow">Publish gates</p>
+<h2 data-copy="publishTitle">Website readiness is proven by build, tests, state audit, dry-run, and browser smoke.</h2>
+<p data-copy="publishLead">The Tencent path publishes only static docs. The same local checks protect GitHub Pages and a lightweight nginx server.</p>
+</div>
+<a class="text-link" data-copy="deployDoc" href="../tencent-light-server-deploy.md">Deployment notes -&gt;</a>
+</div>
+<div class="readiness-grid">
+<article class="audit-card"><strong>bin/deploy-docs</strong><p data-copy="gateBuild">Rebuilds mirror data, JSON, graph assets, and bilingual pages.</p></article>
+<article class="audit-card"><strong>pytest</strong><p data-copy="gateTests">Protects homepage contracts, workflow references, and static deploy safety.</p></article>
+<article class="audit-card"><strong>state_audit</strong><p data-copy="gateAudit">Checks INDEX rows, graph nodes, docs count, and mirror sync.</p></article>
+<article class="audit-card"><strong>Tencent dry-run</strong><p data-copy="gateDeploy">Verifies rsync transfer scope before any real publish.</p></article>
+</div>
+</section>
+<section class="site-section section-panel" id="alchaincyf-source-collection">
+<div class="section-head">
+<div>
+<p class="eyebrow">GitHub source intake</p>
+<h2>Alchaincyf Source Collection Ingested</h2>
+<p>2026-07-04 snapshot: split by root, subdir, monorepo, and distill-only modes, then mapped into problem nodes before publishing.</p>
+</div>
+<a class="text-link" href="../data/alchaincyf-skill-manifest.json">View manifest JSON →</a>
+</div>
+<div class="hot-grid">
+<article class="data-card">
+<p class="mini-label">Source</p>
+<h3>alchaincyf</h3>
+<p>70 repos · 46 non-forks · 24 forks</p>
+</article>
+<article class="data-card">
+<p class="mini-label">Runtime installs</p>
+<h3>43</h3>
+<p>22 root · 1 subdir · 20 monorepo</p>
+</article>
+<article class="data-card">
+<p class="mini-label">Install modes</p>
+<h3>root / subdir / monorepo / none</h3>
+<p>Runtime writes go through the portal API; distill-only records are not installed.</p>
+</article>
+<article class="data-card">
+<p class="mini-label">Distill and skip</p>
+<h3>11 distill-only · 5 skipped</h3>
+<p>Books and product repos stay as source material until distilled.</p>
+</article>
+</div>
+<div class="watchlist-panel">
+<h3>Problem-node coverage</h3>
+<div class="tag-row">
+<span class="tag">strategy.persona-judgment · 13</span>
+<span class="tag">quality.anti-ai-slop-review · 6</span>
+<span class="tag">content.topic-to-platform · 5</span>
+<span class="tag">design.html-native-production · 5</span>
+<span class="tag">sensemaking.research-intake · 4</span>
+<span class="tag">agentops.skill-generation-optimization · 3</span>
+<span class="tag">design.visual-assets · 2</span>
+<span class="tag">distribution.article-bridge · 2</span>
 </div>
 </div>
 </section>
-<!-- 30 SEC DEMO -->
-<section class="border-t border-zinc-900">
-<div class="max-w-6xl mx-auto px-6 py-20">
-<div class="grid md:grid-cols-2 gap-12 items-center">
+<section class="site-section section-panel" id="skill-explorer">
+<div class="section-head">
 <div>
-<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">30 SECONDS</p>
-<h2 class="text-3xl font-bold mb-4 text-zinc-100">Install a skill, end-to-end.</h2>
-<p class="text-zinc-400 mb-6 leading-relaxed">
-          One slash command. The agent clones the repo via portal API, infers the right domain,
-          updates <code class="text-emerald-400">INDEX.md</code>, redraws
-          <code class="text-emerald-400">skills-graph.png</code>, and refreshes the portal —
-          with timestamped backups and post-write verification at every step.
-        </p>
-<a class="text-emerald-400 hover:text-emerald-300 font-medium" href="../handbook.html#case-studies">
-          Read the case study →
-        </a>
+<p class="eyebrow" data-copy="skillsEyebrow">Skill explorer</p>
+<h2 data-copy="skillsTitle">Search by task, problem, trigger, or skill name.</h2>
+<p data-copy="skillsLead">Use this as the first stop before loading skills into an agent session. The results are generated from INDEX, domain metadata, and workflow taxonomy.</p>
 </div>
-<div class="cmd-block rounded-lg p-5 font-mono text-sm">
-<pre><code class="language-bash">$ /skill-install https://github.com/op7418/guizang-ppt-skill
-
-✅ portal API health
-✅ git clone ok
-✅ frontmatter validated: name=guizang-ppt-skill
-✅ domain inference: tooling (evidence: ppt, swiss style, html)
-✅ INDEX.md row inserted (backup: .bak.20260515T212727)
-✅ skills-graph.mmd node added as GPS
-✅ skills-graph.png re-rendered (259330 bytes)
-✅ portal refreshed: skill_count = 163 → 164</code></pre>
+<a class="text-link" data-copy="skillsJson" href="../data/skills.json">View skills.json -&gt;</a>
 </div>
+<div class="filters">
+<input class="input" data-skill-search="" placeholder="Search skills, problems, triggers" type="search"/>
+<select aria-label="Workflow stage filter" class="select" data-stage-filter="">
+<option data-copy="allStages" value="">All workflow stages</option>
+</select>
+<select aria-label="Problem node filter" class="select" data-node-filter="">
+<option data-copy="allNodes" value="">All problem nodes</option>
+</select>
+</div>
+<div class="domain-filter-row" data-domain-filter=""></div>
+<p class="result-meta" data-result-meta=""></p>
+<div class="skill-grid" data-skill-results=""></div>
+</section>
+<section class="site-section section-panel" id="workflow-explorer">
+<div class="section-head">
+<div>
+<p class="eyebrow" data-copy="workflowEyebrow">Problem workflow</p>
+<h2 data-copy="workflowTitle">Route from idea to launch, operations, and retrospective learning.</h2>
+<p data-copy="workflowLead">The workflow axis answers the management question: when a user describes a problem, which automation node and skills should activate first?</p>
+</div>
+<a class="text-link" data-copy="workflowJson" href="../data/problem-workflows.json">View workflow JSON -&gt;</a>
+</div>
+<div class="workflow-layout">
+<div class="stage-list" data-stage-list=""></div>
+<div>
+<div class="node-grid" data-node-results=""></div>
 </div>
 </div>
 </section>
-<!-- WEEKLY HOT SKILLS -->
-<section class="border-t border-zinc-900 bg-zinc-950" id="weekly-hot-skills">
-<div class="max-w-6xl mx-auto px-6 py-20">
-<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+<section class="site-section section-panel" id="domain-overview">
+<div class="section-head">
 <div>
-<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">2026-06-14</p>
-<h2 class="text-3xl font-bold text-zinc-100">Hot Skills Radar This Week</h2>
-<p class="text-zinc-400 mt-3 max-w-3xl leading-relaxed">2026-06-07 → 2026-06-14: filtered by GitHub activity, real SKILL.md structure, and fit with the current library.</p>
+<p class="eyebrow" data-copy="domainEyebrow">Six management domains</p>
+<h2 data-copy="domainTitle">Stable categories for installation, audit, and graph sync.</h2>
+<p data-copy="domainLead">Domains remain the source-of-truth management axis. Workflows are the problem-solving axis layered on top.</p>
 </div>
-<a class="text-emerald-400 hover:text-emerald-300 text-sm font-medium" href="../data/weekly-hot-skills.json">View JSON data →</a>
+<a class="text-link" data-copy="domainsJson" href="../data/domains.json">View domains.json -&gt;</a>
 </div>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-<article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-<div class="flex items-start justify-between gap-4">
+<div class="domain-grid" data-domain-overview=""></div>
+</section>
+<section class="site-section section-panel" id="graph-overview">
+<div class="section-head">
 <div>
-<p class="text-xs uppercase tracking-wider text-zinc-500">Source</p>
-<h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="https://github.com/ast-grep/agent-skill" rel="noopener" target="_blank">ast-grep/agent-skill</a></h3>
+<p class="eyebrow" data-copy="graphEyebrow">Skills graph</p>
+<h2 data-copy="graphTitle">A visual check that category and graph metadata are in sync.</h2>
+<p data-copy="graphLead">The public site uses the same generated graph PNG as the metadata audit. If a skill is in INDEX but missing from the graph, state audit fails.</p>
 </div>
-<span class="text-xs text-zinc-500 whitespace-nowrap">2026-06-14</span>
+<a class="text-link" data-copy="openGraph" href="../assets/skills-graph.png" rel="noopener" target="_blank">Open full graph -&gt;</a>
 </div>
-<p class="text-zinc-400 text-sm leading-relaxed mt-4">Adds AST-aware structural search for code patterns that plain grep cannot express well.</p>
-<p class="text-emerald-400 text-xs font-medium mt-4">Installed now · 1 skills</p>
-<div class="flex flex-wrap gap-2 mt-3">
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">ast-grep</span>
-</div>
-<p class="text-zinc-600 text-xs mt-4">728 stars</p>
-</article>
-<article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-<div class="flex items-start justify-between gap-4">
-<div>
-<p class="text-xs uppercase tracking-wider text-zinc-500">Source</p>
-<h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="https://github.com/supabase/agent-skills" rel="noopener" target="_blank">supabase/agent-skills</a></h3>
-</div>
-<span class="text-xs text-zinc-500 whitespace-nowrap">2026-06-14</span>
-</div>
-<p class="text-zinc-400 text-sm leading-relaxed mt-4">Official Supabase task guidance covering Auth, RLS, Edge Functions, and Postgres performance/security traps.</p>
-<p class="text-emerald-400 text-xs font-medium mt-4">Installed now · 2 skills</p>
-<div class="flex flex-wrap gap-2 mt-3">
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">supabase</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">supabase-postgres-best-practices</span>
-</div>
-<p class="text-zinc-600 text-xs mt-4">2,246 stars</p>
-</article>
-<article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-<div class="flex items-start justify-between gap-4">
-<div>
-<p class="text-xs uppercase tracking-wider text-zinc-500">Source</p>
-<h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="https://github.com/vercel-labs/agent-skills" rel="noopener" target="_blank">vercel-labs/agent-skills</a></h3>
-</div>
-<span class="text-xs text-zinc-500 whitespace-nowrap">2026-06-15</span>
-</div>
-<p class="text-zinc-400 text-sm leading-relaxed mt-4">Adds official deployment, Vercel optimization, React/Next performance, and web UI review practices.</p>
-<p class="text-emerald-400 text-xs font-medium mt-4">Installed now · 4 skills</p>
-<div class="flex flex-wrap gap-2 mt-3">
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">deploy-to-vercel</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">vercel-optimize</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">vercel-react-best-practices</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">web-design-guidelines</span>
-</div>
-<p class="text-zinc-600 text-xs mt-4">27,922 stars</p>
-</article>
-<article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-<div class="flex items-start justify-between gap-4">
-<div>
-<p class="text-xs uppercase tracking-wider text-zinc-500">Source</p>
-<h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="https://github.com/addyosmani/agent-skills" rel="noopener" target="_blank">addyosmani/agent-skills</a></h3>
-</div>
-<span class="text-xs text-zinc-500 whitespace-nowrap">2026-06-15</span>
-</div>
-<p class="text-zinc-400 text-sm leading-relaxed mt-4">Curated engineering-methodology subset for context/spec/source-driven work, API boundaries, performance, observability, security, and launch gates.</p>
-<p class="text-emerald-400 text-xs font-medium mt-4">Installed now · 8 skills</p>
-<div class="flex flex-wrap gap-2 mt-3">
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">context-engineering</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">source-driven-development</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">spec-driven-development</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">api-and-interface-design</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">performance-optimization</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">observability-and-instrumentation</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">shipping-and-launch</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">security-and-hardening</span>
-</div>
-<p class="text-zinc-600 text-xs mt-4">59,580 stars</p>
-</article>
-<article class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg">
-<div class="flex items-start justify-between gap-4">
-<div>
-<p class="text-xs uppercase tracking-wider text-zinc-500">Source</p>
-<h3 class="text-lg font-semibold text-zinc-100 mt-1"><a class="hover:text-emerald-400" href="https://github.com/kepano/obsidian-skills" rel="noopener" target="_blank">kepano/obsidian-skills</a></h3>
-</div>
-<span class="text-xs text-zinc-500 whitespace-nowrap">2026-06-15</span>
-</div>
-<p class="text-zinc-400 text-sm leading-relaxed mt-4">Adds Obsidian Markdown and JSON Canvas file-format support for knowledge-base and canvas work.</p>
-<p class="text-emerald-400 text-xs font-medium mt-4">Installed now · 2 skills</p>
-<div class="flex flex-wrap gap-2 mt-3">
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">obsidian-markdown</span>
-<span class="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">json-canvas</span>
-</div>
-<p class="text-zinc-600 text-xs mt-4">35,629 stars</p>
-</article>
-</div>
-<div class="mt-10 p-5 border border-zinc-800 rounded-lg bg-black/20">
-<h3 class="text-xl font-semibold text-zinc-100 mb-2">Watchlist, not bulk-installed</h3>
-<p class="text-zinc-400 text-sm mb-5">Aggregators and large packs are used for discovery; the local library only accepts curated sub-skills.</p>
-<div class="grid md:grid-cols-2 gap-3">
-<a class="block p-4 rounded-md border border-zinc-800 hover:border-emerald-500/40 transition-colors" href="https://github.com/VoltAgent/awesome-agent-skills" rel="noopener" target="_blank">
-<span class="text-zinc-100 font-medium">VoltAgent/awesome-agent-skills</span>
-<span class="text-zinc-500 text-xs ml-2">25332 stars</span>
-<p class="text-zinc-400 text-sm mt-2">A 1000+ skill aggregator for discovery; not bulk-installed.</p>
+<div class="graph-layout">
+<a class="graph-frame" href="../assets/skills-graph.png" rel="noopener" target="_blank">
+<img alt="Skills graph showing all current domains and skill nodes" src="../assets/skills-graph.png"/>
 </a>
-<a class="block p-4 rounded-md border border-zinc-800 hover:border-emerald-500/40 transition-colors" href="https://github.com/anthropics/skills" rel="noopener" target="_blank">
-<span class="text-zinc-100 font-medium">anthropics/skills</span>
-<span class="text-zinc-500 text-xs ml-2">150722 stars</span>
-<p class="text-zinc-400 text-sm mt-2">Official base pack is partially covered already; install selectively by gap.</p>
+<div class="audit-grid">
+<article class="audit-card"><strong data-copy="graph1Title">Category clarity</strong><p data-copy="graph1Text">Color groups mirror the six INDEX domains.</p></article>
+<article class="audit-card"><strong data-copy="graph2Title">Coverage clarity</strong><p data-copy="graph2Text">Every indexed skill must have a graph node.</p></article>
+<article class="audit-card"><strong data-copy="graph3Title">Audit clarity</strong><p data-copy="graph3Text">The metadata audit checks INDEX rows, graph nodes, docs count, and mirror sync.</p></article>
+</div>
+</div>
+</section>
+<section class="site-section section-panel" id="weekly-hot-skills">
+<div class="section-head">
+<div>
+<p class="eyebrow">2026-06-14</p>
+<h2>Hot Skills Radar This Week</h2>
+<p>2026-06-09 → 2026-06-16: filtered by GitHub activity, real SKILL.md structure, and fit with the current library.</p>
+</div>
+<a class="text-link" href="../data/weekly-hot-skills.json">View JSON data →</a>
+</div>
+<div class="hot-grid">
+<article class="data-card">
+<div class="card-head">
+<div>
+<p class="mini-label">Source</p>
+<h3><a href="https://github.com/mvanhorn/last30days-skill" rel="noopener" target="_blank">mvanhorn/last30days-skill</a></h3>
+</div>
+<span>2026-06-16</span>
+</div>
+<p>Adds last-30-days multi-source voice-of-customer and trend research for idea validation, competitor monitoring, and content planning.</p>
+<p class="card-accent">Installed now · 1 skills</p>
+<div class="tag-row">
+<span class="tag">last30days</span>
+</div>
+<p class="muted-small">43,181 stars</p>
+</article>
+<article class="data-card">
+<div class="card-head">
+<div>
+<p class="mini-label">Source</p>
+<h3><a href="https://github.com/OthmanAdi/planning-with-files" rel="noopener" target="_blank">OthmanAdi/planning-with-files</a></h3>
+</div>
+<span>2026-06-16</span>
+</div>
+<p>Adds file-backed task planning, findings, and progress recovery for long-running agent work across context loss or /clear.</p>
+<p class="card-accent">Installed now · 1 skills</p>
+<div class="tag-row">
+<span class="tag">planning-with-files</span>
+</div>
+<p class="muted-small">23,414 stars</p>
+</article>
+<article class="data-card">
+<div class="card-head">
+<div>
+<p class="mini-label">Source</p>
+<h3><a href="https://github.com/geekjourneyx/md2wechat-skill" rel="noopener" target="_blank">geekjourneyx/md2wechat-skill</a></h3>
+</div>
+<span>2026-06-16</span>
+</div>
+<p>Adds Markdown-to-WeChat HTML, preview, draft, and image-post distribution for Chinese content growth workflows.</p>
+<p class="card-accent">Installed now · 1 skills</p>
+<div class="tag-row">
+<span class="tag">md2wechat</span>
+</div>
+<p class="muted-small">2,856 stars</p>
+</article>
+<article class="data-card">
+<div class="card-head">
+<div>
+<p class="mini-label">Source</p>
+<h3><a href="https://github.com/agent-sh/agnix" rel="noopener" target="_blank">agent-sh/agnix</a></h3>
+</div>
+<span>2026-06-15</span>
+</div>
+<p>Adds linting for AGENTS.md, SKILL.md, hooks, MCP, and related agent configuration files.</p>
+<p class="card-accent">Installed now · 1 skills</p>
+<div class="tag-row">
+<span class="tag">agnix</span>
+</div>
+<p class="muted-small">288 stars</p>
+</article>
+<article class="data-card">
+<div class="card-head">
+<div>
+<p class="mini-label">Source</p>
+<h3><a href="https://github.com/uxKero/anydesign" rel="noopener" target="_blank">uxKero/anydesign</a></h3>
+</div>
+<span>2026-06-16</span>
+</div>
+<p>Adds design-system extraction from websites, screenshots, Figma, and visual references for website optimization and design reviews.</p>
+<p class="card-accent">Installed now · 1 skills</p>
+<div class="tag-row">
+<span class="tag">anydesign</span>
+</div>
+<p class="muted-small">110 stars</p>
+</article>
+</div>
+<div class="watchlist-panel">
+<h3>Watchlist, not bulk-installed</h3>
+<p>Aggregators and large packs are used for discovery; the local library only accepts curated sub-skills.</p>
+<div class="watchlist-grid">
+<a class="watchlist-item" href="https://github.com/anthropics/skills" rel="noopener" target="_blank">
+<strong>anthropics/skills</strong>
+<span>151402 stars</span>
+<p>Official base pack remains a high-priority source; the local library already covers part of it, so install selectively by gap.</p>
 </a>
-<a class="block p-4 rounded-md border border-zinc-800 hover:border-emerald-500/40 transition-colors" href="https://github.com/ykdojo/claude-code-tips" rel="noopener" target="_blank">
-<span class="text-zinc-100 font-medium">ykdojo/claude-code-tips</span>
-<span class="text-zinc-500 text-xs ml-2">8725 stars</span>
-<p class="text-zinc-400 text-sm mt-2">Contains focused utilities such as reddit-fetch and review-claudemd; kept as a later candidate.</p>
+<a class="watchlist-item" href="https://github.com/sickn33/antigravity-awesome-skills" rel="noopener" target="_blank">
+<strong>sickn33/antigravity-awesome-skills</strong>
+<span>40857 stars</span>
+<p>A 1500+ installable-skill library for discovery; requires topic-based dry-scan before batch adoption.</p>
 </a>
-<a class="block p-4 rounded-md border border-zinc-800 hover:border-emerald-500/40 transition-colors" href="https://github.com/sickn33/antigravity-awesome-skills" rel="noopener" target="_blank">
-<span class="text-zinc-100 font-medium">sickn33/antigravity-awesome-skills</span>
-<span class="text-zinc-500 text-xs ml-2">40734 stars</span>
-<p class="text-zinc-400 text-sm mt-2">Large installable library; requires dry-scan and topic-based curation.</p>
+<a class="watchlist-item" href="https://github.com/K-Dense-AI/scientific-agent-skills" rel="noopener" target="_blank">
+<strong>K-Dense-AI/scientific-agent-skills</strong>
+<span>28351 stars</span>
+<p>High-value scientific domain pack, but outside the current general workflow lane; install later by research, biomedical, or data need.</p>
+</a>
+<a class="watchlist-item" href="https://github.com/googleworkspace/cli" rel="noopener" target="_blank">
+<strong>googleworkspace/cli</strong>
+<span>27093 stars</span>
+<p>Includes Google Workspace agent skills for Drive, Gmail, Sheets, and Docs automation; validate local CLI and auth boundaries first.</p>
+</a>
+<a class="watchlist-item" href="https://github.com/microsoft/SkillOpt" rel="noopener" target="_blank">
+<strong>microsoft/SkillOpt</strong>
+<span>7507 stars</span>
+<p>SkillOpt-Sleep aligns with self-optimization, but depends on the full external engine path, so keep it as an experiment.</p>
+</a>
+<a class="watchlist-item" href="https://github.com/gadievron/raptor" rel="noopener" target="_blank">
+<strong>gadievron/raptor</strong>
+<span>2990 stars</span>
+<p>Security/offensive skill pack with value but sensitive scope; split defensive/audit subsets and define guardrails first.</p>
+</a>
+<a class="watchlist-item" href="https://github.com/FrancyJGLisboa/agent-skill-creator" rel="noopener" target="_blank">
+<strong>FrancyJGLisboa/agent-skill-creator</strong>
+<span>1507 stars</span>
+<p>Active cross-platform skill factory, but overlaps with local skill-creator/write-a-skill; evaluate the delta later.</p>
+</a>
+<a class="watchlist-item" href="https://github.com/mxyhi/ok-skills" rel="noopener" target="_blank">
+<strong>mxyhi/ok-skills</strong>
+<span>427 stars</span>
+<p>Curated Codex/Claude/Cursor/OpenClaw-compatible skills and AGENTS.md playbooks; keep as a future batch-curation source.</p>
 </a>
 </div>
 </div>
-</div>
 </section>
-<!-- 11 COMMANDS -->
-<section class="border-t border-zinc-900 bg-zinc-950">
-<div class="max-w-6xl mx-auto px-6 py-20">
-<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">11 SLASH COMMANDS</p>
-<h2 class="text-3xl font-bold mb-12 text-zinc-100">A complete skill lifecycle.</h2>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-<!-- install -->
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-install</code>
-<p class="text-zinc-400 text-sm mt-2">Install from GitHub URL. Auto-classify, INDEX, graph.</p>
+<section class="site-section section-panel" id="tencent-deploy">
+<div class="section-head">
+<div>
+<p class="eyebrow" data-copy="deployEyebrow">Tencent Cloud ready</p>
+<h2 data-copy="deployTitle">Publish the generated docs directory as static files.</h2>
+<p data-copy="deployLead">The public website does not need FastAPI, Vite, or the local portal. Keep those for local management; publish only the generated static artifact.</p>
 </div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-uninstall</code>
-<p class="text-zinc-400 text-sm mt-2">Reverse all metadata cleanup. Idempotent.</p>
+<a class="text-link" data-copy="deployDoc" href="../tencent-light-server-deploy.md">Deployment notes -&gt;</a>
 </div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-update</code>
-<p class="text-zinc-400 text-sm mt-2">git pull one skill or all + refresh portal index.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-list</code>
-<p class="text-zinc-400 text-sm mt-2">Print all installed skills grouped by domain.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-recommend</code>
-<p class="text-zinc-400 text-sm mt-2">Suggest a load_skills=[...] combo for a task.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-classify</code>
-<p class="text-zinc-400 text-sm mt-2">Manually reassign a skill to a different domain.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-doctor</code>
-<p class="text-zinc-400 text-sm mt-2">5-rule health check per skill.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/skill-graph-sync</code>
-<p class="text-zinc-400 text-sm mt-2">Reconcile graph against INDEX. Idempotent.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/portal-start</code>
-<p class="text-zinc-400 text-sm mt-2">Bring portal (5174 + 5173) online. Idempotent.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/portal-stop</code>
-<p class="text-zinc-400 text-sm mt-2">Kill processes on ports 5173 + 5174.</p>
-</div>
-<div class="p-5 bg-zinc-900/50 border border-zinc-800 rounded-lg hover:border-emerald-500/30 transition-colors">
-<code class="text-emerald-400 font-mono text-sm">/portal-status</code>
-<p class="text-zinc-400 text-sm mt-2">PID, last index time, skill count.</p>
-</div>
-</div>
-<div class="mt-8 text-center">
-<a class="text-emerald-400 hover:text-emerald-300 font-medium" href="../handbook.html#methods">
-        Full command reference →
-      </a>
-</div>
-</div>
+<ul class="deploy-list">
+<li data-copy="deploy1">Run build and audit locally: bin/deploy-docs.</li>
+<li data-copy="deploy2">Upload the entire docs/ directory to the nginx web root.</li>
+<li data-copy="deploy3">Serve JSON with short cache and assets with longer cache.</li>
+<li data-copy="deploy4">Keep portal ports 5173/5174 private; they are not part of the public site.</li>
+</ul>
+<pre class="code-block"><code>rsync -av --delete docs/ tencent:/var/www/skills-manager/</code></pre>
 </section>
-<!-- ARCH PEEK -->
-<section class="border-t border-zinc-900">
-<div class="max-w-6xl mx-auto px-6 py-20">
-<div class="grid md:grid-cols-2 gap-12 items-center">
-<div class="order-2 md:order-1">
-<img alt="Skills graph · 164 user-level skills" class="rounded-lg border border-zinc-800 shadow-2xl" src="../assets/skills-graph.png"/>
-</div>
-<div class="order-1 md:order-2">
-<p class="text-emerald-400 text-sm font-medium mb-2 tracking-wider">TWO-LAYER ARCHITECTURE</p>
-<h2 class="text-3xl font-bold mb-4 text-zinc-100">Portal underneath. Agent on top.</h2>
-<p class="text-zinc-400 mb-6 leading-relaxed">
-          The <strong class="text-zinc-200">portal</strong> (FastAPI on :5174 + Vue on :5173) owns
-          the physical skill files: clone, validate, copy, uninstall.
-          The <strong class="text-zinc-200">agent</strong> orchestrates the portal API and writes
-          three metadata files directly (<code class="text-emerald-400">INDEX.md</code>,
-          <code class="text-emerald-400">skills-graph.mmd</code>,
-          <code class="text-emerald-400">skills-graph.png</code>) — with atomic writes, microsecond-stamped
-          backups, and post-write verification.
-        </p>
-<a class="text-emerald-400 hover:text-emerald-300 font-medium" href="../architecture.html">
-          See the full architecture →
-        </a>
-</div>
-</div>
-</div>
-</section>
-<!-- WHO IT'S FOR -->
-<section class="border-t border-zinc-900 bg-zinc-950">
-<div class="max-w-6xl mx-auto px-6 py-20">
-<h2 class="text-3xl font-bold mb-12 text-center text-zinc-100">Built for the OpenCode power user.</h2>
-<div class="grid md:grid-cols-3 gap-6">
-<div class="p-6">
-<div class="text-3xl mb-3">🧩</div>
-<h3 class="font-semibold text-zinc-100 mb-2">You have ≥ 3 skills installed</h3>
-<p class="text-zinc-400 text-sm">And keep forgetting which one to load. Skill recommendations come from your real INDEX.</p>
-</div>
-<div class="p-6">
-<div class="text-3xl mb-3">🛠️</div>
-<h3 class="font-semibold text-zinc-100 mb-2">You install new skills monthly</h3>
-<p class="text-zinc-400 text-sm">Manual classify + graph + INDEX upkeep is becoming a chore. Let the agent do it.</p>
-</div>
-<div class="p-6">
-<div class="text-3xl mb-3">📐</div>
-<h3 class="font-semibold text-zinc-100 mb-2">You want the meta-layer right</h3>
-<p class="text-zinc-400 text-sm">Health checks, dependency audit, domain coherence — all in one <code class="text-emerald-400">/skill-doctor</code>.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA -->
-<section class="border-t border-zinc-900 gradient-bg">
-<div class="max-w-4xl mx-auto px-6 py-20 text-center">
-<h2 class="text-4xl font-bold mb-4 text-zinc-100">Ready in ~10 minutes.</h2>
-<p class="text-zinc-400 mb-8 text-lg">
-      Clone, bootstrap the portal venv, install frontend deps. Then OpenCode auto-discovers everything.
-    </p>
-<a class="inline-block px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 rounded-md font-medium transition-colors" href="../getting-started.html">
-      Start the install guide →
-    </a>
-</div>
-</section>
-<!-- FOOTER -->
-<footer class="border-t border-zinc-900 bg-zinc-950">
-<div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
-<div class="flex items-center gap-2">
-<span>🧠</span>
-<span>Skills Manager AI Agent · MIT-style use, attribution welcomed</span>
-</div>
-<div class="flex items-center gap-4">
-<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub</a>
-<a class="hover:text-emerald-400 transition-colors" href="https://github.com/zjgulai/Agent_skills/issues" rel="noopener" target="_blank">Issues</a>
-<a class="hover:text-emerald-400 transition-colors" href="../architecture.html">Architecture</a>
-</div>
-</div>
+<footer class="footer">
+<span data-copy="footerLeft">Skills Manager AI Agent · static site rebuild</span>
+<span><a data-copy="footerHandbook" href="./handbook.html">Handbook</a> · <a data-copy="footerArchitecture" href="./architecture.html">Architecture</a> · <a href="https://github.com/zjgulai/Agent_skills" rel="noopener" target="_blank">GitHub</a></span>
 </footer>
 </main>
-<script>hljs.highlightAll();</script>
+<script>
+    const lang = document.documentElement.lang === "zh" ? "zh" : "en";
+    const copy = {
+      zh: {
+        navSubtitle: "问题导向的 skill 路由",
+        navSkills: "Skills",
+        navWorkflow: "工作流",
+        navGraph: "图谱",
+        navDeploy: "部署",
+        navGettingStarted: "快速开始",
+        navHandbook: "手册",
+        consoleEyebrow: "Skills 运营控制台",
+        consoleTitle: "先路由问题，再启动 agent。",
+        consoleLead: "面向当前 skills 系统的静态运营控制台：来源溯源、工作流覆盖、skill 检索、图谱一致性和腾讯云静态发布边界集中在一处。",
+        metricSourceRuntime: "来源入库 skills",
+        metricPublishState: "发布状态",
+        actionSourceTitle: "审计来源入库",
+        actionSourceText: "查看 GitHub 溯源、安装模式和蒸馏 backlog。",
+        actionAgentOpsTitle: "生成或优化 skills",
+        actionAgentOpsText: "路由到女娲、达尔文、Freud 和 agent swarm 能力。",
+        actionDesignTitle: "生产交付资产",
+        actionDesignText: "定位 HTML、slides、PDF、封面和渠道视觉生产技能。",
+        actionAlchaincyfTitle: "查看 Alchaincyf skills",
+        actionAlchaincyfText: "筛选最近来源批次安装的 43 个 runtime skills。",
+        readinessEyebrow: "发布就绪",
+        readinessTitle: "只发布静态产物，portal 保持私有。",
+        readinessLead: "公开站读取生成后的 JSON 和图谱资源。FastAPI 5174 与 Vite 5173 是本地管理工具，不是公网依赖。",
+        consolePublishCta: "查看发布门禁",
+        capabilityEyebrow: "能力地图",
+        capabilityTitle: "从产品 idea 到上线、增长、运营和复盘。",
+        capabilityLead: "首页先按用户要完成的工作组织能力，再路由到问题节点和具体 skills。",
+        ledgerEyebrow: "来源台账",
+        ledgerTitle: "Alchaincyf 来源批次可从 repo 追踪到工作流节点。",
+        ledgerLead: "每个来源条目进入公开目录前，都有 action、install mode、domain、workflow stage 和 problem node。",
+        ledgerJson: "查看 source manifest ->",
+        publishEyebrow: "发布门禁",
+        publishTitle: "网站就绪由构建、测试、状态审计、dry-run 和浏览器冒烟证明。",
+        publishLead: "腾讯云路径只发布静态 docs；同一套本地检查也保护 GitHub Pages 和轻量 nginx 服务器。",
+        gateBuild: "重建 mirror 数据、JSON、图谱资源和双语页面。",
+        gateTests: "保护首页契约、workflow 引用和静态发布安全边界。",
+        gateAudit: "检查 INDEX 行、graph 节点、docs 数量和镜像同步。",
+        gateDeploy: "真实发布前先验证 rsync 传输范围。",
+        heroEyebrow: "静态 skills 导航站",
+        heroTitle: "先找到正确的 skill，再让 agent 开始。",
+        heroLead: "面向腾讯云静态发布的 OpenCode skills 导航站：按解决的问题、所属分类、工作流节点和图谱位置浏览每个 skill。",
+        heroPrimary: "搜索 skills",
+        heroSecondary: "浏览工作流",
+        heroDeploy: "腾讯云部署边界",
+        metricSkills: "已索引 skills",
+        metricDomains: "分类域",
+        metricNodes: "问题节点",
+        metricStages: "工作流阶段",
+        heroNote: "公开网站不需要 portal 后端；它只读取 docs 目录里的 JSON 和图谱静态资源。",
+        quickTitle: "快速问题筛选",
+        auditEyebrow: "已修复的遗留问题",
+        auditTitle: "从静态说明页重构为可操作导航站。",
+        auditLead: "旧站数据已经较新，但用户路径没有把每个 skill 能解决什么问题讲清楚。新版把生成数据变成主交互。",
+        audit1Title: "根目录旧链接",
+        audit1Text: "根目录页面改为跳转页；语言页链接回同语言页面，不再落到旧页面。",
+        audit2Title: "问题分类隐藏",
+        audit2Text: "首页直接展示工作流阶段和问题节点，不再只藏在手册里。",
+        audit3Title: "skill 目的不清",
+        audit3Text: "每张卡展示功能、触发词、分类、问题节点和可复制 load 模板。",
+        audit4Title: "图谱像附录",
+        audit4Text: "图谱成为首页一级区块，并连接到最新生成图片和机器数据。",
+        skillsEyebrow: "Skill 检索",
+        skillsTitle: "按任务、问题、触发词或 skill 名搜索。",
+        skillsLead: "每次 agent 会话前先从这里找能力组合。结果来自 INDEX、域分类和问题工作流。",
+        skillsJson: "查看 skills.json ->",
+        allStages: "全部工作流阶段",
+        allNodes: "全部问题节点",
+        workflowEyebrow: "问题工作流",
+        workflowTitle: "从 idea 到上线、运营和复盘的全链路路由。",
+        workflowLead: "工作流轴回答的是管理问题：用户描述一个问题时，应该先进入哪个自动化节点、加载哪些 skills。",
+        workflowJson: "查看 workflow JSON ->",
+        domainEyebrow: "六个管理域",
+        domainTitle: "用于安装、审计和图谱同步的稳定分类。",
+        domainLead: "域分类仍是管理真相源；问题工作流是叠加在上面的解决问题轴。",
+        domainsJson: "查看 domains.json ->",
+        graphEyebrow: "Skills 图谱",
+        graphTitle: "可视化检查分类和图谱元数据是否一致。",
+        graphLead: "公开站使用与 metadata audit 同源的图谱 PNG。如果 INDEX 有 skill 但 graph 缺节点，审计会失败。",
+        openGraph: "打开完整图谱 ->",
+        graph1Title: "分类清晰",
+        graph1Text: "颜色分组对应 INDEX 的六个域。",
+        graph2Title: "覆盖清晰",
+        graph2Text: "每个已索引 skill 都必须有图谱节点。",
+        graph3Title: "审计清晰",
+        graph3Text: "审计会检查 INDEX 行、graph 节点、docs 数量和镜像同步。",
+        deployEyebrow: "腾讯云就绪",
+        deployTitle: "把生成后的 docs 目录当静态文件发布。",
+        deployLead: "公开网站不需要 FastAPI、Vite 或本地 portal。portal 只用于本地管理；公网只发布静态产物。",
+        deployDoc: "部署说明 ->",
+        deploy1: "本地先运行构建和审计：bin/deploy-docs。",
+        deploy2: "上传整个 docs/ 目录到 nginx web root。",
+        deploy3: "JSON 使用短缓存，assets 使用较长缓存。",
+        deploy4: "portal 的 5173/5174 保持私有，不属于公网网站。",
+        footerLeft: "Skills Manager AI Agent · 静态站重构版",
+        footerHandbook: "手册",
+        footerArchitecture: "架构",
+        result: (shown, total) => `显示 ${shown} / ${total} 个 skills`,
+        allDomains: "全部分类",
+        noResults: "没有匹配结果。可以清空搜索词，或换成问题、触发词、工作流节点来搜。",
+        functionLabel: "功能",
+        problemLabel: "解决问题",
+        triggerLabel: "触发词",
+        workflowLabel: "问题节点",
+        loadLabel: "加载模板",
+        copy: "复制",
+        copied: "已复制",
+        stageNodes: count => `${count} 个问题节点`,
+        primary: "主力 skills",
+        supporting: "辅助 skills",
+        acceptance: "验收门槛"
+      },
+      en: {
+        navSubtitle: "Problem-oriented skill routing",
+        navSkills: "Skills",
+        navWorkflow: "Workflows",
+        navGraph: "Graph",
+        navDeploy: "Deploy",
+        navGettingStarted: "Getting Started",
+        navHandbook: "Handbook",
+        consoleEyebrow: "Skills Operating Console",
+        consoleTitle: "Route the problem before the agent starts.",
+        consoleLead: "A static operating console for the current skills system: source provenance, workflow coverage, skill search, graph integrity, and Tencent-ready publishing in one place.",
+        metricSourceRuntime: "Source installs",
+        metricPublishState: "Publish state",
+        actionSourceTitle: "Audit source intake",
+        actionSourceText: "Review GitHub provenance, install modes, and distill-only backlog.",
+        actionAgentOpsTitle: "Generate or optimize skills",
+        actionAgentOpsText: "Route to Nuwa, Darwin, Freud, and agent swarm capabilities.",
+        actionDesignTitle: "Produce assets",
+        actionDesignText: "Find HTML, slides, PDF, cover, and channel visual production skills.",
+        actionAlchaincyfTitle: "Show Alchaincyf skills",
+        actionAlchaincyfText: "Filter to the 43 runtime skills installed from the latest source batch.",
+        readinessEyebrow: "Publish readiness",
+        readinessTitle: "Static artifact only. Portal stays private.",
+        readinessLead: "The public site reads generated JSON and graph assets. FastAPI 5174 and Vite 5173 are management tools, not public dependencies.",
+        consolePublishCta: "Review gates",
+        capabilityEyebrow: "Capability map",
+        capabilityTitle: "From product idea to launch, growth, operations, and learning.",
+        capabilityLead: "The site now leads with the work users are trying to complete, then routes to workflow nodes and concrete skills.",
+        ledgerEyebrow: "Source ledger",
+        ledgerTitle: "Alchaincyf source batch is traceable from repo to workflow node.",
+        ledgerLead: "Every sourced item has an action, install mode, domain, workflow stage, and problem node before it appears in the public catalog.",
+        ledgerJson: "View source manifest ->",
+        publishEyebrow: "Publish gates",
+        publishTitle: "Website readiness is proven by build, tests, state audit, dry-run, and browser smoke.",
+        publishLead: "The Tencent path publishes only static docs. The same local checks protect GitHub Pages and a lightweight nginx server.",
+        gateBuild: "Rebuilds mirror data, JSON, graph assets, and bilingual pages.",
+        gateTests: "Protects homepage contracts, workflow references, and static deploy safety.",
+        gateAudit: "Checks INDEX rows, graph nodes, docs count, and mirror sync.",
+        gateDeploy: "Verifies rsync transfer scope before any real publish.",
+        heroEyebrow: "Static skills navigator",
+        heroTitle: "Find the right skill before the agent starts.",
+        heroLead: "A Tencent-ready static site for browsing every OpenCode skill by the problem it solves, its category, its workflow stage, and its graph position.",
+        heroPrimary: "Search skills",
+        heroSecondary: "Browse workflows",
+        heroDeploy: "Tencent deploy contract",
+        metricSkills: "Skills indexed",
+        metricDomains: "Domains",
+        metricNodes: "Problem nodes",
+        metricStages: "Workflow stages",
+        heroNote: "No portal backend is required for the public site. It reads generated JSON and graph assets from the static docs directory.",
+        quickTitle: "Quick problem filters",
+        auditEyebrow: "Legacy issues fixed",
+        auditTitle: "From static brochure to operational navigator.",
+        auditLead: "The previous site had current data, but the interaction path did not expose the problem-solving value of each skill. This rebuild turns generated data into the primary interface.",
+        audit1Title: "Stale root links",
+        audit1Text: "Root pages now redirect to localized builds, and localized pages link to their siblings instead of stale root copies.",
+        audit2Title: "Hidden problem taxonomy",
+        audit2Text: "The homepage now exposes workflow stages and problem nodes directly, not only in the handbook.",
+        audit3Title: "Unclear skill purpose",
+        audit3Text: "Every card shows function, trigger terms, domain, problem nodes, and a copyable load template.",
+        audit4Title: "Graph treated as an appendix",
+        audit4Text: "The graph has a first-class section with the latest generated image and machine-readable data links.",
+        skillsEyebrow: "Skill explorer",
+        skillsTitle: "Search by task, problem, trigger, or skill name.",
+        skillsLead: "Use this as the first stop before loading skills into an agent session. Results come from INDEX, domain metadata, and workflow taxonomy.",
+        skillsJson: "View skills.json ->",
+        allStages: "All workflow stages",
+        allNodes: "All problem nodes",
+        workflowEyebrow: "Problem workflow",
+        workflowTitle: "Route from idea to launch, operations, and retrospective learning.",
+        workflowLead: "The workflow axis answers the management question: when a user describes a problem, which automation node and skills should activate first?",
+        workflowJson: "View workflow JSON ->",
+        domainEyebrow: "Six management domains",
+        domainTitle: "Stable categories for installation, audit, and graph sync.",
+        domainLead: "Domains remain the source-of-truth management axis. Workflows are the problem-solving axis layered on top.",
+        domainsJson: "View domains.json ->",
+        graphEyebrow: "Skills graph",
+        graphTitle: "A visual check that category and graph metadata are in sync.",
+        graphLead: "The public site uses the same generated graph PNG as the metadata audit. If a skill is in INDEX but missing from the graph, state audit fails.",
+        openGraph: "Open full graph ->",
+        graph1Title: "Category clarity",
+        graph1Text: "Color groups mirror the six INDEX domains.",
+        graph2Title: "Coverage clarity",
+        graph2Text: "Every indexed skill must have a graph node.",
+        graph3Title: "Audit clarity",
+        graph3Text: "The metadata audit checks INDEX rows, graph nodes, docs count, and mirror sync.",
+        deployEyebrow: "Tencent Cloud ready",
+        deployTitle: "Publish the generated docs directory as static files.",
+        deployLead: "The public website does not need FastAPI, Vite, or the local portal. Keep those for local management; publish only the generated static artifact.",
+        deployDoc: "Deployment notes ->",
+        deploy1: "Run build and audit locally: bin/deploy-docs.",
+        deploy2: "Upload the entire docs/ directory to the nginx web root.",
+        deploy3: "Serve JSON with short cache and assets with longer cache.",
+        deploy4: "Keep portal ports 5173/5174 private; they are not part of the public site.",
+        footerLeft: "Skills Manager AI Agent · static site rebuild",
+        footerHandbook: "Handbook",
+        footerArchitecture: "Architecture",
+        result: (shown, total) => `Showing ${shown} / ${total} skills`,
+        allDomains: "All domains",
+        noResults: "No matching skills. Clear the search, or try a problem, trigger, or workflow-node term.",
+        functionLabel: "Function",
+        problemLabel: "Problem solved",
+        triggerLabel: "Triggers",
+        workflowLabel: "Problem nodes",
+        loadLabel: "Load template",
+        copy: "Copy",
+        copied: "Copied",
+        stageNodes: count => `${count} problem nodes`,
+        primary: "Primary skills",
+        supporting: "Supporting skills",
+        acceptance: "Acceptance gates"
+      }
+    };
 
+    const t = key => copy[lang][key] || copy.en[key] || key;
+    const state = {
+      skills: [],
+      domains: [],
+      workflows: null,
+      sourceManifest: null,
+      sourceFilter: "",
+      query: "",
+      domain: "",
+      stage: "",
+      node: "",
+      activeStage: ""
+    };
+    let sourceNames = new Set();
+    const nodeById = new Map();
+    const stageById = new Map();
+    const nodesByStage = new Map();
+    const domainByKey = new Map();
+    const skillSearch = document.querySelector("[data-skill-search]");
+    const stageFilter = document.querySelector("[data-stage-filter]");
+    const nodeFilter = document.querySelector("[data-node-filter]");
+
+    function setStaticCopy() {
+      document.querySelectorAll("[data-copy]").forEach(el => {
+        const value = t(el.dataset.copy);
+        if (typeof value === "string") el.textContent = value;
+      });
+      if (skillSearch) skillSearch.placeholder = lang === "zh" ? "搜索 skill、问题、触发词" : "Search skills, problems, triggers";
+      const allStages = stageFilter && stageFilter.querySelector("[data-copy='allStages']");
+      if (allStages) allStages.textContent = t("allStages");
+      const allNodes = nodeFilter && nodeFilter.querySelector("[data-copy='allNodes']");
+      if (allNodes) allNodes.textContent = t("allNodes");
+    }
+
+    async function fetchJson(path) {
+      const response = await fetch(path, { cache: "no-cache" });
+      if (!response.ok) throw new Error(`${path}: ${response.status}`);
+      return response.json();
+    }
+
+    function labelForDomain(domain) {
+      const item = domainByKey.get(domain);
+      if (!item) return domain;
+      return lang === "zh" ? item.label_zh : item.label_en;
+    }
+
+    function labelForStage(stage) {
+      return lang === "zh" ? stage.label_zh : stage.label_en;
+    }
+
+    function problemForNode(nodeId) {
+      const node = nodeById.get(nodeId);
+      if (!node) return nodeId;
+      return lang === "zh" ? node.problem_zh : node.problem_en;
+    }
+
+    function prepareIndexes() {
+      state.domains.forEach(domain => domainByKey.set(domain.key, domain));
+      state.workflows.stages.forEach(stage => {
+        stageById.set(stage.id, stage);
+        nodesByStage.set(stage.id, stage.nodes.map(node => node.id));
+        stage.nodes.forEach(node => nodeById.set(node.id, { ...node, stage_id: stage.id }));
+      });
+    }
+
+    function renderStats() {
+      const nodeCount = state.workflows.stages.reduce((sum, stage) => sum + stage.nodes.length, 0);
+      setStat("skills", state.skills.length);
+      setStat("domains", state.domains.length);
+      setStat("nodes", nodeCount);
+      setStat("stages", state.workflows.stages.length);
+      setStat("source-runtime", state.sourceManifest?.ingestion_summary?.runtime_install_count || sourceNames.size);
+      setStat("publish-state", lang === "zh" ? "Ready" : "Ready");
+    }
+
+    function setStat(name, value) {
+      const el = document.querySelector(`[data-stat='${name}']`);
+      if (el) el.textContent = value;
+    }
+
+    function renderQuickProblems() {
+      const quick = [
+        ["PRD / spec", "spec"],
+        ["上线发布 / release", "release"],
+        ["前端 UI / frontend", "frontend"],
+        ["调试报错 / debug", "debug"],
+        ["内容增长 / growth", "growth"],
+        ["软著专利 / IP", "patent"]
+      ];
+      const root = document.querySelector("[data-quick-problems]");
+      if (!root) return;
+      root.innerHTML = quick.map(([label, value]) => `<button type="button" data-quick="${value}">${label}</button>`).join("");
+      root.querySelectorAll("[data-quick]").forEach(button => {
+        button.addEventListener("click", () => {
+          state.query = button.dataset.quick;
+          skillSearch.value = state.query;
+          document.querySelector("#skill-explorer").scrollIntoView({ behavior: "smooth" });
+          renderSkillResults();
+        });
+      });
+    }
+
+    function renderDomainFilters() {
+      const root = document.querySelector("[data-domain-filter]");
+      const buttons = [
+        `<button class="filter-chip active" type="button" data-domain-value="">${t("allDomains")}</button>`,
+        ...state.domains.map(domain => `<button class="filter-chip" type="button" data-domain-value="${domain.key}">${labelForDomain(domain.key)} · ${domain.count}</button>`)
+      ];
+      root.innerHTML = buttons.join("");
+      root.querySelectorAll("[data-domain-value]").forEach(button => {
+        button.addEventListener("click", () => {
+          state.domain = button.dataset.domainValue;
+          root.querySelectorAll(".filter-chip").forEach(el => el.classList.toggle("active", el === button));
+          renderSkillResults();
+        });
+      });
+    }
+
+    function renderFilterOptions() {
+      state.workflows.stages.forEach(stage => {
+        const option = document.createElement("option");
+        option.value = stage.id;
+        option.textContent = `${stage.id} · ${labelForStage(stage)}`;
+        stageFilter.appendChild(option);
+      });
+      const nodes = [...nodeById.values()];
+      nodes.forEach(node => {
+        const option = document.createElement("option");
+        option.value = node.id;
+        option.textContent = node.id;
+        nodeFilter.appendChild(option);
+      });
+    }
+
+    function skillMatchesFilters(skill) {
+      const q = state.query.trim().toLowerCase();
+      const haystack = [
+        skill.name,
+        skill.domain,
+        skill.role,
+        skill.extra,
+        ...(skill.problem_nodes || []),
+        ...(skill.problem_nodes || []).map(problemForNode)
+      ].join(" ").toLowerCase();
+      const domainOk = !state.domain || skill.domain === state.domain;
+      const stageNodes = state.stage ? new Set(nodesByStage.get(state.stage) || []) : null;
+      const stageOk = !stageNodes || (skill.problem_nodes || []).some(node => stageNodes.has(node));
+      const nodeOk = !state.node || (skill.problem_nodes || []).includes(state.node);
+      const sourceOk = !state.sourceFilter || sourceNames.has(skill.name);
+      return domainOk && stageOk && nodeOk && sourceOk && (!q || haystack.includes(q));
+    }
+
+    function renderSkillResults() {
+      const root = document.querySelector("[data-skill-results]");
+      const results = state.skills.filter(skillMatchesFilters);
+      document.querySelector("[data-result-meta]").textContent = t("result")(results.length, state.skills.length);
+      if (!results.length) {
+        root.innerHTML = `<div class="empty">${t("noResults")}</div>`;
+        return;
+      }
+      root.innerHTML = results.map(skill => {
+        const nodes = (skill.problem_nodes || []).slice(0, 4);
+        const nodeTags = nodes.length
+          ? nodes.map(node => `<span class="tag" title="${escapeAttr(problemForNode(node))}">${node}</span>`).join("")
+          : `<span class="tag">${labelForDomain(skill.domain)}</span>`;
+        const triggers = splitTriggers(skill.extra).slice(0, 6).map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("");
+        const problemText = nodes.length
+          ? problemForNode(nodes[0])
+          : `${labelForDomain(skill.domain)}: ${skill.role}`;
+        const load = `task(load_skills=["${skill.name}"], prompt="...")`;
+        const sourceBadge = sourceNames.has(skill.name)
+          ? `<span class="tag">alchaincyf</span>`
+          : "";
+        return `
+          <article class="skill-card">
+            <div class="card-head">
+              <h3>${escapeHtml(skill.name)}</h3>
+              <span class="badge ${skill.domain}">${escapeHtml(labelForDomain(skill.domain))}</span>
+            </div>
+            ${sourceBadge}
+            <p><strong>${t("functionLabel")}:</strong> ${escapeHtml(skill.role || skill.name)}</p>
+            <p class="problem-text"><strong>${t("problemLabel")}:</strong> ${escapeHtml(problemText)}</p>
+            <div>
+              <p><strong>${t("workflowLabel")}:</strong></p>
+              <div class="tag-row">${nodeTags}</div>
+            </div>
+            <div>
+              <p><strong>${t("triggerLabel")}:</strong></p>
+              <div class="tag-row">${triggers || `<span class="tag">${escapeHtml(skill.domain)}</span>`}</div>
+            </div>
+            <div class="copy-row">
+              <code title="${escapeAttr(load)}">${escapeHtml(load)}</code>
+              <button class="button small" type="button" data-copy-load="${escapeAttr(load)}">${t("copy")}</button>
+            </div>
+          </article>`;
+      }).join("");
+      root.querySelectorAll("[data-copy-load]").forEach(button => {
+        button.addEventListener("click", async () => {
+          await copyText(button.dataset.copyLoad);
+          button.textContent = t("copied");
+          setTimeout(() => { button.textContent = t("copy"); }, 1200);
+        });
+      });
+    }
+
+    function renderWorkflow() {
+      const stageRoot = document.querySelector("[data-stage-list]");
+      const nodeRoot = document.querySelector("[data-node-results]");
+      if (!state.activeStage) state.activeStage = state.workflows.stages[0].id;
+      stageRoot.innerHTML = state.workflows.stages.map(stage => `
+        <button class="stage-button ${stage.id === state.activeStage ? "active" : ""}" type="button" data-stage="${stage.id}">
+          <strong>${escapeHtml(labelForStage(stage))}</strong>
+          <span>${stage.id} · ${t("stageNodes")(stage.nodes.length)}</span>
+        </button>
+      `).join("");
+      stageRoot.querySelectorAll("[data-stage]").forEach(button => {
+        button.addEventListener("click", () => {
+          state.activeStage = button.dataset.stage;
+          renderWorkflow();
+        });
+      });
+      const stage = stageById.get(state.activeStage);
+      nodeRoot.innerHTML = stage.nodes.map(node => {
+        const primary = (node.primary_skills || []).map(skill => `<span class="tag">${escapeHtml(skill)}</span>`).join("");
+        const supporting = (node.supporting_skills || []).slice(0, 6).map(skill => `<span class="tag">${escapeHtml(skill)}</span>`).join("");
+        const acceptance = (node.acceptance || []).slice(0, 2).join(" · ");
+        return `
+          <article class="node-card">
+            <h3>${escapeHtml(node.id)}</h3>
+            <p>${escapeHtml(lang === "zh" ? node.problem_zh : node.problem_en)}</p>
+            <small>${t("primary")}</small>
+            <div class="tag-row">${primary}</div>
+            <small>${t("supporting")}</small>
+            <div class="tag-row">${supporting}</div>
+            <p><small>${t("acceptance")}: ${escapeHtml(acceptance)}</small></p>
+          </article>`;
+      }).join("");
+    }
+
+    function renderDomainOverview() {
+      const root = document.querySelector("[data-domain-overview]");
+      root.innerHTML = state.domains.map(domain => {
+        const desc = lang === "zh" ? domain.desc_zh : domain.desc_en;
+        return `
+          <article class="domain-card">
+            <div class="card-head">
+              <strong>${escapeHtml(labelForDomain(domain.key))}</strong>
+              <span class="badge ${domain.key}">${domain.count}</span>
+            </div>
+            <p>${escapeHtml(desc)}</p>
+          </article>`;
+      }).join("");
+    }
+
+    function renderCapabilityMap() {
+      const root = document.querySelector("[data-capability-map]");
+      if (!root) return;
+      const groups = [
+        ["01-idea-discovery", "02-market-validation", "03-product-definition"],
+        ["04-design-prototype", "05-build-architecture", "06-quality-security"],
+        ["07-launch-deploy", "08-growth-marketing", "09-sales-customer"],
+        ["10-data-feedback", "11-ops-iteration", "12-ip-compliance", "13-retro-knowledge"]
+      ];
+      root.innerHTML = groups.map((ids, index) => {
+        const stages = ids.map(id => stageById.get(id)).filter(Boolean);
+        const nodeCount = stages.reduce((sum, stage) => sum + stage.nodes.length, 0);
+        const skillNames = new Set();
+        stages.forEach(stage => {
+          stage.nodes.forEach(node => {
+            [...(node.primary_skills || []), ...(node.supporting_skills || [])].forEach(name => skillNames.add(name));
+          });
+        });
+        const title = lang === "zh"
+          ? ["发现与验证", "设计与构建", "发布与增长", "反馈与复盘"][index]
+          : ["Discover and validate", "Design and build", "Launch and grow", "Feedback and learning"][index];
+        const stageTags = stages.map(stage => `<span class="tag">${escapeHtml(stage.id)}</span>`).join("");
+        return `
+          <article class="capability-card">
+            <h3>${escapeHtml(title)}</h3>
+            <p>${nodeCount} ${lang === "zh" ? "个问题节点" : "problem nodes"} · ${skillNames.size} ${lang === "zh" ? "个关联 skills" : "linked skills"}</p>
+            <div class="tag-row">${stageTags}</div>
+          </article>`;
+      }).join("");
+    }
+
+    function renderSourceLedger() {
+      const root = document.querySelector("[data-source-ledger]");
+      const manifest = state.sourceManifest;
+      if (!root || !manifest) return;
+      const summary = manifest.ingestion_summary || {};
+      const topNodes = {};
+      (manifest.skills || []).filter(item => item.action === "install").forEach(item => {
+        topNodes[item.problem_node] = (topNodes[item.problem_node] || 0) + 1;
+      });
+      const nodeRows = Object.entries(topNodes)
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .slice(0, 6)
+        .map(([node, count]) => `<tr><td>${escapeHtml(node)}</td><td>${count}</td></tr>`)
+        .join("");
+      root.innerHTML = `
+        <div class="source-mode-grid">
+          <article class="data-card"><p class="mini-label">runtime</p><h3>${summary.runtime_install_count || sourceNames.size}</h3><p>43 runtime skills installed through portal API.</p></article>
+          <article class="data-card"><p class="mini-label">root / subdir / monorepo</p><h3>${summary.direct_root_install_count || 0} / ${summary.subdir_install_count || 0} / ${summary.monorepo_install_count || 0}</h3><p>Install modes are explicit before publish.</p></article>
+          <article class="data-card"><p class="mini-label">distill-only</p><h3>${summary.distill_only_count || 0}</h3><p>Book and guide repos stay as source material.</p></article>
+          <article class="data-card"><p class="mini-label">skipped</p><h3>${summary.skip_count || 0}</h3><p>Products, apps, and duplicates are not runtime installs.</p></article>
+        </div>
+        <table class="ledger-table" aria-label="Alchaincyf workflow node coverage">
+          <thead><tr><th>Problem node</th><th>Runtime skills</th></tr></thead>
+          <tbody>${nodeRows}</tbody>
+        </table>`;
+    }
+
+    function applyNodeFilter(nodeId) {
+      state.node = nodeId;
+      state.stage = "";
+      state.sourceFilter = "";
+      if (nodeFilter) nodeFilter.value = nodeId;
+      if (stageFilter) stageFilter.value = "";
+      document.querySelector("#skill-explorer").scrollIntoView({ behavior: "smooth" });
+      renderSkillResults();
+    }
+
+    function applySourceFilter(source) {
+      state.sourceFilter = source;
+      state.node = "";
+      state.stage = "";
+      if (nodeFilter) nodeFilter.value = "";
+      if (stageFilter) stageFilter.value = "";
+      document.querySelector("#skill-explorer").scrollIntoView({ behavior: "smooth" });
+      renderSkillResults();
+    }
+
+    function wireConsoleActions() {
+      document.querySelectorAll("[data-console-node]").forEach(button => {
+        button.addEventListener("click", () => applyNodeFilter(button.dataset.consoleNode));
+      });
+      document.querySelectorAll("[data-source-filter]").forEach(button => {
+        button.addEventListener("click", () => applySourceFilter(button.dataset.sourceFilter));
+      });
+    }
+
+    function splitTriggers(value) {
+      return String(value || "")
+        .replace(/`/g, "")
+        .split(/[,，、]/)
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+
+    async function copyText(value) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        return;
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = value;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    function wireFilters() {
+      skillSearch.addEventListener("input", () => {
+        state.query = skillSearch.value;
+        renderSkillResults();
+      });
+      stageFilter.addEventListener("change", () => {
+        state.stage = stageFilter.value;
+        state.sourceFilter = "";
+        renderSkillResults();
+      });
+      nodeFilter.addEventListener("change", () => {
+        state.node = nodeFilter.value;
+        state.sourceFilter = "";
+        renderSkillResults();
+      });
+    }
+
+    async function init() {
+      setStaticCopy();
+      try {
+        const [skills, domains, workflows, sourceManifest] = await Promise.all([
+          fetchJson("../data/skills.json"),
+          fetchJson("../data/domains.json"),
+          fetchJson("../data/problem-workflows.json"),
+          fetchJson("../data/alchaincyf-skill-manifest.json")
+        ]);
+        state.skills = skills;
+        state.domains = domains;
+        state.workflows = workflows;
+        state.sourceManifest = sourceManifest;
+        sourceNames = new Set((sourceManifest.skills || []).filter(item => item.action === "install").map(item => item.runtime_name));
+        prepareIndexes();
+        renderStats();
+        renderQuickProblems();
+        renderDomainFilters();
+        renderFilterOptions();
+        renderCapabilityMap();
+        renderSourceLedger();
+        renderSkillResults();
+        renderWorkflow();
+        renderDomainOverview();
+        wireConsoleActions();
+        wireFilters();
+      } catch (error) {
+        document.querySelector("[data-skill-results]").innerHTML = `<div class="empty">${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>
