@@ -1,7 +1,7 @@
 """Tests for agent/lib/domain_inference.py.
 
-Regression suite: 7 cases pulled from agent/docs/domain-taxonomy.md.
-Accuracy threshold: ≥ 6/7 (planned 5/6 in main plan; we have 7 cases now).
+Regression suite: 12 cases pulled from agent/docs/domain-taxonomy.md.
+Accuracy threshold: >= 11/12.
 """
 from __future__ import annotations
 
@@ -51,6 +51,26 @@ CASES = [
      "AI-agent Skill for generating polished HTML slide decks: editorial magazine and "
      "Swiss layouts, image prompts, social covers, and a WebGL/low-power presentation runtime",
      "tooling"),
+
+    ("huashu-nuwa",
+     "自动深度调研并生成可运行的人物Skill，蒸馏人的思维方式、心智模型和表达DNA",
+     "meta"),
+
+    ("darwin-skill",
+     "autonomous skill optimizer: evaluate, improve, test, keep, or roll back skills",
+     "meta"),
+
+    ("huashu-slides",
+     "端到端演示文稿制作，PPT、slides、封面、配图和发布前检查",
+     "tooling"),
+
+    ("dukou",
+     "稿件互通发布到 X Articles / B站专栏 / 公众号，文章分发和排版桥接",
+     "tooling"),
+
+    ("munger-perspective",
+     "认知操作系统、决策框架、逆向思考、能力圈、激励结构和商业判断",
+     "founder"),
 ]
 
 
@@ -66,12 +86,12 @@ def test_inference_per_case(name, desc, expected):
     )
 
 
-def test_overall_accuracy_at_least_6_of_7():
+def test_overall_accuracy_at_least_11_of_12():
     correct = 0
     for name, desc, expected in CASES:
         if infer(name, desc).domain == expected:
             correct += 1
-    assert correct >= 6, f"only {correct}/7 correct (threshold: 6)"
+    assert correct >= 11, f"only {correct}/12 correct (threshold: 11)"
 
 
 def test_uncategorized_when_no_keywords():

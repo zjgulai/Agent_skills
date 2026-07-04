@@ -1,0 +1,668 @@
+{
+  "version": "2026-06-16",
+  "principle": "Classify skills by the problem a user is trying to solve, then route the request to an automation playbook with explicit inputs, outputs, and acceptance gates.",
+  "stages": [
+    {
+      "id": "00-agent-system",
+      "label_zh": "AI 自动化底座",
+      "label_en": "AI Automation System",
+      "automation_principle": "先让 agent 可治理、可扩展、可恢复，再让它处理业务问题。",
+      "nodes": [
+        {
+          "id": "agent-skill-authoring",
+          "problem_zh": "需要新增或改造一个 skill，但不想让它变成一次性提示词。",
+          "problem_en": "Create or improve a skill without turning it into a one-off prompt.",
+          "task_intents": ["创建 skill", "优化 skill description", "写 SKILL.md", "评估触发准确率"],
+          "primary_skills": ["skill-creator", "writing-skills", "write-a-skill"],
+          "supporting_skills": ["context-engineering", "stop-slop"],
+          "inputs": ["目标任务", "触发场景", "反例边界", "可复用资源"],
+          "outputs": ["SKILL.md", "触发规则", "资源目录", "回归样例"],
+          "acceptance": ["frontmatter 合法", "触发场景清晰", "包含不该触发的边界", "能被后续 agent 复用"]
+        },
+        {
+          "id": "agent-workflow-governance",
+          "problem_zh": "skills 越来越多，agent 不知道何时该加载什么能力。",
+          "problem_en": "The skill library is growing and the agent needs governable routing rules.",
+          "task_intents": ["治理 skill 库", "整理 AGENTS.md", "设计 agent 架构", "管理 subagent"],
+          "primary_skills": ["agent-dev-kit-architecture-designer", "context-engineering", "using-agent-skills", "using-superpowers"],
+          "supporting_skills": ["agnix", "paper-skills-gap-analysis", "paper2skills-workflow", "doubt-driven-development"],
+          "inputs": ["现有 skill 清单", "项目规则", "常见任务流", "失误样例"],
+          "outputs": ["agent 架构规则", "routing policy", "workflow map", "维护清单"],
+          "acceptance": ["规则能被机器读取", "新增 skill 有归位规则", "人工边界明确", "能解释何时不用某 skill"]
+        },
+        {
+          "id": "agent-session-continuity",
+          "problem_zh": "长任务跨会话时容易丢上下文、漏验收、重复探索。",
+          "problem_en": "Long-running work loses context, verification state, or decisions across sessions.",
+          "task_intents": ["保存上下文", "恢复会话", "生成 handoff", "降低 token"],
+          "primary_skills": ["context-save", "context-restore", "handoff"],
+          "supporting_skills": ["planning-with-files", "caveman", "management-talk"],
+          "inputs": ["当前 git 状态", "已完成工作", "阻塞点", "验证命令"],
+          "outputs": ["handoff 文档", "恢复步骤", "风险列表", "下一步命令"],
+          "acceptance": ["新 agent 能接手", "包含未完成 TODO", "包含验证证据", "不隐藏阻塞"]
+        },
+        {
+          "id": "source.alchaincyf-intake",
+          "problem_zh": "需要把外部 GitHub skill 来源转成可审计、可筛选、可安装的候选清单。",
+          "problem_en": "Turn an external GitHub skill source into an auditable, filtered, installable candidate set.",
+          "task_intents": ["GitHub skill 盘点", "source digest", "manifest", "入库前审计"],
+          "primary_skills": ["huashu-info-search", "huashu-research", "huashu-data-pro"],
+          "supporting_skills": ["huashu-material-search", "huashu-prompt-save"],
+          "inputs": ["source owner", "repo list", "SKILL.md paths", "install boundary"],
+          "outputs": ["source digest", "install manifest", "distill-only backlog", "skip reasons"],
+          "acceptance": ["每个候选有来源 URL", "区分 install/distill-only/skip", "安装模式显式", "没有盲目整包导入"]
+        },
+        {
+          "id": "agentops.skill-generation-optimization",
+          "problem_zh": "需要生成、诊断、优化或编排 skills，让 agent 能持续进化。",
+          "problem_en": "Generate, diagnose, optimize, or orchestrate skills so the agent system keeps improving.",
+          "task_intents": ["造 skill", "蒸馏人物思维", "skill optimizer", "agent swarm", "prompt 认知调优"],
+          "primary_skills": ["huashu-nuwa", "darwin-skill", "huashu-agent-swarm"],
+          "supporting_skills": ["freud-skill"],
+          "inputs": ["目标能力", "参考人物或流程", "失败样例", "验收标准"],
+          "outputs": ["新 skill", "优化建议", "回归测试", "编排方案"],
+          "acceptance": ["触发边界清楚", "保留反例", "优化有测试", "能回滚不合格改动"]
+        }
+      ]
+    },
+    {
+      "id": "01-idea-discovery",
+      "label_zh": "机会与问题发现",
+      "label_en": "Idea and Problem Discovery",
+      "automation_principle": "先证明问题值得研究，再投入设计和开发。",
+      "nodes": [
+        {
+          "id": "idea-trend-research",
+          "problem_zh": "想找值得做的新方向，但缺少趋势、竞品和用户问题证据。",
+          "problem_en": "Find promising directions with trend, competitor, and user-problem evidence.",
+          "task_intents": ["趋势研究", "竞品扫描", "市场机会", "搜索资料"],
+          "primary_skills": ["deep-research", "anysearch", "competitive-intelligence"],
+          "supporting_skills": ["last30days", "knowledge-synthesis", "agent-reach"],
+          "inputs": ["目标行业", "用户群", "时间窗口", "地理市场"],
+          "outputs": ["机会清单", "证据摘要", "竞品矩阵", "风险假设"],
+          "acceptance": ["每个机会有来源", "区分事实和推断", "列出反证信号", "给出下一步验证任务"]
+        },
+        {
+          "id": "idea-pain-mining",
+          "problem_zh": "不知道用户真正痛点在哪里，需要从评论、社媒、工单或访谈里挖掘。",
+          "problem_en": "Mine real user pain from reviews, social posts, tickets, or interviews.",
+          "task_intents": ["痛点挖掘", "VOC 分析", "差评分析", "用户问题归纳"],
+          "primary_skills": ["dtc-voc-3layer-analysis", "ticket-triage", "baoyu-wechat-summary"],
+          "supporting_skills": ["last30days", "deep-research", "statistical-analysis"],
+          "inputs": ["评论数据", "社媒链接", "工单文本", "访谈纪要"],
+          "outputs": ["痛点分层", "用户原话", "频率和强度", "机会假设"],
+          "acceptance": ["保留原始证据", "区分表层抱怨和深层需求", "可转成验证问题", "标明样本偏差"]
+        },
+        {
+          "id": "idea-domain-recon",
+          "problem_zh": "进入一个陌生行业或品牌，需要先建立基础认知和资产盘点。",
+          "problem_en": "Build baseline knowledge and asset inventory before working in a new domain.",
+          "task_intents": ["品牌侦查", "行业调研", "知识库搭建", "资料整理"],
+          "primary_skills": ["brand-knowledge-base-builder", "dtc-brand-recon", "notebooklm"],
+          "supporting_skills": ["document-generate", "knowledge-synthesis"],
+          "inputs": ["官网", "品牌资料", "竞品", "已有文档"],
+          "outputs": ["品牌知识库", "资产清单", "术语表", "问题地图"],
+          "acceptance": ["关键事实可追溯", "覆盖用户/产品/渠道", "保留待确认问题", "能支持后续 brief"]
+        },
+        {
+          "id": "sensemaking.research-intake",
+          "problem_zh": "需要在选题、写作或决策前完成资料搜索、阅读理解和证据整理。",
+          "problem_en": "Search, read, and structure evidence before topic planning, writing, or decisions.",
+          "task_intents": ["资料搜索", "调研", "阅读顾问", "素材整理", "证据摘要"],
+          "primary_skills": ["huashu-research", "huashu-info-search", "huashu-material-search", "huashu-weread-advisor"],
+          "supporting_skills": ["huashu-data-pro"],
+          "inputs": ["主题", "资料来源", "时间窗口", "输出目标"],
+          "outputs": ["资料清单", "证据摘要", "阅读路径", "可复用素材"],
+          "acceptance": ["区分事实和推断", "保留来源", "能支持后续选题或判断", "标记缺口和偏差"]
+        }
+      ]
+    },
+    {
+      "id": "02-market-validation",
+      "label_zh": "市场与需求验证",
+      "label_en": "Market and Demand Validation",
+      "automation_principle": "用最小证据链验证 ICP、需求强度、付费意愿和反证。",
+      "nodes": [
+        {
+          "id": "market-icp-pressure-test",
+          "problem_zh": "有产品想法，但不知道目标客户、需求强度和是否值得做。",
+          "problem_en": "Pressure-test an idea for ICP, urgency, and whether it is worth building.",
+          "task_intents": ["ICP", "MVP 验证", "创业点子压力测试", "PMF 前验证"],
+          "primary_skills": ["startup-pressure-test", "office-hours", "grill-me"],
+          "supporting_skills": ["idea-refine", "interview-me", "deep-research", "competitive-intelligence"],
+          "inputs": ["产品想法", "目标客户假设", "已有证据", "约束条件"],
+          "outputs": ["强/弱/转向判断", "ICP 描述", "首批客户清单", "2 周验证计划"],
+          "acceptance": ["有反证路径", "定义不做的条件", "首批用户可触达", "MVP 范围足够小"]
+        },
+        {
+          "id": "market-offer-test",
+          "problem_zh": "需要验证 offer、定价、承诺和落地页信息是否能驱动转化。",
+          "problem_en": "Validate offer, pricing, promise, and landing-page messaging.",
+          "task_intents": ["落地页测试", "定价验证", "offer 测试", "冷启动转化"],
+          "primary_skills": ["marketing-psychology", "copywriting", "design-html"],
+          "supporting_skills": ["ux-copy", "data-visualization"],
+          "inputs": ["ICP", "核心痛点", "价格假设", "流量来源"],
+          "outputs": ["offer 文案", "落地页结构", "测试矩阵", "转化指标"],
+          "acceptance": ["承诺具体", "价格和价值匹配", "CTA 可测试", "定义转化阈值"]
+        },
+        {
+          "id": "market-first-users",
+          "problem_zh": "需要找到第一批真实用户并设计触达、访谈和跟进流程。",
+          "problem_en": "Find first real users and design outreach, interview, and follow-up flows.",
+          "task_intents": ["first 10 customers", "冷邮件", "用户访谈", "线索筛选"],
+          "primary_skills": ["draft-outreach", "lead-triage", "account-research"],
+          "supporting_skills": ["email-sequence", "pipeline-review"],
+          "inputs": ["ICP", "候选名单", "触达渠道", "访谈问题"],
+          "outputs": ["触达序列", "线索优先级", "访谈脚本", "跟进记录"],
+          "acceptance": ["名单有筛选理由", "消息不泛化", "记录拒绝原因", "能进入下一轮产品定义"]
+        },
+        {
+          "id": "strategy.persona-judgment",
+          "problem_zh": "需要借助成熟人物的思维模型审视战略、产品、职业或市场判断。",
+          "problem_en": "Use distilled persona reasoning to review strategy, product, career, or market decisions.",
+          "task_intents": ["人物视角", "决策复盘", "商业判断", "产品判断", "职业规划"],
+          "primary_skills": ["munger-perspective", "paul-graham-perspective", "naval-perspective", "zhang-yiming-perspective"],
+          "supporting_skills": ["taleb-perspective", "feynman-perspective", "elon-musk-perspective", "andrej-karpathy-perspective", "steve-jobs-perspective", "ilya-sutskever-perspective", "zhangxuefeng-perspective", "trump-perspective", "sun-yuchen-perspective", "mrbeast-perspective"],
+          "inputs": ["待判断问题", "约束条件", "已有证据", "希望借用的视角"],
+          "outputs": ["多视角判断", "盲点清单", "反证问题", "下一步行动"],
+          "acceptance": ["不把 persona 当权威答案", "说明适用边界", "列出反向证据", "建议能转成行动"]
+        }
+      ]
+    },
+    {
+      "id": "03-product-definition",
+      "label_zh": "产品定义与路线图",
+      "label_en": "Product Definition and Roadmap",
+      "automation_principle": "把验证过的问题收敛为可交付范围、指标和垂直切片。",
+      "nodes": [
+        {
+          "id": "product-prd-scope",
+          "problem_zh": "需求很多，需要变成边界清晰、可执行的 PRD。",
+          "problem_en": "Turn many requirements into a bounded, executable PRD.",
+          "task_intents": ["写 PRD", "需求收敛", "产品范围", "用户故事"],
+          "primary_skills": ["to-prd", "write-spec", "spec-driven-development"],
+          "supporting_skills": ["interview-me", "idea-refine", "grill-with-docs", "stop-slop"],
+          "inputs": ["验证结论", "用户故事", "约束", "非目标"],
+          "outputs": ["PRD", "范围边界", "成功指标", "非目标列表"],
+          "acceptance": ["每个需求有用户问题", "非目标明确", "可拆成 issue", "指标可测量"]
+        },
+        {
+          "id": "product-issue-slicing",
+          "problem_zh": "PRD 太大，需要拆成可独立实现和验收的垂直切片。",
+          "problem_en": "Break a large PRD into independently shippable vertical slices.",
+          "task_intents": ["拆 issue", "任务分解", "story points", "sprint planning"],
+          "primary_skills": ["to-issues", "planning-and-task-breakdown", "sprint-planning", "triage"],
+          "supporting_skills": ["writing-plans", "plan-eng-review"],
+          "inputs": ["PRD", "技术约束", "优先级", "团队容量"],
+          "outputs": ["issue 列表", "依赖关系", "验收标准", "迭代计划"],
+          "acceptance": ["每个 issue 可独立验收", "依赖显式", "优先级可解释", "没有纯技术大泥球任务"]
+        },
+        {
+          "id": "product-metrics-map",
+          "problem_zh": "不知道产品上线后要看哪些指标，也不知道指标如何驱动迭代。",
+          "problem_en": "Define measurable product metrics that drive post-launch iteration.",
+          "task_intents": ["指标体系", "OKR", "KPI", "数据看板"],
+          "primary_skills": ["metrics-review", "data-visualization", "explore-data"],
+          "supporting_skills": ["statistical-analysis", "variance-analysis"],
+          "inputs": ["用户旅程", "业务目标", "事件数据", "当前基线"],
+          "outputs": ["指标树", "仪表盘草案", "异常阈值", "决策规则"],
+          "acceptance": ["北极星指标明确", "输入事件定义清楚", "能触发具体动作", "避免 vanity metrics"]
+        }
+      ]
+    },
+    {
+      "id": "04-design-prototype",
+      "label_zh": "设计、原型与体验验证",
+      "label_en": "Design, Prototype, and UX Validation",
+      "automation_principle": "用可见、可点、可评审的原型降低实现前的不确定性。",
+      "nodes": [
+        {
+          "id": "design-ux-flow",
+          "problem_zh": "需要把需求变成用户能顺畅完成任务的界面流程。",
+          "problem_en": "Turn requirements into a task-focused user experience flow.",
+          "task_intents": ["UX 流程", "信息架构", "交互设计", "微文案"],
+          "primary_skills": ["design-consultation", "ux-copy", "ui-ux-pro-max"],
+          "supporting_skills": ["hig-foundations", "hig-components-controls"],
+          "inputs": ["用户任务", "页面清单", "设备约束", "品牌调性"],
+          "outputs": ["用户流", "信息架构", "界面文案", "交互规则"],
+          "acceptance": ["主流程无断点", "错误状态存在", "文案可执行", "移动和桌面约束都明确"]
+        },
+        {
+          "id": "design-visual-system",
+          "problem_zh": "界面看起来不专业，需要确定视觉方向、配色、字体和组件风格。",
+          "problem_en": "Establish visual direction, color, typography, and component style.",
+          "task_intents": ["视觉设计", "设计系统", "配色", "UI redesign"],
+          "primary_skills": ["design-taste-frontend", "color-expert", "redesign-existing-projects"],
+          "supporting_skills": ["anydesign", "minimalist-ui", "high-end-visual-design", "stitch-design-taste"],
+          "inputs": ["品牌定位", "竞品参考", "目标用户", "现有截图"],
+          "outputs": ["视觉方向", "配色方案", "字体规则", "组件样式"],
+          "acceptance": ["符合产品领域", "无 AI slop", "可落到 CSS", "关键页面风格一致"]
+        },
+        {
+          "id": "design-prototype-review",
+          "problem_zh": "需要快速做出原型并评审是否值得进入工程实现。",
+          "problem_en": "Prototype and review whether a design is ready for implementation.",
+          "task_intents": ["原型", "设计评审", "HTML demo", "可点击页面"],
+          "primary_skills": ["prototype", "design-html", "design-review"],
+          "supporting_skills": ["frontend-ui-engineering", "anydesign", "accessibility-review", "qa-only"],
+          "inputs": ["PRD", "用户流", "视觉方向", "验收标准"],
+          "outputs": ["原型页面", "设计 QA", "可用性问题", "实现建议"],
+          "acceptance": ["主路径可操作", "文本不溢出", "关键状态齐全", "评审问题转成任务"]
+        },
+        {
+          "id": "design.html-native-production",
+          "problem_zh": "需要把内容或方案快速生产成高保真 HTML、幻灯片、PDF 或渠道配图。",
+          "problem_en": "Turn content or plans into high-fidelity HTML, slides, PDFs, or channel-ready visuals.",
+          "task_intents": ["HTML 原型", "PPT", "slides", "公众号配图", "小红书配图", "Markdown 转 PDF"],
+          "primary_skills": ["huashu-design", "huashu-slides", "huashu-slide-codex", "huashu-md-html"],
+          "supporting_skills": ["huashu-md-to-pdf", "huashu-wechat-image", "huashu-xhs-image"],
+          "inputs": ["内容结构", "品牌约束", "目标渠道", "交付格式"],
+          "outputs": ["HTML 页面", "slides", "PDF", "封面或正文配图"],
+          "acceptance": ["视觉服务业务目标", "格式可交付", "文本不溢出", "可在目标渠道使用"]
+        }
+      ]
+    },
+    {
+      "id": "05-build-architecture",
+      "label_zh": "工程构建与架构",
+      "label_en": "Build and Architecture",
+      "automation_principle": "先立边界和合约，再写可测试、可维护、可演进的代码。",
+      "nodes": [
+        {
+          "id": "build-system-design",
+          "problem_zh": "需要设计系统架构、模块边界和技术决策。",
+          "problem_en": "Design system architecture, module boundaries, and technical decisions.",
+          "task_intents": ["系统设计", "架构评审", "技术方案", "模块边界"],
+          "primary_skills": ["system-design", "architecture", "api-and-interface-design"],
+          "supporting_skills": ["source-driven-development", "doubt-driven-development", "documentation-and-adrs", "zoom-out"],
+          "inputs": ["PRD", "约束", "流量和数据量假设", "现有代码"],
+          "outputs": ["架构图", "接口契约", "ADR", "风险清单"],
+          "acceptance": ["边界清楚", "失败模式明确", "接口可测", "避免过早复杂化"]
+        },
+        {
+          "id": "build-tdd-implementation",
+          "problem_zh": "需要实现功能，但要保证行为可验证、改动可控。",
+          "problem_en": "Implement behavior with test-first confidence and controlled changes.",
+          "task_intents": ["TDD", "实现功能", "写测试", "重构"],
+          "primary_skills": ["test-driven-development", "incremental-implementation", "tdd", "executing-plans"],
+          "supporting_skills": ["source-driven-development", "subagent-driven-development", "karpathy-guidelines"],
+          "inputs": ["实现计划", "验收标准", "现有测试", "代码入口"],
+          "outputs": ["失败测试", "实现代码", "通过测试", "变更说明"],
+          "acceptance": ["先红后绿", "测试覆盖公共行为", "改动局部", "无无关重构"]
+        },
+        {
+          "id": "build-maintainability",
+          "problem_zh": "代码能跑但越来越乱，需要降低复杂度和提高可维护性。",
+          "problem_en": "Reduce complexity and improve maintainability in working code.",
+          "task_intents": ["技术债", "复杂度优化", "可维护性", "重构计划"],
+          "primary_skills": ["tech-debt", "code-simplification", "complexity-optimizer", "codebase-maintainability-guardrails"],
+          "supporting_skills": ["antislop-codebase", "improve-codebase-architecture"],
+          "inputs": ["代码库", "性能或维护痛点", "测试结果", "风险边界"],
+          "outputs": ["债务清单", "优先级", "重构补丁", "回归测试"],
+          "acceptance": ["行为不变", "复杂度有证据", "测试能保护改动", "留下后续债务列表"]
+        }
+      ]
+    },
+    {
+      "id": "06-quality-security",
+      "label_zh": "质量、安全与可观测性",
+      "label_en": "Quality, Security, and Observability",
+      "automation_principle": "把发布前风险转成可自动检查的门禁。",
+      "nodes": [
+        {
+          "id": "quality-review-testing",
+          "problem_zh": "需要证明代码质量、测试策略和变更范围是可信的。",
+          "problem_en": "Prove code quality, test strategy, and change scope before shipping.",
+          "task_intents": ["代码审查", "测试策略", "review PR", "回归测试"],
+          "primary_skills": ["code-review", "code-review-and-quality", "review", "test-strategy-hardening"],
+          "supporting_skills": ["browser-testing-with-devtools", "debugging-and-error-recovery", "requesting-code-review", "verification-before-completion"],
+          "inputs": ["diff", "测试命令", "需求来源", "风险区域"],
+          "outputs": ["review findings", "测试缺口", "修复建议", "验收证据"],
+          "acceptance": ["问题有文件行号", "区分严重程度", "测试缺口明确", "不把未验证说成通过"]
+        },
+        {
+          "id": "quality-appsec-hardening",
+          "problem_zh": "需要检查认证、密钥、依赖、CORS、注入和权限风险。",
+          "problem_en": "Check auth, secrets, dependencies, CORS, injection, and permission risks.",
+          "task_intents": ["安全审计", "appsec", "密钥检查", "合规风险"],
+          "primary_skills": ["security-hardening", "security-and-hardening", "compliance-check"],
+          "supporting_skills": ["doubt-driven-development", "risk-assessment", "review-contract"],
+          "inputs": ["代码库", "环境变量", "依赖清单", "部署拓扑"],
+          "outputs": ["安全问题清单", "修复补丁", "剩余风险", "验证命令"],
+          "acceptance": ["不泄漏 secrets", "高危问题优先", "修复可验证", "边界和例外有记录"]
+        },
+        {
+          "id": "quality-observability",
+          "problem_zh": "上线后缺少日志、指标、追踪和告警，出问题很难定位。",
+          "problem_en": "Add logs, metrics, traces, and alerts so production failures are diagnosable.",
+          "task_intents": ["可观测性", "日志", "metrics", "告警"],
+          "primary_skills": ["observability-hardening", "observability-and-instrumentation", "runbook"],
+          "supporting_skills": ["incident-response", "performance-optimization"],
+          "inputs": ["关键用户流", "错误场景", "运行环境", "现有日志"],
+          "outputs": ["日志规范", "指标清单", "告警规则", "排障 runbook"],
+          "acceptance": ["每个关键请求可追踪", "错误有分类", "告警有行动建议", "不记录敏感信息"]
+        },
+        {
+          "id": "quality.anti-ai-slop-review",
+          "problem_zh": "内容、脚本或 agent 输出看起来像 AI 套话，需要审校、打磨和诊断。",
+          "problem_en": "Review, polish, and diagnose content, scripts, or agent output that feels generic or low-quality.",
+          "task_intents": ["审校", "proofreading", "脚本打磨", "视频检查", "演讲教练", "认知调优"],
+          "primary_skills": ["huashu-article-edit", "huashu-proofreading", "huashu-script-polish", "freud-skill"],
+          "supporting_skills": ["huashu-speech-coach", "huashu-video-check"],
+          "inputs": ["原稿", "目标受众", "渠道规范", "质量问题"],
+          "outputs": ["修改稿", "质量问题清单", "发布前检查", "可复用改进建议"],
+          "acceptance": ["指出具体问题", "保留原意", "渠道风格匹配", "修改后可直接发布或演练"]
+        }
+      ]
+    },
+    {
+      "id": "07-launch-deploy",
+      "label_zh": "上线、部署与发布门禁",
+      "label_en": "Launch, Deploy, and Release Gates",
+      "automation_principle": "发布必须有可重复命令、可回滚路径和上线后证据。",
+      "nodes": [
+        {
+          "id": "launch-release-gates",
+          "problem_zh": "准备上线但缺少发布检查、回滚和验收门禁。",
+          "problem_en": "Prepare release gates, rollback, and acceptance checks before launch.",
+          "task_intents": ["上线发布", "release gates", "ship", "launch readiness"],
+          "primary_skills": ["shipping-and-launch", "release-readiness-hardening", "ci-cd-and-automation", "land-and-deploy"],
+          "supporting_skills": ["git-workflow-and-versioning", "documentation-and-adrs", "verification-before-completion", "finishing-a-development-branch"],
+          "inputs": ["release diff", "环境配置", "测试报告", "回滚策略"],
+          "outputs": ["发布清单", "回滚步骤", "冒烟测试", "上线证据"],
+          "acceptance": ["CI 通过", "回滚命令存在", "生产冒烟通过", "风险和监控明确"]
+        },
+        {
+          "id": "launch-static-site",
+          "problem_zh": "需要把文档站、demo 或报告站稳定部署并验证线上结果。",
+          "problem_en": "Deploy and verify docs, demo, or report sites reliably.",
+          "task_intents": ["GitHub Pages", "Vercel 部署", "静态站上线", "部署验证"],
+          "primary_skills": ["deploy-to-vercel", "paper2skills-deploy", "web-design-guidelines"],
+          "supporting_skills": ["browser-testing-with-devtools", "performance-optimization", "seo-audit"],
+          "inputs": ["站点源码", "构建命令", "目标 URL", "验收路由"],
+          "outputs": ["部署记录", "线上 URL", "路由检查", "性能和 SEO 建议"],
+          "acceptance": ["构建可重复", "关键路由 200", "缺失资源不是 HTML 伪 200", "线上版本可追溯"]
+        },
+        {
+          "id": "launch-git-governance",
+          "problem_zh": "多人或多 agent 协作时，Git 操作容易破坏分支和未提交工作。",
+          "problem_en": "Prevent destructive Git operations during multi-agent or multi-branch work.",
+          "task_intents": ["git 安全", "分支治理", "PR 流程", "防止误 push"],
+          "primary_skills": ["git-workflow-and-versioning", "using-git-worktrees", "git-guardrails-claude-code", "codex-review"],
+          "supporting_skills": ["ci-cd-and-automation", "requesting-code-review", "review"],
+          "inputs": ["当前分支", "远端策略", "未提交改动", "PR 状态"],
+          "outputs": ["分支方案", "hook 规则", "PR 检查", "合并建议"],
+          "acceptance": ["不覆盖用户改动", "危险命令被阻止", "PR 与 CI 状态清晰", "push 需明确授权"]
+        }
+      ]
+    },
+    {
+      "id": "08-growth-marketing",
+      "label_zh": "增长、内容与推广",
+      "label_en": "Growth, Content, and Marketing",
+      "automation_principle": "把推广从灵感驱动变成渠道、素材、转化和指标驱动。",
+      "nodes": [
+        {
+          "id": "growth-seo-content",
+          "problem_zh": "需要自然搜索增长，但不知道关键词、页面和内容优先级。",
+          "problem_en": "Grow organic search with keyword, page, and content priorities.",
+          "task_intents": ["SEO 审计", "内容计划", "关键词", "官网优化"],
+          "primary_skills": ["seo-audit", "content-creation", "copywriting"],
+          "supporting_skills": ["md2wechat", "anysearch", "data-visualization"],
+          "inputs": ["网站 URL", "目标客户", "竞品", "当前流量"],
+          "outputs": ["SEO 报告", "关键词优先级", "内容日历", "页面修复 TODO"],
+          "acceptance": ["关键词有意图分类", "页面建议可执行", "内容计划有节奏", "定义跟踪指标"]
+        },
+        {
+          "id": "growth-creative-campaign",
+          "problem_zh": "需要广告、素材、文案和视觉方向来驱动市场活动。",
+          "problem_en": "Create campaign copy, ad ideas, visuals, and creative directions.",
+          "task_intents": ["广告素材", "营销文案", "生图", "campaign"],
+          "primary_skills": ["creative-director", "dtc-commercial-image-gen", "guizang-ppt-skill"],
+          "supporting_skills": ["marketing-psychology", "copywriting", "high-end-visual-design"],
+          "inputs": ["产品卖点", "受众", "渠道", "品牌限制"],
+          "outputs": ["创意路线", "广告文案", "图片提示词", "展示物料"],
+          "acceptance": ["素材对应渠道", "主张不夸大", "视觉可生产", "包含 A/B 测试假设"]
+        },
+        {
+          "id": "growth-retention-email",
+          "problem_zh": "需要通过邮件、onboarding 和生命周期内容提升激活与留存。",
+          "problem_en": "Improve activation and retention through email, onboarding, and lifecycle messaging.",
+          "task_intents": ["邮件序列", "onboarding", "留存", "用户教育"],
+          "primary_skills": ["email-sequence", "onboarding", "ux-copy"],
+          "supporting_skills": ["draft-response", "marketing-psychology"],
+          "inputs": ["用户阶段", "触发事件", "产品价值", "流失原因"],
+          "outputs": ["邮件序列", "onboarding 文案", "触发规则", "指标方案"],
+          "acceptance": ["按生命周期分段", "每封邮件目标清晰", "有退订和合规考虑", "定义激活/留存指标"]
+        },
+        {
+          "id": "content.topic-to-platform",
+          "problem_zh": "需要把一个主题变成适合 X、短视频、公众号或小红书的内容计划。",
+          "problem_en": "Turn one topic into a channel-ready plan for X, short video, WeChat, or Xiaohongshu.",
+          "task_intents": ["选题生成", "X 内容", "视频大纲", "抖音脚本", "内容增长"],
+          "primary_skills": ["huashu-topic-gen", "x-mastery-mentor", "huashu-video-outline", "huashu-douyin-script"],
+          "supporting_skills": ["mrbeast-perspective", "huashu-material-search"],
+          "inputs": ["主题", "目标平台", "受众", "素材"],
+          "outputs": ["选题", "平台脚本", "视频大纲", "发布角度"],
+          "acceptance": ["内容形式匹配平台", "钩子具体", "有素材支撑", "定义发布后的观察指标"]
+        },
+        {
+          "id": "distribution.article-bridge",
+          "problem_zh": "内容已经写好，需要变成可发布、可分发、可保存复用的多平台资产。",
+          "problem_en": "Package finished content into publishable, distributable, reusable multi-platform assets.",
+          "task_intents": ["文章分发", "X Articles", "B站专栏", "公众号", "图床", "prompt 保存"],
+          "primary_skills": ["dukou", "huashu-article-to-x", "huashu-image-upload"],
+          "supporting_skills": ["huashu-prompt-save", "huashu-wechat-image", "huashu-xhs-image"],
+          "inputs": ["定稿内容", "目标平台", "图片素材", "发布规范"],
+          "outputs": ["平台稿件", "图片链接", "发布包", "复用 prompt"],
+          "acceptance": ["平台格式正确", "图片可用", "发布步骤明确", "复用资产已保存"]
+        }
+      ]
+    },
+    {
+      "id": "09-sales-customer",
+      "label_zh": "销售、客服与客户成功",
+      "label_en": "Sales, Support, and Customer Success",
+      "automation_principle": "把客户沟通转成可复用、可优先级排序、可反馈产品的闭环。",
+      "nodes": [
+        {
+          "id": "customer-ticket-response",
+          "problem_zh": "客服工单多且杂，需要分级、草拟回复并沉淀产品反馈。",
+          "problem_en": "Triage support tickets, draft responses, and capture product feedback.",
+          "task_intents": ["工单分流", "客服回复", "客户问题", "FAQ"],
+          "primary_skills": ["ticket-triage", "draft-response", "runbook"],
+          "supporting_skills": ["knowledge-synthesis", "stop-slop"],
+          "inputs": ["工单内容", "客户等级", "产品文档", "服务边界"],
+          "outputs": ["优先级", "回复草稿", "升级路径", "FAQ 更新"],
+          "acceptance": ["紧急问题优先", "回复语气一致", "不承诺无法交付事项", "产品问题被记录"]
+        },
+        {
+          "id": "sales-account-pipeline",
+          "problem_zh": "销售线索和账号信息分散，需要研究、分级和推进管道。",
+          "problem_en": "Research accounts, prioritize leads, and manage pipeline movement.",
+          "task_intents": ["账号研究", "pipeline review", "销售线索", "外联"],
+          "primary_skills": ["account-research", "pipeline-review", "lead-triage"],
+          "supporting_skills": ["draft-outreach", "competitive-intelligence"],
+          "inputs": ["线索列表", "公司信息", "销售阶段", "历史互动"],
+          "outputs": ["账号摘要", "优先级", "下一步动作", "外联草稿"],
+          "acceptance": ["优先级理由明确", "下一步具体到人和时间", "外联个性化", "风险和阻力可见"]
+        },
+        {
+          "id": "customer-education-assets",
+          "problem_zh": "需要把产品能力讲清楚，形成 demo、文档、PPT 或操作材料。",
+          "problem_en": "Explain product value through demos, docs, decks, and enablement assets.",
+          "task_intents": ["Demo 材料", "PPT", "文档", "客户培训"],
+          "primary_skills": ["guizang-ppt-skill", "document-generate", "make-pdf"],
+          "supporting_skills": ["md2wechat", "copywriting", "design-review"],
+          "inputs": ["产品能力", "受众", "使用场景", "品牌素材"],
+          "outputs": ["演示稿", "操作文档", "PDF", "培训脚本"],
+          "acceptance": ["受众语言匹配", "关键流程可复现", "视觉专业", "文件格式可交付"]
+        }
+      ]
+    },
+    {
+      "id": "10-data-feedback",
+      "label_zh": "数据、反馈与洞察",
+      "label_en": "Data, Feedback, and Insights",
+      "automation_principle": "把数据和用户声音转成可决策的证据，而不是堆报表。",
+      "nodes": [
+        {
+          "id": "data-exploration-analysis",
+          "problem_zh": "有数据但不知道质量、分布、异常和下一步分析方向。",
+          "problem_en": "Explore data quality, distribution, anomalies, and next analysis steps.",
+          "task_intents": ["EDA", "数据探索", "统计分析", "SQL"],
+          "primary_skills": ["explore-data", "sql-queries", "statistical-analysis"],
+          "supporting_skills": ["data-visualization", "variance-analysis"],
+          "inputs": ["数据表", "业务问题", "字段说明", "时间范围"],
+          "outputs": ["数据概况", "异常发现", "统计结论", "查询语句"],
+          "acceptance": ["数据质量说明", "结论有统计依据", "图表服务决策", "列出进一步采样需求"]
+        },
+        {
+          "id": "data-business-reporting",
+          "problem_zh": "需要把业务数据转成管理层能决策的图表和报告。",
+          "problem_en": "Turn business data into decision-ready charts and management reports.",
+          "task_intents": ["经营分析", "财务报表", "现金流", "BI prompt"],
+          "primary_skills": ["financial-statements", "cash-flow-snapshot", "bi-prompt-engineering"],
+          "supporting_skills": ["data-visualization", "management-talk"],
+          "inputs": ["财务数据", "经营指标", "受众", "周期"],
+          "outputs": ["管理报告", "图表", "风险提示", "行动建议"],
+          "acceptance": ["指标口径明确", "异常有解释", "建议可执行", "报告语言匹配受众"]
+        },
+        {
+          "id": "feedback-voc-loop",
+          "problem_zh": "需要把用户反馈和行为数据闭环回产品迭代。",
+          "problem_en": "Close the loop from user feedback and behavior data back to product iteration.",
+          "task_intents": ["VOC", "用户反馈", "行为分析", "迭代建议"],
+          "primary_skills": ["dtc-voc-3layer-analysis", "metrics-review", "paper-skills-gap-analysis"],
+          "supporting_skills": ["knowledge-synthesis", "to-issues"],
+          "inputs": ["用户反馈", "指标变化", "版本记录", "支持工单"],
+          "outputs": ["反馈主题", "优先级", "产品假设", "迭代 issue"],
+          "acceptance": ["反馈和指标能互相解释", "优先级有证据", "转成可验证改动", "记录不处理原因"]
+        }
+      ]
+    },
+    {
+      "id": "11-ops-iteration",
+      "label_zh": "运营、监控与持续迭代",
+      "label_en": "Operations, Monitoring, and Iteration",
+      "automation_principle": "上线后用运行证据驱动修复、优化和下一轮迭代。",
+      "nodes": [
+        {
+          "id": "ops-incident-response",
+          "problem_zh": "线上出问题，需要快速分级、止血、沟通和恢复。",
+          "problem_en": "Handle production incidents with triage, mitigation, communication, and recovery.",
+          "task_intents": ["incident", "故障响应", "on-call", "生产问题"],
+          "primary_skills": ["incident-response", "runbook", "diagnose"],
+          "supporting_skills": ["debugging-and-error-recovery", "observability-and-instrumentation", "systematic-debugging", "management-talk"],
+          "inputs": ["告警", "日志", "影响范围", "近期变更"],
+          "outputs": ["事件等级", "止血步骤", "沟通稿", "恢复验证"],
+          "acceptance": ["影响范围明确", "优先止血", "用户沟通一致", "恢复有证据"]
+        },
+        {
+          "id": "ops-performance-iteration",
+          "problem_zh": "系统慢、成本高或体验差，需要定位瓶颈并安全优化。",
+          "problem_en": "Find bottlenecks and safely improve speed, cost, or user experience.",
+          "task_intents": ["性能优化", "成本优化", "N+1", "复杂度热点"],
+          "primary_skills": ["performance-optimization", "complexity-optimizer", "observability-hardening"],
+          "supporting_skills": ["codebase-maintainability-guardrails", "test-strategy-hardening"],
+          "inputs": ["性能数据", "用户路径", "代码热点", "成本基线"],
+          "outputs": ["瓶颈分析", "优化补丁", "基准对比", "回归测试"],
+          "acceptance": ["优化有基线", "无行为回归", "改善可量化", "保留监控"]
+        },
+        {
+          "id": "ops-roadmap-refresh",
+          "problem_zh": "运营一段时间后，需要根据证据更新 roadmap 和下一批任务。",
+          "problem_en": "Refresh roadmap and next tasks from operating evidence.",
+          "task_intents": ["roadmap 更新", "迭代计划", "优先级调整", "复盘转任务"],
+          "primary_skills": ["sprint-planning", "triage", "to-issues"],
+          "supporting_skills": ["deprecation-and-migration", "documentation-and-adrs", "metrics-review", "context-save"],
+          "inputs": ["指标", "反馈", "事故记录", "团队容量"],
+          "outputs": ["roadmap 调整", "下一批 issue", "暂停项", "决策记录"],
+          "acceptance": ["每个优先级有证据", "明确不做事项", "任务可验收", "上下文可恢复"]
+        }
+      ]
+    },
+    {
+      "id": "12-ip-compliance",
+      "label_zh": "合规、法务与资产化",
+      "label_en": "Compliance, Legal, and Assetization",
+      "automation_principle": "把产品和代码资产转成可保护、可交付、可审计的材料。",
+      "nodes": [
+        {
+          "id": "ip-patent-disclosure",
+          "problem_zh": "项目有技术创新，需要挖掘专利点并形成技术交底书。",
+          "problem_en": "Extract patentable invention points and draft patent disclosure materials.",
+          "task_intents": ["专利", "技术交底书", "国知局查新", "专利挖掘"],
+          "primary_skills": ["patent-disclosure-skill", "deep-research", "document-generate"],
+          "supporting_skills": ["make-pdf", "knowledge-synthesis"],
+          "inputs": ["源码", "架构说明", "创新点", "竞品或论文"],
+          "outputs": ["专利点清单", "查新摘要", "交底书", "附图材料"],
+          "acceptance": ["基于真实代码", "创新点可区分", "查新有证据", "人工门禁明确"]
+        },
+        {
+          "id": "ip-software-copyright",
+          "problem_zh": "需要把真实软件项目整理成软著申请材料。",
+          "problem_en": "Prepare software copyright application materials from a real project.",
+          "task_intents": ["软著", "软件著作权", "代码材料", "操作手册"],
+          "primary_skills": ["software-copyright-materials", "document-generate", "make-pdf"],
+          "supporting_skills": ["stop-slop", "review-contract"],
+          "inputs": ["源码", "功能说明", "截图", "申请信息"],
+          "outputs": ["申请表材料", "60 页代码材料", "操作手册", "正式资料包"],
+          "acceptance": ["不编造代码", "材料格式合规", "隐私脱敏", "版本带时间戳"]
+        },
+        {
+          "id": "compliance-contract-risk",
+          "problem_zh": "上线或商业合作前，需要检查合同、合规和风险暴露。",
+          "problem_en": "Review contracts, compliance, and risk before launch or commercial work.",
+          "task_intents": ["合同审查", "合规检查", "风险评估", "NDA"],
+          "primary_skills": ["review-contract", "compliance-check", "risk-assessment"],
+          "supporting_skills": ["security-hardening", "management-talk"],
+          "inputs": ["合同文本", "业务流程", "地区法规", "数据处理方式"],
+          "outputs": ["风险清单", "修改建议", "合规缺口", "决策摘要"],
+          "acceptance": ["风险分级", "建议可谈判", "不替代律师结论", "保留待确认事项"]
+        }
+      ]
+    },
+    {
+      "id": "13-retro-knowledge",
+      "label_zh": "复盘、知识沉淀与再自动化",
+      "label_en": "Retrospective, Knowledge, and Re-automation",
+      "automation_principle": "每次交付都要把经验沉淀回知识库、skill 和下一轮自动化。",
+      "nodes": [
+        {
+          "id": "retro-incident-learning",
+          "problem_zh": "事件或项目结束后，需要复盘根因、时间线和后续行动。",
+          "problem_en": "After an incident or project, capture root cause, timeline, and follow-up actions.",
+          "task_intents": ["post-mortem", "复盘", "5 whys", "行动项"],
+          "primary_skills": ["post-mortem", "debug-mantra", "investigate"],
+          "supporting_skills": ["incident-response", "management-talk"],
+          "inputs": ["时间线", "日志", "决策记录", "影响范围"],
+          "outputs": ["复盘报告", "根因", "行动项", "预防措施"],
+          "acceptance": ["不归咎个人", "行动项有 owner", "验证预防措施", "沉淀到 runbook 或 skill"]
+        },
+        {
+          "id": "retro-knowledge-base",
+          "problem_zh": "项目资料分散，需要整理成可查询、可复用的知识库。",
+          "problem_en": "Turn scattered project material into a searchable and reusable knowledge base.",
+          "task_intents": ["知识库", "文档整理", "NotebookLM", "经验沉淀"],
+          "primary_skills": ["knowledge-synthesis", "notebooklm", "document-generate"],
+          "supporting_skills": ["documentation-and-adrs", "obsidian-markdown", "json-canvas"],
+          "inputs": ["会议记录", "文档", "代码说明", "外部资料"],
+          "outputs": ["知识库结构", "摘要", "引用索引", "后续问题"],
+          "acceptance": ["引用可追溯", "结构服务任务流", "过期内容标记", "能支持下一次检索"]
+        },
+        {
+          "id": "retro-skill-system-update",
+          "problem_zh": "复盘后发现流程可以自动化，需要更新 skill、workflow 或分类。",
+          "problem_en": "After learning, update skills, workflows, or taxonomy so the next run is better.",
+          "task_intents": ["更新 skill", "补 workflow", "分类治理", "自动化复盘"],
+          "primary_skills": ["skill-creator", "paper-skills-gap-analysis", "paper2skills-workflow"],
+          "supporting_skills": ["using-agent-skills", "writing-skills", "context-engineering"],
+          "inputs": ["复盘结论", "重复步骤", "失败样例", "新增规则"],
+          "outputs": ["skill 更新", "workflow 节点", "测试样例", "维护说明"],
+          "acceptance": ["新规则机器可读", "旧问题有回归样例", "触发边界清楚", "更新同步到 docs"]
+        }
+      ]
+    }
+  ]
+}

@@ -139,6 +139,8 @@ def _find_domain_block(lines: list[str], domain: str) -> Optional[tuple[int, int
         re.compile(rf"^\s*%%\s*Domain\s+{num}\s*-\s*{label}\s*$"),
         re.compile(rf"^\s*%%\s*Domain\s*{num}\s*[-:]\s*{label}", re.IGNORECASE),
     ]
+    if domain == "tooling":
+        header_patterns.append(re.compile(r"^\s*%%\s*Tooling\s+domain\s*$", re.IGNORECASE))
     start = None
     for i, line in enumerate(lines):
         for pat in header_patterns:

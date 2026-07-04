@@ -5,7 +5,10 @@
     "role": "给 AI 编码 agent 设计仓库五层架构（Memory / Knowledge / Guardrail / Delegation / Distribution）",
     "extra": "`CLAUDE.md`, skills, hooks, subagents, plugins, agent directory structure, agent guardrails, team-wide agent distribution",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/agent-dev-kit-architecture-designer/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/agent-dev-kit-architecture-designer/SKILL.md"
+    "local_path": "~/.config/opencode/skills/agent-dev-kit-architecture-designer/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance"
+    ]
   },
   {
     "name": "skill-creator",
@@ -13,7 +16,11 @@
     "role": "Create / modify / measure skills（含变异分析与触发准确率优化）",
     "extra": "skill creation, skill creator, run evals, optimize description",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/skill-creator/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/skill-creator/SKILL.md"
+    "local_path": "~/.config/opencode/skills/skill-creator/SKILL.md",
+    "problem_nodes": [
+      "agent-skill-authoring",
+      "retro-skill-system-update"
+    ]
   },
   {
     "name": "brainstorming",
@@ -21,7 +28,8 @@
     "role": "头脑风暴/发散",
     "extra": "brainstorm,ideation,divergent",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/brainstorming/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/brainstorming/SKILL.md"
+    "local_path": "~/.config/opencode/skills/brainstorming/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "dispatching-parallel-agents",
@@ -29,7 +37,8 @@
     "role": "并行调度子代理",
     "extra": "parallel,subagent,dispatch",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dispatching-parallel-agents/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dispatching-parallel-agents/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dispatching-parallel-agents/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "subagent-driven-development",
@@ -37,7 +46,10 @@
     "role": "子代理驱动开发",
     "extra": "subagent,delegation,parallel",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/subagent-driven-development/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/subagent-driven-development/SKILL.md"
+    "local_path": "~/.config/opencode/skills/subagent-driven-development/SKILL.md",
+    "problem_nodes": [
+      "build-tdd-implementation"
+    ]
   },
   {
     "name": "systematic-debugging",
@@ -45,7 +57,10 @@
     "role": "系统化调试方法论",
     "extra": "debug,systematic,hypothesis",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/systematic-debugging/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/systematic-debugging/SKILL.md"
+    "local_path": "~/.config/opencode/skills/systematic-debugging/SKILL.md",
+    "problem_nodes": [
+      "ops-incident-response"
+    ]
   },
   {
     "name": "test-driven-development",
@@ -53,7 +68,10 @@
     "role": "测试驱动开发 TDD",
     "extra": "tdd,test-first,red-green-refactor",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/test-driven-development/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/test-driven-development/SKILL.md"
+    "local_path": "~/.config/opencode/skills/test-driven-development/SKILL.md",
+    "problem_nodes": [
+      "build-tdd-implementation"
+    ]
   },
   {
     "name": "using-superpowers",
@@ -61,7 +79,10 @@
     "role": "使用 superpowers 入口",
     "extra": "superpowers,index,meta",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/using-superpowers/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/using-superpowers/SKILL.md"
+    "local_path": "~/.config/opencode/skills/using-superpowers/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance"
+    ]
   },
   {
     "name": "writing-plans",
@@ -69,7 +90,10 @@
     "role": "撰写工程计划",
     "extra": "plan,spec,decompose",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/writing-plans/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/writing-plans/SKILL.md"
+    "local_path": "~/.config/opencode/skills/writing-plans/SKILL.md",
+    "problem_nodes": [
+      "product-issue-slicing"
+    ]
   },
   {
     "name": "writing-skills",
@@ -77,7 +101,11 @@
     "role": "撰写 skill 文件",
     "extra": "skill,write,frontmatter",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/writing-skills/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/writing-skills/SKILL.md"
+    "local_path": "~/.config/opencode/skills/writing-skills/SKILL.md",
+    "problem_nodes": [
+      "agent-skill-authoring",
+      "retro-skill-system-update"
+    ]
   },
   {
     "name": "autoplan",
@@ -85,7 +113,8 @@
     "role": "一键跑完 4 个 plan review",
     "extra": "autoplan,plan review,CEO,eng,design,DX",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/autoplan/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/autoplan/SKILL.md"
+    "local_path": "~/.config/opencode/skills/autoplan/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "investigate",
@@ -93,7 +122,10 @@
     "role": "系统化调试 + 根因分析",
     "extra": "investigate,root cause,debug,Iron Law",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/investigate/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/investigate/SKILL.md"
+    "local_path": "~/.config/opencode/skills/investigate/SKILL.md",
+    "problem_nodes": [
+      "retro-incident-learning"
+    ]
   },
   {
     "name": "office-hours",
@@ -101,7 +133,10 @@
     "role": "YC Office Hours（6 forcing questions）",
     "extra": "office hours,YC,founder,demand,desperation",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/office-hours/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/office-hours/SKILL.md"
+    "local_path": "~/.config/opencode/skills/office-hours/SKILL.md",
+    "problem_nodes": [
+      "market-icp-pressure-test"
+    ]
   },
   {
     "name": "plan-ceo-review",
@@ -109,7 +144,8 @@
     "role": "创始人视角评审 plan（10-star 产品）",
     "extra": "plan review,CEO,founder mode,10-star",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-ceo-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/plan-ceo-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/plan-ceo-review/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "plan-eng-review",
@@ -117,7 +153,10 @@
     "role": "工程经理视角评审 plan（架构、测试）",
     "extra": "plan review,eng manager,architecture,test",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-eng-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/plan-eng-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/plan-eng-review/SKILL.md",
+    "problem_nodes": [
+      "product-issue-slicing"
+    ]
   },
   {
     "name": "plan-design-review",
@@ -125,7 +164,8 @@
     "role": "设计师视角评审 plan（0-10 评分）",
     "extra": "plan review,design,visual,UX",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-design-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/plan-design-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/plan-design-review/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "plan-devex-review",
@@ -133,7 +173,8 @@
     "role": "开发体验视角评审 plan",
     "extra": "plan review,DX,developer experience",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-devex-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/plan-devex-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/plan-devex-review/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "plan-tune",
@@ -141,7 +182,8 @@
     "role": "plan 系统自调优 + 用户心理画像",
     "extra": "plan tune,psychographic,question sensitivity",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/plan-tune/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/plan-tune/SKILL.md"
+    "local_path": "~/.config/opencode/skills/plan-tune/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "qa",
@@ -149,7 +191,8 @@
     "role": "自动 QA 测试 + 迭代修 bug",
     "extra": "QA,bug fix,web app testing,iterate",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/qa/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/qa/SKILL.md"
+    "local_path": "~/.config/opencode/skills/qa/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "qa-only",
@@ -157,7 +200,10 @@
     "role": "只测不修，出 QA 报告",
     "extra": "QA report,health score,screenshot",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/qa-only/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/qa-only/SKILL.md"
+    "local_path": "~/.config/opencode/skills/qa-only/SKILL.md",
+    "problem_nodes": [
+      "design-prototype-review"
+    ]
   },
   {
     "name": "context-save",
@@ -165,7 +211,11 @@
     "role": "保存工作上下文（git + 决策 + 未完）",
     "extra": "context save,session,handoff,git state",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/context-save/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/context-save/SKILL.md"
+    "local_path": "~/.config/opencode/skills/context-save/SKILL.md",
+    "problem_nodes": [
+      "agent-session-continuity",
+      "ops-roadmap-refresh"
+    ]
   },
   {
     "name": "context-restore",
@@ -173,7 +223,10 @@
     "role": "恢复之前保存的工作上下文",
     "extra": "context restore,resume session,last branch",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/context-restore/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/context-restore/SKILL.md"
+    "local_path": "~/.config/opencode/skills/context-restore/SKILL.md",
+    "problem_nodes": [
+      "agent-session-continuity"
+    ]
   },
   {
     "name": "diagnose",
@@ -181,7 +234,10 @@
     "role": "Disciplined bug/perf diagnosis loop — reproduce → minimise → hypothesise → instrument → fix → regression-test",
     "extra": "diagnose this, debug this, something is broken, performance regression",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/diagnose/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/diagnose/SKILL.md"
+    "local_path": "~/.config/opencode/skills/diagnose/SKILL.md",
+    "problem_nodes": [
+      "ops-incident-response"
+    ]
   },
   {
     "name": "grill-with-docs",
@@ -189,7 +245,10 @@
     "role": "Stress-test a plan against domain model and docs, sharpen terminology, update CONTEXT.md/ADRs inline",
     "extra": "stress-test plan against docs, challenge my design, sharpen terminology",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/grill-with-docs/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/grill-with-docs/SKILL.md"
+    "local_path": "~/.config/opencode/skills/grill-with-docs/SKILL.md",
+    "problem_nodes": [
+      "product-prd-scope"
+    ]
   },
   {
     "name": "improve-codebase-architecture",
@@ -197,7 +256,10 @@
     "role": "Surface architectural friction and deepening opportunities — testability, AI-navigability, module cohesion",
     "extra": "improve architecture, find refactoring, make codebase AI-navigable",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/improve-codebase-architecture/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/improve-codebase-architecture/SKILL.md"
+    "local_path": "~/.config/opencode/skills/improve-codebase-architecture/SKILL.md",
+    "problem_nodes": [
+      "build-maintainability"
+    ]
   },
   {
     "name": "to-issues",
@@ -205,7 +267,12 @@
     "role": "Break plan/spec/PRD into independently-grabbable vertical-slice issues on the project tracker",
     "extra": "convert plan to issues, create implementation tickets, break down work",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/to-issues/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/to-issues/SKILL.md"
+    "local_path": "~/.config/opencode/skills/to-issues/SKILL.md",
+    "problem_nodes": [
+      "product-issue-slicing",
+      "feedback-voc-loop",
+      "ops-roadmap-refresh"
+    ]
   },
   {
     "name": "to-prd",
@@ -213,7 +280,10 @@
     "role": "Synthesize conversation context into a PRD and publish to the issue tracker",
     "extra": "create PRD from context, turn conversation into PRD",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/to-prd/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/to-prd/SKILL.md"
+    "local_path": "~/.config/opencode/skills/to-prd/SKILL.md",
+    "problem_nodes": [
+      "product-prd-scope"
+    ]
   },
   {
     "name": "triage",
@@ -221,7 +291,11 @@
     "role": "State-machine triage of issues through roles: clarify, estimate, prioritize, assign",
     "extra": "create issue, triage bugs, review incoming feature requests, manage issue workflow",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/triage/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/triage/SKILL.md"
+    "local_path": "~/.config/opencode/skills/triage/SKILL.md",
+    "problem_nodes": [
+      "product-issue-slicing",
+      "ops-roadmap-refresh"
+    ]
   },
   {
     "name": "zoom-out",
@@ -229,7 +303,10 @@
     "role": "Map all relevant modules and callers using project domain glossary for unfamiliar code areas",
     "extra": "zoom out, unfamiliar with code, bigger picture, how does this fit",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/zoom-out/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/zoom-out/SKILL.md"
+    "local_path": "~/.config/opencode/skills/zoom-out/SKILL.md",
+    "problem_nodes": [
+      "build-system-design"
+    ]
   },
   {
     "name": "caveman",
@@ -237,7 +314,10 @@
     "role": "Ultra-compressed ~75% token-saving mode — full technical accuracy, zero filler",
     "extra": "caveman mode, less tokens, be brief, talk like caveman",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/caveman/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/caveman/SKILL.md"
+    "local_path": "~/.config/opencode/skills/caveman/SKILL.md",
+    "problem_nodes": [
+      "agent-session-continuity"
+    ]
   },
   {
     "name": "grill-me",
@@ -245,7 +325,10 @@
     "role": "Relentless interview on a plan/design until shared understanding, resolving decision-tree branches",
     "extra": "grill me, stress-test my plan, interview me on design",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/grill-me/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/grill-me/SKILL.md"
+    "local_path": "~/.config/opencode/skills/grill-me/SKILL.md",
+    "problem_nodes": [
+      "market-icp-pressure-test"
+    ]
   },
   {
     "name": "handoff",
@@ -253,7 +336,10 @@
     "role": "Compact current conversation into a handoff doc for a fresh agent to continue work",
     "extra": "handoff, create handoff doc, pass to next agent",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/handoff/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/handoff/SKILL.md"
+    "local_path": "~/.config/opencode/skills/handoff/SKILL.md",
+    "problem_nodes": [
+      "agent-session-continuity"
+    ]
   },
   {
     "name": "debug-mantra",
@@ -261,7 +347,10 @@
     "role": "🆕 Structured debugging mantra — systematic approach to root cause, from 9arm-skills",
     "extra": "debug mantra, debugging discipline, root cause",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/debug-mantra/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/debug-mantra/SKILL.md"
+    "local_path": "~/.config/opencode/skills/debug-mantra/SKILL.md",
+    "problem_nodes": [
+      "retro-incident-learning"
+    ]
   },
   {
     "name": "scrutinize",
@@ -269,7 +358,8 @@
     "role": "🆕 Deep code scrutiny for correctness, edge cases, and hidden assumptions",
     "extra": "scrutinize code, code correctness, edge case analysis",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/scrutinize/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/scrutinize/SKILL.md"
+    "local_path": "~/.config/opencode/skills/scrutinize/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "post-mortem",
@@ -277,7 +367,10 @@
     "role": "🆕 Structured post-mortem: 5-whys, timeline, action items, from 9arm-skills",
     "extra": "post-mortem, incident review, 5-whys, retrospective",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/post-mortem/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/post-mortem/SKILL.md"
+    "local_path": "~/.config/opencode/skills/post-mortem/SKILL.md",
+    "problem_nodes": [
+      "retro-incident-learning"
+    ]
   },
   {
     "name": "management-talk",
@@ -285,7 +378,14 @@
     "role": "🆕 Translate technical work into business language for stakeholders",
     "extra": "management communication, stakeholder update, progress report",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/management-talk/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/management-talk/SKILL.md"
+    "local_path": "~/.config/opencode/skills/management-talk/SKILL.md",
+    "problem_nodes": [
+      "agent-session-continuity",
+      "data-business-reporting",
+      "ops-incident-response",
+      "compliance-contract-risk",
+      "retro-incident-learning"
+    ]
   },
   {
     "name": "academic-paper",
@@ -293,7 +393,8 @@
     "role": "🆕 12-agent academic paper pipeline: research → write → review → revise → finalize",
     "extra": "academic paper, research writing, literature review",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/academic-paper/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/academic-paper/SKILL.md"
+    "local_path": "~/.config/opencode/skills/academic-paper/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "academic-paper-reviewer",
@@ -301,7 +402,8 @@
     "role": "🆕 Peer review simulation for academic papers",
     "extra": "academic paper review, peer review, paper critique",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/academic-paper-reviewer/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/academic-paper-reviewer/SKILL.md"
+    "local_path": "~/.config/opencode/skills/academic-paper-reviewer/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "academic-pipeline",
@@ -309,7 +411,8 @@
     "role": "🆕 End-to-end research publication pipeline orchestration",
     "extra": "academic pipeline, research workflow, publication",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/academic-pipeline/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/academic-pipeline/SKILL.md"
+    "local_path": "~/.config/opencode/skills/academic-pipeline/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "deep-research",
@@ -317,7 +420,13 @@
     "role": "🆕 Universal deep research: multi-source synthesis, evidence grounding",
     "extra": "deep research, multi-source, evidence-based research",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/deep-research/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/deep-research/SKILL.md"
+    "local_path": "~/.config/opencode/skills/deep-research/SKILL.md",
+    "problem_nodes": [
+      "idea-trend-research",
+      "idea-pain-mining",
+      "market-icp-pressure-test",
+      "ip-patent-disclosure"
+    ]
   },
   {
     "name": "stop-slop",
@@ -325,7 +434,13 @@
     "role": "🆕 Remove AI writing tells, structural clichés, overused phrases",
     "extra": "stop slop, AI writing cleanup, prose quality, anti-generic",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/stop-slop/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/stop-slop/SKILL.md"
+    "local_path": "~/.config/opencode/skills/stop-slop/SKILL.md",
+    "problem_nodes": [
+      "agent-skill-authoring",
+      "product-prd-scope",
+      "customer-ticket-response",
+      "ip-software-copyright"
+    ]
   },
   {
     "name": "architecture",
@@ -333,7 +448,10 @@
     "role": "🆕 Anthropic kw-plugins: architecture review and design decisions",
     "extra": "architecture review, system architecture, tech decisions",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/architecture/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/architecture/SKILL.md"
+    "local_path": "~/.config/opencode/skills/architecture/SKILL.md",
+    "problem_nodes": [
+      "build-system-design"
+    ]
   },
   {
     "name": "debug",
@@ -341,7 +459,8 @@
     "role": "🆕 Anthropic kw-plugins: structured debugging workflow",
     "extra": "debug workflow, structured debugging, bug investigation",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/debug/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/debug/SKILL.md"
+    "local_path": "~/.config/opencode/skills/debug/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "system-design",
@@ -349,7 +468,10 @@
     "role": "🆕 Anthropic kw-plugins: system design documentation",
     "extra": "system design, scalability, design doc, distributed systems",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/system-design/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/system-design/SKILL.md"
+    "local_path": "~/.config/opencode/skills/system-design/SKILL.md",
+    "problem_nodes": [
+      "build-system-design"
+    ]
   },
   {
     "name": "tech-debt",
@@ -357,7 +479,10 @@
     "role": "🆕 Anthropic kw-plugins: tech debt identification and prioritization",
     "extra": "tech debt, refactoring priority, code quality",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/tech-debt/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/tech-debt/SKILL.md"
+    "local_path": "~/.config/opencode/skills/tech-debt/SKILL.md",
+    "problem_nodes": [
+      "build-maintainability"
+    ]
   },
   {
     "name": "incident-response",
@@ -365,7 +490,12 @@
     "role": "🆕 Anthropic kw-plugins: incident response and coordination",
     "extra": "incident response, outage, production issue, on-call",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/incident-response/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/incident-response/SKILL.md"
+    "local_path": "~/.config/opencode/skills/incident-response/SKILL.md",
+    "problem_nodes": [
+      "quality-observability",
+      "ops-incident-response",
+      "retro-incident-learning"
+    ]
   },
   {
     "name": "write-spec",
@@ -373,7 +503,10 @@
     "role": "🆕 Anthropic kw-plugins: engineering specs and technical requirements",
     "extra": "write spec, technical spec, RFC, requirements",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/write-spec/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/write-spec/SKILL.md"
+    "local_path": "~/.config/opencode/skills/write-spec/SKILL.md",
+    "problem_nodes": [
+      "product-prd-scope"
+    ]
   },
   {
     "name": "sprint-planning",
@@ -381,7 +514,11 @@
     "role": "🆕 Anthropic kw-plugins: sprint planning and story estimation",
     "extra": "sprint planning, story points, backlog grooming",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/sprint-planning/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/sprint-planning/SKILL.md"
+    "local_path": "~/.config/opencode/skills/sprint-planning/SKILL.md",
+    "problem_nodes": [
+      "product-issue-slicing",
+      "ops-roadmap-refresh"
+    ]
   },
   {
     "name": "metrics-review",
@@ -389,7 +526,12 @@
     "role": "🆕 Anthropic kw-plugins: product metrics review and OKR analysis",
     "extra": "metrics review, KPI, product metrics, OKR",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/metrics-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/metrics-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/metrics-review/SKILL.md",
+    "problem_nodes": [
+      "product-metrics-map",
+      "feedback-voc-loop",
+      "ops-roadmap-refresh"
+    ]
   },
   {
     "name": "knowledge-synthesis",
@@ -397,7 +539,15 @@
     "role": "🆕 Anthropic kw-plugins: synthesize info from multiple sources",
     "extra": "knowledge synthesis, research synthesis, multi-source",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/knowledge-synthesis/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/knowledge-synthesis/SKILL.md"
+    "local_path": "~/.config/opencode/skills/knowledge-synthesis/SKILL.md",
+    "problem_nodes": [
+      "idea-trend-research",
+      "idea-domain-recon",
+      "customer-ticket-response",
+      "feedback-voc-loop",
+      "ip-patent-disclosure",
+      "retro-knowledge-base"
+    ]
   },
   {
     "name": "search",
@@ -405,7 +555,8 @@
     "role": "🆕 Anthropic kw-plugins: enterprise search strategy",
     "extra": "enterprise search, knowledge base search, search strategy",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/search/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/search/SKILL.md"
+    "local_path": "~/.config/opencode/skills/search/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "code-review",
@@ -413,7 +564,10 @@
     "role": "🆕 Anthropic kw-plugins: structured code review for engineering teams",
     "extra": "code review workflow, PR review, engineering review",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/code-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/code-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/code-review/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing"
+    ]
   },
   {
     "name": "analyzing-threat-actor-ttps-with-mitre-attack",
@@ -421,7 +575,8 @@
     "role": "🆕 MITRE ATT&CK TTP analysis — maps adversary behavior to framework",
     "extra": "threat analysis, MITRE ATT&CK, TTP, threat intel",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/analyzing-threat-actor-ttps-with-mitre-attack/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/analyzing-threat-actor-ttps-with-mitre-attack/SKILL.md"
+    "local_path": "~/.config/opencode/skills/analyzing-threat-actor-ttps-with-mitre-attack/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "implementing-honeypot-for-ransomware-detection",
@@ -429,7 +584,8 @@
     "role": "🆕 Honeypot implementation for ransomware early detection",
     "extra": "honeypot, ransomware detection, deception security",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/implementing-honeypot-for-ransomware-detection/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/implementing-honeypot-for-ransomware-detection/SKILL.md"
+    "local_path": "~/.config/opencode/skills/implementing-honeypot-for-ransomware-detection/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "codegraph-add-lang",
@@ -437,7 +593,8 @@
     "role": "CodeGraph language support implementation SOP",
     "extra": "/add-lang, tree-sitter, codegraph",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codegraph-add-lang/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/codegraph-add-lang/SKILL.md"
+    "local_path": "~/.config/opencode/skills/codegraph-add-lang/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "codegraph-agent-eval",
@@ -445,7 +602,8 @@
     "role": "CodeGraph retrieval benchmark SOP",
     "extra": "/agent-eval, benchmark, codegraph",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codegraph-agent-eval/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/codegraph-agent-eval/SKILL.md"
+    "local_path": "~/.config/opencode/skills/codegraph-agent-eval/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "paper-skills-gap-analysis",
@@ -453,7 +611,12 @@
     "role": "Skills graph coverage gap analysis SOP",
     "extra": "skills graph 缺口, 推荐新选题方向, Sprint 选题",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper-skills-gap-analysis/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/paper-skills-gap-analysis/SKILL.md"
+    "local_path": "~/.config/opencode/skills/paper-skills-gap-analysis/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance",
+      "feedback-voc-loop",
+      "retro-skill-system-update"
+    ]
   },
   {
     "name": "paper2skills-workflow",
@@ -461,7 +624,11 @@
     "role": "paper2skills 端到端生产工作流",
     "extra": "选题, 萃取论文, 新增 Skill, 完整流程",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-workflow/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/paper2skills-workflow/SKILL.md"
+    "local_path": "~/.config/opencode/skills/paper2skills-workflow/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance",
+      "retro-skill-system-update"
+    ]
   },
   {
     "name": "context-engineering",
@@ -469,7 +636,12 @@
     "role": "Agent 上下文工程",
     "extra": "CLAUDE.md, context, rules files",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/context-engineering/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/context-engineering/SKILL.md"
+    "local_path": "~/.config/opencode/skills/context-engineering/SKILL.md",
+    "problem_nodes": [
+      "agent-skill-authoring",
+      "agent-workflow-governance",
+      "retro-skill-system-update"
+    ]
   },
   {
     "name": "source-driven-development",
@@ -477,7 +649,11 @@
     "role": "官方文档驱动实现",
     "extra": "official docs, source-cited, framework correctness",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/source-driven-development/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/source-driven-development/SKILL.md"
+    "local_path": "~/.config/opencode/skills/source-driven-development/SKILL.md",
+    "problem_nodes": [
+      "build-system-design",
+      "build-tdd-implementation"
+    ]
   },
   {
     "name": "spec-driven-development",
@@ -485,7 +661,10 @@
     "role": "先规格后实现",
     "extra": "spec, requirements, plan, tasks",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/spec-driven-development/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/spec-driven-development/SKILL.md"
+    "local_path": "~/.config/opencode/skills/spec-driven-development/SKILL.md",
+    "problem_nodes": [
+      "product-prd-scope"
+    ]
   },
   {
     "name": "api-and-interface-design",
@@ -493,7 +672,148 @@
     "role": "API/模块接口设计",
     "extra": "REST, GraphQL, type contracts, boundaries",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/api-and-interface-design/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/api-and-interface-design/SKILL.md"
+    "local_path": "~/.config/opencode/skills/api-and-interface-design/SKILL.md",
+    "problem_nodes": [
+      "build-system-design"
+    ]
+  },
+  {
+    "name": "planning-with-files",
+    "domain": "meta",
+    "role": "长任务持久化计划与上下文恢复",
+    "extra": "plan out, break down, context recovery",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/planning-with-files/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/planning-with-files/SKILL.md",
+    "problem_nodes": [
+      "agent-session-continuity"
+    ]
+  },
+  {
+    "name": "agnix",
+    "domain": "meta",
+    "role": "Agent/skill/hooks/MCP 配置 lint",
+    "extra": "lint agent configs, validate skills, lint MCP",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/agnix/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/agnix/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance"
+    ]
+  },
+  {
+    "name": "interview-me",
+    "domain": "meta",
+    "role": "一问一答澄清真实意图",
+    "extra": "interview me, clarify requirements, one question at a time",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/interview-me/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/interview-me/SKILL.md",
+    "problem_nodes": [
+      "market-icp-pressure-test",
+      "product-prd-scope"
+    ]
+  },
+  {
+    "name": "idea-refine",
+    "domain": "meta",
+    "role": "把原始想法打磨成可执行概念",
+    "extra": "refine idea, ideation, sharpen concept",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/idea-refine/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/idea-refine/SKILL.md",
+    "problem_nodes": [
+      "market-icp-pressure-test",
+      "product-prd-scope"
+    ]
+  },
+  {
+    "name": "planning-and-task-breakdown",
+    "domain": "meta",
+    "role": "把规格拆成有依赖顺序的可验收任务",
+    "extra": "task breakdown, implementation plan, ordered tasks",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/planning-and-task-breakdown/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/planning-and-task-breakdown/SKILL.md",
+    "problem_nodes": [
+      "product-issue-slicing"
+    ]
+  },
+  {
+    "name": "incremental-implementation",
+    "domain": "meta",
+    "role": "用薄切片增量交付多文件改动",
+    "extra": "incremental implementation, vertical slice, multi-file change",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/incremental-implementation/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/incremental-implementation/SKILL.md",
+    "problem_nodes": [
+      "build-tdd-implementation"
+    ]
+  },
+  {
+    "name": "doubt-driven-development",
+    "domain": "meta",
+    "role": "用新上下文质疑高风险决策",
+    "extra": "doubt, adversarial review, high-stakes decision",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/doubt-driven-development/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/doubt-driven-development/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance",
+      "build-system-design",
+      "quality-appsec-hardening"
+    ]
+  },
+  {
+    "name": "using-agent-skills",
+    "domain": "meta",
+    "role": "Addy agent-skills 套件路由入口",
+    "extra": "agent skills, skill routing, use skills",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/using-agent-skills/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/using-agent-skills/SKILL.md",
+    "problem_nodes": [
+      "agent-workflow-governance",
+      "retro-skill-system-update"
+    ]
+  },
+  {
+    "name": "huashu-nuwa",
+    "domain": "meta",
+    "role": "Distill people, operating models, and decision patterns into runnable skills.",
+    "extra": "07-agent-ops / agentops.skill-generation-optimization",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-nuwa/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-nuwa/SKILL.md",
+    "problem_nodes": [
+      "agentops.skill-generation-optimization"
+    ]
+  },
+  {
+    "name": "darwin-skill",
+    "domain": "meta",
+    "role": "Evaluate, improve, test, keep, or roll back skills through an optimization loop.",
+    "extra": "07-agent-ops / agentops.skill-generation-optimization",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/darwin-skill/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/darwin-skill/SKILL.md",
+    "problem_nodes": [
+      "agentops.skill-generation-optimization"
+    ]
+  },
+  {
+    "name": "freud-skill",
+    "domain": "meta",
+    "role": "Diagnose and tune prompts, skills, and agents through cognitive and interpretability frames.",
+    "extra": "05-quality-review / quality.anti-ai-slop-review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/freud-skill/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/freud-skill/SKILL.md",
+    "problem_nodes": [
+      "agentops.skill-generation-optimization",
+      "quality.anti-ai-slop-review"
+    ]
+  },
+  {
+    "name": "huashu-agent-swarm",
+    "domain": "meta",
+    "role": "Coordinate multiple agents for content and production workflows.",
+    "extra": "07-agent-ops / agentops.skill-generation-optimization",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-agent-swarm/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-agent-swarm/SKILL.md",
+    "problem_nodes": [
+      "agentops.skill-generation-optimization"
+    ]
   },
   {
     "name": "codex-review",
@@ -501,7 +821,10 @@
     "role": "用 `codex review` 做提交前的二次审查（uncommitted / PR vs main / 并行测试）",
     "extra": "`codex review`, autoreview, 二次审查, 提交前审查, ship/commit/PR 前的最后检查",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codex-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/codex-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/codex-review/SKILL.md",
+    "problem_nodes": [
+      "launch-git-governance"
+    ]
   },
   {
     "name": "executing-plans",
@@ -509,7 +832,10 @@
     "role": "按计划执行",
     "extra": "execute,plan,follow",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/executing-plans/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/executing-plans/SKILL.md"
+    "local_path": "~/.config/opencode/skills/executing-plans/SKILL.md",
+    "problem_nodes": [
+      "build-tdd-implementation"
+    ]
   },
   {
     "name": "finishing-a-development-branch",
@@ -517,7 +843,10 @@
     "role": "结束开发分支",
     "extra": "branch,finish,merge",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/finishing-a-development-branch/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/finishing-a-development-branch/SKILL.md"
+    "local_path": "~/.config/opencode/skills/finishing-a-development-branch/SKILL.md",
+    "problem_nodes": [
+      "launch-release-gates"
+    ]
   },
   {
     "name": "receiving-code-review",
@@ -525,7 +854,8 @@
     "role": "接收代码评审反馈",
     "extra": "code review,receive,respond",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/receiving-code-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/receiving-code-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/receiving-code-review/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "requesting-code-review",
@@ -533,7 +863,11 @@
     "role": "发起代码评审请求",
     "extra": "code review,request,prepare",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/requesting-code-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/requesting-code-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/requesting-code-review/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing",
+      "launch-git-governance"
+    ]
   },
   {
     "name": "using-git-worktrees",
@@ -541,7 +875,10 @@
     "role": "使用 git worktree",
     "extra": "worktree,git,parallel-branch",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/using-git-worktrees/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/using-git-worktrees/SKILL.md"
+    "local_path": "~/.config/opencode/skills/using-git-worktrees/SKILL.md",
+    "problem_nodes": [
+      "launch-git-governance"
+    ]
   },
   {
     "name": "verification-before-completion",
@@ -549,7 +886,11 @@
     "role": "完成前的验证",
     "extra": "verify,evidence,proof",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/verification-before-completion/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/verification-before-completion/SKILL.md"
+    "local_path": "~/.config/opencode/skills/verification-before-completion/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing",
+      "launch-release-gates"
+    ]
   },
   {
     "name": "land-and-deploy",
@@ -557,7 +898,10 @@
     "role": "merge PR + 等 CI + 部署 + canary 验证",
     "extra": "land,deploy,merge PR,canary,CI",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/land-and-deploy/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/land-and-deploy/SKILL.md"
+    "local_path": "~/.config/opencode/skills/land-and-deploy/SKILL.md",
+    "problem_nodes": [
+      "launch-release-gates"
+    ]
   },
   {
     "name": "release-readiness-hardening",
@@ -565,7 +909,10 @@
     "role": "安全发布门控：环境验证、部署检查、冒烟测试、回滚路径、功能开关",
     "extra": "release gates, deploy checklist, smoke tests, rollback, feature flags",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/release-readiness-hardening/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/release-readiness-hardening/SKILL.md"
+    "local_path": "~/.config/opencode/skills/release-readiness-hardening/SKILL.md",
+    "problem_nodes": [
+      "launch-release-gates"
+    ]
   },
   {
     "name": "test-strategy-hardening",
@@ -573,7 +920,11 @@
     "role": "审计并强化测试套件，确保测试真正覆盖关键行为而非装饰性断言",
     "extra": "test strategy, flaky tests, contract tests, coverage, regression, e2e",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/test-strategy-hardening/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/test-strategy-hardening/SKILL.md"
+    "local_path": "~/.config/opencode/skills/test-strategy-hardening/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing",
+      "ops-performance-iteration"
+    ]
   },
   {
     "name": "karpathy-guidelines",
@@ -581,7 +932,10 @@
     "role": "LLM coding anti-pattern guardrails — think before coding, simplicity first, surgical changes, goal-driven execution",
     "extra": "writing code, code review, refactoring",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/karpathy-guidelines/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/karpathy-guidelines/SKILL.md"
+    "local_path": "~/.config/opencode/skills/karpathy-guidelines/SKILL.md",
+    "problem_nodes": [
+      "build-tdd-implementation"
+    ]
   },
   {
     "name": "prototype",
@@ -589,7 +943,10 @@
     "role": "Throwaway prototype to answer a design question — terminal app for logic, multi-variation UI for design options",
     "extra": "prototype this, sanity-check data model, try a few designs",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/prototype/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/prototype/SKILL.md"
+    "local_path": "~/.config/opencode/skills/prototype/SKILL.md",
+    "problem_nodes": [
+      "design-prototype-review"
+    ]
   },
   {
     "name": "tdd",
@@ -597,7 +954,10 @@
     "role": "Red-green-refactor TDD loop — behavior through public interfaces, not implementation details",
     "extra": "TDD, red-green-refactor, test-first development, integration tests",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/tdd/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/tdd/SKILL.md"
+    "local_path": "~/.config/opencode/skills/tdd/SKILL.md",
+    "problem_nodes": [
+      "build-tdd-implementation"
+    ]
   },
   {
     "name": "review",
@@ -605,7 +965,11 @@
     "role": "Two-axis PR/branch review: Standards (coding conventions) + Spec (matches originating issue/PRD)",
     "extra": "review this branch, review PR, review since X, review changes",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/review/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing",
+      "launch-git-governance"
+    ]
   },
   {
     "name": "paper2skills-deploy",
@@ -613,7 +977,10 @@
     "role": "paper2skills 发布 SOP",
     "extra": "部署, build 并上线, deploy playbook, 更新生产环境",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-deploy/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/paper2skills-deploy/SKILL.md"
+    "local_path": "~/.config/opencode/skills/paper2skills-deploy/SKILL.md",
+    "problem_nodes": [
+      "launch-static-site"
+    ]
   },
   {
     "name": "deploy-to-vercel",
@@ -621,7 +988,10 @@
     "role": "Vercel 预览部署 SOP",
     "extra": "deploy to Vercel, preview deployment, push live",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/deploy-to-vercel/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/deploy-to-vercel/SKILL.md"
+    "local_path": "~/.config/opencode/skills/deploy-to-vercel/SKILL.md",
+    "problem_nodes": [
+      "launch-static-site"
+    ]
   },
   {
     "name": "shipping-and-launch",
@@ -629,7 +999,160 @@
     "role": "上线发布门禁",
     "extra": "production launch, rollout, rollback",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/shipping-and-launch/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/shipping-and-launch/SKILL.md"
+    "local_path": "~/.config/opencode/skills/shipping-and-launch/SKILL.md",
+    "problem_nodes": [
+      "launch-release-gates"
+    ]
+  },
+  {
+    "name": "browser-testing-with-devtools",
+    "domain": "closeout",
+    "role": "用真实浏览器和 DevTools 验证前端行为",
+    "extra": "browser testing, Chrome DevTools, console, network",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/browser-testing-with-devtools/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/browser-testing-with-devtools/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing",
+      "launch-static-site"
+    ]
+  },
+  {
+    "name": "ci-cd-and-automation",
+    "domain": "closeout",
+    "role": "CI/CD 流水线、质量门禁和部署自动化",
+    "extra": "CI, CD, quality gates, deployment pipeline",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ci-cd-and-automation/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/ci-cd-and-automation/SKILL.md",
+    "problem_nodes": [
+      "launch-release-gates",
+      "launch-git-governance"
+    ]
+  },
+  {
+    "name": "code-review-and-quality",
+    "domain": "closeout",
+    "role": "按安全、性能、可维护性等维度做代码评审",
+    "extra": "code review, quality review, before merge",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/code-review-and-quality/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/code-review-and-quality/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing"
+    ]
+  },
+  {
+    "name": "code-simplification",
+    "domain": "closeout",
+    "role": "在保持行为不变时降低复杂度",
+    "extra": "simplify code, refactor clarity, reduce complexity",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/code-simplification/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/code-simplification/SKILL.md",
+    "problem_nodes": [
+      "build-maintainability"
+    ]
+  },
+  {
+    "name": "debugging-and-error-recovery",
+    "domain": "closeout",
+    "role": "系统化定位根因并恢复失败状态",
+    "extra": "debugging, root cause, error recovery",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/debugging-and-error-recovery/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/debugging-and-error-recovery/SKILL.md",
+    "problem_nodes": [
+      "quality-review-testing",
+      "ops-incident-response"
+    ]
+  },
+  {
+    "name": "deprecation-and-migration",
+    "domain": "closeout",
+    "role": "退役旧系统并规划迁移路径",
+    "extra": "deprecation, migration, remove old system",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/deprecation-and-migration/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/deprecation-and-migration/SKILL.md",
+    "problem_nodes": [
+      "ops-roadmap-refresh"
+    ]
+  },
+  {
+    "name": "documentation-and-adrs",
+    "domain": "closeout",
+    "role": "沉淀架构决策记录和工程文档",
+    "extra": "ADR, documentation, decision record",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/documentation-and-adrs/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/documentation-and-adrs/SKILL.md",
+    "problem_nodes": [
+      "build-system-design",
+      "launch-release-gates",
+      "ops-roadmap-refresh",
+      "retro-knowledge-base"
+    ]
+  },
+  {
+    "name": "git-workflow-and-versioning",
+    "domain": "closeout",
+    "role": "原子提交、分支治理和版本流程",
+    "extra": "git workflow, commits, branching, versioning",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/git-workflow-and-versioning/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/git-workflow-and-versioning/SKILL.md",
+    "problem_nodes": [
+      "launch-release-gates",
+      "launch-git-governance"
+    ]
+  },
+  {
+    "name": "huashu-article-edit",
+    "domain": "closeout",
+    "role": "Edit articles for structure, clarity, and final publishing quality.",
+    "extra": "05-quality-review / quality.anti-ai-slop-review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-article-edit/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-article-edit/SKILL.md",
+    "problem_nodes": [
+      "quality.anti-ai-slop-review"
+    ]
+  },
+  {
+    "name": "huashu-proofreading",
+    "domain": "closeout",
+    "role": "Proofread and polish final text before publication.",
+    "extra": "05-quality-review / quality.anti-ai-slop-review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-proofreading/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-proofreading/SKILL.md",
+    "problem_nodes": [
+      "quality.anti-ai-slop-review"
+    ]
+  },
+  {
+    "name": "huashu-script-polish",
+    "domain": "closeout",
+    "role": "Improve video or speech scripts for clarity, rhythm, and publish readiness.",
+    "extra": "05-quality-review / quality.anti-ai-slop-review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-script-polish/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-script-polish/SKILL.md",
+    "problem_nodes": [
+      "quality.anti-ai-slop-review"
+    ]
+  },
+  {
+    "name": "huashu-speech-coach",
+    "domain": "closeout",
+    "role": "Review delivery, structure, and speaking quality before presentation.",
+    "extra": "05-quality-review / quality.anti-ai-slop-review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-speech-coach/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-speech-coach/SKILL.md",
+    "problem_nodes": [
+      "quality.anti-ai-slop-review"
+    ]
+  },
+  {
+    "name": "huashu-video-check",
+    "domain": "closeout",
+    "role": "Check video scripts or assets against production and publishing criteria.",
+    "extra": "05-quality-review / quality.anti-ai-slop-review",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-video-check/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-video-check/SKILL.md",
+    "problem_nodes": [
+      "quality.anti-ai-slop-review"
+    ]
   },
   {
     "name": "native-feel-cross-platform-desktop",
@@ -637,7 +1160,8 @@
     "role": "Raycast 2.0 重写公开技术 + 逆向 `Raycast Beta.app` 提炼出的八大架构原则、四层架构、WebKit/WebView2 生存指南、75 项 ship 前自检清单",
     "extra": "`cross-platform desktop`, `Electron alternative`, `Tauri vs native`, `WebView wrapper`, `WKWebView`, `Raycast architecture`, `WebKit/WebView2 quirks`, `system tray app`, `global hotkey app`, `launcher app`",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/native-feel-cross-platform-desktop/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/native-feel-cross-platform-desktop/SKILL.md"
+    "local_path": "~/.config/opencode/skills/native-feel-cross-platform-desktop/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "startup-pressure-test",
@@ -645,7 +1169,10 @@
     "role": "用 Paul Graham 早期创业框架对点子做\"残酷压力测试\"：问题真不真、ICP、首批 10 个客户、MVP、2 周 launch 计划、founder-market fit、强/弱/转向的直接判决",
     "extra": "pressure-test startup idea, validate problem, ICP, first 10 customers, MVP, 2-week launch plan, founder-market fit, strong/weak/pivot verdict",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/startup-pressure-test/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/startup-pressure-test/SKILL.md"
+    "local_path": "~/.config/opencode/skills/startup-pressure-test/SKILL.md",
+    "problem_nodes": [
+      "market-icp-pressure-test"
+    ]
   },
   {
     "name": "brand-knowledge-base-builder",
@@ -653,7 +1180,10 @@
     "role": "Brand knowledge-base extraction SOP",
     "extra": "品牌知识库, 品牌 AI 化, L1-L11",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/brand-knowledge-base-builder/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/brand-knowledge-base-builder/SKILL.md"
+    "local_path": "~/.config/opencode/skills/brand-knowledge-base-builder/SKILL.md",
+    "problem_nodes": [
+      "idea-domain-recon"
+    ]
   },
   {
     "name": "dtc-brand-recon",
@@ -661,7 +1191,10 @@
     "role": "DTC brand asset reconnaissance before SKU work",
     "extra": "品牌侦查, SOP-B 开始, 官网调研",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-brand-recon/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dtc-brand-recon/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dtc-brand-recon/SKILL.md",
+    "problem_nodes": [
+      "idea-domain-recon"
+    ]
   },
   {
     "name": "dtc-commercial-image-gen",
@@ -669,7 +1202,10 @@
     "role": "DTC commercial image generation SOP",
     "extra": "生图, 产品主图, Hero Shot",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-commercial-image-gen/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dtc-commercial-image-gen/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dtc-commercial-image-gen/SKILL.md",
+    "problem_nodes": [
+      "growth-creative-campaign"
+    ]
   },
   {
     "name": "dtc-compliance-3track",
@@ -677,7 +1213,8 @@
     "role": "DTC compliance three-track verification SOP",
     "extra": "合规检查, ToV 审查, 法规审查",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-compliance-3track/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dtc-compliance-3track/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dtc-compliance-3track/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "dtc-site-forensic-audit",
@@ -685,7 +1222,8 @@
     "role": "DTC site performance and CRO forensic audit",
     "extra": "诊断网站, DTC 站审计, CRO 分析",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-site-forensic-audit/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dtc-site-forensic-audit/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dtc-site-forensic-audit/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "dtc-sop-a-selection",
@@ -693,7 +1231,8 @@
     "role": "DTC product selection scan SOP",
     "extra": "SOP-A, 选品扫描, 品类分析",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-sop-a-selection/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dtc-sop-a-selection/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dtc-sop-a-selection/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "dtc-voc-3layer-analysis",
@@ -701,7 +1240,189 @@
     "role": "Three-layer DTC VOC insight analysis",
     "extra": "VOC 分析, 痛点挖掘, 差评分析",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dtc-voc-3layer-analysis/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/dtc-voc-3layer-analysis/SKILL.md"
+    "local_path": "~/.config/opencode/skills/dtc-voc-3layer-analysis/SKILL.md",
+    "problem_nodes": [
+      "idea-pain-mining",
+      "feedback-voc-loop"
+    ]
+  },
+  {
+    "name": "last30days",
+    "domain": "founder",
+    "role": "最近 30 天多源市场/用户声音研究",
+    "extra": "last30days, trend research, voice of customer",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/last30days/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/last30days/SKILL.md",
+    "problem_nodes": [
+      "idea-trend-research",
+      "idea-pain-mining"
+    ]
+  },
+  {
+    "name": "x-mastery-mentor",
+    "domain": "founder",
+    "role": "Plan, write, and grow X/Twitter content with creator and algorithm heuristics.",
+    "extra": "03-content-planning / content.topic-to-platform",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/x-mastery-mentor/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/x-mastery-mentor/SKILL.md",
+    "problem_nodes": [
+      "content.topic-to-platform"
+    ]
+  },
+  {
+    "name": "zhangxuefeng-perspective",
+    "domain": "founder",
+    "role": "Career, school-choice, and planning judgment patterns for education decisions.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/zhangxuefeng-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/zhangxuefeng-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "zhang-yiming-perspective",
+    "domain": "founder",
+    "role": "Decision and product-growth operating model distilled from Zhang Yiming.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/zhang-yiming-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/zhang-yiming-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "trump-perspective",
+    "domain": "founder",
+    "role": "Negotiation, attention, and power-analysis patterns for strategic judgment.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/trump-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/trump-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "taleb-perspective",
+    "domain": "founder",
+    "role": "Risk, fragility, optionality, and decision heuristics for uncertain environments.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/taleb-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/taleb-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "sun-yuchen-perspective",
+    "domain": "founder",
+    "role": "Attention harvesting and narrative leverage patterns for market-facing strategy.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/sun-yuchen-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/sun-yuchen-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "paul-graham-perspective",
+    "domain": "founder",
+    "role": "Startup, writing, and founder decision models distilled from Paul Graham.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paul-graham-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/paul-graham-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "naval-perspective",
+    "domain": "founder",
+    "role": "Wealth, leverage, judgment, and compounding patterns for strategic decisions.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/naval-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/naval-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "munger-perspective",
+    "domain": "founder",
+    "role": "Mental models and inversion-based decision review for business judgment.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/munger-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/munger-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "mrbeast-perspective",
+    "domain": "founder",
+    "role": "Audience retention and viral content production patterns for creator growth.",
+    "extra": "03-content-planning / content.topic-to-platform",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/mrbeast-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/mrbeast-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment",
+      "content.topic-to-platform"
+    ]
+  },
+  {
+    "name": "ilya-sutskever-perspective",
+    "domain": "founder",
+    "role": "AI research judgment and long-range technical reasoning patterns.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ilya-sutskever-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/ilya-sutskever-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "feynman-perspective",
+    "domain": "founder",
+    "role": "Explanation, curiosity, simplification, and first-principles reasoning patterns.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/feynman-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/feynman-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "andrej-karpathy-perspective",
+    "domain": "founder",
+    "role": "AI engineering, learning, and technical explanation patterns.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/andrej-karpathy-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/andrej-karpathy-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "steve-jobs-perspective",
+    "domain": "founder",
+    "role": "Taste, product simplification, launch storytelling, and experience judgment patterns.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/steve-jobs-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/steve-jobs-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
+  },
+  {
+    "name": "elon-musk-perspective",
+    "domain": "founder",
+    "role": "First-principles product, engineering, and execution judgment patterns.",
+    "extra": "02-strategy-judgment / strategy.persona-judgment",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/elon-musk-perspective/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/elon-musk-perspective/SKILL.md",
+    "problem_nodes": [
+      "strategy.persona-judgment"
+    ]
   },
   {
     "name": "patent-disclosure-skill",
@@ -709,7 +1430,10 @@
     "role": "从代码 / 设计文档挖掘专利点 → 国知局公布站查新 → 脱敏成稿 → 自检闭环 → 出 `.docx` 技术交底书",
     "extra": "`{案件名}_{时间戳}.md` + `.docx` 技术交底书",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/patent-disclosure-skill/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/patent-disclosure-skill/SKILL.md"
+    "local_path": "~/.config/opencode/skills/patent-disclosure-skill/SKILL.md",
+    "problem_nodes": [
+      "ip-patent-disclosure"
+    ]
   },
   {
     "name": "software-copyright-materials",
@@ -717,7 +1441,10 @@
     "role": "从真实代码生成中国软著申请全套：业务理解 → 申请表 → 60 页代码材料（前/后 30 页拆分） → 操作手册 → 多轮自检",
     "extra": "`软件著作权申请资料/正式资料/` 下的 `.docx` + `.txt` 全套",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/software-copyright-materials/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/software-copyright-materials/SKILL.md"
+    "local_path": "~/.config/opencode/skills/software-copyright-materials/SKILL.md",
+    "problem_nodes": [
+      "ip-software-copyright"
+    ]
   },
   {
     "name": "guizang-ppt-skill",
@@ -725,7 +1452,11 @@
     "role": "网页 PPT 生成（HTML deck + 配图 + 多平台封面）",
     "extra": "PPT, slide deck, 瑞士风, image prompts, social cover",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/guizang-ppt-skill/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/guizang-ppt-skill/SKILL.md"
+    "local_path": "~/.config/opencode/skills/guizang-ppt-skill/SKILL.md",
+    "problem_nodes": [
+      "growth-creative-campaign",
+      "customer-education-assets"
+    ]
   },
   {
     "name": "agent-reach",
@@ -733,7 +1464,10 @@
     "role": "给 agent 装互联网读写能力（17 平台）",
     "extra": "twitter,reddit,youtube,github,xiaohongshu,bilibili,weibo,搜索,网页,rss",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/agent-reach/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/agent-reach/SKILL.md"
+    "local_path": "~/.config/opencode/skills/agent-reach/SKILL.md",
+    "problem_nodes": [
+      "idea-trend-research"
+    ]
   },
   {
     "name": "notebooklm",
@@ -741,7 +1475,11 @@
     "role": "查询 Google NotebookLM 笔记本（document-grounded）",
     "extra": "notebooklm,query notebook,document-grounded,citation",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/notebooklm/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/notebooklm/SKILL.md"
+    "local_path": "~/.config/opencode/skills/notebooklm/SKILL.md",
+    "problem_nodes": [
+      "idea-domain-recon",
+      "retro-knowledge-base"
+    ]
   },
   {
     "name": "bb-browser",
@@ -749,7 +1487,8 @@
     "role": "带登录态的浏览器自动化（36 平台 103 命令）",
     "extra": "browser automation,登录态 fetch,36 平台,form filling,mock",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/bb-browser/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/bb-browser/SKILL.md"
+    "local_path": "~/.config/opencode/skills/bb-browser/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "design-review",
@@ -757,7 +1496,11 @@
     "role": "设计师之眼 QA（视觉/AI slop/间距）",
     "extra": "design review,visual QA,spacing,slop",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/design-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/design-review/SKILL.md",
+    "problem_nodes": [
+      "design-prototype-review",
+      "customer-education-assets"
+    ]
   },
   {
     "name": "design-consultation",
@@ -765,7 +1508,10 @@
     "role": "设计咨询 + 完整设计系统提案",
     "extra": "design consultation,design system,aesthetic,typography",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-consultation/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/design-consultation/SKILL.md"
+    "local_path": "~/.config/opencode/skills/design-consultation/SKILL.md",
+    "problem_nodes": [
+      "design-ux-flow"
+    ]
   },
   {
     "name": "design-html",
@@ -773,7 +1519,11 @@
     "role": "出 production-quality HTML/CSS",
     "extra": "design html,Pretext-native,production CSS",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-html/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/design-html/SKILL.md"
+    "local_path": "~/.config/opencode/skills/design-html/SKILL.md",
+    "problem_nodes": [
+      "market-offer-test",
+      "design-prototype-review"
+    ]
   },
   {
     "name": "make-pdf",
@@ -781,7 +1531,12 @@
     "role": "markdown → 出版级 PDF（页码/封面）",
     "extra": "PDF,markdown,publication,1in margin,cover",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/make-pdf/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/make-pdf/SKILL.md"
+    "local_path": "~/.config/opencode/skills/make-pdf/SKILL.md",
+    "problem_nodes": [
+      "customer-education-assets",
+      "ip-patent-disclosure",
+      "ip-software-copyright"
+    ]
   },
   {
     "name": "document-generate",
@@ -789,7 +1544,14 @@
     "role": "从零生成文档（Diataxis 框架）",
     "extra": "document generate,Diataxis,tutorial,how-to,reference",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/document-generate/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/document-generate/SKILL.md"
+    "local_path": "~/.config/opencode/skills/document-generate/SKILL.md",
+    "problem_nodes": [
+      "idea-domain-recon",
+      "customer-education-assets",
+      "ip-patent-disclosure",
+      "ip-software-copyright",
+      "retro-knowledge-base"
+    ]
   },
   {
     "name": "ui-ux-pro-max",
@@ -797,7 +1559,10 @@
     "role": "UI/UX 设计智能（50+ 风格 / 161 配色 / 57 字体 / 跨 10 栈）",
     "extra": "UI,UX,shadcn,tailwind,color palette,font pairing,style",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ui-ux-pro-max/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/ui-ux-pro-max/SKILL.md"
+    "local_path": "~/.config/opencode/skills/ui-ux-pro-max/SKILL.md",
+    "problem_nodes": [
+      "design-ux-flow"
+    ]
   },
   {
     "name": "color-expert",
@@ -805,7 +1570,10 @@
     "role": "色彩科学专家（OKLCH/OKLAB/286K 字参考）",
     "extra": "color theory,palette,oklch,oklab,contrast,accessibility",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/color-expert/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/color-expert/SKILL.md"
+    "local_path": "~/.config/opencode/skills/color-expert/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system"
+    ]
   },
   {
     "name": "design-taste-frontend",
@@ -813,7 +1581,10 @@
     "role": "高 agency 前端 skill, 抑制 AI 视觉 slop",
     "extra": "taste,design variance,motion intensity,visual density,AI slop",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-taste-frontend/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/design-taste-frontend/SKILL.md"
+    "local_path": "~/.config/opencode/skills/design-taste-frontend/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system"
+    ]
   },
   {
     "name": "creative-director",
@@ -821,7 +1592,10 @@
     "role": "AI 创意总监 + 20+ 方法论（SIT/TRIZ/SCAMPER）",
     "extra": "creative director,methodologies,SIT,TRIZ,SCAMPER",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/creative-director/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/creative-director/SKILL.md"
+    "local_path": "~/.config/opencode/skills/creative-director/SKILL.md",
+    "problem_nodes": [
+      "growth-creative-campaign"
+    ]
   },
   {
     "name": "marketing-psychology",
@@ -829,7 +1603,12 @@
     "role": "行为心理学用于文案与定价",
     "extra": "marketing psychology,behavioral science,pricing,framing",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/marketing-psychology/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/marketing-psychology/SKILL.md"
+    "local_path": "~/.config/opencode/skills/marketing-psychology/SKILL.md",
+    "problem_nodes": [
+      "market-offer-test",
+      "growth-creative-campaign",
+      "growth-retention-email"
+    ]
   },
   {
     "name": "copywriting",
@@ -837,7 +1616,13 @@
     "role": "营销文案 copy chief partner",
     "extra": "copywriting,landing page,homepage,ads",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/copywriting/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/copywriting/SKILL.md"
+    "local_path": "~/.config/opencode/skills/copywriting/SKILL.md",
+    "problem_nodes": [
+      "market-offer-test",
+      "growth-seo-content",
+      "growth-creative-campaign",
+      "customer-education-assets"
+    ]
   },
   {
     "name": "hig-foundations",
@@ -845,7 +1630,10 @@
     "role": "Apple HIG 基础原则（platforms/foundations）",
     "extra": "apple hig,foundations,principles,accessibility,ios,macos",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-foundations/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/hig-foundations/SKILL.md"
+    "local_path": "~/.config/opencode/skills/hig-foundations/SKILL.md",
+    "problem_nodes": [
+      "design-ux-flow"
+    ]
   },
   {
     "name": "hig-platforms",
@@ -853,7 +1641,8 @@
     "role": "Apple HIG 跨平台基线（ios/macos/visionos/watch/tv）",
     "extra": "apple hig,platforms,ios,macos,visionos,watchos,tvos",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-platforms/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/hig-platforms/SKILL.md"
+    "local_path": "~/.config/opencode/skills/hig-platforms/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "hig-components-controls",
@@ -861,7 +1650,10 @@
     "role": "Apple HIG 控件细节（buttons/pickers/sliders）",
     "extra": "apple hig,components,controls,buttons,pickers,sliders",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/hig-components-controls/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/hig-components-controls/SKILL.md"
+    "local_path": "~/.config/opencode/skills/hig-components-controls/SKILL.md",
+    "problem_nodes": [
+      "design-ux-flow"
+    ]
   },
   {
     "name": "complexity-optimizer",
@@ -869,7 +1661,11 @@
     "role": "Analyze codebase for algorithmic complexity hotspots and implement safe optimizations (O(n²)→O(n log n))",
     "extra": "scan complexity, find O(n^2), N+1 queries, performance hotspots",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/complexity-optimizer/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/complexity-optimizer/SKILL.md"
+    "local_path": "~/.config/opencode/skills/complexity-optimizer/SKILL.md",
+    "problem_nodes": [
+      "build-maintainability",
+      "ops-performance-iteration"
+    ]
   },
   {
     "name": "baoyu-wechat-summary",
@@ -877,7 +1673,10 @@
     "role": "Summarize WeChat group chat highlights into structured digest with user profiles and optional roast version",
     "extra": "总结群聊, 群聊精华, group chat digest, 毒舌版",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/baoyu-wechat-summary/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/baoyu-wechat-summary/SKILL.md"
+    "local_path": "~/.config/opencode/skills/baoyu-wechat-summary/SKILL.md",
+    "problem_nodes": [
+      "idea-pain-mining"
+    ]
   },
   {
     "name": "antislop-codebase",
@@ -885,7 +1684,10 @@
     "role": "把杂乱/原型仓库重构为可维护产品级代码库，保留现有行为",
     "extra": "antislop codebase, clean up messy repo, maintainability migration, refactor plan",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/antislop-codebase/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/antislop-codebase/SKILL.md"
+    "local_path": "~/.config/opencode/skills/antislop-codebase/SKILL.md",
+    "problem_nodes": [
+      "build-maintainability"
+    ]
   },
   {
     "name": "codebase-maintainability-guardrails",
@@ -893,7 +1695,11 @@
     "role": "编码工程默认标准：小文件、类型化、功能分治、合约驱动、保留行为",
     "extra": "coding standards, maintainability, frontend refactor, production code shape",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/codebase-maintainability-guardrails/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/codebase-maintainability-guardrails/SKILL.md"
+    "local_path": "~/.config/opencode/skills/codebase-maintainability-guardrails/SKILL.md",
+    "problem_nodes": [
+      "build-maintainability",
+      "ops-performance-iteration"
+    ]
   },
   {
     "name": "productionize-app-with-services",
@@ -901,7 +1707,8 @@
     "role": "将可运行的 demo/原型转化为生产级产品：审计追踪、权限、API、可观测性",
     "extra": "productionize, harden repo, API keys, audit trails, feature flags, admin UX",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/productionize-app-with-services/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/productionize-app-with-services/SKILL.md"
+    "local_path": "~/.config/opencode/skills/productionize-app-with-services/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "security-hardening",
@@ -909,7 +1716,11 @@
     "role": "实用 appsec 安全加固通道：auth/会话风险、密钥、依赖、CORS/CSRF、限流",
     "extra": "appsec review, security audit, auth risk, secrets, SSRF, rate limits",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/security-hardening/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/security-hardening/SKILL.md"
+    "local_path": "~/.config/opencode/skills/security-hardening/SKILL.md",
+    "problem_nodes": [
+      "quality-appsec-hardening",
+      "compliance-contract-risk"
+    ]
   },
   {
     "name": "observability-hardening",
@@ -917,7 +1728,11 @@
     "role": "生产可见性：结构化日志、错误分类、请求 ID、链路追踪、指标、告警",
     "extra": "observability, structured logs, error tracking, traces, metrics, dashboards",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/observability-hardening/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/observability-hardening/SKILL.md"
+    "local_path": "~/.config/opencode/skills/observability-hardening/SKILL.md",
+    "problem_nodes": [
+      "quality-observability",
+      "ops-performance-iteration"
+    ]
   },
   {
     "name": "git-guardrails-claude-code",
@@ -925,7 +1740,10 @@
     "role": "PreToolUse hook blocking dangerous git commands: push, reset --hard, clean, branch -D",
     "extra": "prevent destructive git ops, add git safety hooks, block git push",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/git-guardrails-claude-code/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/git-guardrails-claude-code/SKILL.md"
+    "local_path": "~/.config/opencode/skills/git-guardrails-claude-code/SKILL.md",
+    "problem_nodes": [
+      "launch-git-governance"
+    ]
   },
   {
     "name": "write-a-skill",
@@ -933,7 +1751,10 @@
     "role": "Create new agent skills with proper structure, progressive disclosure, and bundled resources",
     "extra": "create a skill, write a new skill, build a skill",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/write-a-skill/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/write-a-skill/SKILL.md"
+    "local_path": "~/.config/opencode/skills/write-a-skill/SKILL.md",
+    "problem_nodes": [
+      "agent-skill-authoring"
+    ]
   },
   {
     "name": "anysearch",
@@ -941,7 +1762,11 @@
     "role": "Real-time unified search: web, vertical domain, batch, URL extract",
     "extra": "search,web search,information retrieval",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/anysearch/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/anysearch/SKILL.md"
+    "local_path": "~/.config/opencode/skills/anysearch/SKILL.md",
+    "problem_nodes": [
+      "idea-trend-research",
+      "growth-seo-content"
+    ]
   },
   {
     "name": "minimalist-ui",
@@ -949,7 +1774,10 @@
     "role": "🆕 Taste-skill: minimalist UI aesthetic — whitespace, reduction, restraint",
     "extra": "minimalist design, minimal UI, whitespace, reduction",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/minimalist-ui/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/minimalist-ui/SKILL.md"
+    "local_path": "~/.config/opencode/skills/minimalist-ui/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system"
+    ]
   },
   {
     "name": "industrial-brutalist-ui",
@@ -957,7 +1785,8 @@
     "role": "🆕 Taste-skill: brutalist/industrial UI — raw, high contrast, structural",
     "extra": "brutalist design, industrial UI, raw aesthetic",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/industrial-brutalist-ui/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/industrial-brutalist-ui/SKILL.md"
+    "local_path": "~/.config/opencode/skills/industrial-brutalist-ui/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "redesign-existing-projects",
@@ -965,7 +1794,10 @@
     "role": "🆕 Taste-skill: systematic redesign of existing UI to a new aesthetic",
     "extra": "redesign, UI refresh, aesthetic overhaul",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/redesign-existing-projects/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/redesign-existing-projects/SKILL.md"
+    "local_path": "~/.config/opencode/skills/redesign-existing-projects/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system"
+    ]
   },
   {
     "name": "stitch-design-taste",
@@ -973,7 +1805,10 @@
     "role": "🆕 Taste-skill: stitch together multiple design references into cohesive style",
     "extra": "design synthesis, style stitching, visual coherence",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/stitch-design-taste/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/stitch-design-taste/SKILL.md"
+    "local_path": "~/.config/opencode/skills/stitch-design-taste/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system"
+    ]
   },
   {
     "name": "high-end-visual-design",
@@ -981,7 +1816,11 @@
     "role": "🆕 Taste-skill: premium soft/luxury visual design — depth, glow, refinement",
     "extra": "high-end design, luxury UI, soft design, premium visual",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/high-end-visual-design/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/high-end-visual-design/SKILL.md"
+    "local_path": "~/.config/opencode/skills/high-end-visual-design/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system",
+      "growth-creative-campaign"
+    ]
   },
   {
     "name": "design-critique",
@@ -989,7 +1828,8 @@
     "role": "🆕 Anthropic kw-plugins: structured design critique and feedback",
     "extra": "design critique, design feedback, visual assessment",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/design-critique/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/design-critique/SKILL.md"
+    "local_path": "~/.config/opencode/skills/design-critique/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "accessibility-review",
@@ -997,7 +1837,10 @@
     "role": "🆕 Anthropic kw-plugins: accessibility review against WCAG standards",
     "extra": "accessibility review, WCAG, a11y, screen reader, inclusive design",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/accessibility-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/accessibility-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/accessibility-review/SKILL.md",
+    "problem_nodes": [
+      "design-prototype-review"
+    ]
   },
   {
     "name": "ux-copy",
@@ -1005,7 +1848,12 @@
     "role": "🆕 Anthropic kw-plugins: UX copywriting for UI elements",
     "extra": "ux copy, microcopy, button labels, UI text, UX writing",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ux-copy/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/ux-copy/SKILL.md"
+    "local_path": "~/.config/opencode/skills/ux-copy/SKILL.md",
+    "problem_nodes": [
+      "market-offer-test",
+      "design-ux-flow",
+      "growth-retention-email"
+    ]
   },
   {
     "name": "ticket-triage",
@@ -1013,7 +1861,11 @@
     "role": "🆕 Anthropic kw-plugins: customer support ticket triage",
     "extra": "ticket triage, support prioritization, customer tickets",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ticket-triage/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/ticket-triage/SKILL.md"
+    "local_path": "~/.config/opencode/skills/ticket-triage/SKILL.md",
+    "problem_nodes": [
+      "idea-pain-mining",
+      "customer-ticket-response"
+    ]
   },
   {
     "name": "draft-response",
@@ -1021,7 +1873,11 @@
     "role": "🆕 Anthropic kw-plugins: draft professional responses to customer inquiries",
     "extra": "draft response, customer reply, support email",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/draft-response/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/draft-response/SKILL.md"
+    "local_path": "~/.config/opencode/skills/draft-response/SKILL.md",
+    "problem_nodes": [
+      "growth-retention-email",
+      "customer-ticket-response"
+    ]
   },
   {
     "name": "explore-data",
@@ -1029,7 +1885,11 @@
     "role": "🆕 Anthropic kw-plugins: exploratory data analysis",
     "extra": "data exploration, EDA, data profiling, statistical summary",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/explore-data/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/explore-data/SKILL.md"
+    "local_path": "~/.config/opencode/skills/explore-data/SKILL.md",
+    "problem_nodes": [
+      "product-metrics-map",
+      "data-exploration-analysis"
+    ]
   },
   {
     "name": "sql-queries",
@@ -1037,7 +1897,10 @@
     "role": "🆕 Anthropic kw-plugins: write and optimize SQL queries",
     "extra": "SQL query, database query, data extraction, SQL optimization",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/sql-queries/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/sql-queries/SKILL.md"
+    "local_path": "~/.config/opencode/skills/sql-queries/SKILL.md",
+    "problem_nodes": [
+      "data-exploration-analysis"
+    ]
   },
   {
     "name": "statistical-analysis",
@@ -1045,7 +1908,12 @@
     "role": "🆕 Anthropic kw-plugins: statistical analysis and hypothesis testing",
     "extra": "statistical analysis, hypothesis test, p-value, correlation",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/statistical-analysis/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/statistical-analysis/SKILL.md"
+    "local_path": "~/.config/opencode/skills/statistical-analysis/SKILL.md",
+    "problem_nodes": [
+      "idea-pain-mining",
+      "product-metrics-map",
+      "data-exploration-analysis"
+    ]
   },
   {
     "name": "data-visualization",
@@ -1053,7 +1921,14 @@
     "role": "🆕 Anthropic kw-plugins: data visualization best practices",
     "extra": "data viz, charts, dashboards, visualization design",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/data-visualization/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/data-visualization/SKILL.md"
+    "local_path": "~/.config/opencode/skills/data-visualization/SKILL.md",
+    "problem_nodes": [
+      "market-offer-test",
+      "product-metrics-map",
+      "growth-seo-content",
+      "data-exploration-analysis",
+      "data-business-reporting"
+    ]
   },
   {
     "name": "content-creation",
@@ -1061,7 +1936,10 @@
     "role": "🆕 Anthropic kw-plugins: marketing content creation",
     "extra": "content creation, marketing content, blog post, article",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/content-creation/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/content-creation/SKILL.md"
+    "local_path": "~/.config/opencode/skills/content-creation/SKILL.md",
+    "problem_nodes": [
+      "growth-seo-content"
+    ]
   },
   {
     "name": "seo-audit",
@@ -1069,7 +1947,11 @@
     "role": "🆕 Anthropic kw-plugins: SEO audit and optimization",
     "extra": "SEO audit, search optimization, on-page SEO, meta tags",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/seo-audit/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/seo-audit/SKILL.md"
+    "local_path": "~/.config/opencode/skills/seo-audit/SKILL.md",
+    "problem_nodes": [
+      "launch-static-site",
+      "growth-seo-content"
+    ]
   },
   {
     "name": "email-sequence",
@@ -1077,7 +1959,11 @@
     "role": "🆕 Anthropic kw-plugins: email sequence and nurture campaigns",
     "extra": "email sequence, drip campaign, email nurture, onboarding email",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/email-sequence/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/email-sequence/SKILL.md"
+    "local_path": "~/.config/opencode/skills/email-sequence/SKILL.md",
+    "problem_nodes": [
+      "market-first-users",
+      "growth-retention-email"
+    ]
   },
   {
     "name": "review-contract",
@@ -1085,7 +1971,12 @@
     "role": "🆕 Anthropic kw-plugins: contract review and legal risk identification",
     "extra": "contract review, legal review, NDA review, agreement review",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/review-contract/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/review-contract/SKILL.md"
+    "local_path": "~/.config/opencode/skills/review-contract/SKILL.md",
+    "problem_nodes": [
+      "quality-appsec-hardening",
+      "ip-software-copyright",
+      "compliance-contract-risk"
+    ]
   },
   {
     "name": "compliance-check",
@@ -1093,7 +1984,11 @@
     "role": "🆕 Anthropic kw-plugins: compliance check against regulations",
     "extra": "compliance check, regulatory compliance, legal compliance",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/compliance-check/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/compliance-check/SKILL.md"
+    "local_path": "~/.config/opencode/skills/compliance-check/SKILL.md",
+    "problem_nodes": [
+      "quality-appsec-hardening",
+      "compliance-contract-risk"
+    ]
   },
   {
     "name": "runbook",
@@ -1101,7 +1996,12 @@
     "role": "🆕 Anthropic kw-plugins: create operational runbooks",
     "extra": "runbook, SOP, operational procedure, ops guide",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/runbook/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/runbook/SKILL.md"
+    "local_path": "~/.config/opencode/skills/runbook/SKILL.md",
+    "problem_nodes": [
+      "quality-observability",
+      "customer-ticket-response",
+      "ops-incident-response"
+    ]
   },
   {
     "name": "risk-assessment",
@@ -1109,7 +2009,11 @@
     "role": "🆕 Anthropic kw-plugins: risk assessment and mitigation planning",
     "extra": "risk assessment, risk analysis, mitigation plan",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/risk-assessment/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/risk-assessment/SKILL.md"
+    "local_path": "~/.config/opencode/skills/risk-assessment/SKILL.md",
+    "problem_nodes": [
+      "quality-appsec-hardening",
+      "compliance-contract-risk"
+    ]
   },
   {
     "name": "performance-review",
@@ -1117,7 +2021,8 @@
     "role": "🆕 Anthropic kw-plugins: employee performance review writing",
     "extra": "performance review, employee evaluation, feedback writing",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/performance-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/performance-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/performance-review/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "interview-prep",
@@ -1125,7 +2030,8 @@
     "role": "🆕 Anthropic kw-plugins: interview preparation for hiring",
     "extra": "interview prep, hiring, interview questions, candidate",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/interview-prep/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/interview-prep/SKILL.md"
+    "local_path": "~/.config/opencode/skills/interview-prep/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "onboarding",
@@ -1133,7 +2039,10 @@
     "role": "🆕 Anthropic kw-plugins: employee onboarding planning",
     "extra": "onboarding, new hire, orientation, employee setup",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/onboarding/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/onboarding/SKILL.md"
+    "local_path": "~/.config/opencode/skills/onboarding/SKILL.md",
+    "problem_nodes": [
+      "growth-retention-email"
+    ]
   },
   {
     "name": "variance-analysis",
@@ -1141,7 +2050,11 @@
     "role": "🆕 Anthropic kw-plugins: financial variance analysis",
     "extra": "variance analysis, budget vs actual, financial variance",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/variance-analysis/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/variance-analysis/SKILL.md"
+    "local_path": "~/.config/opencode/skills/variance-analysis/SKILL.md",
+    "problem_nodes": [
+      "product-metrics-map",
+      "data-exploration-analysis"
+    ]
   },
   {
     "name": "financial-statements",
@@ -1149,7 +2062,10 @@
     "role": "🆕 Anthropic kw-plugins: financial statement analysis and commentary",
     "extra": "financial statements, P&L, balance sheet, cash flow",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/financial-statements/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/financial-statements/SKILL.md"
+    "local_path": "~/.config/opencode/skills/financial-statements/SKILL.md",
+    "problem_nodes": [
+      "data-business-reporting"
+    ]
   },
   {
     "name": "account-research",
@@ -1157,7 +2073,11 @@
     "role": "🆕 Anthropic kw-plugins: B2B account research for sales",
     "extra": "account research, company research, ICP qualification",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/account-research/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/account-research/SKILL.md"
+    "local_path": "~/.config/opencode/skills/account-research/SKILL.md",
+    "problem_nodes": [
+      "market-first-users",
+      "sales-account-pipeline"
+    ]
   },
   {
     "name": "pipeline-review",
@@ -1165,7 +2085,11 @@
     "role": "🆕 Anthropic kw-plugins: sales pipeline review and health check",
     "extra": "pipeline review, sales forecast, deal review",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/pipeline-review/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/pipeline-review/SKILL.md"
+    "local_path": "~/.config/opencode/skills/pipeline-review/SKILL.md",
+    "problem_nodes": [
+      "market-first-users",
+      "sales-account-pipeline"
+    ]
   },
   {
     "name": "competitive-intelligence",
@@ -1173,7 +2097,12 @@
     "role": "🆕 Anthropic kw-plugins: competitive intelligence gathering",
     "extra": "competitive intel, competitor analysis, market research",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/competitive-intelligence/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/competitive-intelligence/SKILL.md"
+    "local_path": "~/.config/opencode/skills/competitive-intelligence/SKILL.md",
+    "problem_nodes": [
+      "idea-trend-research",
+      "market-icp-pressure-test",
+      "sales-account-pipeline"
+    ]
   },
   {
     "name": "draft-outreach",
@@ -1181,7 +2110,11 @@
     "role": "🆕 Anthropic kw-plugins: draft sales outreach messages",
     "extra": "draft outreach, cold email, sales email, prospect message",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/draft-outreach/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/draft-outreach/SKILL.md"
+    "local_path": "~/.config/opencode/skills/draft-outreach/SKILL.md",
+    "problem_nodes": [
+      "market-first-users",
+      "sales-account-pipeline"
+    ]
   },
   {
     "name": "cash-flow-snapshot",
@@ -1189,7 +2122,10 @@
     "role": "🆕 Anthropic kw-plugins: quick cash flow health check",
     "extra": "cash flow, financial health, burn rate, runway",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/cash-flow-snapshot/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/cash-flow-snapshot/SKILL.md"
+    "local_path": "~/.config/opencode/skills/cash-flow-snapshot/SKILL.md",
+    "problem_nodes": [
+      "data-business-reporting"
+    ]
   },
   {
     "name": "lead-triage",
@@ -1197,7 +2133,11 @@
     "role": "🆕 Anthropic kw-plugins: lead qualification and triage",
     "extra": "lead triage, lead qualification, inbound leads",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/lead-triage/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/lead-triage/SKILL.md"
+    "local_path": "~/.config/opencode/skills/lead-triage/SKILL.md",
+    "problem_nodes": [
+      "market-first-users",
+      "sales-account-pipeline"
+    ]
   },
   {
     "name": "bi-prompt-engineering",
@@ -1205,7 +2145,10 @@
     "role": "BI prompt accuracy and field-mapping SOP",
     "extra": "提示词准确率低, AI 算错数, BI 报告",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/bi-prompt-engineering/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/bi-prompt-engineering/SKILL.md"
+    "local_path": "~/.config/opencode/skills/bi-prompt-engineering/SKILL.md",
+    "problem_nodes": [
+      "data-business-reporting"
+    ]
   },
   {
     "name": "paper2skills-ps-override",
@@ -1213,7 +2156,8 @@
     "role": "problem_solved 业务描述补写 SOP",
     "extra": "ps_override, problem_solved, WARN dup_ps",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-ps-override/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/paper2skills-ps-override/SKILL.md"
+    "local_path": "~/.config/opencode/skills/paper2skills-ps-override/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "paper2skills-ui-audit",
@@ -1221,7 +2165,8 @@
     "role": "paper2skills UI 审计 SOP",
     "extra": "UI 审计, Playwright 验证, 卡片高度",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/paper2skills-ui-audit/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/paper2skills-ui-audit/SKILL.md"
+    "local_path": "~/.config/opencode/skills/paper2skills-ui-audit/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "ast-grep",
@@ -1229,7 +2174,8 @@
     "role": "AST 结构化代码搜索",
     "extra": "ast-grep, structural search, code pattern",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/ast-grep/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/ast-grep/SKILL.md"
+    "local_path": "~/.config/opencode/skills/ast-grep/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "supabase",
@@ -1237,7 +2183,8 @@
     "role": "Supabase 全栈与安全/RLS 指南",
     "extra": "Supabase, Auth, RLS, Edge Functions, Storage",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/supabase/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/supabase/SKILL.md"
+    "local_path": "~/.config/opencode/skills/supabase/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "supabase-postgres-best-practices",
@@ -1245,7 +2192,8 @@
     "role": "Postgres 性能与 RLS 最佳实践",
     "extra": "Postgres, query, index, RLS, Supabase",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/supabase-postgres-best-practices/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/supabase-postgres-best-practices/SKILL.md"
+    "local_path": "~/.config/opencode/skills/supabase-postgres-best-practices/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "vercel-optimize",
@@ -1253,7 +2201,8 @@
     "role": "Vercel 成本/性能优化审计",
     "extra": "Vercel metrics, Core Web Vitals, cost, caching",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/vercel-optimize/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/vercel-optimize/SKILL.md"
+    "local_path": "~/.config/opencode/skills/vercel-optimize/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "vercel-react-best-practices",
@@ -1261,7 +2210,8 @@
     "role": "React/Next.js 性能规则",
     "extra": "React, Next.js, bundle, waterfalls",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/vercel-react-best-practices/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/vercel-react-best-practices/SKILL.md"
+    "local_path": "~/.config/opencode/skills/vercel-react-best-practices/SKILL.md",
+    "problem_nodes": []
   },
   {
     "name": "web-design-guidelines",
@@ -1269,7 +2219,10 @@
     "role": "Web UI 设计/可访问性审查",
     "extra": "UI review, accessibility, UX audit",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/web-design-guidelines/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/web-design-guidelines/SKILL.md"
+    "local_path": "~/.config/opencode/skills/web-design-guidelines/SKILL.md",
+    "problem_nodes": [
+      "launch-static-site"
+    ]
   },
   {
     "name": "performance-optimization",
@@ -1277,7 +2230,12 @@
     "role": "证据驱动性能优化",
     "extra": "Core Web Vitals, profiling, bottleneck",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/performance-optimization/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/performance-optimization/SKILL.md"
+    "local_path": "~/.config/opencode/skills/performance-optimization/SKILL.md",
+    "problem_nodes": [
+      "quality-observability",
+      "launch-static-site",
+      "ops-performance-iteration"
+    ]
   },
   {
     "name": "observability-and-instrumentation",
@@ -1285,7 +2243,11 @@
     "role": "生产可观测性设计",
     "extra": "logging, metrics, tracing, alerting",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/observability-and-instrumentation/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/observability-and-instrumentation/SKILL.md"
+    "local_path": "~/.config/opencode/skills/observability-and-instrumentation/SKILL.md",
+    "problem_nodes": [
+      "quality-observability",
+      "ops-incident-response"
+    ]
   },
   {
     "name": "security-and-hardening",
@@ -1293,7 +2255,10 @@
     "role": "安全威胁建模与加固",
     "extra": "security, auth, input, STRIDE, OWASP",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/security-and-hardening/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/security-and-hardening/SKILL.md"
+    "local_path": "~/.config/opencode/skills/security-and-hardening/SKILL.md",
+    "problem_nodes": [
+      "quality-appsec-hardening"
+    ]
   },
   {
     "name": "obsidian-markdown",
@@ -1301,7 +2266,10 @@
     "role": "Obsidian Markdown 写作",
     "extra": "Obsidian, wikilinks, callouts, frontmatter",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/obsidian-markdown/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/obsidian-markdown/SKILL.md"
+    "local_path": "~/.config/opencode/skills/obsidian-markdown/SKILL.md",
+    "problem_nodes": [
+      "retro-knowledge-base"
+    ]
   },
   {
     "name": "json-canvas",
@@ -1309,6 +2277,261 @@
     "role": "JSON Canvas 编辑",
     "extra": "canvas, mind map, visual canvas, .canvas",
     "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/json-canvas/manifest.yaml",
-    "local_path": "~/.config/opencode/skills/json-canvas/SKILL.md"
+    "local_path": "~/.config/opencode/skills/json-canvas/SKILL.md",
+    "problem_nodes": [
+      "retro-knowledge-base"
+    ]
+  },
+  {
+    "name": "md2wechat",
+    "domain": "tooling",
+    "role": "Markdown 到公众号 HTML/草稿/图文分发",
+    "extra": "WeChat article, markdown formatting, draft upload",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/md2wechat/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/md2wechat/SKILL.md",
+    "problem_nodes": [
+      "growth-seo-content",
+      "customer-education-assets"
+    ]
+  },
+  {
+    "name": "anydesign",
+    "domain": "tooling",
+    "role": "网站/图片/Figma 设计系统提取",
+    "extra": "design.md, extract design system, replicate design",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/anydesign/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/anydesign/SKILL.md",
+    "problem_nodes": [
+      "design-visual-system",
+      "design-prototype-review"
+    ]
+  },
+  {
+    "name": "frontend-ui-engineering",
+    "domain": "tooling",
+    "role": "生产级前端 UI 工程与可访问性实现",
+    "extra": "frontend UI, components, responsive, accessibility",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/frontend-ui-engineering/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/frontend-ui-engineering/SKILL.md",
+    "problem_nodes": [
+      "design-prototype-review"
+    ]
+  },
+  {
+    "name": "huashu-design",
+    "domain": "tooling",
+    "role": "HTML-native high-fidelity prototypes, slides, animation, and design review.",
+    "extra": "04-design-production / design.html-native-production",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-design/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-design/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production"
+    ]
+  },
+  {
+    "name": "huashu-md-html",
+    "domain": "tooling",
+    "role": "Convert between markdown, HTML, and documents for visual publishing pipelines.",
+    "extra": "04-design-production / design.html-native-production",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-md-html/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-md-html/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production"
+    ]
+  },
+  {
+    "name": "huashu-slide-codex",
+    "domain": "tooling",
+    "role": "Produce Codex visual materials, slides, covers, and thumbnails with image generation.",
+    "extra": "04-design-production / design.html-native-production",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-slide-codex/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-slide-codex/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production"
+    ]
+  },
+  {
+    "name": "huashu-weread-advisor",
+    "domain": "tooling",
+    "role": "Turn WeRead shelves and notes into reading advice, paths, alchemy, and reviews.",
+    "extra": "01-sensemaking / sensemaking.reading-advisory",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-weread-advisor/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-weread-advisor/SKILL.md",
+    "problem_nodes": [
+      "sensemaking.research-intake"
+    ]
+  },
+  {
+    "name": "dukou",
+    "domain": "tooling",
+    "role": "Bridge article drafts to X Articles, Bilibili columns, and WeChat editor flows.",
+    "extra": "06-distribution / distribution.article-bridge",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/dukou/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/dukou/SKILL.md",
+    "problem_nodes": [
+      "distribution.article-bridge"
+    ]
+  },
+  {
+    "name": "huashu-article-to-x",
+    "domain": "tooling",
+    "role": "Repurpose long-form articles into X/Twitter-ready posts and threads.",
+    "extra": "06-distribution / distribution.article-bridge",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-article-to-x/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-article-to-x/SKILL.md",
+    "problem_nodes": [
+      "distribution.article-bridge"
+    ]
+  },
+  {
+    "name": "huashu-data-pro",
+    "domain": "tooling",
+    "role": "Collect, structure, and analyze data for content and decision workflows.",
+    "extra": "01-sensemaking / sensemaking.research-intake",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-data-pro/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-data-pro/SKILL.md",
+    "problem_nodes": [
+      "source.alchaincyf-intake",
+      "sensemaking.research-intake"
+    ]
+  },
+  {
+    "name": "huashu-douyin-script",
+    "domain": "tooling",
+    "role": "Turn topics into short-video scripts for Douyin-style platforms.",
+    "extra": "03-content-planning / content.topic-to-platform",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-douyin-script/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-douyin-script/SKILL.md",
+    "problem_nodes": [
+      "content.topic-to-platform"
+    ]
+  },
+  {
+    "name": "huashu-image-upload",
+    "domain": "tooling",
+    "role": "Upload and prepare images for publishing channels.",
+    "extra": "06-distribution / distribution.asset-upload",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-image-upload/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-image-upload/SKILL.md",
+    "problem_nodes": [
+      "distribution.article-bridge"
+    ]
+  },
+  {
+    "name": "huashu-info-search",
+    "domain": "tooling",
+    "role": "Search and gather information before planning, writing, or production.",
+    "extra": "01-sensemaking / sensemaking.research-intake",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-info-search/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-info-search/SKILL.md",
+    "problem_nodes": [
+      "source.alchaincyf-intake",
+      "sensemaking.research-intake"
+    ]
+  },
+  {
+    "name": "huashu-material-search",
+    "domain": "tooling",
+    "role": "Find reusable source material, references, examples, and evidence.",
+    "extra": "01-sensemaking / sensemaking.research-intake",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-material-search/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-material-search/SKILL.md",
+    "problem_nodes": [
+      "source.alchaincyf-intake",
+      "sensemaking.research-intake",
+      "content.topic-to-platform"
+    ]
+  },
+  {
+    "name": "huashu-md-to-pdf",
+    "domain": "tooling",
+    "role": "Convert markdown into polished PDF output.",
+    "extra": "04-design-production / design.html-native-production",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-md-to-pdf/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-md-to-pdf/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production"
+    ]
+  },
+  {
+    "name": "huashu-prompt-save",
+    "domain": "tooling",
+    "role": "Save effective prompts as reusable workflow assets.",
+    "extra": "08-closeout-publish / closeout.knowledge-capture",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-prompt-save/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-prompt-save/SKILL.md",
+    "problem_nodes": [
+      "source.alchaincyf-intake",
+      "distribution.article-bridge"
+    ]
+  },
+  {
+    "name": "huashu-research",
+    "domain": "tooling",
+    "role": "Run structured research before strategy, writing, or design production.",
+    "extra": "01-sensemaking / sensemaking.research-intake",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-research/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-research/SKILL.md",
+    "problem_nodes": [
+      "source.alchaincyf-intake",
+      "sensemaking.research-intake"
+    ]
+  },
+  {
+    "name": "huashu-slides",
+    "domain": "tooling",
+    "role": "Create presentation outlines and slide assets for publishing or delivery.",
+    "extra": "04-design-production / design.html-native-production",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-slides/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-slides/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production"
+    ]
+  },
+  {
+    "name": "huashu-topic-gen",
+    "domain": "tooling",
+    "role": "Generate publishable topics from source materials and channel goals.",
+    "extra": "03-content-planning / content.topic-to-platform",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-topic-gen/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-topic-gen/SKILL.md",
+    "problem_nodes": [
+      "content.topic-to-platform"
+    ]
+  },
+  {
+    "name": "huashu-video-outline",
+    "domain": "tooling",
+    "role": "Plan video outlines from a topic, source material, and channel angle.",
+    "extra": "03-content-planning / content.topic-to-platform",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-video-outline/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-video-outline/SKILL.md",
+    "problem_nodes": [
+      "content.topic-to-platform"
+    ]
+  },
+  {
+    "name": "huashu-wechat-image",
+    "domain": "tooling",
+    "role": "Create or prepare images for WeChat article publishing.",
+    "extra": "04-design-production / design.visual-assets",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-wechat-image/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-wechat-image/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production",
+      "distribution.article-bridge"
+    ]
+  },
+  {
+    "name": "huashu-xhs-image",
+    "domain": "tooling",
+    "role": "Create or prepare Xiaohongshu-style image assets for distribution.",
+    "extra": "04-design-production / design.visual-assets",
+    "skill_url": "https://github.com/zjgulai/Agent_skills/blob/main/registry/huashu-xhs-image/manifest.yaml",
+    "local_path": "~/.config/opencode/skills/huashu-xhs-image/SKILL.md",
+    "problem_nodes": [
+      "design.html-native-production",
+      "distribution.article-bridge"
+    ]
   }
 ]
