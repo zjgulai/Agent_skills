@@ -76,7 +76,7 @@ Expected: dry-run only; whitespace clean; `state audit drift=false`.
 
 **Files:** none.
 
-- [ ] **Step 1: Push branch**
+- [x] **Step 1: Push branch**
 
 Run:
 
@@ -90,7 +90,7 @@ Expected: `codex/agent-skills-console-release` updated on origin.
 
 **Files:** none.
 
-- [ ] **Step 1: Confirm no existing PR**
+- [x] **Step 1: Confirm no existing PR**
 
 Run:
 
@@ -100,7 +100,7 @@ gh pr view --json number,url,state,headRefName,baseRefName
 
 Expected: no PR yet, or return the existing PR if another process created it.
 
-- [ ] **Step 2: Create draft PR**
+- [x] **Step 2: Create draft PR**
 
 Run:
 
@@ -112,11 +112,13 @@ gh pr create --draft --base main --head codex/agent-skills-console-release \
 
 Expected: GitHub returns the PR URL.
 
+Result: `https://github.com/zjgulai/Agent_skills/pull/1`
+
 ### Task 5: Remote Acceptance
 
 **Files:** none.
 
-- [ ] **Step 1: Read PR metadata**
+- [x] **Step 1: Read PR metadata**
 
 Run:
 
@@ -126,7 +128,7 @@ gh pr view --json number,title,state,url,isDraft,mergeable,headRefName,baseRefNa
 
 Expected: PR is draft, head is `codex/agent-skills-console-release`, base is `main`.
 
-- [ ] **Step 2: Read checks**
+- [x] **Step 2: Read checks**
 
 Run:
 
@@ -135,3 +137,5 @@ gh pr checks --watch=false
 ```
 
 Expected: report check state. If checks are pending or absent, report that explicitly rather than treating it as a pass.
+
+Result: no checks reported on `codex/agent-skills-console-release`; PR metadata reports draft, open, base `main`, head `codex/agent-skills-console-release`, and mergeable.
